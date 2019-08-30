@@ -6,17 +6,18 @@
   <meta name="keywords" content>
   <meta name="description" content="KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="KevinTen&apos;s Blog">
-<meta name="keywords" content="java,scala,python,golang">
-<meta property="og:type" content="website">
-<meta property="og:title" content="KevinTen">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="方案选择Kubernetes官方提供了EFK的日志收集解决方案，但是这种方案并不适合所有的业务场景，它本身就有一些局限性，例如：  所有日志都必须是out前台输出，真实业务场景中无法保证所有日志都在前台输出 只能有一个日志输出文件，而真实业务场景中往往有多个日志输出文件 Fluentd并不是常用的日志收集工具，我们更习惯用logstash 我们已经有自己的ELK集群且有专人维护，没有必要再在kub">
+<meta name="keywords" content="cloud,k8s,log">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes的应用日志-Logstash">
+<meta property="og:url" content="http://yoursite.com/2018/08/30/Cloud-K8s-Log-Logstash/index.html">
 <meta property="og:site_name" content="KevinTen">
-<meta property="og:description" content="KevinTen&apos;s Blog">
+<meta property="og:description" content="方案选择Kubernetes官方提供了EFK的日志收集解决方案，但是这种方案并不适合所有的业务场景，它本身就有一些局限性，例如：  所有日志都必须是out前台输出，真实业务场景中无法保证所有日志都在前台输出 只能有一个日志输出文件，而真实业务场景中往往有多个日志输出文件 Fluentd并不是常用的日志收集工具，我们更习惯用logstash 我们已经有自己的ELK集群且有专人维护，没有必要再在kub">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-30T12:48:17.122Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KevinTen">
-<meta name="twitter:description" content="KevinTen&apos;s Blog">
+<meta name="twitter:title" content="Kubernetes的应用日志-Logstash">
+<meta name="twitter:description" content="方案选择Kubernetes官方提供了EFK的日志收集解决方案，但是这种方案并不适合所有的业务场景，它本身就有一些局限性，例如：  所有日志都必须是out前台输出，真实业务场景中无法保证所有日志都在前台输出 只能有一个日志输出文件，而真实业务场景中往往有多个日志输出文件 Fluentd并不是常用的日志收集工具，我们更习惯用logstash 我们已经有自己的ELK集群且有专人维护，没有必要再在kub">
 
 
 <link rel="icon" href="/img/avatar.jpg">
