@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>Kubernetes的持续集成-Jenkins | KevinTen</title>
+  <title>Kubernetes的持续集成-Wercker | KevinTen</title>
   <meta name="keywords" content=" cloud , k8s , ci/cd ">
-  <meta name="description" content="Kubernetes的持续集成-Jenkins | KevinTen">
+  <meta name="description" content="Kubernetes的持续集成-Wercker | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="我们基于Jenkins的CI/CD流程如下所示。 流程说明应用构建和发布流程说明。  用户向Gitlab提交代码，代码中必须包含Dockerfile； 将代码提交到远程仓库； 用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数等，确定后触发Jenkins自动构建； Jenkins的CI流水线自动编译代码并打包成docker镜像推送到Harbor镜像仓库； Jenk">
 <meta name="keywords" content="cloud,k8s,ci&#x2F;cd">
@@ -330,9 +330,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Cloud/kubernetes/Cloud-K8s-CICD-Jenkins" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Cloud/kubernetes/Cloud-K8s-CICD-Wercker" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Kubernetes的持续集成-Jenkins</h1>
+        <h1 class="article-title">Kubernetes的持续集成-Wercker</h1>
     
     <div class="article-meta">
         
@@ -358,7 +358,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-30 21:10:14'>2019-08-30 11:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-30 21:27:25'>2019-08-30 11:41</time>
         
     </div>
     <div class="article-meta">
@@ -380,7 +380,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#我们基于Jenkins的CI-CD流程如下所示。"><span class="toc-text">我们基于Jenkins的CI/CD流程如下所示。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程说明"><span class="toc-text">流程说明</span></a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Wercker简介"><span class="toc-text">Wercker简介</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -395,20 +395,14 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="我们基于Jenkins的CI-CD流程如下所示。"><a href="#我们基于Jenkins的CI-CD流程如下所示。" class="headerlink" title="我们基于Jenkins的CI/CD流程如下所示。"></a>我们基于Jenkins的CI/CD流程如下所示。</h3><p><img src="/img/cloud/kubernetes-jenkins-ci-cd.png" alt="CI/CD"></p>
-<h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><p>应用构建和发布流程说明。</p>
-<ol>
-<li>用户向Gitlab提交代码，代码中必须包含Dockerfile；</li>
-<li>将代码提交到远程仓库；</li>
-<li>用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数等，确定后触发Jenkins自动构建；</li>
-<li>Jenkins的CI流水线自动编译代码并打包成docker镜像推送到Harbor镜像仓库；</li>
-<li>Jenkins的CI流水线中包括了自定义脚本，根据我们已准备好的kubernetes的YAML模板，将其中的变量替换成用户输入的选项；</li>
-<li>生成应用的kubernetes YAML配置文件；</li>
-<li>更新Ingress的配置，根据新部署的应用的名称，在ingress的配置文件中增加一条路由信息</li>
-<li>更新PowerDNS，向其中插入一条DNS记录，IP地址是边缘节点的IP地址。关于边缘节点，请查看kubernetes-handbook中的【最佳实践——边缘节点配置】章节；</li>
-<li>Jenkins调用kubernetes的API，部署应用到kubernetes集群中。</li>
-</ol>
-<p>关于应用的更新、滚动升级、灰度发布请留意博客中的后续文章或关注kubernetes-handbook的更新。</p>
+        <p>因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。</p>
+<p>Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享</p>
+<p>使用DNS解析而不要使用环境变量来做服务发现</p>
+<h2 id="Wercker简介"><a href="#Wercker简介" class="headerlink" title="Wercker简介"></a>Wercker简介</h2><p>通过Wercker搭建CI环境只需经过三个基本步骤。</p>
+<p>1．在Wercker网站中创建一个应用程序。</p>
+<p>2．将wercker.yml添加到应用程序的代码库中。</p>
+<p>3．选择打包和部署构建的位置。</p>
+<p><a href="https://jimmysong.io/posts/continuous-integration-with-wercker/" target="_blank" rel="noopener">intro</a></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
@@ -422,12 +416,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Kubernetes的持续集成-Jenkins</p>
+    <p><span class="copy-title">文章标题:</span>Kubernetes的持续集成-Wercker</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
     <p><span class="copy-title">发布时间:</span>2019-08-30, 11:41:10</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-30, 21:10:14</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/" title="Kubernetes的持续集成-Jenkins">http://yoursite.com/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/</a>
+    <p><span class="copy-title">最后更新:</span>2019-08-30, 21:27:25</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/" title="Kubernetes的持续集成-Wercker">http://yoursite.com/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
