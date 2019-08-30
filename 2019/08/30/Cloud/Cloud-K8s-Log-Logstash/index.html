@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>KevinTen</title>
-  <meta name="keywords" content>
-  <meta name="description" content="KevinTen">
+  <title>Kubernetes的应用日志-Logstash | KevinTen</title>
+  <meta name="keywords" content=" cloud , k8s , log ">
+  <meta name="description" content="Kubernetes的应用日志-Logstash | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="KevinTen&apos;s Blog">
 <meta name="keywords" content="java,scala,python,golang">
@@ -52,7 +52,7 @@
 </div>
 
 <body>
-<aside class="nav mobile">
+<aside class="nav">
     <div class="nav-left">
         <a href="/" class="avatar_target">
     <img class="avatar" src="/img/avatar.jpg" />
@@ -265,12 +265,59 @@
         </div>
     </div>
 </aside>
-<div class="post index">
+<div class="post">
     <div class="pjax">
-        <article class="index">
-            <div class="toc-ref">
+        <article id="post-Cloud/Cloud-K8s-Log-Logstash" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Welcome-to-meet-Kevinten"><span class="toc-text">Welcome to meet Kevinten</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Personal-introduction"><span class="toc-text">Personal introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kevinten’s-open-source-projects"><span class="toc-text">Kevinten’s open source projects</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Lifecat"><span class="toc-text">Lifecat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Air"><span class="toc-text">Air</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Aditum"><span class="toc-text">Aditum</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Ware"><span class="toc-text">Ware</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Papers"><span class="toc-text">Papers</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Current-work-content"><span class="toc-text">Current work content</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Reactive-system"><span class="toc-text">Reactive system</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AWS-cloud-native-application"><span class="toc-text">AWS cloud native application</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Engineering-application-of-artificial-intelligence"><span class="toc-text">Engineering application of artificial intelligence</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Study-Plan"><span class="toc-text">Study Plan</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Netty"><span class="toc-text">Netty</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vert-x"><span class="toc-text">Vert.x</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Webflux"><span class="toc-text">Webflux</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Akka"><span class="toc-text">Akka</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SpringCloud-in-k8s"><span class="toc-text">SpringCloud in k8s</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AI"><span class="toc-text">AI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Big-data"><span class="toc-text">Big data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cloud-native"><span class="toc-text">Cloud native</span></a></li></ol></li></ol></li></ol></li></ol>
+        <h1 class="article-title">Kubernetes的应用日志-Logstash</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="Cloud">Cloud</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color1">cloud</a>
+            
+            <a href="javascript:" class="color4">k8s</a>
+            
+            <a href="javascript:" class="color4">log</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-08-30 20:51:34'>2019-08-30 11:41</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#方案选择"><span class="toc-text">方案选择</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -283,40 +330,79 @@
     }
 </style>
 </div>
-            <h1 id="Welcome-to-meet-Kevinten"><a href="#Welcome-to-meet-Kevinten" class="headerlink" title="Welcome to meet Kevinten"></a>Welcome to meet Kevinten</h1><h2 id="Personal-introduction"><a href="#Personal-introduction" class="headerlink" title="Personal introduction"></a>Personal introduction</h2><p>I using Java/Scala/Python/Golang at work. </p>
-<p>Research Streaming and Reactive System. </p>
-<p>Follow up Artificial Intelligence &amp; Big Data &amp; Cloud.</p>
-<p><strong>Organization</strong> <a href="https://github.com/ctripcorp">@ctripcorp</a> &amp; <a href="https://github.com/apachecn">@apachecn</a></p>
-<p><strong>Location</strong> Shanghai</p>
-<p><strong>Email</strong> wshten@gmail.com</p>
-<h2 id="Kevinten’s-open-source-projects"><a href="#Kevinten’s-open-source-projects" class="headerlink" title="Kevinten’s open source projects"></a>Kevinten’s open source projects</h2><h4 id="Lifecat"><a href="#Lifecat" class="headerlink" title="Lifecat"></a><a href="https://github.com/kevinten10/Lifecat">Lifecat</a></h4><p>Lifecat - Intelligent photo album system. A full stack program include web and mobile. Lifecat智能相册系统. 包含web和移动端的Java全栈式项目. <a href="http://www.lifecat.club">http://www.lifecat.club</a></p>
-<h4 id="Air"><a href="#Air" class="headerlink" title="Air"></a><a href="https://github.com/kevinten10/Air">Air</a></h4><p>Air - Atmospheric monitoring system. A typical iot application solutions. 大气质量监测系统. 温湿度及灰尘PM2.5物联网监测系统. <a href="http://www.lifecat.club/air">http://www.lifecat.club/air</a></p>
-<h4 id="Aditum"><a href="#Aditum" class="headerlink" title="Aditum"></a><a href="https://github.com/kevinten10/Aditum">Aditum</a></h4><p>Aditum - Community access control big data analysis system based on distributed architecture. 基于微服务架构的社区门禁访问记录大数据分析平台. <a href="http://www.aditum.club">http://www.aditum.club</a></p>
-<h4 id="Ware"><a href="#Ware" class="headerlink" title="Ware"></a><a href="https://github.com/kevinten10/Ware">Ware</a></h4><p>Ware - Based on the open source framework, through the source code analysis to achieve artificial framework. 开源框架与中间件, 源码解析实现. <a href="https://github.com/reware-frame">https://github.com/reware-frame</a> </p>
-<h4 id="Papers"><a href="#Papers" class="headerlink" title="Papers"></a><a href="https://github.com/kevinten10/Papers">Papers</a></h4><p>Reading and studying industry academic papers one hour every morning. 每天至少一小时阅读学术和业界论文, 以及学习相关程序知识. <a href="https://kevinten10.github.io/Papers">https://kevinten10.github.io/Papers</a></p>
-<h2 id="Current-work-content"><a href="#Current-work-content" class="headerlink" title="Current work content"></a>Current work content</h2><h4 id="Reactive-system"><a href="#Reactive-system" class="headerlink" title="Reactive system"></a>Reactive system</h4><p>反应式架构在流式系统设计中的应用，构建高性能的事件驱动系统</p>
-<h4 id="AWS-cloud-native-application"><a href="#AWS-cloud-native-application" class="headerlink" title="AWS cloud native application"></a>AWS cloud native application</h4><p>基于AWS构建云原生应用，拥抱先进开源解决方案，作为国际化开发的先锋</p>
-<h4 id="Engineering-application-of-artificial-intelligence"><a href="#Engineering-application-of-artificial-intelligence" class="headerlink" title="Engineering application of artificial intelligence"></a>Engineering application of artificial intelligence</h4><p>使用AI算法构建可使用的生产工具，如监控告警、数据分析等，并且在实际中应用</p>
-<h2 id="Study-Plan"><a href="#Study-Plan" class="headerlink" title="Study Plan"></a>Study Plan</h2><h4 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a>Netty</h4><p>《Netty in action》</p>
-<h4 id="Vert-x"><a href="#Vert-x" class="headerlink" title="Vert.x"></a>Vert.x</h4><p>Vert.x doc</p>
-<h4 id="Webflux"><a href="#Webflux" class="headerlink" title="Webflux"></a>Webflux</h4><p>《Spring响应式微服务实战》</p>
-<h4 id="Akka"><a href="#Akka" class="headerlink" title="Akka"></a>Akka</h4><p>《Akka in action》</p>
-<h4 id="SpringCloud-in-k8s"><a href="#SpringCloud-in-k8s" class="headerlink" title="SpringCloud in k8s"></a>SpringCloud in k8s</h4><p>《SpringCloud in action》</p>
-<p>《SpringCloud与Docker高并发微服务设计》</p>
-<h4 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h4><p>《深度学习》</p>
-<p>《Tensorflow实战》</p>
-<h4 id="Big-data"><a href="#Big-data" class="headerlink" title="Big data"></a>Big data</h4><p>Spark</p>
-<p>Flink</p>
-<h4 id="Cloud-native"><a href="#Cloud-native" class="headerlink" title="Cloud native"></a>Cloud native</h4><p>K8s</p>
-<p>service mesh</p>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="方案选择"><a href="#方案选择" class="headerlink" title="方案选择"></a>方案选择</h3><p>Kubernetes官方提供了EFK的日志收集解决方案，但是这种方案并不适合所有的业务场景，它本身就有一些局限性，例如：</p>
+<ul>
+<li>所有日志都必须是out前台输出，真实业务场景中无法保证所有日志都在前台输出</li>
+<li>只能有一个日志输出文件，而真实业务场景中往往有多个日志输出文件</li>
+<li>Fluentd并不是常用的日志收集工具，我们更习惯用logstash</li>
+<li>我们已经有自己的ELK集群且有专人维护，没有必要再在kubernetes上做一个日志收集服务</li>
+</ul>
+<p>基于以上几个原因，我们决定使用自己的ELK集群。</p>
+<p>Kubernetes集群中的日志收集解决方案</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>每个app的镜像中都集成日志收集组件</td>
+<td>部署方便，kubernetes的yaml文件无须特别配置，可以为每个app自定义日志收集配置</td>
+<td>强耦合，不方便应用和日志收集组件升级和维护且会导致镜像过大</td>
+</tr>
+<tr>
+<td>2</td>
+<td>单独创建一个日志收集组件跟app的容器一起运行在同一个pod中</td>
+<td>低耦合，扩展性强，方便维护和升级</td>
+<td>需要对kubernetes的yaml文件进行单独配置，略显繁琐</td>
+</tr>
+<tr>
+<td>3</td>
+<td>将所有的Pod的日志都挂载到宿主机上，每台主机上单独起一个日志收集Pod</td>
+<td>完全解耦，性能最高，管理起来最方便</td>
+<td>需要统一日志收集规则，目录和输出方式</td>
+</tr>
+</tbody></table>
+<p>综合以上优缺点，我们选择使用方案二。</p>
 
-        </article>
-        
-        <p>
-            <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
-        </p>
-        
-        
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Kubernetes的应用日志-Logstash</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-08-30, 11:41:10</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-30, 20:51:34</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/30/Cloud/Cloud-K8s-Log-Logstash/" title="Kubernetes的应用日志-Logstash">http://yoursite.com/2019/08/30/Cloud/Cloud-K8s-Log-Logstash/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
     </div>
     <div class="copyright">
         <p class="footer-entry">©2015-2019 KevinTen</p>
