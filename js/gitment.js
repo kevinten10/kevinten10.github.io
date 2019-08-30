@@ -1,75 +1,111 @@
 var Gitment =
-    /******/ (function(modules) { // webpackBootstrap
+    /******/ (function (modules) { // webpackBootstrap
     /******/ 	// The module cache
-    /******/ 	var installedModules = {};
+    /******/
+    var installedModules = {};
     /******/
     /******/ 	// The require function
-    /******/ 	function __webpack_require__(moduleId) {
+    /******/
+    function __webpack_require__(moduleId) {
         /******/
         /******/ 		// Check if module is in cache
-        /******/ 		if(installedModules[moduleId])
-        /******/ 			return installedModules[moduleId].exports;
+        /******/
+        if (installedModules[moduleId])
+        /******/            return installedModules[moduleId].exports;
         /******/
         /******/ 		// Create a new module (and put it into the cache)
-        /******/ 		var module = installedModules[moduleId] = {
-            /******/ 			i: moduleId,
-            /******/ 			l: false,
-            /******/ 			exports: {}
-            /******/ 		};
+        /******/
+        var module = installedModules[moduleId] = {
+            /******/            i: moduleId,
+            /******/            l: false,
+            /******/            exports: {}
+            /******/
+        };
         /******/
         /******/ 		// Execute the module function
-        /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+        /******/
+        modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
         /******/
         /******/ 		// Flag the module as loaded
-        /******/ 		module.l = true;
+        /******/
+        module.l = true;
         /******/
         /******/ 		// Return the exports of the module
-        /******/ 		return module.exports;
-        /******/ 	}
+        /******/
+        return module.exports;
+        /******/
+    }
+
     /******/
     /******/
     /******/ 	// expose the modules object (__webpack_modules__)
-    /******/ 	__webpack_require__.m = modules;
+    /******/
+    __webpack_require__.m = modules;
     /******/
     /******/ 	// expose the module cache
-    /******/ 	__webpack_require__.c = installedModules;
+    /******/
+    __webpack_require__.c = installedModules;
     /******/
     /******/ 	// identity function for calling harmony imports with the correct context
-    /******/ 	__webpack_require__.i = function(value) { return value; };
+    /******/
+    __webpack_require__.i = function (value) {
+        return value;
+    };
     /******/
     /******/ 	// define getter function for harmony exports
-    /******/ 	__webpack_require__.d = function(exports, name, getter) {
-        /******/ 		if(!__webpack_require__.o(exports, name)) {
-            /******/ 			Object.defineProperty(exports, name, {
-                /******/ 				configurable: false,
-                /******/ 				enumerable: true,
-                /******/ 				get: getter
-                /******/ 			});
-            /******/ 		}
-        /******/ 	};
+    /******/
+    __webpack_require__.d = function (exports, name, getter) {
+        /******/
+        if (!__webpack_require__.o(exports, name)) {
+            /******/
+            Object.defineProperty(exports, name, {
+                /******/                configurable: false,
+                /******/                enumerable: true,
+                /******/                get: getter
+                /******/
+            });
+            /******/
+        }
+        /******/
+    };
     /******/
     /******/ 	// getDefaultExport function for compatibility with non-harmony modules
-    /******/ 	__webpack_require__.n = function(module) {
-        /******/ 		var getter = module && module.__esModule ?
-            /******/ 			function getDefault() { return module['default']; } :
-            /******/ 			function getModuleExports() { return module; };
-        /******/ 		__webpack_require__.d(getter, 'a', getter);
-        /******/ 		return getter;
-        /******/ 	};
+    /******/
+    __webpack_require__.n = function (module) {
+        /******/
+        var getter = module && module.__esModule ?
+            /******/            function getDefault() {
+                return module['default'];
+            } :
+            /******/            function getModuleExports() {
+                return module;
+            };
+        /******/
+        __webpack_require__.d(getter, 'a', getter);
+        /******/
+        return getter;
+        /******/
+    };
     /******/
     /******/ 	// Object.prototype.hasOwnProperty.call
-    /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+    /******/
+    __webpack_require__.o = function (object, property) {
+        return Object.prototype.hasOwnProperty.call(object, property);
+    };
     /******/
     /******/ 	// __webpack_public_path__
-    /******/ 	__webpack_require__.p = "";
+    /******/
+    __webpack_require__.p = "";
     /******/
     /******/ 	// Load entry module and return exports
-    /******/ 	return __webpack_require__(__webpack_require__.s = 5);
-    /******/ })
+    /******/
+    return __webpack_require__(__webpack_require__.s = 5);
+    /******/
+})
 /************************************************************************/
-/******/ ([
+/******/([
     /* 0 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
@@ -82,17 +118,23 @@ var Gitment =
 
         var NOT_INITIALIZED_ERROR = exports.NOT_INITIALIZED_ERROR = new Error('Comments Not Initialized');
 
-        /***/ }),
+        /***/
+    }),
     /* 1 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
-        /* WEBPACK VAR INJECTION */(function(global) {
+        /* WEBPACK VAR INJECTION */
+        (function (global) {
 
-            var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+            var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                return typeof obj;
+            } : function (obj) {
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+            };
 
             var __extends = undefined && undefined.__extends || function () {
-                var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+                var extendStatics = Object.setPrototypeOf || {__proto__: []} instanceof Array && function (d, b) {
                     d.__proto__ = b;
                 } || function (d, b) {
                     for (var p in b) {
@@ -101,13 +143,15 @@ var Gitment =
                 };
                 return function (d, b) {
                     extendStatics(d, b);
+
                     function __() {
                         this.constructor = d;
                     }
+
                     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
                 };
             }();
-            Object.defineProperty(exports, "__esModule", { value: true });
+            Object.defineProperty(exports, "__esModule", {value: true});
             registerGlobals();
             exports.extras = {
                 allowStateChanges: allowStateChanges,
@@ -163,6 +207,7 @@ var Gitment =
                 }
                 return boundActionDecorator.apply(null, arguments);
             };
+
             function namedActionDecorator(name) {
                 return function (target, prop, descriptor) {
                     if (descriptor && typeof descriptor.value === "function") {
@@ -174,6 +219,7 @@ var Gitment =
                     return actionFieldDecorator(name).apply(this, arguments);
                 };
             }
+
             function runInAction(arg1, arg2, arg3) {
                 var actionName = typeof arg1 === "string" ? arg1 : arg1.name || "<unnamed action>";
                 var fn = typeof arg1 === "function" ? arg1 : arg2;
@@ -183,11 +229,15 @@ var Gitment =
                 invariant(typeof actionName === "string" && actionName.length > 0, "actions should have valid names, got: '" + actionName + "'");
                 return executeAction(actionName, fn, scope, undefined);
             }
+
             exports.runInAction = runInAction;
+
             function isAction(thing) {
                 return typeof thing === "function" && thing.isMobxAction === true;
             }
+
             exports.isAction = isAction;
+
             function defineBoundAction(target, propertyName, fn) {
                 var res = function res() {
                     return executeAction(propertyName, fn, target, arguments);
@@ -195,6 +245,7 @@ var Gitment =
                 res.isMobxAction = true;
                 addHiddenProp(target, propertyName, res);
             }
+
             function autorun(arg1, arg2, arg3) {
                 var name, view, scope;
                 if (typeof arg1 === "string") {
@@ -212,13 +263,17 @@ var Gitment =
                 var reaction = new Reaction(name, function () {
                     this.track(reactionRunner);
                 });
+
                 function reactionRunner() {
                     view(reaction);
                 }
+
                 reaction.schedule();
                 return reaction.getDisposer();
             }
+
             exports.autorun = autorun;
+
             function when(arg1, arg2, arg3, arg4) {
                 var name, predicate, effect, scope;
                 if (typeof arg1 === "string") {
@@ -242,7 +297,9 @@ var Gitment =
                 });
                 return disposer;
             }
+
             exports.when = when;
+
             function autorunAsync(arg1, arg2, arg3, arg4) {
                 var name, func, delay, scope;
                 if (typeof arg1 === "string") {
@@ -269,13 +326,17 @@ var Gitment =
                         }, delay);
                     }
                 });
+
                 function reactionRunner() {
                     func(r);
                 }
+
                 r.schedule();
                 return r.getDisposer();
             }
+
             exports.autorunAsync = autorunAsync;
+
             function reaction(expression, effect, arg3) {
                 if (arguments.length > 3) {
                     fail(getMessage("m007"));
@@ -311,6 +372,7 @@ var Gitment =
                         }, opts.delay);
                     }
                 });
+
                 function reactionRunner() {
                     if (r.isDisposed) return;
                     var changed = false;
@@ -323,10 +385,13 @@ var Gitment =
                     if (!firstTime && changed === true) effect(nextValue, r);
                     if (firstTime) firstTime = false;
                 }
+
                 r.schedule();
                 return r.getDisposer();
             }
+
             exports.reaction = reaction;
+
             function createComputedDecorator(compareStructural) {
                 return createClassPropertyDecorator(function (target, name, _, __, originalDescriptor) {
                     invariant(typeof originalDescriptor !== "undefined", getMessage("m009"));
@@ -341,6 +406,7 @@ var Gitment =
                     this.$mobx.values[name].set(value);
                 }, false, false);
             }
+
             var computedDecorator = createComputedDecorator(false);
             var computedStructDecorator = createComputedDecorator(true);
             var computed = function computed(arg1, arg2, arg3) {
@@ -355,12 +421,14 @@ var Gitment =
             };
             exports.computed = computed;
             computed.struct = computedStructDecorator;
+
             function createTransformer(transformer, onCleanup) {
                 invariant(typeof transformer === "function" && transformer.length < 2, "createTransformer expects a function that accepts one argument");
                 var objectCache = {};
                 var resetId = globalState.resetId;
                 var Transformer = function (_super) {
                     __extends(Transformer, _super);
+
                     function Transformer(sourceIdentifier, sourceObject) {
                         var _this = _super.call(this, function () {
                             return transformer(sourceObject);
@@ -369,6 +437,7 @@ var Gitment =
                         _this.sourceObject = sourceObject;
                         return _this;
                     }
+
                     Transformer.prototype.onBecomeUnobserved = function () {
                         var lastValue = this.value;
                         _super.prototype.onBecomeUnobserved.call(this);
@@ -389,7 +458,9 @@ var Gitment =
                     return reactiveTransformer.get();
                 };
             }
+
             exports.createTransformer = createTransformer;
+
             function getMemoizationId(object) {
                 if (object === null || (typeof object === "undefined" ? "undefined" : _typeof(object)) !== "object") throw new Error("[mobx] transform expected some kind of object, got: " + object);
                 var tid = object.$transformId;
@@ -399,11 +470,14 @@ var Gitment =
                 }
                 return tid;
             }
+
             function expr(expr, scope) {
                 if (!isComputingDerivation()) console.warn(getMessage("m013"));
-                return computed(expr, { context: scope }).get();
+                return computed(expr, {context: scope}).get();
             }
+
             exports.expr = expr;
+
             function extendObservable(target) {
                 var properties = [];
                 for (var _i = 1; _i < arguments.length; _i++) {
@@ -411,7 +485,9 @@ var Gitment =
                 }
                 return extendObservableHelper(target, deepEnhancer, properties);
             }
+
             exports.extendObservable = extendObservable;
+
             function extendShallowObservable(target) {
                 var properties = [];
                 for (var _i = 1; _i < arguments.length; _i++) {
@@ -419,7 +495,9 @@ var Gitment =
                 }
                 return extendObservableHelper(target, referenceEnhancer, properties);
             }
+
             exports.extendShallowObservable = extendShallowObservable;
+
             function extendObservableHelper(target, defaultEnhancer, properties) {
                 invariant(arguments.length >= 2, getMessage("m014"));
                 invariant((typeof target === "undefined" ? "undefined" : _typeof(target)) === "object", getMessage("m015"));
@@ -443,9 +521,11 @@ var Gitment =
                 }
                 return target;
             }
+
             function getDependencyTree(thing, property) {
                 return nodeToDependencyTree(getAtom(thing, property));
             }
+
             function nodeToDependencyTree(node) {
                 var result = {
                     name: node.name
@@ -453,9 +533,11 @@ var Gitment =
                 if (node.observing && node.observing.length > 0) result.dependencies = unique(node.observing).map(nodeToDependencyTree);
                 return result;
             }
+
             function getObserverTree(thing, property) {
                 return nodeToObserverTree(getAtom(thing, property));
             }
+
             function nodeToObserverTree(node) {
                 var result = {
                     name: node.name
@@ -463,16 +545,21 @@ var Gitment =
                 if (hasObservers(node)) result.observers = getObservers(node).map(nodeToObserverTree);
                 return result;
             }
+
             function intercept(thing, propOrHandler, handler) {
-                if (typeof handler === "function") return interceptProperty(thing, propOrHandler, handler);else return interceptInterceptable(thing, propOrHandler);
+                if (typeof handler === "function") return interceptProperty(thing, propOrHandler, handler); else return interceptInterceptable(thing, propOrHandler);
             }
+
             exports.intercept = intercept;
+
             function interceptInterceptable(thing, handler) {
                 return getAdministration(thing).intercept(handler);
             }
+
             function interceptProperty(thing, property, handler) {
                 return getAdministration(thing, property).intercept(handler);
             }
+
             function isComputed(value, property) {
                 if (value === null || value === undefined) return false;
                 if (property !== undefined) {
@@ -482,11 +569,13 @@ var Gitment =
                 }
                 return isComputedValue(value);
             }
+
             exports.isComputed = isComputed;
+
             function isObservable(value, property) {
                 if (value === null || value === undefined) return false;
                 if (property !== undefined) {
-                    if (isObservableArray(value) || isObservableMap(value)) throw new Error(getMessage("m019"));else if (isObservableObject(value)) {
+                    if (isObservableArray(value) || isObservableMap(value)) throw new Error(getMessage("m019")); else if (isObservableObject(value)) {
                         var o = value.$mobx;
                         return o.values && !!o.values[property];
                     }
@@ -494,12 +583,14 @@ var Gitment =
                 }
                 return isObservableObject(value) || !!value.$mobx || isAtom(value) || isReaction(value) || isComputedValue(value);
             }
+
             exports.isObservable = isObservable;
             var deepDecorator = createDecoratorForEnhancer(deepEnhancer);
             var shallowDecorator = createDecoratorForEnhancer(shallowEnhancer);
             var refDecorator = createDecoratorForEnhancer(referenceEnhancer);
             var deepStructDecorator = createDecoratorForEnhancer(deepStructEnhancer);
             var refStructDecorator = createDecoratorForEnhancer(refStructEnhancer);
+
             function createObservable(v) {
                 if (v === void 0) {
                     v = undefined;
@@ -512,8 +603,11 @@ var Gitment =
                 if (res !== v) return res;
                 return observable.box(v);
             }
+
             var IObservableFactories = function () {
-                function IObservableFactories() {}
+                function IObservableFactories() {
+                }
+
                 IObservableFactories.prototype.box = function (value, name) {
                     if (arguments.length > 2) incorrectlyUsedAsDecorator("box");
                     return new ObservableValue(value, deepEnhancer, name);
@@ -596,9 +690,11 @@ var Gitment =
                     return refStructDecorator.apply(null, arguments);
                 }
             };
+
             function incorrectlyUsedAsDecorator(methodName) {
                 fail("Expected one or two arguments to observable." + methodName + ". Did you accidentally try to use observable." + methodName + " as decorator?");
             }
+
             function createDecoratorForEnhancer(enhancer) {
                 invariant(!!enhancer, ":(");
                 return createClassPropertyDecorator(function (target, name, baseValue, _, baseDescriptor) {
@@ -614,16 +710,21 @@ var Gitment =
                     setPropertyValue(this, name, value);
                 }, true, false);
             }
+
             function observe(thing, propOrCb, cbOrFire, fireImmediately) {
-                if (typeof cbOrFire === "function") return observeObservableProperty(thing, propOrCb, cbOrFire, fireImmediately);else return observeObservable(thing, propOrCb, cbOrFire);
+                if (typeof cbOrFire === "function") return observeObservableProperty(thing, propOrCb, cbOrFire, fireImmediately); else return observeObservable(thing, propOrCb, cbOrFire);
             }
+
             exports.observe = observe;
+
             function observeObservable(thing, listener, fireImmediately) {
                 return getAdministration(thing).observe(listener, fireImmediately);
             }
+
             function observeObservableProperty(thing, property, listener, fireImmediately) {
                 return getAdministration(thing, property).observe(listener, fireImmediately);
             }
+
             function toJS(source, detectCycles, __alreadySeen) {
                 if (detectCycles === void 0) {
                     detectCycles = true;
@@ -631,10 +732,12 @@ var Gitment =
                 if (__alreadySeen === void 0) {
                     __alreadySeen = [];
                 }
+
                 function cache(value) {
                     if (detectCycles) __alreadySeen.push([source, value]);
                     return value;
                 }
+
                 if (isObservable(source)) {
                     if (detectCycles && __alreadySeen === null) __alreadySeen = [];
                     if (detectCycles && source !== null && (typeof source === "undefined" ? "undefined" : _typeof(source)) === "object") {
@@ -650,13 +753,15 @@ var Gitment =
                         res.length = toAdd.length;
                         for (var i = 0, l = toAdd.length; i < l; i++) {
                             res[i] = toAdd[i];
-                        }return res;
+                        }
+                        return res;
                     }
                     if (isObservableObject(source)) {
                         var res = cache({});
                         for (var key in source) {
                             res[key] = toJS(source[key], detectCycles, __alreadySeen);
-                        }return res;
+                        }
+                        return res;
                     }
                     if (isObservableMap(source)) {
                         var res_1 = cache({});
@@ -669,7 +774,9 @@ var Gitment =
                 }
                 return source;
             }
+
             exports.toJS = toJS;
+
             function transaction(action, thisArg) {
                 if (thisArg === void 0) {
                     thisArg = undefined;
@@ -677,17 +784,21 @@ var Gitment =
                 deprecated(getMessage("m023"));
                 return runInTransaction.apply(undefined, arguments);
             }
+
             exports.transaction = transaction;
+
             function runInTransaction(action, thisArg) {
                 if (thisArg === void 0) {
                     thisArg = undefined;
                 }
                 return executeAction("", action);
             }
+
             function log(msg) {
                 console.log(msg);
                 return msg;
             }
+
             function whyRun(thing, prop) {
                 switch (arguments.length) {
                     case 0:
@@ -699,10 +810,12 @@ var Gitment =
                         break;
                 }
                 thing = getAtom(thing);
-                if (isComputedValue(thing)) return log(thing.whyRun());else if (isReaction(thing)) return log(thing.whyRun());
+                if (isComputedValue(thing)) return log(thing.whyRun()); else if (isReaction(thing)) return log(thing.whyRun());
                 return fail(getMessage("m025"));
             }
+
             exports.whyRun = whyRun;
+
             function createAction(actionName, fn) {
                 invariant(typeof fn === "function", getMessage("m026"));
                 invariant(typeof actionName === "string" && actionName.length > 0, "actions should have valid names, got: '" + actionName + "'");
@@ -713,6 +826,7 @@ var Gitment =
                 res.isMobxAction = true;
                 return res;
             }
+
             function executeAction(actionName, fn, scope, args) {
                 var runInfo = startAction(actionName, fn, scope, args);
                 try {
@@ -721,6 +835,7 @@ var Gitment =
                     endAction(runInfo);
                 }
             }
+
             function startAction(actionName, fn, scope, args) {
                 var notifySpy = isSpyEnabled() && !!actionName;
                 var startTime = 0;
@@ -730,7 +845,8 @@ var Gitment =
                     var flattendArgs = new Array(l);
                     if (l > 0) for (var i = 0; i < l; i++) {
                         flattendArgs[i] = args[i];
-                    }spyReportStart({
+                    }
+                    spyReportStart({
                         type: "action",
                         name: actionName,
                         fn: fn,
@@ -748,22 +864,28 @@ var Gitment =
                     startTime: startTime
                 };
             }
+
             function endAction(runInfo) {
                 allowStateChangesEnd(runInfo.prevAllowStateChanges);
                 endBatch();
                 untrackedEnd(runInfo.prevDerivation);
-                if (runInfo.notifySpy) spyReportEnd({ time: Date.now() - runInfo.startTime });
+                if (runInfo.notifySpy) spyReportEnd({time: Date.now() - runInfo.startTime});
             }
+
             function useStrict(strict) {
                 invariant(globalState.trackingDerivation === null, getMessage("m028"));
                 globalState.strictMode = strict;
                 globalState.allowStateChanges = !strict;
             }
+
             exports.useStrict = useStrict;
+
             function isStrictModeEnabled() {
                 return globalState.strictMode;
             }
+
             exports.isStrictModeEnabled = isStrictModeEnabled;
+
             function allowStateChanges(allowStateChanges, func) {
                 var prev = allowStateChangesStart(allowStateChanges);
                 var res;
@@ -774,14 +896,17 @@ var Gitment =
                 }
                 return res;
             }
+
             function allowStateChangesStart(allowStateChanges) {
                 var prev = globalState.allowStateChanges;
                 globalState.allowStateChanges = allowStateChanges;
                 return prev;
             }
+
             function allowStateChangesEnd(prev) {
                 globalState.allowStateChanges = prev;
             }
+
             var BaseAtom = function () {
                 function BaseAtom(name) {
                     if (name === void 0) {
@@ -795,7 +920,9 @@ var Gitment =
                     this.lastAccessedBy = 0;
                     this.lowestObserverState = IDerivationState.NOT_TRACKING;
                 }
-                BaseAtom.prototype.onBecomeUnobserved = function () {};
+
+                BaseAtom.prototype.onBecomeUnobserved = function () {
+                };
                 BaseAtom.prototype.reportObserved = function () {
                     reportObserved(this);
                 };
@@ -812,6 +939,7 @@ var Gitment =
             exports.BaseAtom = BaseAtom;
             var Atom = function (_super) {
                 __extends(Atom, _super);
+
                 function Atom(name, onBecomeObservedHandler, onBecomeUnobservedHandler) {
                     if (name === void 0) {
                         name = "Atom@" + getNextId();
@@ -830,6 +958,7 @@ var Gitment =
                     _this.isBeingTracked = false;
                     return _this;
                 }
+
                 Atom.prototype.reportObserved = function () {
                     startBatch();
                     _super.prototype.reportObserved.call(this);
@@ -871,6 +1000,7 @@ var Gitment =
                     this.name = name || "ComputedValue@" + getNextId();
                     if (setter) this.setter = createAction(name + "-setter", setter);
                 }
+
                 ComputedValue.prototype.onBecomeStale = function () {
                     propagateMaybeChanged(this);
                 };
@@ -995,11 +1125,14 @@ var Gitment =
                 function CaughtException(cause) {
                     this.cause = cause;
                 }
+
                 return CaughtException;
             }();
+
             function isCaughtException(e) {
                 return e instanceof CaughtException;
             }
+
             function shouldCompute(derivation) {
                 switch (derivation.dependenciesState) {
                     case IDerivationState.UP_TO_DATE:
@@ -1007,8 +1140,7 @@ var Gitment =
                     case IDerivationState.NOT_TRACKING:
                     case IDerivationState.STALE:
                         return true;
-                    case IDerivationState.POSSIBLY_STALE:
-                    {
+                    case IDerivationState.POSSIBLY_STALE: {
                         var prevUntracked = untrackedStart();
                         var obs = derivation.observing,
                             l = obs.length;
@@ -1033,14 +1165,17 @@ var Gitment =
                     }
                 }
             }
+
             function isComputingDerivation() {
                 return globalState.trackingDerivation !== null;
             }
+
             function checkIfStateModificationsAreAllowed(atom) {
                 var hasObservers = atom.observers.length > 0;
                 if (globalState.computationDepth > 0 && hasObservers) fail(getMessage("m031") + atom.name);
                 if (!globalState.allowStateChanges && hasObservers) fail(getMessage(globalState.strictMode ? "m030a" : "m030b") + atom.name);
             }
+
             function trackDerivedFunction(derivation, f, context) {
                 changeDependenciesStateTo0(derivation);
                 derivation.newObserving = new Array(derivation.observing.length + 100);
@@ -1058,6 +1193,7 @@ var Gitment =
                 bindDependencies(derivation);
                 return result;
             }
+
             function bindDependencies(derivation) {
                 var prevObserving = derivation.observing;
                 var observing = derivation.observing = derivation.newObserving;
@@ -1089,29 +1225,36 @@ var Gitment =
                     }
                 }
             }
+
             function clearObserving(derivation) {
                 var obs = derivation.observing;
                 var i = obs.length;
                 while (i--) {
                     removeObserver(obs[i], derivation);
-                }derivation.dependenciesState = IDerivationState.NOT_TRACKING;
+                }
+                derivation.dependenciesState = IDerivationState.NOT_TRACKING;
                 obs.length = 0;
             }
+
             function untracked(action) {
                 var prev = untrackedStart();
                 var res = action();
                 untrackedEnd(prev);
                 return res;
             }
+
             exports.untracked = untracked;
+
             function untrackedStart() {
                 var prev = globalState.trackingDerivation;
                 globalState.trackingDerivation = null;
                 return prev;
             }
+
             function untrackedEnd(prev) {
                 globalState.trackingDerivation = prev;
             }
+
             function changeDependenciesStateTo0(derivation) {
                 if (derivation.dependenciesState === IDerivationState.UP_TO_DATE) return;
                 derivation.dependenciesState = IDerivationState.UP_TO_DATE;
@@ -1121,6 +1264,7 @@ var Gitment =
                     obs[i].lowestObserverState = IDerivationState.UP_TO_DATE;
                 }
             }
+
             var persistentKeys = ["mobxGuid", "resetId", "spyListeners", "strictMode", "runId"];
             var MobXGlobals = function () {
                 function MobXGlobals() {
@@ -1139,33 +1283,43 @@ var Gitment =
                     this.spyListeners = [];
                     this.globalReactionErrorHandlers = [];
                 }
+
                 return MobXGlobals;
             }();
             var globalState = new MobXGlobals();
+
             function shareGlobalState() {
                 var global = getGlobal();
                 var ownState = globalState;
                 if (global.__mobservableTrackingStack || global.__mobservableViewStack) throw new Error("[mobx] An incompatible version of mobservable is already loaded.");
                 if (global.__mobxGlobal && global.__mobxGlobal.version !== ownState.version) throw new Error("[mobx] An incompatible version of mobx is already loaded.");
-                if (global.__mobxGlobal) globalState = global.__mobxGlobal;else global.__mobxGlobal = ownState;
+                if (global.__mobxGlobal) globalState = global.__mobxGlobal; else global.__mobxGlobal = ownState;
             }
+
             function getGlobalState() {
                 return globalState;
             }
-            function registerGlobals() {}
+
+            function registerGlobals() {
+            }
+
             function resetGlobalState() {
                 globalState.resetId++;
                 var defaultGlobals = new MobXGlobals();
                 for (var key in defaultGlobals) {
                     if (persistentKeys.indexOf(key) === -1) globalState[key] = defaultGlobals[key];
-                }globalState.allowStateChanges = !globalState.strictMode;
+                }
+                globalState.allowStateChanges = !globalState.strictMode;
             }
+
             function hasObservers(observable) {
                 return observable.observers && observable.observers.length > 0;
             }
+
             function getObservers(observable) {
                 return observable.observers;
             }
+
             function invariantObservers(observable) {
                 var list = observable.observers;
                 var map = observable.observersIndexes;
@@ -1180,6 +1334,7 @@ var Gitment =
                 }
                 invariant(list.length === 0 || Object.keys(map).length === list.length - 1, "INTERNAL ERROR there is no junk in map");
             }
+
             function addObserver(observable, node) {
                 var l = observable.observers.length;
                 if (l) {
@@ -1188,6 +1343,7 @@ var Gitment =
                 observable.observers[l] = node;
                 if (observable.lowestObserverState > node.dependenciesState) observable.lowestObserverState = node.dependenciesState;
             }
+
             function removeObserver(observable, node) {
                 if (observable.observers.length === 1) {
                     observable.observers.length = 0;
@@ -1208,15 +1364,18 @@ var Gitment =
                     delete map_1[node.__mapid];
                 }
             }
+
             function queueForUnobservation(observable) {
                 if (!observable.isPendingUnobservation) {
                     observable.isPendingUnobservation = true;
                     globalState.pendingUnobservations.push(observable);
                 }
             }
+
             function startBatch() {
                 globalState.inBatch++;
             }
+
             function endBatch() {
                 if (--globalState.inBatch === 0) {
                     runReactions();
@@ -1231,6 +1390,7 @@ var Gitment =
                     globalState.pendingUnobservations = [];
                 }
             }
+
             function reportObserved(observable) {
                 var derivation = globalState.trackingDerivation;
                 if (derivation !== null) {
@@ -1242,6 +1402,7 @@ var Gitment =
                     queueForUnobservation(observable);
                 }
             }
+
             function invariantLOS(observable, msg) {
                 var min = getObservers(observable).reduce(function (a, b) {
                     return Math.min(a, b.dependenciesState);
@@ -1249,6 +1410,7 @@ var Gitment =
                 if (min >= observable.lowestObserverState) return;
                 throw new Error("lowestObserverState is wrong for " + msg + " because " + min + " < " + observable.lowestObserverState);
             }
+
             function propagateChanged(observable) {
                 if (observable.lowestObserverState === IDerivationState.STALE) return;
                 observable.lowestObserverState = IDerivationState.STALE;
@@ -1260,6 +1422,7 @@ var Gitment =
                     d.dependenciesState = IDerivationState.STALE;
                 }
             }
+
             function propagateChangeConfirmed(observable) {
                 if (observable.lowestObserverState === IDerivationState.STALE) return;
                 observable.lowestObserverState = IDerivationState.STALE;
@@ -1267,9 +1430,10 @@ var Gitment =
                 var i = observers.length;
                 while (i--) {
                     var d = observers[i];
-                    if (d.dependenciesState === IDerivationState.POSSIBLY_STALE) d.dependenciesState = IDerivationState.STALE;else if (d.dependenciesState === IDerivationState.UP_TO_DATE) observable.lowestObserverState = IDerivationState.UP_TO_DATE;
+                    if (d.dependenciesState === IDerivationState.POSSIBLY_STALE) d.dependenciesState = IDerivationState.STALE; else if (d.dependenciesState === IDerivationState.UP_TO_DATE) observable.lowestObserverState = IDerivationState.UP_TO_DATE;
                 }
             }
+
             function propagateMaybeChanged(observable) {
                 if (observable.lowestObserverState !== IDerivationState.UP_TO_DATE) return;
                 observable.lowestObserverState = IDerivationState.POSSIBLY_STALE;
@@ -1283,6 +1447,7 @@ var Gitment =
                     }
                 }
             }
+
             var Reaction = function () {
                 function Reaction(name, onInvalidate) {
                     if (name === void 0) {
@@ -1302,6 +1467,7 @@ var Gitment =
                     this._isTrackPending = false;
                     this._isRunning = false;
                 }
+
                 Reaction.prototype.onBecomeStale = function () {
                     this.schedule();
                 };
@@ -1408,11 +1574,13 @@ var Gitment =
                 return Reaction;
             }();
             exports.Reaction = Reaction;
+
             function registerErrorHandler(handler) {
                 invariant(this && this.$mobx && isReaction(this.$mobx), "Invalid `this`");
                 invariant(!this.$mobx.errorHandler, "Only one onErrorHandler can be registered");
                 this.$mobx.errorHandler = handler;
             }
+
             function onReactionError(handler) {
                 globalState.globalReactionErrorHandlers.push(handler);
                 return function () {
@@ -1420,14 +1588,17 @@ var Gitment =
                     if (idx >= 0) globalState.globalReactionErrorHandlers.splice(idx, 1);
                 };
             }
+
             var MAX_REACTION_ITERATIONS = 100;
             var reactionScheduler = function reactionScheduler(f) {
                 return f();
             };
+
             function runReactions() {
                 if (globalState.inBatch > 0 || globalState.isRunningReactions) return;
                 reactionScheduler(runReactionsHelper);
             }
+
             function runReactionsHelper() {
                 globalState.isRunningReactions = true;
                 var allReactions = globalState.pendingReactions;
@@ -1444,7 +1615,9 @@ var Gitment =
                 }
                 globalState.isRunningReactions = false;
             }
+
             var isReaction = createInstanceofPredicate("Reaction", Reaction);
+
             function setReactionScheduler(fn) {
                 var baseScheduler = reactionScheduler;
                 reactionScheduler = function reactionScheduler(f) {
@@ -1453,9 +1626,11 @@ var Gitment =
                     });
                 };
             }
+
             function isSpyEnabled() {
                 return !!globalState.spyListeners.length;
             }
+
             function spyReport(event) {
                 if (!globalState.spyListeners.length) return;
                 var listeners = globalState.spyListeners;
@@ -1463,14 +1638,18 @@ var Gitment =
                     listeners[i](event);
                 }
             }
+
             function spyReportStart(event) {
-                var change = objectAssign({}, event, { spyReportStart: true });
+                var change = objectAssign({}, event, {spyReportStart: true});
                 spyReport(change);
             }
-            var END_EVENT = { spyReportEnd: true };
+
+            var END_EVENT = {spyReportEnd: true};
+
             function spyReportEnd(change) {
-                if (change) spyReport(objectAssign({}, change, END_EVENT));else spyReport(END_EVENT);
+                if (change) spyReport(objectAssign({}, change, END_EVENT)); else spyReport(END_EVENT);
             }
+
             function spy(listener) {
                 globalState.spyListeners.push(listener);
                 return once(function () {
@@ -1478,10 +1657,13 @@ var Gitment =
                     if (idx !== -1) globalState.spyListeners.splice(idx, 1);
                 });
             }
+
             exports.spy = spy;
+
             function hasInterceptors(interceptable) {
                 return interceptable.interceptors && interceptable.interceptors.length > 0;
             }
+
             function registerInterceptor(interceptable, handler) {
                 var interceptors = interceptable.interceptors || (interceptable.interceptors = []);
                 interceptors.push(handler);
@@ -1490,6 +1672,7 @@ var Gitment =
                     if (idx !== -1) interceptors.splice(idx, 1);
                 });
             }
+
             function interceptChange(interceptable, change) {
                 var prevU = untrackedStart();
                 try {
@@ -1504,9 +1687,11 @@ var Gitment =
                     untrackedEnd(prevU);
                 }
             }
+
             function hasListeners(listenable) {
                 return listenable.changeListeners && listenable.changeListeners.length > 0;
             }
+
             function registerListener(listenable, handler) {
                 var listeners = listenable.changeListeners || (listenable.changeListeners = []);
                 listeners.push(handler);
@@ -1515,6 +1700,7 @@ var Gitment =
                     if (idx !== -1) listeners.splice(idx, 1);
                 });
             }
+
             function notifyListeners(listenable, change) {
                 var prevU = untrackedStart();
                 var listeners = listenable.changeListeners;
@@ -1525,30 +1711,41 @@ var Gitment =
                 }
                 untrackedEnd(prevU);
             }
+
             function asReference(value) {
                 deprecated("asReference is deprecated, use observable.ref instead");
                 return observable.ref(value);
             }
+
             exports.asReference = asReference;
+
             function asStructure(value) {
                 deprecated("asStructure is deprecated. Use observable.struct, computed.struct or reaction options instead.");
                 return observable.struct(value);
             }
+
             exports.asStructure = asStructure;
+
             function asFlat(value) {
                 deprecated("asFlat is deprecated, use observable.shallow instead");
                 return observable.shallow(value);
             }
+
             exports.asFlat = asFlat;
+
             function asMap(data) {
                 deprecated("asMap is deprecated, use observable.map or observable.shallowMap instead");
                 return observable.map(data || {});
             }
+
             exports.asMap = asMap;
+
             function isModifierDescriptor(thing) {
                 return (typeof thing === "undefined" ? "undefined" : _typeof(thing)) === "object" && thing !== null && thing.isMobxModifierDescriptor === true;
             }
+
             exports.isModifierDescriptor = isModifierDescriptor;
+
             function createModifierDescriptor(enhancer, initialValue) {
                 invariant(!isModifierDescriptor(initialValue), "Modifiers cannot be nested");
                 return {
@@ -1557,6 +1754,7 @@ var Gitment =
                     enhancer: enhancer
                 };
             }
+
             function deepEnhancer(v, _, name) {
                 if (isModifierDescriptor(v)) fail("You tried to assign a modifier wrapped value to a collection, please define modifiers when creating the collection, not when modifying it");
                 if (isObservable(v)) return v;
@@ -1565,6 +1763,7 @@ var Gitment =
                 if (isES6Map(v)) return observable.map(v, name);
                 return v;
             }
+
             function shallowEnhancer(v, _, name) {
                 if (isModifierDescriptor(v)) fail("You tried to assign a modifier wrapped value to a collection, please define modifiers when creating the collection, not when modifying it");
                 if (v === undefined || v === null) return v;
@@ -1574,9 +1773,11 @@ var Gitment =
                 if (isES6Map(v)) return observable.shallowMap(v, name);
                 return fail("The shallow modifier / decorator can only used in combination with arrays, objects and maps");
             }
+
             function referenceEnhancer(newValue) {
                 return newValue;
             }
+
             function deepStructEnhancer(v, oldValue, name) {
                 if (deepEqual(v, oldValue)) return oldValue;
                 if (isObservable(v)) return v;
@@ -1590,23 +1791,29 @@ var Gitment =
                 }
                 return v;
             }
+
             function refStructEnhancer(v, oldValue, name) {
                 if (deepEqual(v, oldValue)) return oldValue;
                 return v;
             }
+
             var MAX_SPLICE_SIZE = 10000;
             var safariPrototypeSetterInheritanceBug = function () {
                 var v = false;
                 var p = {};
-                Object.defineProperty(p, "0", { set: function set() {
+                Object.defineProperty(p, "0", {
+                    set: function set() {
                         v = true;
-                    } });
+                    }
+                });
                 Object.create(p)["0"] = 1;
                 return v === false;
             }();
             var OBSERVABLE_ARRAY_BUFFER_SIZE = 0;
             var StubArray = function () {
-                function StubArray() {}
+                function StubArray() {
+                }
+
                 return StubArray;
             }();
             StubArray.prototype = [];
@@ -1622,6 +1829,7 @@ var Gitment =
                         return enhancer(newV, oldV, name + "[..]");
                     };
                 }
+
                 ObservableArrayAdministration.prototype.intercept = function (handler) {
                     return registerInterceptor(this, handler);
                 };
@@ -1649,11 +1857,12 @@ var Gitment =
                 ObservableArrayAdministration.prototype.setArrayLength = function (newLength) {
                     if (typeof newLength !== "number" || newLength < 0) throw new Error("[mobx.array] Out of range: " + newLength);
                     var currentLength = this.values.length;
-                    if (newLength === currentLength) return;else if (newLength > currentLength) {
+                    if (newLength === currentLength) return; else if (newLength > currentLength) {
                         var newItems = new Array(newLength - currentLength);
                         for (var i = 0; i < newLength - currentLength; i++) {
                             newItems[i] = undefined;
-                        }this.spliceWithArray(currentLength, 0, newItems);
+                        }
+                        this.spliceWithArray(currentLength, 0, newItems);
                     } else this.spliceWithArray(newLength, currentLength - newLength);
                 };
                 ObservableArrayAdministration.prototype.updateArrayLength = function (oldLength, delta) {
@@ -1665,8 +1874,8 @@ var Gitment =
                     var _this = this;
                     checkIfStateModificationsAreAllowed(this.atom);
                     var length = this.values.length;
-                    if (index === undefined) index = 0;else if (index > length) index = length;else if (index < 0) index = Math.max(0, length + index);
-                    if (arguments.length === 1) deleteCount = length - index;else if (deleteCount === undefined || deleteCount === null) deleteCount = 0;else deleteCount = Math.max(0, Math.min(deleteCount, length - index));
+                    if (index === undefined) index = 0; else if (index > length) index = length; else if (index < 0) index = Math.max(0, length + index);
+                    if (arguments.length === 1) deleteCount = length - index; else if (deleteCount === undefined || deleteCount === null) deleteCount = 0; else deleteCount = Math.max(0, Math.min(deleteCount, length - index));
                     if (newItems === undefined) newItems = [];
                     if (hasInterceptors(this)) {
                         var change = interceptChange(this, {
@@ -1731,6 +1940,7 @@ var Gitment =
             }();
             var ObservableArray = function (_super) {
                 __extends(ObservableArray, _super);
+
                 function ObservableArray(initialValues, enhancer, name, owned) {
                     if (name === void 0) {
                         name = "ObservableArray@" + getNextId();
@@ -1755,6 +1965,7 @@ var Gitment =
                     }
                     return _this;
                 }
+
                 ObservableArray.prototype.intercept = function (handler) {
                     return this.$mobx.intercept(handler);
                 };
@@ -1798,7 +2009,8 @@ var Gitment =
                         l = items.length;
                     for (var i = fromIndex; i < l; i++) {
                         if (predicate.call(thisArg, items[i], i, this)) return items[i];
-                    }return undefined;
+                    }
+                    return undefined;
                 };
                 ObservableArray.prototype.splice = function (index, deleteCount) {
                     var newItems = [];
@@ -1870,6 +2082,7 @@ var Gitment =
                             throw new Error("[mobx.array] Index out of bounds: " + index + " is not smaller than " + length);
                         }
                     }
+
                     checkIndex.call(this, fromIndex);
                     checkIndex.call(this, toIndex);
                     if (fromIndex === toIndex) {
@@ -1922,6 +2135,7 @@ var Gitment =
                 set: createArraySetter(0),
                 get: createArrayGetter(0)
             };
+
             function createArrayBufferItem(index) {
                 var set = createArraySetter(index);
                 var get = createArrayGetter(index);
@@ -1931,6 +2145,7 @@ var Gitment =
                     set: set, get: get
                 });
             }
+
             function createArraySetter(index) {
                 return function (newValue) {
                     var adm = this.$mobx;
@@ -1958,6 +2173,7 @@ var Gitment =
                     } else throw new Error("[mobx.array] Index out of bounds, " + index + " is larger than " + values.length);
                 };
             }
+
             function createArrayGetter(index) {
                 return function () {
                     var impl = this.$mobx;
@@ -1971,16 +2187,21 @@ var Gitment =
                     return undefined;
                 };
             }
+
             function reserveArrayBuffer(max) {
                 for (var index = OBSERVABLE_ARRAY_BUFFER_SIZE; index < max; index++) {
                     createArrayBufferItem(index);
-                }OBSERVABLE_ARRAY_BUFFER_SIZE = max;
+                }
+                OBSERVABLE_ARRAY_BUFFER_SIZE = max;
             }
+
             reserveArrayBuffer(1000);
             var isObservableArrayAdministration = createInstanceofPredicate("ObservableArrayAdministration", ObservableArrayAdministration);
+
             function isObservableArray(thing) {
                 return isObject(thing) && isObservableArrayAdministration(thing.$mobx);
             }
+
             exports.isObservableArray = isObservableArray;
             var ObservableMapMarker = {};
             var ObservableMap = function () {
@@ -2001,6 +2222,7 @@ var Gitment =
                     this.changeListeners = null;
                     this.merge(initialData);
                 }
+
                 ObservableMap.prototype._has = function (key) {
                     return typeof this._data[key] !== "undefined";
                 };
@@ -2143,13 +2365,13 @@ var Gitment =
                     runInTransaction(function () {
                         if (isPlainObject(other)) Object.keys(other).forEach(function (key) {
                             return _this.set(key, other[key]);
-                        });else if (Array.isArray(other)) other.forEach(function (_a) {
+                        }); else if (Array.isArray(other)) other.forEach(function (_a) {
                             var key = _a[0],
                                 value = _a[1];
                             return _this.set(key, value);
-                        });else if (isES6Map(other)) other.forEach(function (value, key) {
+                        }); else if (isES6Map(other)) other.forEach(function (value, key) {
                             return _this.set(key, value);
-                        });else if (other !== null && other !== undefined) fail("Cannot initialize map from " + other);
+                        }); else if (other !== null && other !== undefined) fail("Cannot initialize map from " + other);
                     });
                     return this;
                 };
@@ -2214,10 +2436,12 @@ var Gitment =
             declareIterator(ObservableMap.prototype, function () {
                 return this.entries();
             });
+
             function map(initialValues) {
                 deprecated("`mobx.map` is deprecated, use `new ObservableMap` or `mobx.observable.map` instead");
                 return observable.map(initialValues);
             }
+
             exports.map = map;
             var isObservableMap = createInstanceofPredicate("ObservableMap", ObservableMap);
             exports.isObservableMap = isObservableMap;
@@ -2229,6 +2453,7 @@ var Gitment =
                     this.changeListeners = null;
                     this.interceptors = null;
                 }
+
                 ObservableObjectAdministration.prototype.observe = function (callback, fireImmediately) {
                     invariant(fireImmediately !== true, "`observe` doesn't support the fire immediately property for observable objects.");
                     return registerListener(this, callback);
@@ -2238,6 +2463,7 @@ var Gitment =
                 };
                 return ObservableObjectAdministration;
             }();
+
             function asObservableObject(target, name) {
                 if (isObservableObject(target)) return target.$mobx;
                 invariant(Object.isExtensible(target), getMessage("m035"));
@@ -2247,6 +2473,7 @@ var Gitment =
                 addHiddenFinalProp(target, "$mobx", adm);
                 return adm;
             }
+
             function defineObservablePropertyFromDescriptor(adm, propName, descriptor, defaultEnhancer) {
                 if (adm.values[propName]) {
                     invariant("value" in descriptor, "The property " + propName + " in " + adm.name + " is already observable, cannot redefine it as computed property");
@@ -2268,6 +2495,7 @@ var Gitment =
                     defineComputedProperty(adm, propName, descriptor.get, descriptor.set, false, true);
                 }
             }
+
             function defineObservableProperty(adm, propName, newValue, enhancer) {
                 assertPropertyConfigurable(adm.target, propName);
                 if (hasInterceptors(adm)) {
@@ -2285,6 +2513,7 @@ var Gitment =
                 Object.defineProperty(adm.target, propName, generateObservablePropConfig(propName));
                 notifyPropertyAddition(adm, adm.target, propName, newValue);
             }
+
             function defineComputedProperty(adm, propName, getter, setter, compareStructural, asInstanceProperty) {
                 if (asInstanceProperty) assertPropertyConfigurable(adm.target, propName);
                 adm.values[propName] = new ComputedValue(getter, adm.target, compareStructural, adm.name + "." + propName, setter);
@@ -2292,6 +2521,7 @@ var Gitment =
                     Object.defineProperty(adm.target, propName, generateComputedPropConfig(propName));
                 }
             }
+
             function defineComputedPropertyFromComputedValue(adm, propName, computedValue) {
                 var name = adm.name + "." + propName;
                 computedValue.name = name;
@@ -2299,8 +2529,10 @@ var Gitment =
                 adm.values[propName] = computedValue;
                 Object.defineProperty(adm.target, propName, generateComputedPropConfig(propName));
             }
+
             var observablePropertyConfigs = {};
             var computedPropertyConfigs = {};
+
             function generateObservablePropConfig(propName) {
                 return observablePropertyConfigs[propName] || (observablePropertyConfigs[propName] = {
                     configurable: true,
@@ -2313,6 +2545,7 @@ var Gitment =
                     }
                 });
             }
+
             function generateComputedPropConfig(propName) {
                 return computedPropertyConfigs[propName] || (computedPropertyConfigs[propName] = {
                     configurable: true,
@@ -2325,6 +2558,7 @@ var Gitment =
                     }
                 });
             }
+
             function setPropertyValue(instance, name, newValue) {
                 var adm = instance.$mobx;
                 var observable = adm.values[name];
@@ -2353,6 +2587,7 @@ var Gitment =
                     if (notifySpy) spyReportEnd();
                 }
             }
+
             function notifyPropertyAddition(adm, object, name, newValue) {
                 var notify = hasListeners(adm);
                 var notifySpy = isSpyEnabled();
@@ -2364,7 +2599,9 @@ var Gitment =
                 if (notify) notifyListeners(adm, change);
                 if (notifySpy) spyReportEnd();
             }
+
             var isObservableObjectAdministration = createInstanceofPredicate("ObservableObjectAdministration", ObservableObjectAdministration);
+
             function isObservableObject(thing) {
                 if (isObject(thing)) {
                     runLazyInitializers(thing);
@@ -2372,10 +2609,12 @@ var Gitment =
                 }
                 return false;
             }
+
             exports.isObservableObject = isObservableObject;
             var UNCHANGED = {};
             var ObservableValue = function (_super) {
                 __extends(ObservableValue, _super);
+
                 function ObservableValue(value, enhancer, name, notifySpy) {
                     if (name === void 0) {
                         name = "ObservableValue@" + getNextId();
@@ -2388,10 +2627,11 @@ var Gitment =
                     _this.hasUnreportedChange = false;
                     _this.value = enhancer(value, undefined, name);
                     if (notifySpy && isSpyEnabled()) {
-                        spyReport({ type: "create", object: _this, newValue: _this.value });
+                        spyReport({type: "create", object: _this, newValue: _this.value});
                     }
                     return _this;
                 }
+
                 ObservableValue.prototype.set = function (newValue) {
                     var oldValue = this.value;
                     newValue = this.prepareNewValue(newValue);
@@ -2411,7 +2651,7 @@ var Gitment =
                 ObservableValue.prototype.prepareNewValue = function (newValue) {
                     checkIfStateModificationsAreAllowed(this);
                     if (hasInterceptors(this)) {
-                        var change = interceptChange(this, { object: this, type: "update", newValue: newValue });
+                        var change = interceptChange(this, {object: this, type: "update", newValue: newValue});
                         if (!change) return UNCHANGED;
                         newValue = change.newValue;
                     }
@@ -2461,6 +2701,7 @@ var Gitment =
             ObservableValue.prototype[primitiveSymbol()] = ObservableValue.prototype.valueOf;
             var isObservableValue = createInstanceofPredicate("ObservableValue", ObservableValue);
             exports.isBoxedObservable = isObservableValue;
+
             function getAtom(thing, property) {
                 if ((typeof thing === "undefined" ? "undefined" : _typeof(thing)) === "object" && thing !== null) {
                     if (isObservableArray(thing)) {
@@ -2491,6 +2732,7 @@ var Gitment =
                 }
                 return fail("Cannot obtain atom from " + thing);
             }
+
             function getAdministration(thing, property) {
                 invariant(thing, "Expecting some object");
                 if (property !== undefined) return getAdministration(getAtom(thing, property));
@@ -2500,11 +2742,13 @@ var Gitment =
                 if (thing.$mobx) return thing.$mobx;
                 invariant(false, "Cannot obtain administration from " + thing);
             }
+
             function getDebugName(thing, property) {
                 var named;
-                if (property !== undefined) named = getAtom(thing, property);else if (isObservableObject(thing) || isObservableMap(thing)) named = getAdministration(thing);else named = getAtom(thing);
+                if (property !== undefined) named = getAtom(thing, property); else if (isObservableObject(thing) || isObservableMap(thing)) named = getAdministration(thing); else named = getAtom(thing);
                 return named.name;
             }
+
             function createClassPropertyDecorator(onInitialize, _get, _set, enumerable, allowCustomArguments) {
                 function classPropertyDecorator(target, key, descriptor, customArgs, argLen) {
                     if (argLen === void 0) {
@@ -2553,6 +2797,7 @@ var Gitment =
                         };
                     }
                 }
+
                 if (allowCustomArguments) {
                     return function () {
                         if (quacksLikeADecorator(arguments)) return classPropertyDecorator.apply(null, arguments);
@@ -2565,11 +2810,13 @@ var Gitment =
                 }
                 return classPropertyDecorator;
             }
+
             function typescriptInitializeProperty(instance, key, v, onInitialize, customArgs, baseDescriptor) {
                 if (!hasOwnProperty(instance, "__mobxInitializedProps")) addHiddenProp(instance, "__mobxInitializedProps", {});
                 instance.__mobxInitializedProps[key] = true;
                 onInitialize(instance, key, v, customArgs, baseDescriptor);
             }
+
             function runLazyInitializers(instance) {
                 if (instance.__mobxDidRunLazyInitializers === true) return;
                 if (instance.__mobxLazyInitializers) {
@@ -2579,13 +2826,17 @@ var Gitment =
                     });
                 }
             }
+
             function quacksLikeADecorator(args) {
                 return (args.length === 2 || args.length === 3) && typeof args[1] === "string";
             }
+
             function iteratorSymbol() {
                 return typeof Symbol === "function" && Symbol.iterator || "@@iterator";
             }
+
             var IS_ITERATING_MARKER = "__$$iterating";
+
             function arrayAsIterator(array) {
                 invariant(array[IS_ITERATING_MARKER] !== true, "Illegal state: cannot recycle array as iterator");
                 addHiddenFinalProp(array, IS_ITERATING_MARKER, true);
@@ -2599,9 +2850,11 @@ var Gitment =
                 });
                 return array;
             }
+
             function declareIterator(prototType, iteratorFactory) {
                 addHiddenFinalProp(prototType, iteratorSymbol(), iteratorFactory);
             }
+
             var messages = {
                 "m001": "It is not allowed to assign new values to @action fields",
                 "m002": "`runInAction` expects a function",
@@ -2642,31 +2895,40 @@ var Gitment =
                 "m037": "Hi there! I'm sorry you have just run into an exception.\nIf your debugger ends up here, know that some reaction (like the render() of an observer component, autorun or reaction)\nthrew an exception and that mobx caught it, to avoid that it brings the rest of your application down.\nThe original cause of the exception (the code that caused this reaction to run (again)), is still in the stack.\n\nHowever, more interesting is the actual stack trace of the error itself.\nHopefully the error is an instanceof Error, because in that case you can inspect the original stack of the error from where it was thrown.\nSee `error.stack` property, or press the very subtle \"(...)\" link you see near the console.error message that probably brought you here.\nThat stack is more interesting than the stack of this console.error itself.\n\nIf the exception you see is an exception you created yourself, make sure to use `throw new Error(\"Oops\")` instead of `throw \"Oops\"`,\nbecause the javascript environment will only preserve the original stack trace in the first form.\n\nYou can also make sure the debugger pauses the next time this very same exception is thrown by enabling \"Pause on caught exception\".\n(Note that it might pause on many other, unrelated exception as well).\n\nIf that all doesn't help you out, feel free to open an issue https://github.com/mobxjs/mobx/issues!\n",
                 "m038": "Missing items in this list?\n    1. Check whether all used values are properly marked as observable (use isObservable to verify)\n    2. Make sure you didn't dereference values too early. MobX observes props, not primitives. E.g: use 'person.name' instead of 'name' in your computation.\n"
             };
+
             function getMessage(id) {
                 return messages[id];
             }
+
             var EMPTY_ARRAY = [];
             Object.freeze(EMPTY_ARRAY);
+
             function getGlobal() {
                 return global;
             }
+
             function getNextId() {
                 return ++globalState.mobxGuid;
             }
+
             function fail(message, thing) {
                 invariant(false, message, thing);
                 throw "X";
             }
+
             function invariant(check, message, thing) {
                 if (!check) throw new Error("[mobx] Invariant failed: " + message + (thing ? " in '" + thing + "'" : ""));
             }
+
             var deprecatedMessages = [];
+
             function deprecated(msg) {
                 if (deprecatedMessages.indexOf(msg) !== -1) return false;
                 deprecatedMessages.push(msg);
                 console.error("[mobx] Deprecated: " + msg);
                 return true;
             }
+
             function once(func) {
                 var invoked = false;
                 return function () {
@@ -2675,7 +2937,10 @@ var Gitment =
                     return func.apply(this, arguments);
                 };
             }
-            var noop = function noop() {};
+
+            var noop = function noop() {
+            };
+
             function unique(list) {
                 var res = [];
                 list.forEach(function (item) {
@@ -2683,6 +2948,7 @@ var Gitment =
                 });
                 return res;
             }
+
             function joinStrings(things, limit, separator) {
                 if (limit === void 0) {
                     limit = 100;
@@ -2694,14 +2960,17 @@ var Gitment =
                 var sliced = things.slice(0, limit);
                 return "" + sliced.join(separator) + (things.length > limit ? " (... and " + (things.length - limit) + "more)" : "");
             }
+
             function isObject(value) {
                 return value !== null && (typeof value === "undefined" ? "undefined" : _typeof(value)) === "object";
             }
+
             function isPlainObject(value) {
                 if (value === null || (typeof value === "undefined" ? "undefined" : _typeof(value)) !== "object") return false;
                 var proto = Object.getPrototypeOf(value);
                 return proto === Object.prototype || proto === null;
             }
+
             function objectAssign() {
                 var res = arguments[0];
                 for (var i = 1, l = arguments.length; i < l; i++) {
@@ -2714,21 +2983,26 @@ var Gitment =
                 }
                 return res;
             }
+
             function valueDidChange(compareStructural, oldValue, newValue) {
                 if (typeof oldValue === 'number' && isNaN(oldValue)) {
                     return typeof newValue !== 'number' || !isNaN(newValue);
                 }
                 return compareStructural ? !deepEqual(oldValue, newValue) : oldValue !== newValue;
             }
+
             var prototypeHasOwnProperty = Object.prototype.hasOwnProperty;
+
             function hasOwnProperty(object, propName) {
                 return prototypeHasOwnProperty.call(object, propName);
             }
+
             function makeNonEnumerable(object, propNames) {
                 for (var i = 0; i < propNames.length; i++) {
                     addHiddenProp(object, propNames[i], object[propNames[i]]);
                 }
             }
+
             function addHiddenProp(object, propName, value) {
                 Object.defineProperty(object, propName, {
                     enumerable: false,
@@ -2737,6 +3011,7 @@ var Gitment =
                     value: value
                 });
             }
+
             function addHiddenFinalProp(object, propName, value) {
                 Object.defineProperty(object, propName, {
                     enumerable: false,
@@ -2745,19 +3020,24 @@ var Gitment =
                     value: value
                 });
             }
+
             function isPropertyConfigurable(object, prop) {
                 var descriptor = Object.getOwnPropertyDescriptor(object, prop);
                 return !descriptor || descriptor.configurable !== false && descriptor.writable !== false;
             }
+
             function assertPropertyConfigurable(object, prop) {
                 invariant(isPropertyConfigurable(object, prop), "Cannot make property '" + prop + "' observable, it is not configurable and writable in the target object");
             }
+
             function getEnumerableKeys(obj) {
                 var res = [];
                 for (var key in obj) {
                     res.push(key);
-                }return res;
+                }
+                return res;
             }
+
             function deepEqual(a, b) {
                 if (a === null && b === null) return true;
                 if (a === undefined && b === undefined) return true;
@@ -2772,7 +3052,8 @@ var Gitment =
                     if (a.length !== b.length) return false;
                     for (var i = a.length - 1; i >= 0; i--) {
                         if (!deepEqual(a[i], b[i])) return false;
-                    }return true;
+                    }
+                    return true;
                 } else if (aIsMap) {
                     if (a.size !== b.size) return false;
                     var equals_1 = true;
@@ -2795,6 +3076,7 @@ var Gitment =
                 }
                 return false;
             }
+
             function createInstanceofPredicate(name, clazz) {
                 var propName = "isMobX" + name;
                 clazz.prototype[propName] = true;
@@ -2802,28 +3084,37 @@ var Gitment =
                     return isObject(x) && x[propName] === true;
                 };
             }
+
             function isArrayLike(x) {
                 return Array.isArray(x) || isObservableArray(x);
             }
+
             exports.isArrayLike = isArrayLike;
+
             function isMapLike(x) {
                 return isES6Map(x) || isObservableMap(x);
             }
+
             function isES6Map(thing) {
                 if (getGlobal().Map !== undefined && thing instanceof getGlobal().Map) return true;
                 return false;
             }
+
             function primitiveSymbol() {
                 return typeof Symbol === "function" && Symbol.toPrimitive || "@@toPrimitive";
             }
+
             function toPrimitive(value) {
                 return value === null ? null : (typeof value === "undefined" ? "undefined" : _typeof(value)) === "object" ? "" + value : value;
             }
-            /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
-        /***/ }),
+            /* WEBPACK VAR INJECTION */
+        }.call(exports, __webpack_require__(4)))
+
+        /***/
+    }),
     /* 2 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
@@ -2832,7 +3123,40 @@ var Gitment =
             value: true
         });
 
-        var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+        var _slicedToArray = function () {
+            function sliceIterator(arr, i) {
+                var _arr = [];
+                var _n = true;
+                var _d = false;
+                var _e = undefined;
+                try {
+                    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+                        _arr.push(_s.value);
+                        if (i && _arr.length === i) break;
+                    }
+                } catch (err) {
+                    _d = true;
+                    _e = err;
+                } finally {
+                    try {
+                        if (!_n && _i["return"]) _i["return"]();
+                    } finally {
+                        if (_d) throw _e;
+                    }
+                }
+                return _arr;
+            }
+
+            return function (arr, i) {
+                if (Array.isArray(arr)) {
+                    return arr;
+                } else if (Symbol.iterator in Object(arr)) {
+                    return sliceIterator(arr, i);
+                } else {
+                    throw new TypeError("Invalid attempt to destructure non-iterable instance");
+                }
+            };
+        }();
 
         var _icons = __webpack_require__(6);
 
@@ -3131,11 +3455,18 @@ var Gitment =
             return container;
         }
 
-        exports.default = { render: render, renderHeader: renderHeader, renderComments: renderComments, renderEditor: renderEditor, renderFooter: renderFooter };
+        exports.default = {
+            render: render,
+            renderHeader: renderHeader,
+            renderComments: renderComments,
+            renderEditor: renderEditor,
+            renderFooter: renderFooter
+        };
 
-        /***/ }),
+        /***/
+    }),
     /* 3 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
@@ -3145,7 +3476,40 @@ var Gitment =
         });
         exports.http = exports.Query = exports.isString = undefined;
 
-        var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+        var _slicedToArray = function () {
+            function sliceIterator(arr, i) {
+                var _arr = [];
+                var _n = true;
+                var _d = false;
+                var _e = undefined;
+                try {
+                    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+                        _arr.push(_s.value);
+                        if (i && _arr.length === i) break;
+                    }
+                } catch (err) {
+                    _d = true;
+                    _e = err;
+                } finally {
+                    try {
+                        if (!_n && _i["return"]) _i["return"]();
+                    } finally {
+                        if (_d) throw _e;
+                    }
+                }
+                return _arr;
+            }
+
+            return function (arr, i) {
+                if (Array.isArray(arr)) {
+                    return arr;
+                } else if (Symbol.iterator in Object(arr)) {
+                    return sliceIterator(arr, i);
+                } else {
+                    throw new TypeError("Invalid attempt to destructure non-iterable instance");
+                }
+            };
+        }();
 
         exports.getTargetContainer = getTargetContainer;
 
@@ -3252,14 +3616,19 @@ var Gitment =
             put: ajaxFactory('PUT')
         };
 
-        /***/ }),
+        /***/
+    }),
     /* 4 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+        var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+            return typeof obj;
+        } : function (obj) {
+            return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+        };
 
         var g;
 
@@ -3282,14 +3651,31 @@ var Gitment =
 
         module.exports = g;
 
-        /***/ }),
+        /***/
+    }),
     /* 5 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
 
         var _mobx = __webpack_require__(1);
 
@@ -3301,9 +3687,15 @@ var Gitment =
 
         var _default2 = _interopRequireDefault(_default);
 
-        function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+        function _interopRequireDefault(obj) {
+            return obj && obj.__esModule ? obj : {default: obj};
+        }
 
-        function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
 
         var scope = 'public_repo';
 
@@ -3512,7 +3904,7 @@ var Gitment =
                     var _this6 = this;
 
                     return this.getIssue().then(function (issue) {
-                        return _utils.http.post(issue.comments_url, { body: body }, '');
+                        return _utils.http.post(issue.comments_url, {body: body}, '');
                     }).then(function (data) {
                         _this6.state.meta.comments++;
                         var pageCount = Math.ceil(_this6.state.meta.comments / _this6.perPage);
@@ -3548,7 +3940,7 @@ var Gitment =
                     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.state.currentPage;
 
                     return this.getIssue().then(function (issue) {
-                        return _utils.http.get(issue.comments_url, { page: page, per_page: _this8.perPage }, '');
+                        return _utils.http.get(issue.comments_url, {page: page, per_page: _this8.perPage}, '');
                     }).then(function (comments) {
                         _this8.state.comments = comments;
                         return comments;
@@ -3727,9 +4119,10 @@ var Gitment =
 
         module.exports = Gitment;
 
-        /***/ }),
+        /***/
+    }),
     /* 6 */
-    /***/ (function(module, exports, __webpack_require__) {
+    /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
@@ -3746,6 +4139,7 @@ var Gitment =
         var heart = exports.heart = '<svg class="gitment-heart-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 39.7l-.6-.5C11.5 28.7 8 25 8 19c0-5 4-9 9-9 4.1 0 6.4 2.3 8 4.1 1.6-1.8 3.9-4.1 8-4.1 5 0 9 4 9 9 0 6-3.5 9.7-16.4 20.2l-.6.5zM17 12c-3.9 0-7 3.1-7 7 0 5.1 3.2 8.5 15 18.1 11.8-9.6 15-13 15-18.1 0-3.9-3.1-7-7-7-3.5 0-5.4 2.1-6.9 3.8L25 17.1l-1.1-1.3C22.4 14.1 20.5 12 17 12z"/></svg>';
         var spinner = exports.spinner = '<svg class="gitment-spinner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25 18c-.6 0-1-.4-1-1V9c0-.6.4-1 1-1s1 .4 1 1v8c0 .6-.4 1-1 1z"/><path opacity=".3" d="M25 42c-.6 0-1-.4-1-1v-8c0-.6.4-1 1-1s1 .4 1 1v8c0 .6-.4 1-1 1z"/><path opacity=".3" d="M29 19c-.2 0-.3 0-.5-.1-.4-.3-.6-.8-.3-1.3l4-6.9c.3-.4.8-.6 1.3-.3.4.3.6.8.3 1.3l-4 6.9c-.2.2-.5.4-.8.4z"/><path opacity=".3" d="M17 39.8c-.2 0-.3 0-.5-.1-.4-.3-.6-.8-.3-1.3l4-6.9c.3-.4.8-.6 1.3-.3.4.3.6.8.3 1.3l-4 6.9c-.2.2-.5.4-.8.4z"/><path opacity=".93" d="M21 19c-.3 0-.6-.2-.8-.5l-4-6.9c-.3-.4-.1-1 .3-1.3.4-.3 1-.1 1.3.3l4 6.9c.3.4.1 1-.3 1.3-.2.2-.3.2-.5.2z"/><path opacity=".3" d="M33 39.8c-.3 0-.6-.2-.8-.5l-4-6.9c-.3-.4-.1-1 .3-1.3.4-.3 1-.1 1.3.3l4 6.9c.3.4.1 1-.3 1.3-.2.1-.3.2-.5.2z"/><path opacity=".65" d="M17 26H9c-.6 0-1-.4-1-1s.4-1 1-1h8c.6 0 1 .4 1 1s-.4 1-1 1z"/><path opacity=".3" d="M41 26h-8c-.6 0-1-.4-1-1s.4-1 1-1h8c.6 0 1 .4 1 1s-.4 1-1 1z"/><path opacity=".86" d="M18.1 21.9c-.2 0-.3 0-.5-.1l-6.9-4c-.4-.3-.6-.8-.3-1.3.3-.4.8-.6 1.3-.3l6.9 4c.4.3.6.8.3 1.3-.2.3-.5.4-.8.4z"/><path opacity=".3" d="M38.9 33.9c-.2 0-.3 0-.5-.1l-6.9-4c-.4-.3-.6-.8-.3-1.3.3-.4.8-.6 1.3-.3l6.9 4c.4.3.6.8.3 1.3-.2.3-.5.4-.8.4z"/><path opacity=".44" d="M11.1 33.9c-.3 0-.6-.2-.8-.5-.3-.4-.1-1 .3-1.3l6.9-4c.4-.3 1-.1 1.3.3.3.4.1 1-.3 1.3l-6.9 4c-.1.2-.3.2-.5.2z"/><path opacity=".3" d="M31.9 21.9c-.3 0-.6-.2-.8-.5-.3-.4-.1-1 .3-1.3l6.9-4c.4-.3 1-.1 1.3.3.3.4.1 1-.3 1.3l-6.9 4c-.2.2-.3.2-.5.2z"/></svg>';
 
-        /***/ })
-    /******/ ]);
+        /***/
+    })
+    /******/]);
 //# sourceMappingURL=gitment.browser.js.map

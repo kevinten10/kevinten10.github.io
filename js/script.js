@@ -2,7 +2,7 @@
 /*不区分大小写的判断包含， 用于搜索文章标题过滤文章*/
 jQuery.expr[':'].contains = function (a, i, m) {
     return jQuery(a).text().toUpperCase()
-            .indexOf(m[3].toUpperCase()) >= 0;
+        .indexOf(m[3].toUpperCase()) >= 0;
 };
 /*区分大小写，用于搜索标签过滤文章*/
 jQuery.expr[':'].contains_tag = function (a, i, m) {
@@ -15,7 +15,7 @@ jQuery.expr[':'].contains_author = function (a, i, m) {
     return $.inArray(m[3], tags) != -1;
 };
 var blog_path = $('.theme_blog_path').val();
-blog_path= blog_path.lastIndexOf("/") === blog_path.length-1?blog_path.slice(0, blog_path.length-1):blog_path;
+blog_path = blog_path.lastIndexOf("/") === blog_path.length - 1 ? blog_path.slice(0, blog_path.length - 1) : blog_path;
 
 /*使用pjax加载页面，速度更快，交互更友好*/
 var content = $(".pjax");
@@ -47,21 +47,22 @@ $(document).on({
         }
     }
 });
+
 function afterPjax() {
 
     // 文章默认背景
-    if (blog_path===''?location.pathname==='/':blog_path === location.pathname.split('/')[1]) {
-       $('.post').addClass('index')
+    if (blog_path === '' ? location.pathname === '/' : blog_path === location.pathname.split('/')[1]) {
+        $('.post').addClass('index')
     } else {
         $('.post').removeClass('index')
     }
 
     /*渲染MathJax数学公式*/
-    if($("script[type='text/x-mathjax-config']").length>0){
-        $.getScript($("#MathJax-js").val(),function () {
+    if ($("script[type='text/x-mathjax-config']").length > 0) {
+        $.getScript($("#MathJax-js").val(), function () {
             MathJax.Hub.Queue(
-                ["resetEquationNumbers",MathJax.InputJax.TeX],
-                ["Typeset",MathJax.Hub]
+                ["resetEquationNumbers", MathJax.InputJax.TeX],
+                ["Typeset", MathJax.Hub]
             );
         });
     }
@@ -157,7 +158,7 @@ $(document).keyup(function (e) {
     if (!$(".nav-right form .search").is(":focus") && !$('#comments textarea').is(':focus')) {
         if (e.keyCode == 83) { /* S - 显示/隐藏文章列表 */
             $(".full-toc .full").trigger("click");
-        } else if (e.keyCode == 73 && ($(".nav").css('margin-left')=='0px') && !$('.title-list').hasClass('friend')) { /* I */
+        } else if (e.keyCode == 73 && ($(".nav").css('margin-left') == '0px') && !$('.title-list').hasClass('friend')) { /* I */
             $(".nav-right form .search").focus();
         } else if (e.keyCode == 87) { /* W - 显示/隐藏文章目录 */
             $(".full-toc .post-toc-menu").trigger("click");
@@ -220,7 +221,7 @@ $(".nav-right form .search").keydown(function (e) {
                     })
                 }
             }
-        } else if (e.which==9 || e.which == 40) { /* 下 */
+        } else if (e.which == 9 || e.which == 40) { /* 下 */
             if ($('nav').is(':visible')) {
                 if ($("nav a:visible.hover").length == 0 || $("nav a:visible.hover").nextAll(":visible").length == 0) {
                     $("nav").scrollTop(0);
@@ -278,6 +279,7 @@ $(".nav-right form .search").on("change", function (e) {
     inputChange(e);
 });
 var searchContent;
+
 /*根据搜索条件，过滤文章列表*/
 function inputChange(e) {
     var val = $(e.currentTarget).val().trim();
@@ -286,8 +288,8 @@ function inputChange(e) {
     }
     searchContent = val;
     $(".nav-right form .cross").css("display", val == "" ? "none" : "block");
-    if ($('#local-search-result').length>0) {
-        if (val.length>3 && (val.substr(0,3).toLowerCase() == 'in:' || val.substr(0,3).toLowerCase()=='in：')) {
+    if ($('#local-search-result').length > 0) {
+        if (val.length > 3 && (val.substr(0, 3).toLowerCase() == 'in:' || val.substr(0, 3).toLowerCase() == 'in：')) {
             $('#title-list-nav').hide();
             $('#local-search-result').show();
             searchAll(val.substr(3))
@@ -319,6 +321,7 @@ function inputChange(e) {
         $(".nav-right nav").find("a:contains('" + val + "')").css("display", "block");
     }
 }
+
 $('#tagsWitchIcon').on('click', function () {
     $("#tagswitch").trigger('click');
 })
@@ -329,7 +332,7 @@ $("#tagswitch").on("change", function (e) {
     var top = $(this).prop("checked") ? $(".nav-right form").height() + $(".nav-right .tags-list").height() + 51 : $(".nav-right form").height() + 1;
     if ($(window).width() > 426) {
         var height = $(document).height() - top - 11;// 11 为nav的border-top + padding-bottom
-    }  else {
+    } else {
         height = $(document).height() - top - $('.nav-left').height() - 11;// 11 为nav的border-top + padding-bottom
     }
     $(".nav-right nav, #local-search-result").css({"top": top, "height": height});
@@ -359,7 +362,7 @@ $(".full-toc .full,.semicircle").click(function (e) {
 
 $(".post").hover(function () {
     $(".semicircle").css("margin-left", "-43px");
-},function () {
+}, function () {
     $(".semicircle").css("margin-left", "0");
 })
 
@@ -375,8 +378,8 @@ $(function () {
         $('.mobile-menus').removeClass('show');
     })
 
-    $('.nav-left>ul').css('height', 'calc(100vh - '+($('.avatar_target img').outerHeight(true) + $('.author').outerHeight(true)+$('.nav-left .icon').outerHeight(true)+$('.left-bottom').outerHeight(true))+'px)');
-    if ($('#local-search-result').length>0) {
+    $('.nav-left>ul').css('height', 'calc(100vh - ' + ($('.avatar_target img').outerHeight(true) + $('.author').outerHeight(true) + $('.nav-left .icon').outerHeight(true) + $('.left-bottom').outerHeight(true)) + 'px)');
+    if ($('#local-search-result').length > 0) {
         // 全文搜索
         $.getScript(blog_path + '/js/search.js', function () {
             searchFunc(blog_path + "/search.xml", 'local-search-input', 'local-search-result');
@@ -416,13 +419,13 @@ $(function () {
     }
     if ($(window).width() > 414) {
         /*设置文章列表title宽度*/
-        $('.nav-right>nav>a>.post-title').css('width',$('.nav-right>nav>a').width() - $('.nav-right>nav>a>.post-date:first').width() - 40)
+        $('.nav-right>nav>a>.post-title').css('width', $('.nav-right>nav>a').width() - $('.nav-right>nav>a>.post-date:first').width() - 40)
     }
     // 初始化tag列表宽度
     $('.tags-list').css('width', $('.nav-right').width() - 40)
 
     /*友情链接*/
-    $('.friends').on('click',function () {
+    $('.friends').on('click', function () {
         $('.friends-area,.title-list').toggleClass('friend');
     })
 
