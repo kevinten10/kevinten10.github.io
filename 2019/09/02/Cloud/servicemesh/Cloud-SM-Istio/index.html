@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>Kubernetes的持续集成-Jenkins | KevinTen</title>
-  <meta name="keywords" content=" cloud , k8s , ci/cd ">
-  <meta name="description" content="Kubernetes的持续集成-Jenkins | KevinTen">
+  <title>ServiceMesh——Istio简介 | KevinTen</title>
+  <meta name="keywords" content=" service mesh , 服务发现 ">
+  <meta name="description" content="ServiceMesh——Istio简介 | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。 Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享 使用DNS解析而">
 <meta name="keywords" content="cloud,k8s,ci&#x2F;cd">
@@ -384,9 +384,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Cloud/kubernetes/Cloud-K8s-CICD-Jenkins" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Cloud/servicemesh/Cloud-SM-Istio" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Kubernetes的持续集成-Jenkins</h1>
+        <h1 class="article-title">ServiceMesh——Istio简介</h1>
     
     <div class="article-meta">
         
@@ -401,18 +401,16 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color1">cloud</a>
+            <a href="javascript:" class="color3">service mesh</a>
             
-            <a href="javascript:" class="color4">k8s</a>
-            
-            <a href="javascript:" class="color1">ci/cd</a>
+            <a href="javascript:" class="color5">服务发现</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-30 21:10:14'>2019-08-30 11:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-02 10:43:50'>2019-09-02 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -434,7 +432,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#我们基于Jenkins的CI-CD流程如下所示。"><span class="toc-text">我们基于Jenkins的CI/CD流程如下所示。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程说明"><span class="toc-text">流程说明</span></a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Istio简介"><span class="toc-text">Istio简介</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -449,20 +447,15 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="我们基于Jenkins的CI-CD流程如下所示。"><a href="#我们基于Jenkins的CI-CD流程如下所示。" class="headerlink" title="我们基于Jenkins的CI/CD流程如下所示。"></a>我们基于Jenkins的CI/CD流程如下所示。</h3><p><img src="/img/cloud/kubernetes-jenkins-ci-cd.png" alt="CI/CD"></p>
-<h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><p>应用构建和发布流程说明。</p>
-<ol>
-<li>用户向Gitlab提交代码，代码中必须包含Dockerfile；</li>
-<li>将代码提交到远程仓库；</li>
-<li>用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数等，确定后触发Jenkins自动构建；</li>
-<li>Jenkins的CI流水线自动编译代码并打包成docker镜像推送到Harbor镜像仓库；</li>
-<li>Jenkins的CI流水线中包括了自定义脚本，根据我们已准备好的kubernetes的YAML模板，将其中的变量替换成用户输入的选项；</li>
-<li>生成应用的kubernetes YAML配置文件；</li>
-<li>更新Ingress的配置，根据新部署的应用的名称，在ingress的配置文件中增加一条路由信息</li>
-<li>更新PowerDNS，向其中插入一条DNS记录，IP地址是边缘节点的IP地址。关于边缘节点，请查看kubernetes-handbook中的【最佳实践——边缘节点配置】章节；</li>
-<li>Jenkins调用kubernetes的API，部署应用到kubernetes集群中。</li>
-</ol>
-<p>关于应用的更新、滚动升级、灰度发布请留意博客中的后续文章或关注kubernetes-handbook的更新。</p>
+        <h2 id="Istio简介"><a href="#Istio简介" class="headerlink" title="Istio简介"></a>Istio简介</h2><p>Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：</p>
+<ul>
+<li>HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。</li>
+<li>通过丰富的路由规则、重试、故障转移和故障注入，可以对流量行为进行细粒度控制。</li>
+<li>可插入的策略层和配置 API，支持访问控制、速率限制和配额。</li>
+<li>对出入集群入口和出口中所有流量的自动度量指标、日志记录和跟踪。</li>
+<li>通过强大的基于身份的验证和授权，在集群中实现安全的服务间通信。</li>
+</ul>
+<p>Istio 旨在实现可扩展性，满足各种部署需求。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
@@ -476,12 +469,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Kubernetes的持续集成-Jenkins</p>
+    <p><span class="copy-title">文章标题:</span>ServiceMesh——Istio简介</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-30, 11:41:10</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-30, 21:10:14</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/" title="Kubernetes的持续集成-Jenkins">http://yoursite.com/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-02, 00:00:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-02, 10:43:50</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/" title="ServiceMesh——Istio简介">http://yoursite.com/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

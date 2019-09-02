@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>Kubernetes的持续集成-Jenkins | KevinTen</title>
-  <meta name="keywords" content=" cloud , k8s , ci/cd ">
-  <meta name="description" content="Kubernetes的持续集成-Jenkins | KevinTen">
+  <title>Serverless简介 | KevinTen</title>
+  <meta name="keywords" content=" serverless , lambda ">
+  <meta name="description" content="Serverless简介 | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。 Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享 使用DNS解析而">
 <meta name="keywords" content="cloud,k8s,ci&#x2F;cd">
@@ -384,9 +384,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Cloud/kubernetes/Cloud-K8s-CICD-Jenkins" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Cloud/serverless/Cloud-Serverless" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Kubernetes的持续集成-Jenkins</h1>
+        <h1 class="article-title">Serverless简介</h1>
     
     <div class="article-meta">
         
@@ -401,18 +401,16 @@
         
         <span class="tag">
             
-            <a href="javascript:" class="color1">cloud</a>
+            <a href="javascript:" class="color1">serverless</a>
             
-            <a href="javascript:" class="color4">k8s</a>
-            
-            <a href="javascript:" class="color1">ci/cd</a>
+            <a href="javascript:" class="color2">lambda</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-30 21:10:14'>2019-08-30 11:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-09-02 11:09:35'>2019-09-02 00:00</time>
         
     </div>
     <div class="article-meta">
@@ -434,7 +432,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#我们基于Jenkins的CI-CD流程如下所示。"><span class="toc-text">我们基于Jenkins的CI/CD流程如下所示。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程说明"><span class="toc-text">流程说明</span></a>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Serverless的优势"><span class="toc-text">Serverless的优势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#降低人力成本"><span class="toc-text">降低人力成本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#降低风险"><span class="toc-text">降低风险</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#减少资源开销"><span class="toc-text">减少资源开销</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#增加缩放的灵活性"><span class="toc-text">增加缩放的灵活性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#缩短创新周期"><span class="toc-text">缩短创新周期</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Serverless的劣势"><span class="toc-text">Serverless的劣势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#状态管理"><span class="toc-text">状态管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#延迟"><span class="toc-text">延迟</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地测试"><span class="toc-text">本地测试</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -449,20 +447,22 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="我们基于Jenkins的CI-CD流程如下所示。"><a href="#我们基于Jenkins的CI-CD流程如下所示。" class="headerlink" title="我们基于Jenkins的CI/CD流程如下所示。"></a>我们基于Jenkins的CI/CD流程如下所示。</h3><p><img src="/img/cloud/kubernetes-jenkins-ci-cd.png" alt="CI/CD"></p>
-<h2 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h2><p>应用构建和发布流程说明。</p>
-<ol>
-<li>用户向Gitlab提交代码，代码中必须包含Dockerfile；</li>
-<li>将代码提交到远程仓库；</li>
-<li>用户在发布应用时需要填写git仓库地址和分支、服务类型、服务名称、资源数量、实例个数等，确定后触发Jenkins自动构建；</li>
-<li>Jenkins的CI流水线自动编译代码并打包成docker镜像推送到Harbor镜像仓库；</li>
-<li>Jenkins的CI流水线中包括了自定义脚本，根据我们已准备好的kubernetes的YAML模板，将其中的变量替换成用户输入的选项；</li>
-<li>生成应用的kubernetes YAML配置文件；</li>
-<li>更新Ingress的配置，根据新部署的应用的名称，在ingress的配置文件中增加一条路由信息</li>
-<li>更新PowerDNS，向其中插入一条DNS记录，IP地址是边缘节点的IP地址。关于边缘节点，请查看kubernetes-handbook中的【最佳实践——边缘节点配置】章节；</li>
-<li>Jenkins调用kubernetes的API，部署应用到kubernetes集群中。</li>
-</ol>
-<p>关于应用的更新、滚动升级、灰度发布请留意博客中的后续文章或关注kubernetes-handbook的更新。</p>
+        <h2 id="Serverless的优势"><a href="#Serverless的优势" class="headerlink" title="Serverless的优势"></a>Serverless的优势</h2><p>在最前面我们提到了使用IaaS给我们带来了五点好处，FaaS当然也包括了这些好处，但是它给我们带来的最大的好处就是多快好省。减少从概念原型到实施的等待时间，比自己维护服务更省钱。</p>
+<h4 id="降低人力成本"><a href="#降低人力成本" class="headerlink" title="降低人力成本"></a>降低人力成本</h4><p>不需要再自己维护服务器，操心服务器的各种性能指标和资源利用率，而是关心应用程序本身的状态和逻辑。而且serverless应用本身的部署也十分容易，我们只要上传基本的代码但愿，例如Javascript或Python的源代码的zip文件，以及基于JVM的语言的纯JAR文件。不需使用Puppet、Chef、Ansible或Docker来进行配置管理，降低了运维成本。同时，对于运维来说，也不再需要监控那些更底层的如磁盘使用量、CPU使用率等底层和长期的指标信息，而是监控应用程序本身的度量，这将更加直观和有效。</p>
+<p>在此看来有人可能会提出“NoOps”的说法，其实这是不存在的，只要有应用存在的一天就会有Ops，只是人员的角色会有所转变，部署将变得更加自动化，监控将更加面向应用程序本身，更底层的运维依然需要专业的人员去做。</p>
+<h4 id="降低风险"><a href="#降低风险" class="headerlink" title="降低风险"></a>降低风险</h4><p>对于组件越多越复杂的系统，出故障的风险就越大。我们使用BaaS或FaaS将它们外包出去，让专业人员来处理这些故障，有时候比我们自己来修复更可靠，利用专业人员的知识来降低停机的风险，缩短故障修复的时间，让我们的系统稳定性更高。</p>
+<h4 id="减少资源开销"><a href="#减少资源开销" class="headerlink" title="减少资源开销"></a>减少资源开销</h4><p>我们在申请主机资源一般会评估一个峰值最大开销来申请资源，往往导致过度的配置，这意味着即使在主机闲置的状态下也要始终支付峰值容量的开销。对于某些应用来说这是不得已的做法，比如数据库这种很难扩展的应用，而对于普通应用这就显得不太合理了，虽然我们都觉得即使浪费了资源也比当峰值到来时应用程序因为资源不足而挂掉好。</p>
+<p>解决这个问题最好的办法就是，不计划到底需要使用多少资源，而是根据实际需要来请求资源，当然前提必须是整个资源池是充足的（公有云显然更适合）。根据使用时间来付费，根据每次申请的计算资源来付费，让计费的粒度更小，将更有利于降低资源的开销。这是对应用程序本身的优化，例如让每次请求耗时更短，让每次消耗的资源更少将能够显著节省成本。</p>
+<h4 id="增加缩放的灵活性"><a href="#增加缩放的灵活性" class="headerlink" title="增加缩放的灵活性"></a>增加缩放的灵活性</h4><p>以AWS Lamba为例，当平台接收到第一个触发函数的事件时，它将启动一个容器来运行你的代码。如果此时收到了新的事件，而第一个容器仍在处理上一个事件，平台将启动第二个代码实例来处理第二个事件。AWS lambad的这种自动的零管理水平缩放，将持续到有足够的代码实例来处理所有的工作负载。</p>
+<p>但是，AWS仍然只会向您收取代码的执行时间，无论它需要启动多少个容器实例要满足你的负载请求。例如，假设所有事件的总执行时间是相同的，在一个容器中按顺序调用Lambda 100次与在100个不同容器中同时调用100次Lambda的成本是 一样的。当然AWS Lambada也不会无限制的扩展实例个数，如果有人对你发起了DDos攻击怎么办，那么不就会产生高昂的成本吗？AWS是有默认限制的，默认执行Lambada函数最大并发数是1000。</p>
+<h4 id="缩短创新周期"><a href="#缩短创新周期" class="headerlink" title="缩短创新周期"></a>缩短创新周期</h4><p>小团队的开发人员正可以在几天之内从头开始开发应用程序并部署到生产。使用短而简单的函数和事件来粘合强大的驱动数据存储和服务的API。完成的应用程序具有高度可用性和可扩展性，利用率高，成本低，部署速度快。</p>
+<p>以docker为代表的容器技术仅仅是缩短了应用程序的迭代周期，而serverless技术是直接缩短了创新周期，从概念到最小可行性部署的时间，让初级开发人员也能在很短的时间内完成以前通常要经验丰富的工程师才能完成的项目。</p>
+<h2 id="Serverless的劣势"><a href="#Serverless的劣势" class="headerlink" title="Serverless的劣势"></a>Serverless的劣势</h2><p>我们知道没有十全十美的技术，在说了serverless的那么多优势之后，我们再来探讨以下serverless的劣势，或者说局限性和适用场景。</p>
+<h4 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h4><p>要想实现自由的缩放，无状态是必须的，而对于有状态的服务，使用serverless这就丧失了灵活性，有状态服务需要与存储交互就不可避免的增加了延迟和复杂性。</p>
+<h4 id="延迟"><a href="#延迟" class="headerlink" title="延迟"></a>延迟</h4><p>应用程序中不同组件的访问延迟是一个大问题，我们可以通过使用专有的网络协议、RPC调用、数据格式来优化，或者是将实例放在同一个机架内或同一个主机实例上来优化以减少延迟。</p>
+<p>而serverless应用程序是高度分布式、低耦合的，这就意味着延迟将始终是一个问题，单纯使用serverless的应用程序是不太现实的。</p>
+<h4 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h4><p>Serverless应用的本地测试困难是一个很棘手的问题。虽然可以在测试环境下使用各种数据库和消息队列来模拟生产环境，但是对于无服务应用的集成或者端到端测试尤其困难，很难在本地模拟应用程序的各种连接，并与性能和缩放的特性结合起来测试，并且serverless应用本身也是分布式的，简单的将无数的FaaS和BaaS组件粘合起来也是有挑战性的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Karl Marx说的好，生产力决定生产关系，云计算的概念层出不穷，其本质上还是对生产关系和生产力的配置与优化，生产者抛开场景意味追求高大上的技术将譬如“大炮打蚊子”，小题大做，鼓励大家为了满足大家的好奇心进行折腾，毕竟那么多科学发现和重大发明都是因为折腾出来的，不想要一匹跑的更快的马，而是发明汽车的福特，捣鼓炸药的诺贝尔，种豌豆的孟德尔。。。同时还是要考虑将技术产业化（或许能改变生产关系），提高生产力。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
@@ -476,12 +476,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Kubernetes的持续集成-Jenkins</p>
+    <p><span class="copy-title">文章标题:</span>Serverless简介</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-08-30, 11:41:10</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-30, 21:10:14</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/" title="Kubernetes的持续集成-Jenkins">http://yoursite.com/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/</a>
+    <p><span class="copy-title">发布时间:</span>2019-09-02, 00:00:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-02, 11:09:35</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/02/Cloud/serverless/Cloud-Serverless/" title="Serverless简介">http://yoursite.com/2019/09/02/Cloud/serverless/Cloud-Serverless/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
