@@ -6,18 +6,18 @@
   <meta name="keywords" content>
   <meta name="description" content="KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。 Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享 使用DNS解析而">
-<meta name="keywords" content="cloud,k8s,ci&#x2F;cd">
+<meta name="description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
+<meta name="keywords" content="service mesh,服务发现">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kubernetes的持续集成-Wercker">
-<meta property="og:url" content="http://yoursite.com/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/index.html">
+<meta property="og:title" content="ServiceMesh——Istio简介">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/index.html">
 <meta property="og:site_name" content="KevinTen">
-<meta property="og:description" content="因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。 Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享 使用DNS解析而">
+<meta property="og:description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-30T13:27:25.492Z">
+<meta property="og:updated_time" content="2019-09-02T02:43:50.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kubernetes的持续集成-Wercker">
-<meta name="twitter:description" content="因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。 Kubernetes在启动Pod的时候为容器注入环境变量，这些环境变量将在该Pod所在的namespace中共享 使用DNS解析而">
+<meta name="twitter:title" content="ServiceMesh——Istio简介">
+<meta name="twitter:description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -223,11 +223,35 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">cloud</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">k8s</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">kubectl</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">ci/cd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">log</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color3">service mesh</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color5">服务发现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linkerd</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -238,59 +262,11 @@
         <a href="javascript:" class="color2">lambda</a>
     </li>
     
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">linkerd</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color1">cloud</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">k8s</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color1">ci/cd</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color3">kubectl</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">log</a>
-    </li>
-    
     <div class="clearfix"></div>
 </div>
 
     
     <nav id="title-list-nav">
-        
-        <a  class="Cloud "
-           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
-           data-tag="service mesh,服务发现"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
-           data-tag="serverless,lambda"
-           data-author="" >
-            <span class="post-title" title="Serverless简介">Serverless简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/"
-           data-tag="service mesh,linkerd"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh——Linkerd简介">ServiceMesh——Linkerd简介</span>
-            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
-        </a>
         
         <a  class="Cloud "
            href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
@@ -301,19 +277,11 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
-           data-tag="service mesh,服务发现"
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/"
+           data-tag="cloud,k8s,kubectl"
            data-author="" >
-            <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/08/30/Cloud/servicemesh/Cloud-服务发现/"
-           data-tag="service mesh,服务发现"
-           data-author="" >
-            <span class="post-title" title="微服务中的服务发现方式对比">微服务中的服务发现方式对比</span>
-            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+            <span class="post-title" title="Kubernetes的客户端-Kubectl">Kubernetes的客户端-Kubectl</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
         <a  class="Cloud "
@@ -333,10 +301,18 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/"
-           data-tag="cloud,k8s,kubectl"
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
+           data-tag="cloud,k8s,log"
            data-author="" >
-            <span class="post-title" title="Kubernetes的客户端-Kubectl">Kubernetes的客户端-Kubectl</span>
+            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
             <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
@@ -357,19 +333,43 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
-           data-tag="cloud,k8s,log"
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
+           data-tag="service mesh,服务发现"
            data-author="" >
-            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+            <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
-           data-tag="cloud,k8s,log"
+           href="/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/"
+           data-tag="service mesh,linkerd"
            data-author="" >
-            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+            <span class="post-title" title="ServiceMesh——Linkerd简介">ServiceMesh——Linkerd简介</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
+           data-tag="serverless,lambda"
+           data-author="" >
+            <span class="post-title" title="Serverless简介">Serverless简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-服务发现/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="微服务中的服务发现方式对比">微服务中的服务发现方式对比</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
         </a>
         
     </nav>
@@ -480,7 +480,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#service mesh','#服务发现','#serverless','#lambda','#linkerd','#cloud','#k8s','#ci/cd','#kubectl','#log',],
+            'data': ['#cloud','#k8s','#kubectl','#ci/cd','#log','#service mesh','#服务发现','#linkerd','#serverless','#lambda',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
