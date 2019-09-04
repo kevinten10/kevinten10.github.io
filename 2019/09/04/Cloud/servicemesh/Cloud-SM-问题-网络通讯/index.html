@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>KevinTen</title>
+  <meta name="keywords" content>
+  <meta name="description" content="KevinTen">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
+<meta name="keywords" content="service mesh,服务发现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ServiceMesh——Istio简介">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/index.html">
+<meta property="og:site_name" content="KevinTen">
+<meta property="og:description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-02T02:43:50.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ServiceMesh——Istio简介">
+<meta name="twitter:description" content="Istio简介Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：  HTTP、gRPC、WebSocket 和 TCP 流量的自动负载均衡。 通">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>KevinTen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/kevinten10" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="linkedin" href="https://www.linkedin.com/in/%E4%BB%95%E8%B1%AA-%E7%8E%8B-6a648a152/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-linkedin"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/wsh596823919" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:wshten@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=596823919&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(22)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Cloud">Cloud<small>(19)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Async异步">Async异步<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="22">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/kevinten10">Kevinten10</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">cloud</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">service mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">envoy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">服务发现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">async</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">CompletableFuture</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linkerd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">k8s</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">ci/cd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">serverless</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lambda</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">kubectl</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">istio</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">log</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/Cloud-Arch/"
+           data-tag="cloud"
+           data-author="" >
+            <span class="post-title" title="Cloud架构">Cloud架构</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Envoy/"
+           data-tag="service mesh,envoy"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Envoy简介">ServiceMesh--Envoy简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Ready for Cloud Native">ServiceMesh--Ready for Cloud Native</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-09-04 11:35:46">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--问题">ServiceMesh--问题</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-流量劫持/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--流量劫持">ServiceMesh--流量劫持</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-09-04 11:19:46">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Async异步 "
+           href="/2019/09/03/Async/Future/Async-Future-异步返回值/"
+           data-tag="async,CompletableFuture"
+           data-author="" >
+            <span class="post-title" title="异步--CompletableFuture作为返回值">异步--CompletableFuture作为返回值</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/"
+           data-tag="service mesh,linkerd"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Linkerd简介">ServiceMesh——Linkerd简介</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Jenkins">Kubernetes的持续集成-Jenkins</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-服务发现/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="Cloud-微服务中的服务发现方式对比">Cloud-微服务中的服务发现方式对比</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes architeture">Kubernetes architeture</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
+           data-tag="serverless,lambda"
+           data-author="" >
+            <span class="post-title" title="Serverless简介">Serverless简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/"
+           data-tag="cloud,k8s,kubectl"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的客户端-Kubectl">Kubernetes的客户端-Kubectl</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Wercker">Kubernetes的持续集成-Wercker</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Istio/"
+           data-tag="service mesh,istio"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Istio简介">ServiceMesh--Istio简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Cloud/servicemesh/Cloud-SM-问题-网络通讯" class="article article-type-post" itemscope itemprop="blogPost">
+    
+    <div class="article-meta">
+        
+        
+        
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-09-04 11:35:46'>2019-09-04 11:35</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#网络通讯方案"><span class="toc-text">网络通讯方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Service-Mesh方式"><span class="toc-text">Service Mesh方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轻量级-VS-微服务"><span class="toc-text">轻量级 VS 微服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#侵入式客户端窘境"><span class="toc-text">侵入式客户端窘境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源于Service-Mesh的自由"><span class="toc-text">源于Service Mesh的自由</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Service-Mesh协议支持"><span class="toc-text">Service Mesh协议支持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自由之下的烦恼"><span class="toc-text">自由之下的烦恼</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: ServiceMesh–网络通讯<br>date: 2019-09-04 00:00:00<br>tags: </p>
+<ul>
+<li>service mesh<br>categories: Cloud</li>
+</ul>
+<hr>
+<h3 id="网络通讯方案"><a href="#网络通讯方案" class="headerlink" title="网络通讯方案"></a>网络通讯方案</h3><p>Service Mesh解决服务间通讯的方式是基于网络层，HTTP1.1/HTTP2和可能的TCP，对于选择什么样的序列化方案和远程访问方案并未限制。</p>
+<p>好处是我们可以自由的选择各种方案，坏处就是自由意味着自己做。</p>
+<p>能否以类库或者最佳实践的方式给出适合service mesh时代的网络通讯方案？</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在深入讨论之前，先简单交代一下背景。对于远程通讯来说，有两个重点：</p>
+<ul>
+<li><p>序列化协议</p>
+<p>  序列化和反序列化方式，主要是两大派系：1. 文本格式，主流是REST（或者说JSON），XML。2. 二进制格式,主流如Thrift，Protocol Buffer, Hessian，还有某些框架特有的格式如Dubbo，另外Java社区还有以慢著称的Java序列化。</p>
+</li>
+<li><p>远程调用方式</p>
+<p>  主要是REST和RPC两个流派的竞争。</p>
+</li>
+</ul>
+<p>传统侵入式开发框架<br>对于传统侵入式开发框架，远程通讯是其SDK的核心内容。客户端能选择什么样的通讯方案，取决于SDK可以支持哪些。</p>
+<p><img src="/img/cloud/net.png" alt="协议"></p>
+<p>总体上说，REST和RPC两个方案都有，早期的部分框架还会保留诸如Hessian/Rmi/WebService</p>
+<h2 id="Service-Mesh方式"><a href="#Service-Mesh方式" class="headerlink" title="Service Mesh方式"></a>Service Mesh方式</h2><p>我们进入正题，谈谈Service Mesh下的情况。</p>
+<p>首先我们来看看侵入式开发框架和Service Mesh的差异(仅以请求为例，应答是同理)：</p>
+<p><img src="/img/cloud/conmunicate.png" alt="区别"></p>
+<ul>
+<li>侵入式开发框架下，客户端和服务器端直接通讯，客户端做一次序列化，服务器端做一次反序列化</li>
+<li>Service Mesh就要复杂的多，在客户端和服务器端部署有一个或者两个Mesh，用于转发请求。</li>
+</ul>
+<p>首先，我们可以看到，Service Mesh下服务间通讯的方式是基于网络层。在整个过程中，Mesh只需要能支持通讯协议，比如最常见的HTTP1.1/HTTP2，能做到接收请求并转发即可。原则上，Mesh接受到请求之后，只是读取Header获得必要信息，然后透传Payload。</p>
+<p>因此，对于选择什么样的序列化方案和远程访问方案并无限制：</p>
+<ol>
+<li>原则上Payload是透传的，Mesh并不关心其实质内容。</li>
+<li>Mesh收到的是网络请求，不关心这个请求客户端是如何发出来的，也就是说REST和PRC与否和Mesh无关。</li>
+</ol>
+<p>理论上说，传统侵入式开发框架可以选择的方案在Service Mesh下都是可以继续沿用的。</p>
+<p>但是需要额外特别指出的是，在Service Mesh下，跨语言和跨平台是必须满足的基本需求。因此，任何语言和平台有关的序列化协议和远程调用方式都不适合，比如Java序列化，EJB之类。当然，目前主流的侵入式开发框架也基本都在遵循这个原则，只是Service Mesh下会做的更加的坚决。</p>
+<h2 id="轻量级-VS-微服务"><a href="#轻量级-VS-微服务" class="headerlink" title="轻量级 VS 微服务"></a>轻量级 VS 微服务</h2><p>按照Martin Fowler老爷子给出的微服务经典定义：</p>
+<pre><code>微服务架构风格是一种将一个单一应用程序开发为一组小型服务的方法，每个服务运行在自己的进程中，服务间通信采用轻量级通信机制(通常用HTTP Resource API)。</code></pre><p>服务间通信采用轻量级通信机制，这是微服务的美好愿景。但是，事情往往不是想象中那么完美。</p>
+<h3 id="侵入式客户端窘境"><a href="#侵入式客户端窘境" class="headerlink" title="侵入式客户端窘境"></a>侵入式客户端窘境</h3><p>以REST为例，虽然REST一直标榜轻量级，要发出一个REST请求对于任何语言都不是难事。但是一旦和微服务结合，就立马变得臃肿不堪，以Spring Cloud为例：</p>
+<ul>
+<li>为了实现服务发现需要引入Eureka</li>
+<li>为了客户端的负载均衡需要引入Ribbon</li>
+<li>为了熔断需要引入Hystrix</li>
+<li>为了分布式追踪引入zipkin</li>
+<li>……</li>
+</ul>
+<p>为了让各个类库协调工作，中间还有大量的集成工作，连自成一家的netflix OSS套件，在Spring Cloud集成中工作量也没少到哪里去。对于普通用户，无论刚开始的REST类库有多简单，只要开始了微服务之路，就不得不一个一个的功能坐上去：服务注册和服务发现是必须的，负载均衡也是必须的，熔断没有未免不够安全，没有APM debug时很不方便，有些还要考虑高级一点的功能如智能路由，还要考虑安全，比如认证/加密……</p>
+<p>因此，采用REST实现微服务，要不直接用Spring Cloud，要不就一路做下来做出一套类似Spring Cloud的系统。类似的，采用RPC方案来实现微服务，最终成型的系统也无外如是。</p>
+<p><strong>侵入式开发框架，最终都会成为一个庞然大物。</strong></p>
+<p>这一路做下来，最开始起步时到底是不是轻量级已经无关轻重。此时作为这个庞然大物的核心和入口，客户端类库已经捆绑了太多的东西，重也是无可奈何。</p>
+<p>而太重也就意味着断无可能随意更换。开发框架的SDK集成了什么样的类库，那么用户的客户端就只能选择什么。</p>
+<h3 id="源于Service-Mesh的自由"><a href="#源于Service-Mesh的自由" class="headerlink" title="源于Service Mesh的自由"></a>源于Service Mesh的自由</h3><p>在Service Mesh之下，有一个特别的地方：相比侵入式开发框架，客户端大为简化，只需要将生成请求并发送出去即可。上面列出的服务发现，负载均衡等各种功能由Service Mesh接管。客户端功能的极大简化，体现在开发的技术选型上，就是：</p>
+<p>可以自由的选择客户端类库。</p>
+<p>Service Mesh下的REST，才真的有了轻量级的感觉。采用REST开发，可以选择的类库和方式也就可以天马行空任意发挥了。对于RPC，由于不再需要在RPC中捆绑微服务框架的诸多功能，同样也是大为简化。</p>
+<h4 id="Service-Mesh协议支持"><a href="#Service-Mesh协议支持" class="headerlink" title="Service Mesh协议支持"></a>Service Mesh协议支持</h4><p>对于HTTP1.1/HTTP2这样的有明确Header，格式通用的协议，Service Mesh都可以很轻松的提供支持。目前市面上主流的Servic Mesh实现都提供了对HTTP1.1的支持，而且基本也都提供HTTP2的支持。</p>
+<p>对于TCP协议的支持要稍微麻烦一些，但是只要格式清晰，有类似的Header/Payload结构，Service Mesh也还是有办法以类似的方式提供支持。麻烦只是在于需要为每个具体的TCP协议提供特定的扩展，无法像HTTP1.1/HTTP2可以通用。</p>
+<p>无论如何，<strong>Payload只透传不处理是基本原则。</strong></p>
+<p>基于这个原则，序列化方式对Service Mesh来说就可以完全无关：无论是文本还是二进制，无论消息体结构如何，对Service Mesh而言都只是一段byte数组。</p>
+<p>至此，在Service Mesh加持下，服务间网络通讯的解决方案可以选择的余地就大了：</p>
+<ul>
+<li>可以自由选择HTTP1.1/HTTP2</li>
+<li>可以自由选择文本格式或者二进制格式，JSON/xml/thrift/protocol buffer随意</li>
+<li>可以自由选择REST/RPC</li>
+<li>可以自由选择相关的类库，不再需要各种集成</li>
+</ul>
+<h3 id="自由之下的烦恼"><a href="#自由之下的烦恼" class="headerlink" title="自由之下的烦恼"></a>自由之下的烦恼</h3><p>自由的好处是我们可以任意选择各种方案，但是自由带来的一个烦恼就是没有一个足够好的方案可以简单借鉴，没有一个足够好的模式可以严格遵循。</p>
+<p>在微服务体系的各种功能之外，我们在开发时，还会遇到很多实际工作：</p>
+<ul>
+<li>REST开发时，到底该先定义好API，然后生成代码？还是先写代码，通过注解等方式来定义API？</li>
+<li>RPC开发时，schema该如何定义才更合理？</li>
+<li>接口的API文档要如何编写？</li>
+<li>错误码的定义，错误信息的传递</li>
+<li>集成测试时如何方便的mock依赖的微服务？</li>
+</ul>
+<p>能否以最佳实践的方式给出适合service mesh时代的网络通讯方案？</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span></p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-09-04, 11:35:46</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-04, 11:35:46</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/" title="">http://yoursite.com/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2015-2019 KevinTen</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#cloud','#service mesh','#envoy','#服务发现','#async','#CompletableFuture','#linkerd','#k8s','#ci/cd','#serverless','#lambda','#kubectl','#istio','#log',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+</div>
+
+
+</html>
