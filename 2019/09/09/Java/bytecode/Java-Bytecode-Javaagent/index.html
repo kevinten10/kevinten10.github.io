@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>javaagent | KevinTen</title>
+  <meta name="keywords" content=" java , javaagent ">
+  <meta name="description" content="javaagent | KevinTen">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
+<meta name="keywords" content="service mesh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ServiceMesh--Spring">
+<meta property="og:url" content="http://yoursite.com/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/index.html">
+<meta property="og:site_name" content="KevinTen">
+<meta property="og:description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-08T08:31:39.358Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ServiceMesh--Spring">
+<meta name="twitter:description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>KevinTen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/kevinten10" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="linkedin" href="https://www.linkedin.com/in/%E4%BB%95%E8%B1%AA-%E7%8E%8B-6a648a152/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-linkedin"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/wsh596823919" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:wshten@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=596823919&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(38)</small></div></li>
+    
+        
+            
+            <li><div data-rel="Reactive">Reactive<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Cloud">Cloud<small>(26)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Tomcat">Tomcat<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Rpc">Rpc<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="AWS">AWS<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Async">Async<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Java">Java<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="38">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/kevinten10">Kevinten10</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">reactive</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">net</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">cloud</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">tomcat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">rpc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">aws</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring cloud aws</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">ci</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">code</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">async</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">CompletableFuture</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">k8s</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">ci/cd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">app mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">kubectl</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">log</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">service mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">envoy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">serverless</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lambda</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">服务发现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linkerd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">istio</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">javaagent</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-Net-网络数据响应式原理/"
+           data-tag="java,reactive,net"
+           data-author="" >
+            <span class="post-title" title="Reactive的网卡数据驱动原理">Reactive的网卡数据驱动原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/Cloud-Arch/"
+           data-tag="cloud"
+           data-author="" >
+            <span class="post-title" title="Cloud架构">Cloud架构</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-gRPC/"
+           data-tag="java,reactive"
+           data-author="" >
+            <span class="post-title" title="Reactive gRPC">Reactive gRPC</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-混合模式/"
+           data-tag="java,reactive"
+           data-author="" >
+            <span class="post-title" title="混合 Reactive 模式">混合 Reactive 模式</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Tomcat "
+           href="/2019/09/15/Tomcat/Tomcat-IO模型/"
+           data-tag="java,tomcat"
+           data-author="" >
+            <span class="post-title" title="Tomcat IO模型">Tomcat IO模型</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Rpc "
+           href="/2019/09/15/Rpc/Rpc-核心技术/"
+           data-tag="rpc"
+           data-author="" >
+            <span class="post-title" title="RPC 工作原理">RPC 工作原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/06/AWS/java/Aws-Java-Spring cloud aws/"
+           data-tag="java,aws,spring cloud aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-Spring cloud aws">AWS-Java-Spring cloud aws</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/06/AWS/code/Aws-Code-code系列使用/"
+           data-tag="aws,ci,code"
+           data-author="" >
+            <span class="post-title" title="AWS-CI-code系列使用">AWS-CI-code系列使用</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="Async "
+           href="/2019/09/03/Async/Future/Async-Future-异步返回值/"
+           data-tag="async,CompletableFuture"
+           data-author="" >
+            <span class="post-title" title="Async--CompletableFuture作为返回值">Async--CompletableFuture作为返回值</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes architeture">Kubernetes architeture</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/05/Cloud/java/Cloud-Java-Log-Skywalking(Incubator)/"
+           data-tag="java,cloud"
+           data-author="" >
+            <span class="post-title" title="云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？">云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？</span>
+            <span class="post-date" title="2019-09-05 00:00:00">2019/09/05</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Wercker">Kubernetes的持续集成-Wercker</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/08/AWS/service/Aws-Service-AppMesh/"
+           data-tag="aws,app mesh"
+           data-author="" >
+            <span class="post-title" title="AWS-ServiceMesh-AppMesh">AWS-ServiceMesh-AppMesh</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/"
+           data-tag="cloud,k8s,kubectl"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的客户端-Kubectl">Kubernetes的客户端-Kubectl</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Jenkins">Kubernetes的持续集成-Jenkins</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Envoy/"
+           data-tag="service mesh,envoy"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Envoy简介">ServiceMesh--Envoy简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
+           data-tag="serverless,lambda"
+           data-author="" >
+            <span class="post-title" title="Serverless简介">Serverless简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/"
+           data-tag="service mesh,linkerd"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Linkerd简介">ServiceMesh——Linkerd简介</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Spring">ServiceMesh--Spring</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Ready for Cloud Native">ServiceMesh--Ready for Cloud Native</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Spring Cloud">ServiceMesh--Spring Cloud</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--网络通讯">ServiceMesh--网络通讯</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--问题">ServiceMesh--问题</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-性能开销/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--性能开销">ServiceMesh--性能开销</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-服务发现/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="Cloud-微服务中的服务发现方式对比">Cloud-微服务中的服务发现方式对比</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-流量劫持/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--流量劫持">ServiceMesh--流量劫持</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/09/15/Java/io/Java-IO模型/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java IO模型">Java IO模型</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Tomcat "
+           href="/2019/09/15/Tomcat/async/Tomcat-Async-异步化原理/"
+           data-tag="java,tomcat"
+           data-author="" >
+            <span class="post-title" title="Tomcat + Servlet3 的异步化处理原理">Tomcat + Servlet3 的异步化处理原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Istio/"
+           data-tag="service mesh,istio"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Istio简介">ServiceMesh--Istio简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-事件驱动/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--事件驱动消息">ServiceMesh--事件驱动消息</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/09/09/Java/bytecode/Java-Bytecode-Javaagent/"
+           data-tag="java,javaagent"
+           data-author="" >
+            <span class="post-title" title="javaagent">javaagent</span>
+            <span class="post-date" title="2019-09-09 00:00:00">2019/09/09</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Java/bytecode/Java-Bytecode-Javaagent" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">javaagent</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="Java">Java</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color5">java</a>
+            
+            <a href="javascript:" class="color5">javaagent</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-09-09 11:55:13'>2019-09-09 00:00</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Javaagent-能干什么"><span class="toc-text">Javaagent 能干什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Javaagent-原理"><span class="toc-text">Javaagent 原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#premain-用法"><span class="toc-text">premain 用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#依据惯例使用maven构建-需要指定premain-class"><span class="toc-text">依据惯例使用maven构建, 需要指定premain-class</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#然后是assembly插件的描述"><span class="toc-text">然后是assembly插件的描述</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字节码操作结果"><span class="toc-text">字节码操作结果</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实 Javagent 一点也不神秘，它就是一个 jar 包，只不过启动方式不是跟普通 jar 包不一样，并不是类的静态 main 函数。agent 的 jar 包也不能单独启动，必须依附于 JVM 进程才可以。</p>
+<p>Javaagent 是 JDK5 引入的，开发者可以通过修改字节码实现动态修改类代码。Javaagent 是运行在 main 方法之前的拦截器，它内定的方法名叫 premain ，也就是说先执行 premain 方法然后再执行 main 方法。我们也可以很方便地在运行过程中动态地设置加载代理类，以达到 instrumentation 的目的。 Instrumentation 的最大作用就是类定义动态改变和操作。</p>
+<p>JDK5中只能通过命令行参数在启动JVM时指定javaagent参数来设置代理类，而JDK6中已经不仅限于在启动JVM时通过配置参数来设置代理类，JDK6中通过 Java Tool API 中的 attach 方式，我们也可以很方便地在运行过程中动态地设置加载代理类，以达到 instrumentation 的目的。<br>Instrumentation 的最大作用，就是类定义动态改变和操作。</p>
+<h3 id="Javaagent-能干什么"><a href="#Javaagent-能干什么" class="headerlink" title="Javaagent 能干什么"></a>Javaagent 能干什么</h3><ul>
+<li><p>可以在加载 class 文件之前做拦截，对字节码做修改(premain)，可以实现 AOP、修改源代码等功能。</p>
+</li>
+<li><p>可以在运行期对已加载类的字节码做变更(agentmain)，可以实现热部署等功能。</p>
+</li>
+<li><p>还有其他一些小众的功能</p>
+<pre><code>获取所有已经加载过的类
+
+获取某个对象的大小</code></pre></li>
+</ul>
+<h3 id="Javaagent-原理"><a href="#Javaagent-原理" class="headerlink" title="Javaagent 原理"></a>Javaagent 原理</h3><p>下面是一个典型的 Java 源文件到运行的过程，Javaagent 发挥作用的是从 class 文件到类加载的这个中间过程，可以在加载 class 文件之前做拦截，对字节码做修改，实现任何想要的效果</p>
+<p><img src="/img/java/javaagent.jpg" alt="agent"></p>
+<h3 id="premain-用法"><a href="#premain-用法" class="headerlink" title="premain 用法"></a>premain 用法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AgentMain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">premain</span><span class="params">(String agentArgument, Instrumentation instrumentation)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        instrumentation.addTransformer(<span class="keyword">new</span> ClassFileTransformer() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">byte</span>[] transform(ClassLoader loader, String className, Class&lt;?&gt; classBeingRedefined, ProtectionDomain protectionDomain, <span class="keyword">byte</span>[] classfileBuffer) <span class="keyword">throws</span> IllegalClassFormatException &#123;</span><br><span class="line">                <span class="comment">// 打印加载的类</span></span><br><span class="line">                System.out.println(<span class="string">"transform: "</span> + className);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最简单的一个例子，计算某个方法执行需要的时间，不修改源代码的方式，使用Instrumentation 代理来实现这个功能，给力的说，这种方式相当于在JVM级别做了AOP支持，这样我们可以在不修改应用程序的基础上就做到了AOP。</p>
+<ol>
+<li><p>创建一个 ClassFileTransformer 接口的实现类 MyTransformer </p>
+<p> 实现 ClassFileTransformer 这个接口的目的就是在class被装载到JVM之前将class字节码转换掉，从而达到动态注入代码的目的。那么首先要了解MonitorTransformer 这个类的目的，就是对想要修改的类做一次转换，这个用到了javassist对字节码进行修改，可以暂时不用关心jaavssist的原理，用ASM同样可以修改字节码，只不过比较麻烦些。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.shanhy.demo.agent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.instrument.ClassFileTransformer;</span><br><span class="line"><span class="keyword">import</span> java.lang.instrument.IllegalClassFormatException;</span><br><span class="line"><span class="keyword">import</span> java.security.ProtectionDomain;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javassist.ClassPool;</span><br><span class="line"><span class="keyword">import</span> javassist.CtClass;</span><br><span class="line"><span class="keyword">import</span> javassist.CtMethod;</span><br><span class="line"><span class="keyword">import</span> javassist.CtNewMethod;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 检测方法的执行时间</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTransformer</span> <span class="keyword">implements</span> <span class="title">ClassFileTransformer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String prefix = <span class="string">"\nlong startTime = System.currentTimeMillis();\n"</span>;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> String postfix = <span class="string">"\nlong endTime = System.currentTimeMillis();\n"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 被处理的方法列表</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> Map&lt;String, List&lt;String&gt;&gt; methodMap = <span class="keyword">new</span> HashMap&lt;String, List&lt;String&gt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyTransformer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        add(<span class="string">"com.shanhy.demo.TimeTest.sayHello"</span>);</span><br><span class="line">        add(<span class="string">"com.shanhy.demo.TimeTest.sayHello2"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(String methodString)</span> </span>&#123;</span><br><span class="line">        String className = methodString.substring(<span class="number">0</span>, methodString.lastIndexOf(<span class="string">"."</span>));</span><br><span class="line">        String methodName = methodString.substring(methodString.lastIndexOf(<span class="string">"."</span>) + <span class="number">1</span>);</span><br><span class="line">        List&lt;String&gt; list = methodMap.get(className);</span><br><span class="line">        <span class="keyword">if</span> (list == <span class="keyword">null</span>) &#123;</span><br><span class="line">            list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">            methodMap.put(className, list);</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(methodName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] transform(ClassLoader loader, String className, Class&lt;?&gt; classBeingRedefined,</span><br><span class="line">            ProtectionDomain protectionDomain, <span class="keyword">byte</span>[] classfileBuffer) <span class="keyword">throws</span> IllegalClassFormatException &#123;</span><br><span class="line">        className = className.replace(<span class="string">"/"</span>, <span class="string">"."</span>);</span><br><span class="line">        <span class="keyword">if</span> (methodMap.containsKey(className)) &#123;<span class="comment">// 判断加载的class的包路径是不是需要监控的类</span></span><br><span class="line">            CtClass ctclass = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ctclass = ClassPool.getDefault().get(className);<span class="comment">// 使用全称,用于取得字节码类&lt;使用javassist&gt;</span></span><br><span class="line">                <span class="keyword">for</span> (String methodName : methodMap.get(className)) &#123;</span><br><span class="line">                    String outputStr = <span class="string">"\nSystem.out.println(\"this method "</span> + methodName</span><br><span class="line">                            + <span class="string">" cost:\" +(endTime - startTime) +\"ms.\");"</span>;</span><br><span class="line"></span><br><span class="line">                    CtMethod ctmethod = ctclass.getDeclaredMethod(methodName);<span class="comment">// 得到这方法实例</span></span><br><span class="line">                    String newMethodName = methodName + <span class="string">"$old"</span>;<span class="comment">// 新定义一个方法叫做比如sayHello$old</span></span><br><span class="line">                    ctmethod.setName(newMethodName);<span class="comment">// 将原来的方法名字修改</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 创建新的方法，复制原来的方法，名字为原来的名字</span></span><br><span class="line">                    CtMethod newMethod = CtNewMethod.copy(ctmethod, methodName, ctclass, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 构建新的方法体</span></span><br><span class="line">                    StringBuilder bodyStr = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">                    bodyStr.append(<span class="string">"&#123;"</span>);</span><br><span class="line">                    bodyStr.append(prefix);</span><br><span class="line">                    bodyStr.append(newMethodName + <span class="string">"($$);\n"</span>);<span class="comment">// 调用原有代码，类似于method();($$)表示所有的参数</span></span><br><span class="line">                    bodyStr.append(postfix);</span><br><span class="line">                    bodyStr.append(outputStr);</span><br><span class="line">                    bodyStr.append(<span class="string">"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">                    newMethod.setBody(bodyStr.toString());<span class="comment">// 替换新方法</span></span><br><span class="line">                    ctclass.addMethod(newMethod);<span class="comment">// 增加新方法</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> ctclass.toBytecode();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                System.out.println(e.getMessage());</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h4 id="依据惯例使用maven构建-需要指定premain-class"><a href="#依据惯例使用maven构建-需要指定premain-class" class="headerlink" title="依据惯例使用maven构建, 需要指定premain-class"></a>依据惯例使用maven构建, 需要指定premain-class</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-assembly-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">descriptors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">descriptor</span>&gt;</span>descriptor.xml<span class="tag">&lt;/<span class="name">descriptor</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">descriptors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">appendAssemblyId</span>&gt;</span>false<span class="tag">&lt;/<span class="name">appendAssemblyId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">premain-class</span>&gt;</span>u.lol.awacs.Boot<span class="tag">&lt;/<span class="name">premain-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">finalName</span>&gt;</span>hello-agent<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">goal</span>&gt;</span>single<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="然后是assembly插件的描述"><a href="#然后是assembly插件的描述" class="headerlink" title="然后是assembly插件的描述"></a>然后是assembly插件的描述</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span>&gt;</span>single<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">formats</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">format</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">format</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">formats</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">includeBaseDirectory</span>&gt;</span>false<span class="tag">&lt;/<span class="name">includeBaseDirectory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencySets</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">unpack</span>&gt;</span>true<span class="tag">&lt;/<span class="name">unpack</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependencySet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencySets</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="字节码操作结果"><a href="#字节码操作结果" class="headerlink" title="字节码操作结果"></a>字节码操作结果</h3><p>Before transformed:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.<span class="function">String <span class="title">hello1</span><span class="params">(java.lang.String)</span></span>;</span><br><span class="line">    descriptor: (Ljava/lang/String;)Ljava/lang/String;</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">2</span>, locals=<span class="number">3</span>, args_size=<span class="number">2</span></span><br><span class="line">         0: new           #2                  // class java/util/Random</span><br><span class="line">         <span class="number">3</span>: dup</span><br><span class="line">         4: invokespecial #3                  // Method java/util/Random."&lt;init&gt;":()V</span><br><span class="line">         <span class="number">7</span>: astore_2</span><br><span class="line">         <span class="number">8</span>: aload_2</span><br><span class="line">         9: invokevirtual #19                 // Method java/util/Random.nextInt:()I</span><br><span class="line">        <span class="number">12</span>: iconst_2</span><br><span class="line">        <span class="number">13</span>: irem</span><br><span class="line">        <span class="number">14</span>: ifne          <span class="number">20</span></span><br><span class="line">        17: ldc           #23                 // String hello, world</span><br><span class="line">        <span class="number">19</span>: areturn</span><br><span class="line">        20: new           #10                 // class java/lang/RuntimeException</span><br><span class="line">        <span class="number">23</span>: dup</span><br><span class="line">        24: invokespecial #21                 // Method java/lang/RuntimeException."&lt;init&gt;":()V</span><br><span class="line">        <span class="number">27</span>: athrow</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">76</span>: <span class="number">0</span></span><br><span class="line">        line <span class="number">77</span>: <span class="number">8</span></span><br><span class="line">        line <span class="number">78</span>: <span class="number">17</span></span><br><span class="line">        line <span class="number">79</span>: <span class="number">20</span></span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            <span class="number">0</span>      <span class="number">28</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lio/awacs/demo/TestController;</span><br><span class="line">            <span class="number">0</span>      <span class="number">28</span>     <span class="number">1</span>     s   Ljava/lang/String;</span><br><span class="line">            <span class="number">8</span>      <span class="number">20</span>     <span class="number">2</span>     r   Ljava/util/Random;</span><br><span class="line">      StackMapTable: number_of_entries = <span class="number">1</span></span><br><span class="line">        frame_type = <span class="number">252</span> <span class="comment">/* append */</span></span><br><span class="line">          offset_delta = <span class="number">20</span></span><br><span class="line">          locals = [ class java/util/Random ]</span><br><span class="line">    RuntimeVisibleAnnotations:</span><br><span class="line">      0: #79(#80=[s#95])</span><br></pre></td></tr></table></figure>
+
+<p>After transformed:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.<span class="function">String <span class="title">hello1</span><span class="params">(java.lang.String)</span></span>;</span><br><span class="line">    descriptor: (Ljava/lang/String;)Ljava/lang/String;</span><br><span class="line">    flags: ACC_PUBLIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=<span class="number">4</span>, locals=<span class="number">4</span>, args_size=<span class="number">2</span></span><br><span class="line">         0: invokestatic  #38                 // Method io/awacs/plugin/stacktrace/CallStack.initStack:()V</span><br><span class="line">         3: ldc           #40                 // String io.awacs.demo.TestController</span><br><span class="line">         5: ldc           #123                // String hello1</span><br><span class="line">         7: invokestatic  #45                 // Method io/awacs/plugin/stacktrace/CallStack.methodEnter:(Ljava/lang/String;Ljava/lang/String;)V</span><br><span class="line">        10: new           #19                 // class java/util/Random</span><br><span class="line">        <span class="number">13</span>: dup</span><br><span class="line">        14: invokespecial #20                 // Method java/util/Random."&lt;init&gt;":()V</span><br><span class="line">        <span class="number">17</span>: astore_2</span><br><span class="line">        <span class="number">18</span>: aload_2</span><br><span class="line">        19: invokevirtual #111                // Method java/util/Random.nextInt:()I</span><br><span class="line">        <span class="number">22</span>: iconst_2</span><br><span class="line">        <span class="number">23</span>: irem</span><br><span class="line">        <span class="number">24</span>: ifne          <span class="number">36</span></span><br><span class="line">        27: ldc           #125                // String hello, world</span><br><span class="line">        29: invokestatic  #77                 // Method io/awacs/plugin/stacktrace/CallStack.methodQuit:()V</span><br><span class="line">        32: invokestatic  #80                 // Method io/awacs/plugin/stacktrace/CallStack.incrAccess:()V</span><br><span class="line">        <span class="number">35</span>: areturn</span><br><span class="line">        36: new           #33                 // class java/lang/RuntimeException</span><br><span class="line">        <span class="number">39</span>: dup</span><br><span class="line">        40: invokespecial #114                // Method java/lang/RuntimeException."&lt;init&gt;":()V</span><br><span class="line">        43: invokestatic  #77                 // Method io/awacs/plugin/stacktrace/CallStack.methodQuit:()V</span><br><span class="line">        46: invokestatic  #80                 // Method io/awacs/plugin/stacktrace/CallStack.incrAccess:()V</span><br><span class="line">        <span class="number">49</span>: athrow</span><br><span class="line">        <span class="number">50</span>: astore_2</span><br><span class="line">        <span class="number">51</span>: aload_2</span><br><span class="line">        52: invokestatic  #101                // Method io/awacs/plugin/stacktrace/CallStack.incrFailure:(Ljava/lang/Throwable;)V</span><br><span class="line">        <span class="number">55</span>: aload_2</span><br><span class="line">        <span class="number">56</span>: athrow</span><br><span class="line">      Exception table:</span><br><span class="line">         from    to  target type</span><br><span class="line">            <span class="number">10</span>    <span class="number">35</span>    <span class="number">50</span>   Class java/lang/RuntimeException</span><br><span class="line">            <span class="number">36</span>    <span class="number">49</span>    <span class="number">50</span>   Class java/lang/RuntimeException</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">           <span class="number">10</span>      <span class="number">40</span>     <span class="number">0</span>  <span class="keyword">this</span>   Lio/awacs/demo/TestController;</span><br><span class="line">           <span class="number">10</span>      <span class="number">40</span>     <span class="number">1</span>     s   Ljava/lang/String;</span><br><span class="line">           <span class="number">18</span>      <span class="number">32</span>     <span class="number">2</span>     r   Ljava/util/Random;</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line <span class="number">76</span>: <span class="number">10</span></span><br><span class="line">        line <span class="number">77</span>: <span class="number">18</span></span><br><span class="line">        line <span class="number">78</span>: <span class="number">27</span></span><br><span class="line">        line <span class="number">79</span>: <span class="number">36</span></span><br><span class="line">      StackMapTable: number_of_entries = <span class="number">2</span></span><br><span class="line">        frame_type = <span class="number">252</span> <span class="comment">/* append */</span></span><br><span class="line">          offset_delta = <span class="number">36</span></span><br><span class="line">          locals = [ class java/util/Random ]</span><br><span class="line">        frame_type = <span class="number">255</span> <span class="comment">/* full_frame */</span></span><br><span class="line">          offset_delta = <span class="number">13</span></span><br><span class="line">          locals = [ class io/awacs/demo/TestController, class java/lang/String ]</span><br><span class="line">          stack = [ class java/lang/RuntimeException ]</span><br><span class="line">    RuntimeVisibleAnnotations:</span><br><span class="line">      0: #7(#8=[s#122])</span><br></pre></td></tr></table></figure>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>javaagent</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-09-09, 00:00:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-09-09, 11:55:13</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/09/09/Java/bytecode/Java-Bytecode-Javaagent/" title="javaagent">http://yoursite.com/2019/09/09/Java/bytecode/Java-Bytecode-Javaagent/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2015-2019 KevinTen</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#java','#reactive','#net','#cloud','#tomcat','#rpc','#aws','#spring cloud aws','#ci','#code','#async','#CompletableFuture','#k8s','#ci/cd','#app mesh','#kubectl','#log','#service mesh','#envoy','#serverless','#lambda','#服务发现','#linkerd','#istio','#javaagent',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+</div>
+
+
+</html>
