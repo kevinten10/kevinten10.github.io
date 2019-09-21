@@ -6,18 +6,20 @@
   <meta name="keywords" content=" service mesh , 服务发现 ">
   <meta name="description" content="ServiceMesh——Istio简介 | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
-<meta name="keywords" content="service mesh">
+<meta name="description" content="gRPC 服务调用支持同步和异步方式，同时也支持普通的 RPC 和 streaming 模式，可以最大程度的满足业务的需求。 对于 streaming 模式，可以充分利用 HTTP/2.0 协议的多路复用功能，实现在一条 HTTP 链路上并行双向传输数据，有效的解决了 HTTP/1.X 的数据单向传输问题，在大幅减少 HTTP 连接的情况下，充分利用单条链路的性能，可以媲美传统的 RPC 私有长连">
+<meta name="keywords" content="java,reactive">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ServiceMesh--Spring">
-<meta property="og:url" content="http://yoursite.com/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/index.html">
+<meta property="og:title" content="Reactive gRPC">
+<meta property="og:url" content="http://yoursite.com/2019/09/15/Reactive/Reactive-gRPC/index.html">
 <meta property="og:site_name" content="KevinTen">
-<meta property="og:description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
+<meta property="og:description" content="gRPC 服务调用支持同步和异步方式，同时也支持普通的 RPC 和 streaming 模式，可以最大程度的满足业务的需求。 对于 streaming 模式，可以充分利用 HTTP/2.0 协议的多路复用功能，实现在一条 HTTP 链路上并行双向传输数据，有效的解决了 HTTP/1.X 的数据单向传输问题，在大幅减少 HTTP 连接的情况下，充分利用单条链路的性能，可以媲美传统的 RPC 私有长连">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-08T08:31:39.358Z">
+<meta property="og:image" content="http://yoursite.com/img/reactive/grpc1.jpg">
+<meta property="og:updated_time" content="2019-09-15T09:33:52.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ServiceMesh--Spring">
-<meta name="twitter:description" content="绕不开的spring对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。 理论上说，springboot on service mesh有可能成为一个清爽的解决方案。然后路终究是要走一遍才知道是不是那么美好。 ###定位 Service M">
+<meta name="twitter:title" content="Reactive gRPC">
+<meta name="twitter:description" content="gRPC 服务调用支持同步和异步方式，同时也支持普通的 RPC 和 streaming 模式，可以最大程度的满足业务的需求。 对于 streaming 模式，可以充分利用 HTTP/2.0 协议的多路复用功能，实现在一条 HTTP 链路上并行双向传输数据，有效的解决了 HTTP/1.X 的数据单向传输问题，在大幅减少 HTTP 连接的情况下，充分利用单条链路的性能，可以媲美传统的 RPC 私有长连">
+<meta name="twitter:image" content="http://yoursite.com/img/reactive/grpc1.jpg">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -162,11 +164,11 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(38)</small></div></li>
+    <li><div class="all active">全部文章<small>(43)</small></div></li>
     
         
             
-            <li><div data-rel="Reactive">Reactive<small>(3)</small></div>
+            <li><div data-rel="Medium">Medium<small>(2)</small></div>
                 
             </li>
             
@@ -182,14 +184,6 @@
     
         
             
-            <li><div data-rel="Tomcat">Tomcat<small>(2)</small></div>
-                
-            </li>
-            
-        
-    
-        
-            
             <li><div data-rel="Rpc">Rpc<small>(1)</small></div>
                 
             </li>
@@ -198,7 +192,23 @@
     
         
             
-            <li><div data-rel="AWS">AWS<small>(3)</small></div>
+            <li><div data-rel="Reactive">Reactive<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Tomcat">Tomcat<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="AWS">AWS<small>(6)</small></div>
                 
             </li>
             
@@ -236,7 +246,7 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="38">
+<input type="hidden" id="yelog_site_posts_number" value="43">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -271,6 +281,18 @@
     <div class="tags-list">
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">medium</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">cloud</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">rpc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">java</a>
     </li>
     
@@ -283,23 +305,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color1">cloud</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color2">tomcat</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">rpc</a>
-    </li>
-    
-    <li class="article-tag-list-item">
         <a href="javascript:" class="color4">aws</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color2">spring cloud aws</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -311,6 +321,10 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring cloud aws</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color1">async</a>
     </li>
     
@@ -319,15 +333,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">app mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color4">k8s</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color1">ci/cd</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color4">app mesh</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -347,15 +361,15 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">服务发现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color1">serverless</a>
     </li>
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">lambda</a>
-    </li>
-    
-    <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">服务发现</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -376,12 +390,20 @@
     
     <nav id="title-list-nav">
         
-        <a  class="Reactive "
-           href="/2019/09/15/Reactive/Reactive-Net-网络数据响应式原理/"
-           data-tag="java,reactive,net"
+        <a  class="Medium "
+           href="/2019/09/21/Medium/Medium-9-21-1/"
+           data-tag="medium"
            data-author="" >
-            <span class="post-title" title="Reactive的网卡数据驱动原理">Reactive的网卡数据驱动原理</span>
-            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+            <span class="post-title" title="Medium reading 9.21 Tracing serverless application with AWS X-Ray">Medium reading 9.21 Tracing serverless application with AWS X-Ray</span>
+            <span class="post-date" title="2019-09-21 10:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/21/Medium/Medium-9-21-2/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.21 Using AWS CodeCommit and Lambda for automatic code deployment to S3-bucket">Medium reading 9.21 Using AWS CodeCommit and Lambda for automatic code deployment to S3-bucket</span>
+            <span class="post-date" title="2019-09-21 10:00:00">2019/09/21</span>
         </a>
         
         <a  class="Cloud "
@@ -390,6 +412,14 @@
            data-author="" >
             <span class="post-title" title="Cloud架构">Cloud架构</span>
             <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Rpc "
+           href="/2019/09/15/Rpc/Rpc-核心技术/"
+           data-tag="rpc"
+           data-author="" >
+            <span class="post-title" title="RPC 工作原理">RPC 工作原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
         </a>
         
         <a  class="Reactive "
@@ -401,10 +431,10 @@
         </a>
         
         <a  class="Reactive "
-           href="/2019/09/15/Reactive/Reactive-混合模式/"
-           data-tag="java,reactive"
+           href="/2019/09/15/Reactive/Reactive-Net-网络数据响应式原理/"
+           data-tag="java,reactive,net"
            data-author="" >
-            <span class="post-title" title="混合 Reactive 模式">混合 Reactive 模式</span>
+            <span class="post-title" title="Reactive的网卡数据驱动原理">Reactive的网卡数据驱动原理</span>
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
         </a>
         
@@ -416,20 +446,12 @@
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
         </a>
         
-        <a  class="Rpc "
-           href="/2019/09/15/Rpc/Rpc-核心技术/"
-           data-tag="rpc"
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-混合模式/"
+           data-tag="java,reactive"
            data-author="" >
-            <span class="post-title" title="RPC 工作原理">RPC 工作原理</span>
+            <span class="post-title" title="混合 Reactive 模式">混合 Reactive 模式</span>
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/06/AWS/java/Aws-Java-Spring cloud aws/"
-           data-tag="java,aws,spring cloud aws"
-           data-author="" >
-            <span class="post-title" title="AWS-Java-Spring cloud aws">AWS-Java-Spring cloud aws</span>
-            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
         </a>
         
         <a  class="AWS "
@@ -437,6 +459,14 @@
            data-tag="aws,ci,code"
            data-author="" >
             <span class="post-title" title="AWS-CI-code系列使用">AWS-CI-code系列使用</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/06/AWS/java/Aws-Java-Spring cloud aws/"
+           data-tag="java,aws,spring cloud aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-Spring cloud aws">AWS-Java-Spring cloud aws</span>
             <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
         </a>
         
@@ -449,27 +479,11 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
-           data-tag="cloud,k8s"
-           data-author="" >
-            <span class="post-title" title="Kubernetes architeture">Kubernetes architeture</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/09/05/Cloud/java/Cloud-Java-Log-Skywalking(Incubator)/"
-           data-tag="java,cloud"
+           data-tag="cloud,java"
            data-author="" >
             <span class="post-title" title="云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？">云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？</span>
             <span class="post-date" title="2019-09-05 00:00:00">2019/09/05</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/"
-           data-tag="cloud,k8s,ci/cd"
-           data-author="" >
-            <span class="post-title" title="Kubernetes的持续集成-Wercker">Kubernetes的持续集成-Wercker</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
         <a  class="AWS "
@@ -478,6 +492,22 @@
            data-author="" >
             <span class="post-title" title="AWS-ServiceMesh-AppMesh">AWS-ServiceMesh-AppMesh</span>
             <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes architeture">Kubernetes architeture</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Wercker">Kubernetes的持续集成-Wercker</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
         <a  class="Cloud "
@@ -497,26 +527,18 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/"
-           data-tag="cloud,k8s"
-           data-author="" >
-            <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
-           data-tag="cloud,k8s,log"
-           data-author="" >
-            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
            data-tag="cloud,k8s"
            data-author="" >
             <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
             <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
@@ -537,11 +559,11 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
-           data-tag="serverless,lambda"
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
+           data-tag="cloud,k8s,log"
            data-author="" >
-            <span class="post-title" title="Serverless简介">Serverless简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
         <a  class="Cloud "
@@ -550,6 +572,22 @@
            data-author="" >
             <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
             <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
+           data-tag="serverless,lambda"
+           data-author="" >
+            <span class="post-title" title="Serverless简介">Serverless简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Ready for Cloud Native">ServiceMesh--Ready for Cloud Native</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
         </a>
         
         <a  class="Cloud "
@@ -569,14 +607,6 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
-           data-tag="service mesh"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--Ready for Cloud Native">ServiceMesh--Ready for Cloud Native</span>
-            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/"
            data-tag="service mesh"
            data-author="" >
@@ -585,34 +615,18 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
-           data-tag="service mesh"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--网络通讯">ServiceMesh--网络通讯</span>
-            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
-           data-tag="service mesh"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
-            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
-           data-tag="service mesh,服务发现"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题/"
            data-tag="service mesh"
            data-author="" >
             <span class="post-title" title="ServiceMesh--问题">ServiceMesh--问题</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--网络通讯">ServiceMesh--网络通讯</span>
             <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
         </a>
         
@@ -640,6 +654,22 @@
             <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
         </a>
         
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
         <a  class="Java "
            href="/2019/09/15/Java/io/Java-IO模型/"
            data-tag="java"
@@ -654,6 +684,30 @@
            data-author="" >
             <span class="post-title" title="Tomcat + Servlet3 的异步化处理原理">Tomcat + Servlet3 的异步化处理原理</span>
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/19/AWS/java/Aws-Java-SDK2优化/"
+           data-tag="java,aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-SDK2优化">AWS-Java-SDK2优化</span>
+            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/19/AWS/java/Aws-Java-SDK使用/"
+           data-tag="java,aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-SDK使用步骤">AWS-Java-SDK使用步骤</span>
+            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/20/AWS/java/Aws-Java-X-Ray/"
+           data-tag="java,aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-X-Ray教程">AWS-Java-X-Ray教程</span>
+            <span class="post-date" title="2019-09-20 00:00:00">2019/09/20</span>
         </a>
         
         <a  class="Cloud "
@@ -843,7 +897,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#java','#reactive','#net','#cloud','#tomcat','#rpc','#aws','#spring cloud aws','#ci','#code','#async','#CompletableFuture','#k8s','#ci/cd','#app mesh','#kubectl','#log','#service mesh','#envoy','#serverless','#lambda','#服务发现','#linkerd','#istio','#javaagent',],
+            'data': ['#medium','#cloud','#rpc','#java','#reactive','#net','#tomcat','#aws','#ci','#code','#spring cloud aws','#async','#CompletableFuture','#app mesh','#k8s','#ci/cd','#kubectl','#log','#service mesh','#envoy','#服务发现','#serverless','#lambda','#linkerd','#istio','#javaagent',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
