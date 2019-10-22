@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>深入理解Java Stream流水线 | KevinTen</title>
+  <meta name="keywords" content=" stream ">
+  <meta name="description" content="深入理解Java Stream流水线 | KevinTen">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Service Mesh实践情况 POD容器实例10万+，应用数百  特点多语言支持应用无感知的升级流量控制RPC协议支持可观测性 性能CPU  增加8%，均值2% 内存 平均多15M 演示 0.2ms，多5% Sidecar只解析请求头，不解析body 优化SDK优化需要全链路升级 Sicdcar升级可移无感知 问题与挑战内存优化报文解析产生大量临时对象 =&amp;gt; 通过unsage.point">
+<meta name="keywords" content="java,scala,python,golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KevinTen">
+<meta property="og:url" content="http://github.com/kevinten10/2019/10/21/Qcon/Qcon-ServiceMesh/index.html">
+<meta property="og:site_name" content="KevinTen">
+<meta property="og:description" content="Service Mesh实践情况 POD容器实例10万+，应用数百  特点多语言支持应用无感知的升级流量控制RPC协议支持可观测性 性能CPU  增加8%，均值2% 内存 平均多15M 演示 0.2ms，多5% Sidecar只解析请求头，不解析body 优化SDK优化需要全链路升级 Sicdcar升级可移无感知 问题与挑战内存优化报文解析产生大量临时对象 =&amp;gt; 通过unsage.point">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-10-21T12:47:51.826Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KevinTen">
+<meta name="twitter:description" content="Service Mesh实践情况 POD容器实例10万+，应用数百  特点多语言支持应用无感知的升级流量控制RPC协议支持可观测性 性能CPU  增加8%，均值2% 内存 平均多15M 演示 0.2ms，多5% Sidecar只解析请求头，不解析body 优化SDK优化需要全链路升级 Sicdcar升级可移无感知 问题与挑战内存优化报文解析产生大量临时对象 =&amp;gt; 通过unsage.point">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>KevinTen</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="rss" href="/atom.xml" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-rss"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/kevinten10" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="linkedin" href="https://www.linkedin.com/in/%E4%BB%95%E8%B1%AA-%E7%8E%8B-6a648a152/" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-linkedin"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="csdn" href="https://blog.csdn.net/wsh596823919" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-csdn"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:wshten@gmail.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=596823919&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<a class="more-menus">更多菜单</a>
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(132)</small></div></li>
+    
+        
+            
+            <li><div data-rel="AWS">AWS<small>(39)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Cloud">Cloud<small>(27)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Distribute">Distribute<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Ctrip">Ctrip<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="English">English<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Function">Function<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Medium">Medium<small>(11)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Reactive">Reactive<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Science">Science<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Rpc">Rpc<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="工作成长">工作成长<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Tomcat">Tomcat<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="演讲">演讲<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Stream">Stream<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Async">Async<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Java">Java<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="人生经验">人生经验<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="C++">C++<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="OS">OS<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Net">Net<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="132">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="https://github.com/kevinten10">Kevinten10</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">aws</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">cloud</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">google</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">Ctrip</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">技术分享</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">read</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">响应式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">function</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">声明式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">medium</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">node</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">reactive</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">IO</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">IOCP</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">java</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">net</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">rpc</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">work</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">工作</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">tomcat</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">cloud native</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">vertx</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">stream</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">ci</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">code</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">app mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">spring cloud aws</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">async</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">CompletableFuture</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">k8s</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">ci/cd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">kubectl</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">log</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">service mesh</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">envoy</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">linkerd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">服务发现</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">serverless</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">lambda</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">concurrent</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">EPOLL</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">istio</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">javaagent</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">职场效应</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">函数式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">c++</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">linux</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">stack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">系统调用</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">http</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">memory</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/IO-DomainSocket/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:40">2019/10/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/Aws-Tools/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-用于在 AWS 上进行构建的工具">AWS-用于在 AWS 上进行构建的工具</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/Cloud-Arch/"
+           data-tag="cloud"
+           data-author="" >
+            <span class="post-title" title="Cloud架构">Cloud架构</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Distribute "
+           href="/2019/06/30/Distribute/Google-Bigtable/"
+           data-tag="google"
+           data-author="" >
+            <span class="post-title" title="Google Bigtable">Google Bigtable</span>
+            <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
+        </a>
+        
+        <a  class="Distribute "
+           href="/2019/06/30/Distribute/Google-File-System/"
+           data-tag="google"
+           data-author="" >
+            <span class="post-title" title="Google文件系统">Google文件系统</span>
+            <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
+        </a>
+        
+        <a  class="Distribute "
+           href="/2019/06/30/Distribute/Google-MapReduce/"
+           data-tag="google"
+           data-author="" >
+            <span class="post-title" title="Google MapReduce">Google MapReduce</span>
+            <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
+        </a>
+        
+        <a  class="Ctrip "
+           href="/2018/12/30/Ctrip/Ctrip-2018-技术分享/"
+           data-tag="Ctrip,技术分享"
+           data-author="" >
+            <span class="post-title" title="Ctrip-2018-技术分享">Ctrip-2018-技术分享</span>
+            <span class="post-date" title="2018-12-30 00:00:00">2018/12/30</span>
+        </a>
+        
+        <a  class="English "
+           href="/2019/05/29/English/day1-read/"
+           data-tag="read"
+           data-author="" >
+            <span class="post-title" title="day1">day1</span>
+            <span class="post-date" title="2019-05-29 00:00:00">2019/05/29</span>
+        </a>
+        
+        <a  class="English "
+           href="/2019/05/30/English/day2-read/"
+           data-tag="read"
+           data-author="" >
+            <span class="post-title" title="day2">day2</span>
+            <span class="post-date" title="2019-05-30 00:00:00">2019/05/30</span>
+        </a>
+        
+        <a  class="Function "
+           href="/2019/05/30/Function/响应式编程/"
+           data-tag="响应式,function"
+           data-author="" >
+            <span class="post-title" title="响应式编程">响应式编程</span>
+            <span class="post-date" title="2019-05-30 00:00:00">2019/05/30</span>
+        </a>
+        
+        <a  class="Function "
+           href="/2019/05/30/Function/声明式编程/"
+           data-tag="function,声明式"
+           data-author="" >
+            <span class="post-title" title="声明式编程">声明式编程</span>
+            <span class="post-date" title="2019-05-30 00:00:00">2019/05/30</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/22/Medium/Medium---/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading .">Medium reading .</span>
+            <span class="post-date" title="2019-09-22 17:35:39">2019/09/22</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/21/Medium/Medium-9-21-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.21 Tracing serverless application with AWS X-Ray">Medium reading 9.21 Tracing serverless application with AWS X-Ray</span>
+            <span class="post-date" title="2019-09-21 10:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/21/Medium/Medium-9-21-2/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.21 Using AWS CodeCommit and Lambda for automatic code deployment to S3-bucket">Medium reading 9.21 Using AWS CodeCommit and Lambda for automatic code deployment to S3-bucket</span>
+            <span class="post-date" title="2019-09-21 10:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/22/Medium/Medium-9-22-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.22 AWS Lambda + Node Modules, no Docker required">Medium reading 9.22 AWS Lambda + Node Modules, no Docker required</span>
+            <span class="post-date" title="2019-09-22 10:00:00">2019/09/22</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/22/Medium/Medium-9-22-3/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.22 Lambdas are not functional programming">Medium reading 9.22 Lambdas are not functional programming</span>
+            <span class="post-date" title="2019-09-22 10:00:00">2019/09/22</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/22/Medium/Medium-9-22-2/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.22 Lambda optimization tip — enable HTTP keep-alive">Medium reading 9.22 Lambda optimization tip — enable HTTP keep-alive</span>
+            <span class="post-date" title="2019-09-22 10:00:00">2019/09/22</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/26/Medium/Medium-9-26-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.26 Vertx in Production">Medium reading 9.26 Vertx in Production</span>
+            <span class="post-date" title="2019-09-26 10:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/29/Medium/Medium-9-29-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.29 Vert.x Distributed Microservices with Java.">Medium reading 9.29 Vert.x Distributed Microservices with Java.</span>
+            <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/29/Medium/Medium-9-29-2/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda">Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda</span>
+            <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-10X/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:39">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-KV存储架构/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:40">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-Scala/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:38">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-Ai in 合规管理/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:39">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-Serverless/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 09:34:19">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-OCTO/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:37">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-ServiceMesh/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 20:47:51">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-Vertx/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:37">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-principal/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:38">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-编程语言/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:11:31">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/监控-Cat/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:37">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-云架构/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:37">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-高频交易/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:37">2019/10/21</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/Qcon-美团SM实践/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:38">2019/10/21</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/29/Medium/Medium-9-29-3/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.29 Connecting to AWS DocumentDB from a Lambda function">Medium reading 9.29 Connecting to AWS DocumentDB from a Lambda function</span>
+            <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/21/Qcon/监控-埋点/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-21 10:08:40">2019/10/21</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/10/09/Reactive/Reactive-Nodejs/"
+           data-tag="node,reactive"
+           data-author="" >
+            <span class="post-title" title="Reactive Nodejs">Reactive Nodejs</span>
+            <span class="post-date" title="2019-10-09 00:00:00">2019/10/09</span>
+        </a>
+        
+        <a  class="Medium "
+           href="/2019/09/25/Medium/Medium-9-25-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.25 Handling complexity in lambda functions">Medium reading 9.25 Handling complexity in lambda functions</span>
+            <span class="post-date" title="2019-09-25 10:00:00">2019/09/25</span>
+        </a>
+        
+        <a  class="Science "
+           href="/2019/10/09/Reactive/Reactive-IOCP/"
+           data-tag="IO,IOCP"
+           data-author="" >
+            <span class="post-title" title="IOCP 用法">IOCP 用法</span>
+            <span class="post-date" title="2019-10-09 00:00:00">2019/10/09</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-Net-网络数据响应式原理/"
+           data-tag="reactive,java,net"
+           data-author="" >
+            <span class="post-title" title="Reactive的网卡数据驱动原理">Reactive的网卡数据驱动原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Rpc "
+           href="/2019/09/15/Rpc/Rpc-核心技术/"
+           data-tag="rpc"
+           data-author="" >
+            <span class="post-title" title="RPC 工作原理">RPC 工作原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-gRPC/"
+           data-tag="reactive,java"
+           data-author="" >
+            <span class="post-title" title="Reactive gRPC">Reactive gRPC</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/07/15/Reactive/Reactive-适用场景/"
+           data-tag="reactive,java"
+           data-author="" >
+            <span class="post-title" title="Reactive-适用场景">Reactive-适用场景</span>
+            <span class="post-date" title="2019-07-15 00:00:00">2019/07/15</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/09/15/Reactive/Reactive-混合模式/"
+           data-tag="reactive,java"
+           data-author="" >
+            <span class="post-title" title="混合 Reactive 模式">混合 Reactive 模式</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="工作成长 "
+           href="/2019/07/30/Work/七月工作/"
+           data-tag="work,工作"
+           data-author="" >
+            <span class="post-title" title="2019七月工作内容">2019七月工作内容</span>
+            <span class="post-date" title="2019-07-30 00:00:00">2019/07/30</span>
+        </a>
+        
+        <a  class="工作成长 "
+           href="/2019/07/30/Work/七月技术/"
+           data-tag="work,工作"
+           data-author="" >
+            <span class="post-title" title="2019七月技术研究">2019七月技术研究</span>
+            <span class="post-date" title="2019-07-30 00:00:00">2019/07/30</span>
+        </a>
+        
+        <a  class="Tomcat "
+           href="/2019/09/15/Tomcat/Tomcat-IO模型/"
+           data-tag="java,tomcat"
+           data-author="" >
+            <span class="post-title" title="Tomcat IO模型">Tomcat IO模型</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/09/30/Work/技术模板/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-09-30 17:31:30">2019/09/30</span>
+        </a>
+        
+        <a  class="演讲 "
+           href="/2019/09/30/演讲/CloudNative-1/"
+           data-tag="cloud native"
+           data-author="" >
+            <span class="post-title" title="Cloud Native (1)">Cloud Native (1)</span>
+            <span class="post-date" title="2019-09-30 10:00:00">2019/09/30</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/09/30/Work/工作模板/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-09-30 17:31:30">2019/09/30</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/10/08/Reactive/Reactive-Vertx/"
+           data-tag="reactive,vertx"
+           data-author="" >
+            <span class="post-title" title="Reactive Vertx">Reactive Vertx</span>
+            <span class="post-date" title="2019-10-08 00:00:00">2019/10/08</span>
+        </a>
+        
+        <a  class="Stream "
+           href="/2019/10/08/Stream/Stream-概念/"
+           data-tag="stream"
+           data-author="" >
+            <span class="post-title" title="深入理解Java Stream流水线">深入理解Java Stream流水线</span>
+            <span class="post-date" title="2019-10-08 00:00:00">2019/10/08</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/06/AWS/code/Aws-Code-code系列使用/"
+           data-tag="aws,ci,code"
+           data-author="" >
+            <span class="post-title" title="AWS-CI-code系列使用">AWS-CI-code系列使用</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/aurora/Aws-Aurora/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Aurora简洁快速文档">AWS-Aurora简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/code/Aws-CodeCommit/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodeCommit简洁快速文档">AWS-CodeCommit简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/code/Aws-CodeDeploy/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodeStar简洁快速文档">AWS-CodeStar简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/code/Aws-Code-Sample/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Code示例目录">AWS-Code示例目录</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/code/Aws-CodeStar/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodeStar简洁快速文档">AWS-CodeStar简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/code/Aws-CodeBuild/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodeBuild简洁快速文档">AWS-CodeBuild简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/26/AWS/cli/Aws-管理控制台/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-管理控制台简洁快速文档">AWS-管理控制台简洁快速文档</span>
+            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/code/Aws-CodePipeline/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodePipeline简洁快速文档">AWS-CodePipeline简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/26/AWS/cli/Aws-CLI/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Command Line Interface简洁快速文档">AWS-Command Line Interface简洁快速文档</span>
+            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/dynamo/Aws-Dynamo/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-DynamoDB简洁快速文档">AWS-DynamoDB简洁快速文档</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/eks/Aws-EKS/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-EKS简洁快速文档">AWS-EKS简洁快速文档</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/config/Aws-Config/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Config简洁快速文档">AWS-Config简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/formation/Aws-CloudFormation/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CloudFormation简洁快速文档">AWS-CloudFormation简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/26/AWS/email/Aws-SES/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Simple Email Service简洁快速文档">AWS-Simple Email Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/26/AWS/iam/Aws-Iam/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Identity and Access Management简洁快速文档">AWS-Identity and Access Management简洁快速文档</span>
+            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/es/Aws-Elasticsearch Service/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Elasticsearch Service简洁快速文档">AWS-Elasticsearch Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/gateway/Aws-API Gateway/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-API Gateway简洁快速文档">AWS-API Gateway简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/map/Aws-Cloud Map/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Cloud Map简洁快速文档">AWS-Cloud Map简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/mesh/Aws-App Mesh/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-App Mesh简洁快速文档">AWS-App Mesh简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/08/AWS/mesh/Aws-Service-AppMesh/"
+           data-tag="aws,app mesh"
+           data-author="" >
+            <span class="post-title" title="AWS-ServiceMesh-AppMesh">AWS-ServiceMesh-AppMesh</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/mq/Aws-SQS/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Simple Queue Service简洁快速文档">AWS-Simple Queue Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/front/Aws-CloudFront/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CloudFront简洁快速文档">AWS-CloudFront简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/mq/Aws-SNS/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Simple Notification Service简洁快速文档">AWS-Simple Notification Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/route/Aws-Route53/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Route 53简洁快速文档">AWS-Route 53简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/s3/Aws-S3/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Simple Storage Service简洁快速文档">AWS-Simple Storage Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/rds/Aws-RDS/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Relational Database Service简洁快速文档">AWS-Relational Database Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/sam/Aws-SAM/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-serverless-application-model简洁快速文档">AWS-serverless-application-model简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/sdk/Aws-Java-SDK1使用/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-SDK1使用步骤">AWS-SDK1使用步骤</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/06/AWS/sdk/Aws-Java-Spring cloud aws/"
+           data-tag="aws,java,spring cloud aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-Spring cloud aws">AWS-Java-Spring cloud aws</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/watch/Aws-CloudWatch/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CloudWatch简洁快速文档">AWS-CloudWatch简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/vpc/Aws-VPC/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Virtual Private Cloud简洁快速文档">AWS-Virtual Private Cloud简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="Async "
+           href="/2019/09/03/Async/Future/Async-Future-异步返回值/"
+           data-tag="async,CompletableFuture"
+           data-author="" >
+            <span class="post-title" title="Async--CompletableFuture作为返回值">Async--CompletableFuture作为返回值</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes architeture">Kubernetes architeture</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Wercker">Kubernetes的持续集成-Wercker</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/"
+           data-tag="cloud,k8s,ci/cd"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的持续集成-Jenkins">Kubernetes的持续集成-Jenkins</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/"
+           data-tag="cloud,k8s,kubectl"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的客户端-Kubectl">Kubernetes的客户端-Kubectl</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Filebeat">Kubernetes的应用日志-Filebeat</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
+           data-tag="cloud,k8s,log"
+           data-author="" >
+            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
+           data-tag="cloud,k8s"
+           data-author="" >
+            <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Envoy/"
+           data-tag="service mesh,envoy"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Envoy简介">ServiceMesh--Envoy简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/05/Cloud/java/Cloud-Java-Log-Skywalking(Incubator)/"
+           data-tag="cloud,java"
+           data-author="" >
+            <span class="post-title" title="云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？">云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？</span>
+            <span class="post-date" title="2019-09-05 00:00:00">2019/09/05</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Ready for Cloud Native">ServiceMesh--Ready for Cloud Native</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/"
+           data-tag="service mesh,linkerd"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Linkerd简介">ServiceMesh——Linkerd简介</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Spring">ServiceMesh--Spring</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Spring Cloud">ServiceMesh--Spring Cloud</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-性能开销/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--性能开销">ServiceMesh--性能开销</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--网络通讯">ServiceMesh--网络通讯</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--问题">ServiceMesh--问题</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/servicemesh/Cloud-服务发现/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="Cloud-微服务中的服务发现方式对比">Cloud-微服务中的服务发现方式对比</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-流量劫持/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--流量劫持">ServiceMesh--流量劫持</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/30/Cloud/serverless/Cloud-Function/"
+           data-tag="function,serverless"
+           data-author="" >
+            <span class="post-title" title="Cloud Function 简介">Cloud Function 简介</span>
+            <span class="post-date" title="2019-09-30 00:00:00">2019/09/30</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/serverless/Cloud-Serverless/"
+           data-tag="serverless,lambda"
+           data-author="" >
+            <span class="post-title" title="Serverless简介">Serverless简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/sar/Aws-SAR/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Serverless Application Repository简洁快速文档">AWS-Serverless Application Repository简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/09/Java/io/Java-Try/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title=""></span>
+            <span class="post-date" title="2019-10-09 09:11:29">2019/10/09</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/09/15/Java/io/Java-IO模型/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java IO模型">Java IO模型</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/cache/Aws-ElastiCache/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-ElastiCache(Redis)简洁快速文档">AWS-ElastiCache(Redis)简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/04/30/Java/concurrent/Java-Concurrent-原理总结/"
+           data-tag="java,concurrent"
+           data-author="" >
+            <span class="post-title" title="Java - 并发包总结">Java - 并发包总结</span>
+            <span class="post-date" title="2019-04-30 00:00:00">2019/04/30</span>
+        </a>
+        
+        <a  class="Science "
+           href="/2019/10/14/Science/IO-EPOLL/"
+           data-tag="IO,EPOLL"
+           data-author="" >
+            <span class="post-title" title="EPOLL 用法">EPOLL 用法</span>
+            <span class="post-date" title="2019-10-14 00:00:00">2019/10/14</span>
+        </a>
+        
+        <a  class="Science "
+           href="/2019/10/09/Science/IO-IOCP/"
+           data-tag="IO,IOCP"
+           data-author="" >
+            <span class="post-title" title="IOCP 用法">IOCP 用法</span>
+            <span class="post-date" title="2019-10-09 00:00:00">2019/10/09</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/19/AWS/sdk/Aws-Java-SDK2使用/"
+           data-tag="aws,java"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-SDK2使用步骤">AWS-Java-SDK2使用步骤</span>
+            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/19/AWS/sdk/Aws-Java-SDK2优化/"
+           data-tag="aws,java"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-SDK2优化">AWS-Java-SDK2优化</span>
+            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/20/AWS/xray/Aws-Java-X-Ray/"
+           data-tag="aws,java"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-X-Ray教程">AWS-Java-X-Ray教程</span>
+            <span class="post-date" title="2019-09-20 00:00:00">2019/09/20</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Istio/"
+           data-tag="service mesh,istio"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Istio简介">ServiceMesh--Istio简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-事件驱动/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--事件驱动消息">ServiceMesh--事件驱动消息</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/09/09/Java/bytecode/Java-Bytecode-Javaagent/"
+           data-tag="java,javaagent"
+           data-author="" >
+            <span class="post-title" title="javaagent">javaagent</span>
+            <span class="post-date" title="2019-09-09 00:00:00">2019/09/09</span>
+        </a>
+        
+        <a  class="Tomcat "
+           href="/2019/09/15/Tomcat/async/Tomcat-Async-异步化原理/"
+           data-tag="java,tomcat"
+           data-author="" >
+            <span class="post-title" title="Tomcat + Servlet3 的异步化处理原理">Tomcat + Servlet3 的异步化处理原理</span>
+            <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/10/14/Java/concurrent/Java-ForkJoin/"
+           data-tag="java,concurrent"
+           data-author="" >
+            <span class="post-title" title="Java - Fork Join">Java - Fork Join</span>
+            <span class="post-date" title="2019-10-14 12:25:30">2019/10/14</span>
+        </a>
+        
+        <a  class="人生经验 "
+           href="/2019/07/30/人生经验/职场效应/晕轮效应/"
+           data-tag="职场效应"
+           data-author="" >
+            <span class="post-title" title="晕轮效应">晕轮效应</span>
+            <span class="post-date" title="2019-07-30 00:00:00">2019/07/30</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/lambda/Aws-Lambda/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Lambda简洁快速文档">AWS-Lambda简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="Function "
+           href="/2019/05/30/Function/傻瓜函数式编程/"
+           data-tag="function,函数式"
+           data-author="" >
+            <span class="post-title" title="函数式编程">函数式编程</span>
+            <span class="post-date" title="2019-05-30 00:00:00">2019/05/30</span>
+        </a>
+        
+        <a  class="C++ "
+           href="/2019/08/30/CPlus/CP-callback/"
+           data-tag="c++"
+           data-author="" >
+            <span class="post-title" title="c++回调函数的实现">c++回调函数的实现</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+        <a  class="OS "
+           href="/2019/10/21/OS/Linux-内核栈/"
+           data-tag="linux,stack"
+           data-author="" >
+            <span class="post-title" title="Linux内核态栈">Linux内核态栈</span>
+            <span class="post-date" title="2019-10-21 00:00:00">2019/10/21</span>
+        </a>
+        
+        <a  class="Science "
+           href="/2019/10/21/Science/IO-系统调用/"
+           data-tag="IO,系统调用"
+           data-author="" >
+            <span class="post-title" title="IO系统调用">IO系统调用</span>
+            <span class="post-date" title="2019-10-21 00:00:00">2019/10/21</span>
+        </a>
+        
+        <a  class="Net "
+           href="/2019/10/21/Net/Net-http23/"
+           data-tag="net,http"
+           data-author="" >
+            <span class="post-title" title="解密HTTP/2与HTTP/3 的新特性">解密HTTP/2与HTTP/3 的新特性</span>
+            <span class="post-date" title="2019-10-21 00:00:00">2019/10/21</span>
+        </a>
+        
+        <a  class="Java "
+           href="/2019/08/30/Java/memory/Java-Reference/"
+           data-tag="java,memory"
+           data-author="" >
+            <span class="post-title" title="Java Reference核心原理分析">Java Reference核心原理分析</span>
+            <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Stream/Stream-概念" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">深入理解Java Stream流水线</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="Stream">Stream</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color2">stream</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-10-08 09:56:14'>2019-10-08 00:00</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Iterator"><span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spliterator"><span class="toc-text">Spliterator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行流管道"><span class="toc-text">执行流管道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作如何记录"><span class="toc-text">操作如何记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作如何叠加"><span class="toc-text">操作如何叠加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sink代码如下"><span class="toc-text">Sink代码如下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#叠加之后的操作如何执行"><span class="toc-text">叠加之后的操作如何执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#执行后的结果在哪里"><span class="toc-text">执行后的结果在哪里</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.cnblogs.com/CarpenterLee/p/6637118.html" target="_blank" rel="noopener">https://www.cnblogs.com/CarpenterLee/p/6637118.html</a></p>
+<h2 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h2><p>Iterator 有两个方法：hasNext() 和 next()；访问下一个元素可能涉及到（但不需要）调用这两个方法。因此，正确编写 Iterator 需要一定量的防御性和重复性编码。（如果客户端没有在调用 next() 之前调用 hasNext() 会怎么样？如果它调用 hasNext() 两次会怎么样？） </p>
+<p>此外，这种两方法协议通常需要一定水平的有状态性，比如前窥 (peek ahead ) 一个元素（并跟踪您是否已前窥）。这些要求累积形成了大量的每元素访问开销。</p>
+<p>第一个问题比较容易理解,第二个问题就是因为Iterator中有remove()方法存在,若要在Iterator循环中使用remove(),就一定要记录前一个元素(即前窥 一个元素),比如在ArrayList.Itr中除了有cursor代表下一个要访问的元素下标外,还有lastRet记录上一个访问元素的下标.</p>
+<h2 id="Spliterator"><a href="#Spliterator" class="headerlink" title="Spliterator"></a>Spliterator</h2><p>Spliterator（splitable iterator可分割迭代器）是Java 中引进的第三个迭代器接口</p>
+<ul>
+<li>使用boolean tryAdvance(Consumer);代替hasNext()和next()</li>
+<li>不再提供remove()方法</li>
+<li>提供Spliterator trySplit();将自身一分为二,支持并发</li>
+</ul>
+<h2 id="执行流管道"><a href="#执行流管道" class="headerlink" title="执行流管道"></a>执行流管道</h2><p>发起终止操作时，流实现会挑选一个执行计划。中间操作可划分为无状态（filter()、map()、flatMap()）和有状态（sorted()、limit()、distinct()）操作。无状态操作是可在元素上执行而无需知道其他任何元素的操作。例如，过滤操作只需检查当前元素来确定是包含还是消除它，但排序操作必须查看所有元素之后才知道首先发出哪个元素。</p>
+<p>如果管道按顺序执行，或者并行执行，但包含所有无状态操作，那么它可以在一轮中计算。否则，管道会划分为多个部分（在有状态操作边界上划分）并分多轮计算。</p>
+<p>终止操作是短路（allMatch()、findFirst()）或非短路（reduce()、collect()、forEach()）操作。如果终止操作是非短路操作，那么可以批量处理数据（使用来源 spliterator 的 forEachRemaining() 方法，进一步减少访问每个元素的开销）；如果它是短路操作，则必须一个元素处理一次（使用 tryAdvance()）。</p>
+<p>对于顺序执行，Streams 构造了一个 “机器” — 一个 Consumer 对象链，其结构与管道结构相符。其中每个 Consumer 对象知道下一个阶段；当它收到一个元素（或被告知没有更多元素）时，它会将 0 或多个元素发送到链中的下一个阶段。例如，与 filter() 阶段有关联的 Consumer 将过滤器谓词应用于输入元素，并将它发送或不发送到下一个阶段；与 map() 阶段有关联的 Consumer 将映射函数应用于输入元素，并将结果发送到下一个阶段。与有状态操作（比如 sorted()）有关联的 Consumer 会缓冲元素，直到它看到输入的末尾，然后将排序的数据发送到下一个阶段。机器中的最后一个阶段将实现终止操作。如果此操作生成了结果，比如 reduce() 或 toArray()，该阶段可充当此结果的累加器。</p>
+<h3 id="操作如何记录"><a href="#操作如何记录" class="headerlink" title="操作如何记录"></a>操作如何记录</h3><p>注意这里使用的是“操作(operation)”一词，指的是“Stream中间操作”的操作，很多Stream操作会需要一个回调函数（Lambda表达式），因此一个完整的操作是&lt;数据来源，操作，回调函数&gt;构成的三元组。Stream中使用Stage的概念来描述一个完整的操作，并用某种实例化后的PipelineHelper来代表Stage，将具有先后顺序的各个Stage连到一起，就构成了整个流水线。跟Stream相关类和接口的继承关系图示。</p>
+<p>还有IntPipeline, LongPipeline, DoublePipeline没在图中画出，这三个类专门为三种基本类型（不是包装类型）而定制的，跟ReferencePipeline是并列关系。</p>
+<p>通过Collection.stream()方法得到Head也就是stage0，紧接着调用一系列的中间操作，不断产生新的Stream。这些Stream对象以双向链表的形式组织在一起，构成整个流水线，由于每个Stage都记录了前一个Stage和本次的操作以及回调函数，依靠这种结构就能建立起对数据源的所有操作。这就是Stream记录操作的方式</p>
+<h3 id="操作如何叠加"><a href="#操作如何叠加" class="headerlink" title="操作如何叠加"></a>操作如何叠加</h3><p>以上只是解决了操作记录的问题，要想让流水线起到应有的作用我们需要一种将所有操作叠加到一起的方案。你可能会觉得这很简单，只需要从流水线的head开始依次执行每一步的操作（包括回调函数）就行了。这听起来似乎是可行的，但是你忽略了前面的Stage并不知道后面Stage到底执行了哪种操作，以及回调函数是哪种形式。换句话说，只有当前Stage本身才知道该如何执行自己包含的动作。这就需要有某种协议来协调相邻Stage之间的调用关系。</p>
+<p>这种协议由Sink接口完成，Sink接口包含的方法如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>void begin(long size)</td>
+<td>开始遍历元素之前调用该方法，通知Sink做好准备。</td>
+</tr>
+<tr>
+<td>void end()</td>
+<td>所有元素遍历完成之后调用，通知Sink没有更多的元素了。</td>
+</tr>
+<tr>
+<td>boolean cancellationRequested()</td>
+<td>是否可以结束操作，可以让短路操作尽早结束。</td>
+</tr>
+<tr>
+<td>void accept(T t)</td>
+<td>遍历元素时调用，接受一个待处理元素，并对元素进行处理。Stage把自己包含的操作和回调方法封装到该方法里，前一个Stage只需要调用当前Stage.accept(T t)方法就行了。</td>
+</tr>
+</tbody></table>
+<p>有了上面的协议，相邻Stage之间调用就很方便了，每个Stage都会将自己的操作封装到一个Sink里，前一个Stage只需调用后一个Stage的accept()方法即可，并不需要知道其内部是如何处理的。当然对于有状态的操作，Sink的begin()和end()方法也是必须实现的。比如Stream.sorted()是一个有状态的中间操作，其对应的Sink.begin()方法可能创建一个乘放结果的容器，而accept()方法负责将元素添加到该容器，最后end()负责对容器进行排序。对于短路操作，Sink.cancellationRequested()也是必须实现的，比如Stream.findFirst()是短路操作，只要找到一个元素，cancellationRequested()就应该返回true，以便调用者尽快结束查找。Sink的四个接口方法常常相互协作，共同完成计算任务。实际上Stream API内部实现的的本质，就是如何重载Sink的这四个接口方法。</p>
+<p>有了Sink对操作的包装，Stage之间的调用问题就解决了，执行时只需要从流水线的head开始对数据源依次调用每个Stage对应的Sink.{begin(), accept(), cancellationRequested(), end()}方法就可以了。一种可能的Sink.accept()方法流程是这样的：</p>
+<h3 id="Sink代码如下"><a href="#Sink代码如下" class="headerlink" title="Sink代码如下"></a>Sink代码如下</h3><p>Stream.sorted()方法将对Stream中的元素进行排序，显然这是一个有状态的中间操作，因为读取所有元素之前是没法得到最终顺序的。抛开模板代码直接进入问题本质，sorted()方法是如何将操作封装成Sink的呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Stream.sort()方法用到的Sink实现</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RefSortingSink</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractRefSortingSink</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;T&gt; list;<span class="comment">// 存放用于排序的元素</span></span><br><span class="line">    RefSortingSink(Sink&lt;? <span class="keyword">super</span> T&gt; downstream, Comparator&lt;? <span class="keyword">super</span> T&gt; comparator) &#123;</span><br><span class="line">        <span class="keyword">super</span>(downstream, comparator);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">begin</span><span class="params">(<span class="keyword">long</span> size)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">// 创建一个存放排序元素的列表</span></span><br><span class="line">        list = (size &gt;= <span class="number">0</span>) ? <span class="keyword">new</span> ArrayList&lt;T&gt;((<span class="keyword">int</span>) size) : <span class="keyword">new</span> ArrayList&lt;T&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        list.sort(comparator);<span class="comment">// 只有元素全部接收之后才能开始排序</span></span><br><span class="line">        downstream.begin(list.size());</span><br><span class="line">        <span class="keyword">if</span> (!cancellationWasRequested) &#123;<span class="comment">// 下游Sink不包含短路操作</span></span><br><span class="line">            list.forEach(downstream::accept);<span class="comment">// 2. 将处理结果传递给流水线下游的Sink</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;<span class="comment">// 下游Sink包含短路操作</span></span><br><span class="line">            <span class="keyword">for</span> (T t : list) &#123;<span class="comment">// 每次都调用cancellationRequested()询问是否可以结束处理。</span></span><br><span class="line">                <span class="keyword">if</span> (downstream.cancellationRequested()) <span class="keyword">break</span>;</span><br><span class="line">                downstream.accept(t);<span class="comment">// 2. 将处理结果传递给流水线下游的Sink</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        downstream.end();</span><br><span class="line">        list = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">        list.add(t);<span class="comment">// 1. 使用当前Sink包装动作处理t，只是简单的将元素添加到中间列表当中</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码完美的展现了Sink的四个接口方法是如何协同工作的：</p>
+<ol>
+<li>首先beging()方法告诉Sink参与排序的元素个数，方便确定中间结果容器的的大小；</li>
+<li>之后通过accept()方法将元素添加到中间结果当中，最终执行时调用者会不断调用该方法，直到遍历所有元素；</li>
+<li>最后end()方法告诉Sink所有元素遍历完毕，启动排序步骤，排序完成后将结果传递给下游的Sink；</li>
+<li>如果下游的Sink是短路操作，将结果传递给下游时不断询问下游cancellationRequested()是否可以结束处理。</li>
+</ol>
+<h3 id="叠加之后的操作如何执行"><a href="#叠加之后的操作如何执行" class="headerlink" title="叠加之后的操作如何执行"></a>叠加之后的操作如何执行</h3><p>Sink完美封装了Stream每一步操作，并给出了[处理-&gt;转发]的模式来叠加操作。这一连串的齿轮已经咬合，就差最后一步拨动齿轮启动执行。是什么启动这一连串的操作呢？也许你已经想到了启动的原始动力就是结束操作(Terminal Operation)，一旦调用某个结束操作，就会触发整个流水线的执行。</p>
+<p>结束操作之后不能再有别的操作，所以结束操作不会创建新的流水线阶段(Stage)，直观的说就是流水线的链表不会在往后延伸了。结束操作会创建一个包装了自己操作的Sink，这也是流水线中最后一个Sink，这个Sink只需要处理数据而不需要将结果传递给下游的Sink（因为没有下游）。对于Sink的[处理-&gt;转发]模型，结束操作的Sink就是调用链的出口。</p>
+<p>我们再来考察一下上游的Sink是如何找到下游Sink的。一种可选的方案是在PipelineHelper中设置一个Sink字段，在流水线中找到下游Stage并访问Sink字段即可。但Stream类库的设计者没有这么做，而是设置了一个Sink AbstractPipeline.opWrapSink(int flags, Sink downstream)方法来得到Sink，该方法的作用是返回一个新的包含了当前Stage代表的操作以及能够将结果传递给downstream的Sink对象。为什么要产生一个新对象而不是返回一个Sink字段？这是因为使用opWrapSink()可以将当前操作与下游Sink（上文中的downstream参数）结合成新Sink。试想只要从流水线的最后一个Stage开始，不断调用上一个Stage的opWrapSink()方法直到最开始（不包括stage0，因为stage0代表数据源，不包含操作），就可以得到一个代表了流水线上所有操作的Sink，用代码表示就是这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AbstractPipeline.wrapSink()</span></span><br><span class="line"><span class="comment">// 从下游向上游不断包装Sink。如果最初传入的sink代表结束操作，</span></span><br><span class="line"><span class="comment">// 函数返回时就可以得到一个代表了流水线上所有操作的Sink。</span></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function">Sink&lt;P_IN&gt; <span class="title">wrapSink</span><span class="params">(Sink&lt;E_OUT&gt; sink)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">for</span> (AbstractPipeline p=AbstractPipeline.<span class="keyword">this</span>; p.depth &gt; <span class="number">0</span>; p=p.previousStage) &#123;</span><br><span class="line">        sink = p.opWrapSink(p.previousStage.combinedFlags, sink);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (Sink&lt;P_IN&gt;) sink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在流水线上从开始到结束的所有的操作都被包装到了一个Sink里，执行这个Sink就相当于执行整个流水线，执行Sink的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AbstractPipeline.copyInto(), 对spliterator代表的数据执行wrappedSink代表的操作。</span></span><br><span class="line"><span class="keyword">final</span> &lt;P_IN&gt; <span class="function"><span class="keyword">void</span> <span class="title">copyInto</span><span class="params">(Sink&lt;P_IN&gt; wrappedSink, Spliterator&lt;P_IN&gt; spliterator)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (!StreamOpFlag.SHORT_CIRCUIT.isKnown(getStreamAndOpFlags())) &#123;</span><br><span class="line">        wrappedSink.begin(spliterator.getExactSizeIfKnown());<span class="comment">// 通知开始遍历</span></span><br><span class="line">        spliterator.forEachRemaining(wrappedSink);<span class="comment">// 迭代</span></span><br><span class="line">        wrappedSink.end();<span class="comment">// 通知遍历结束</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码首先调用wrappedSink.begin()方法告诉Sink数据即将到来，然后调用spliterator.forEachRemaining()方法对数据进行迭代（Spliterator是容器的一种迭代器，参阅），最后调用wrappedSink.end()方法通知Sink数据处理结束。逻辑如此清晰。</p>
+<h3 id="执行后的结果在哪里"><a href="#执行后的结果在哪里" class="headerlink" title="执行后的结果在哪里"></a>执行后的结果在哪里</h3><p>最后一个问题是流水线上所有操作都执行后，用户所需要的结果（如果有）在哪里？首先要说明的是不是所有的Stream结束操作都需要返回结果，有些操作只是为了使用其副作用(Side-effects)，比如使用Stream.forEach()方法将结果打印出来就是常见的使用副作用的场景（事实上，除了打印之外其他场景都应避免使用副作用），对于真正需要返回结果的结束操作结果存在哪里呢？</p>
+<p>特别说明：副作用不应该被滥用，也许你会觉得在Stream.forEach()里进行元素收集是个不错的选择，就像下面代码中那样，但遗憾的是这样使用的正确性和效率都无法保证，因为Stream可能会并行执行。大多数使用副作用的地方都可以使用归约操作更安全和有效的完成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误的收集方式</span></span><br><span class="line">ArrayList&lt;String&gt; results = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">stream.filter(s -&gt; pattern.matcher(s).matches())</span><br><span class="line">      .forEach(s -&gt; results.add(s));  <span class="comment">// Unnecessary use of side-effects!</span></span><br><span class="line"><span class="comment">// 正确的收集方式</span></span><br><span class="line">List&lt;String&gt;results =</span><br><span class="line">     stream.filter(s -&gt; pattern.matcher(s).matches())</span><br><span class="line">             .collect(Collectors.toList());  <span class="comment">// No side-effects!</span></span><br></pre></td></tr></table></figure>
+
+<p>回到流水线执行结果的问题上来，需要返回结果的流水线结果存在哪里呢？这要分不同的情况讨论，下表给出了各种有返回结果的Stream结束操作。</p>
+<table>
+<thead>
+<tr>
+<th>返回类型</th>
+<th>对应的结束操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td>anyMatch() allMatch() noneMatch()</td>
+</tr>
+<tr>
+<td>Optional</td>
+<td>findFirst() findAny()</td>
+</tr>
+<tr>
+<td>归约结果</td>
+<td>reduce() collect()</td>
+</tr>
+<tr>
+<td>数组</td>
+<td>toArray()</td>
+</tr>
+</tbody></table>
+<ol>
+<li>对于表中返回boolean或者Optional的操作（Optional是存放 一个 值的容器）的操作，由于值返回一个值，只需要在对应的Sink中记录这个值，等到执行结束时返回就可以了。</li>
+<li>对于归约操作，最终结果放在用户调用时指定的容器中（容器类型通过收集器指定）。collect(), reduce(), max(), min()都是归约操作，虽然max()和min()也是返回一个Optional，但事实上底层是通过调用reduce()方法实现的。</li>
+<li>对于返回是数组的情况，毫无疑问的结果会放在数组当中。这么说当然是对的，但在最终返回数组之前，结果其实是存储在一种叫做Node的数据结构中的。Node是一种多叉树结构，元素存储在树的叶子当中，并且一个叶子节点可以存放多个元素。这样做是为了并行执行方便。关于Node的具体结构，我们会在下一节探究Stream如何并行执行时给出详细说明。</li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 wshten@gmail.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>深入理解Java Stream流水线</p>
+    
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="KevinTen">KevinTen</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-10-08, 00:00:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-08, 09:56:14</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/10/08/Stream/Stream-概念/" title="深入理解Java Stream流水线">http://github.com/kevinten10/2019/10/08/Stream/Stream-概念/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2015-2019 KevinTen</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#aws','#cloud','#google','#Ctrip','#技术分享','#read','#响应式','#function','#声明式','#medium','#node','#reactive','#IO','#IOCP','#java','#net','#rpc','#work','#工作','#tomcat','#cloud native','#vertx','#stream','#ci','#code','#app mesh','#spring cloud aws','#async','#CompletableFuture','#k8s','#ci/cd','#kubectl','#log','#service mesh','#envoy','#linkerd','#服务发现','#serverless','#lambda','#concurrent','#EPOLL','#istio','#javaagent','#职场效应','#函数式','#c++','#linux','#stack','#系统调用','#http','#memory',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+<div class="mobile-menus-out" >
+
+</div>
+<div class="mobile-menus">
+    
+    
+    <a class="dynamic-menu site_url"   href="https://blog.csdn.net/wsh596823919">csdn</a>
+    
+    
+    <a class="dynamic-menu " target="_self"   href="https://www.zhihu.com/people/wang-shi-hao-93-9/activities">zhihu</a>
+    
+    
+    <a class="dynamic-menu " target="_blank"  href="https://github.com/kevinten10">github</a>
+    
+</div>
+
+
+</html>
