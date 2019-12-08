@@ -6,20 +6,17 @@
   <meta name="keywords" content=" aws ">
   <meta name="description" content="AWS-CodeCommit简洁快速文档 | KevinTen">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Linux的内核态栈使用一种特殊的约定，分配栈时绝对是按栈大小对齐，然后在栈的最低地址处存放一个thread_info结构体  这样设计带来的一个好处是非常容易低从栈指针得到栈的位置，方法就是把低位抹掉（换为0）。因为目标系统是64位，栈的大小是16KB，因此，只要把低14位替换为零就得到栈空间的起始地址。">
-<meta name="keywords" content="linux,stack">
+<meta name="keywords" content="reactive,rsocket">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux内核态栈">
-<meta property="og:url" content="http://github.com/kevinten10/2019/10/21/OS/Linux-内核栈/index.html">
+<meta property="og:title" content="RSocket">
+<meta property="og:url" content="http://github.com/kevinten10/2019/11/20/Reactive/RSocket/index.html">
 <meta property="og:site_name" content="KevinTen">
-<meta property="og:description" content="Linux的内核态栈使用一种特殊的约定，分配栈时绝对是按栈大小对齐，然后在栈的最低地址处存放一个thread_info结构体  这样设计带来的一个好处是非常容易低从栈指针得到栈的位置，方法就是把低位抹掉（换为0）。因为目标系统是64位，栈的大小是16KB，因此，只要把低14位替换为零就得到栈空间的起始地址。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://github.com/img/os/%E5%86%85%E6%A0%B8%E6%80%81%E6%A0%88.png">
-<meta property="og:updated_time" content="2019-10-21T11:53:56.407Z">
+<meta property="og:image" content="http://github.com/img/">
+<meta property="og:updated_time" content="2019-11-20T04:17:32.673Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux内核态栈">
-<meta name="twitter:description" content="Linux的内核态栈使用一种特殊的约定，分配栈时绝对是按栈大小对齐，然后在栈的最低地址处存放一个thread_info结构体  这样设计带来的一个好处是非常容易低从栈指针得到栈的位置，方法就是把低位抹掉（换为0）。因为目标系统是64位，栈的大小是16KB，因此，只要把低14位替换为零就得到栈空间的起始地址。">
-<meta name="twitter:image" content="http://github.com/img/os/%E5%86%85%E6%A0%B8%E6%80%81%E6%A0%88.png">
+<meta name="twitter:title" content="RSocket">
+<meta name="twitter:image" content="http://github.com/img/">
 
 
 <link rel="icon" href="/img/avatar.jpg">
@@ -164,7 +161,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(132)</small></div></li>
+    <li><div class="all active">全部文章<small>(139)</small></div></li>
     
         
             
@@ -232,6 +229,14 @@
     
         
             
+            <li><div data-rel="Netty">Netty<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
             <li><div data-rel="Qcon">Qcon<small>(16)</small></div>
                 
             </li>
@@ -248,6 +253,14 @@
     
         
             
+            <li><div data-rel="Principle">Principle<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
             <li><div data-rel="Science">Science<small>(4)</small></div>
                 
             </li>
@@ -256,7 +269,7 @@
     
         
             
-            <li><div data-rel="Reactive">Reactive<small>(6)</small></div>
+            <li><div data-rel="Reactive">Reactive<small>(7)</small></div>
                 
             </li>
             
@@ -273,6 +286,14 @@
         
             
             <li><div data-rel="Tomcat">Tomcat<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="Tools">Tools<small>(1)</small></div>
                 
             </li>
             
@@ -312,6 +333,14 @@
     
         
             
+            <li><div data-rel="人生经验">人生经验<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
             <li><div data-rel="Async">Async<small>(1)</small></div>
                 
             </li>
@@ -321,14 +350,6 @@
         
             
             <li><div data-rel="Java">Java<small>(5)</small></div>
-                
-            </li>
-            
-        
-    
-        
-            
-            <li><div data-rel="人生经验">人生经验<small>(1)</small></div>
                 
             </li>
             
@@ -350,7 +371,7 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="132">
+<input type="hidden" id="yelog_site_posts_number" value="139">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -429,6 +450,18 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">netty</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">channel</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">eventloop</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">Qcon</a>
     </li>
     
@@ -438,6 +471,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color1">stack</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">domain</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">model</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -481,6 +522,14 @@
     </li>
     
     <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">tool</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">vim</a>
+    </li>
+    
+    <li class="article-tag-list-item">
         <a href="javascript:" class="color5">work</a>
     </li>
     
@@ -498,6 +547,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color2">stream</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">压力</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">调节</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -557,11 +614,11 @@
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color1">envoy</a>
+        <a href="javascript:" class="color5">服务发现</a>
     </li>
     
     <li class="article-tag-list-item">
-        <a href="javascript:" class="color5">服务发现</a>
+        <a href="javascript:" class="color1">envoy</a>
     </li>
     
     <li class="article-tag-list-item">
@@ -590,6 +647,14 @@
     
     <li class="article-tag-list-item">
         <a href="javascript:" class="color4">函数式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">tdd</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">rsocket</a>
     </li>
     
     <div class="clearfix"></div>
@@ -639,18 +704,18 @@
         </a>
         
         <a  class="Distribute "
-           href="/2019/06/30/Distribute/Google-MapReduce/"
-           data-tag="google"
-           data-author="" >
-            <span class="post-title" title="Google MapReduce">Google MapReduce</span>
-            <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
-        </a>
-        
-        <a  class="Distribute "
            href="/2019/06/30/Distribute/Google-Bigtable/"
            data-tag="google"
            data-author="" >
             <span class="post-title" title="Google Bigtable">Google Bigtable</span>
+            <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
+        </a>
+        
+        <a  class="Distribute "
+           href="/2019/06/30/Distribute/Google-MapReduce/"
+           data-tag="google"
+           data-author="" >
+            <span class="post-title" title="Google MapReduce">Google MapReduce</span>
             <span class="post-date" title="2019-06-30 00:00:00">2019/06/30</span>
         </a>
         
@@ -711,6 +776,14 @@
         </a>
         
         <a  class="Medium "
+           href="/2019/09/22/Medium/Medium-9-22-1/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.22 AWS Lambda + Node Modules, no Docker required">Medium reading 9.22 AWS Lambda + Node Modules, no Docker required</span>
+            <span class="post-date" title="2019-09-22 10:00:00">2019/09/22</span>
+        </a>
+        
+        <a  class="Medium "
            href="/2019/09/22/Medium/Medium-9-22-2/"
            data-tag="medium"
            data-author="" >
@@ -743,6 +816,14 @@
         </a>
         
         <a  class="Medium "
+           href="/2019/09/29/Medium/Medium-9-29-2/"
+           data-tag="medium"
+           data-author="" >
+            <span class="post-title" title="Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda">Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda</span>
+            <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="Medium "
            href="/2019/09/29/Medium/Medium-9-29-1/"
            data-tag="medium"
            data-author="" >
@@ -758,20 +839,44 @@
             <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
         </a>
         
-        <a  class="Medium "
-           href="/2019/09/29/Medium/Medium-9-29-2/"
-           data-tag="medium"
+        <a  class="Netty "
+           href="/2019/11/11/Netty/Netty-核心组件/"
+           data-tag="netty,channel"
            data-author="" >
-            <span class="post-title" title="Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda">Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda</span>
-            <span class="post-date" title="2019-09-29 10:00:00">2019/09/29</span>
+            <span class="post-title" title="Netty 核心组件">Netty 核心组件</span>
+            <span class="post-date" title="2019-11-11 00:00:00">2019/11/11</span>
+        </a>
+        
+        <a  class="Netty "
+           href="/2019/11/11/Netty/Netty-线程模型/"
+           data-tag="netty,eventloop"
+           data-author="" >
+            <span class="post-title" title="Netty 线程模型">Netty 线程模型</span>
+            <span class="post-date" title="2019-11-11 00:00:00">2019/11/11</span>
         </a>
         
         <a  class="Qcon "
-           href="/2019/10/19/Qcon/Qcon-Ai in 合规管理/"
+           href="/2019/10/19/OS/IO-DomainSocket/"
            data-tag="Qcon"
            data-author="" >
-            <span class="post-title" title="Qcon Ai in paypal&#39;s 合规管理">Qcon Ai in paypal&#39;s 合规管理</span>
+            <span class="post-title" title="Qcon 监控埋点">Qcon 监控埋点</span>
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
+        </a>
+        
+        <a  class="OS "
+           href="/2019/10/21/OS/Linux-内核栈/"
+           data-tag="linux,stack"
+           data-author="" >
+            <span class="post-title" title="Linux内核态栈">Linux内核态栈</span>
+            <span class="post-date" title="2019-10-21 00:00:00">2019/10/21</span>
+        </a>
+        
+        <a  class="Principle "
+           href="/2019/11/19/Principle/领域驱动设计/"
+           data-tag="domain,model"
+           data-author="" >
+            <span class="post-title" title="领域驱动设计-对象建模">领域驱动设计-对象建模</span>
+            <span class="post-date" title="2019-11-19 00:00:00">2019/11/19</span>
         </a>
         
         <a  class="Qcon "
@@ -782,19 +887,11 @@
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
-        <a  class="Medium "
-           href="/2019/09/22/Medium/Medium-9-22-1/"
-           data-tag="medium"
-           data-author="" >
-            <span class="post-title" title="Medium reading 9.22 AWS Lambda + Node Modules, no Docker required">Medium reading 9.22 AWS Lambda + Node Modules, no Docker required</span>
-            <span class="post-date" title="2019-09-22 10:00:00">2019/09/22</span>
-        </a>
-        
         <a  class="Qcon "
-           href="/2019/10/19/Qcon/Qcon-OCTO/"
+           href="/2019/10/19/Qcon/Qcon-Ai in 合规管理/"
            data-tag="Qcon"
            data-author="" >
-            <span class="post-title" title="Qcon OCTO">Qcon OCTO</span>
+            <span class="post-title" title="Qcon Ai in paypal&#39;s 合规管理">Qcon Ai in paypal&#39;s 合规管理</span>
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
@@ -807,26 +904,18 @@
         </a>
         
         <a  class="Qcon "
+           href="/2019/10/19/Qcon/Qcon-OCTO/"
+           data-tag="Qcon"
+           data-author="" >
+            <span class="post-title" title="Qcon OCTO">Qcon OCTO</span>
+            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
+        </a>
+        
+        <a  class="Qcon "
            href="/2019/10/19/Qcon/Qcon-Scala/"
            data-tag="Qcon"
            data-author="" >
             <span class="post-title" title="Qcon Scala">Qcon Scala</span>
-            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
-        </a>
-        
-        <a  class="OS "
-           href="/2019/10/21/OS/Linux-内核栈/"
-           data-tag="linux,stack"
-           data-author="" >
-            <span class="post-title" title="Linux内核态栈">Linux内核态栈</span>
-            <span class="post-date" title="2019-10-21 00:00:00">2019/10/21</span>
-        </a>
-        
-        <a  class="Qcon "
-           href="/2019/10/19/OS/IO-DomainSocket/"
-           data-tag="Qcon"
-           data-author="" >
-            <span class="post-title" title="Qcon 监控埋点">Qcon 监控埋点</span>
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
@@ -835,14 +924,6 @@
            data-tag="Qcon"
            data-author="" >
             <span class="post-title" title="Qcon serverless">Qcon serverless</span>
-            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
-        </a>
-        
-        <a  class="Qcon "
-           href="/2019/10/19/Qcon/Qcon-ServiceMesh/"
-           data-tag="Qcon"
-           data-author="" >
-            <span class="post-title" title="Qcon Service Mesh">Qcon Service Mesh</span>
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
@@ -887,6 +968,14 @@
         </a>
         
         <a  class="Qcon "
+           href="/2019/10/19/Qcon/Qcon-高频交易/"
+           data-tag="Qcon"
+           data-author="" >
+            <span class="post-title" title="Qcon 高频交易">Qcon 高频交易</span>
+            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
+        </a>
+        
+        <a  class="Qcon "
            href="/2019/10/19/Qcon/监控-Cat/"
            data-tag="Qcon"
            data-author="" >
@@ -895,10 +984,10 @@
         </a>
         
         <a  class="Qcon "
-           href="/2019/10/19/Qcon/Qcon-高频交易/"
+           href="/2019/10/19/Qcon/监控-埋点/"
            data-tag="Qcon"
            data-author="" >
-            <span class="post-title" title="Qcon 高频交易">Qcon 高频交易</span>
+            <span class="post-title" title="Qcon 监控埋点">Qcon 监控埋点</span>
             <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
@@ -908,14 +997,6 @@
            data-author="" >
             <span class="post-title" title="IOCP 用法">IOCP 用法</span>
             <span class="post-date" title="2019-10-09 00:00:00">2019/10/09</span>
-        </a>
-        
-        <a  class="Qcon "
-           href="/2019/10/19/Qcon/监控-埋点/"
-           data-tag="Qcon"
-           data-author="" >
-            <span class="post-title" title="Qcon 监控埋点">Qcon 监控埋点</span>
-            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
         </a>
         
         <a  class="Reactive "
@@ -990,6 +1071,22 @@
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
         </a>
         
+        <a  class="Qcon "
+           href="/2019/10/19/Qcon/Qcon-ServiceMesh/"
+           data-tag="Qcon"
+           data-author="" >
+            <span class="post-title" title="Qcon Service Mesh">Qcon Service Mesh</span>
+            <span class="post-date" title="2019-10-19 00:00:00">2019/10/19</span>
+        </a>
+        
+        <a  class="Tools "
+           href="/2019/11/19/Tools/vim/"
+           data-tag="tool,vim"
+           data-author="" >
+            <span class="post-title" title="Vim">Vim</span>
+            <span class="post-date" title="2019-11-19 00:00:00">2019/11/19</span>
+        </a>
+        
         <a  class="工作成长 "
            href="/2019/07/30/Work/七月工作/"
            data-tag="work,工作"
@@ -1007,7 +1104,7 @@
         </a>
         
         <a  class=""
-           href="/2019/09/30/Work/工作模板/"
+           href="/2019/09/30/Work/技术模板/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1015,7 +1112,7 @@
         </a>
         
         <a  class=""
-           href="/2019/09/30/Work/技术模板/"
+           href="/2019/09/30/Work/工作模板/"
            data-tag=""
            data-author="" >
             <span class="post-title" title=""></span>
@@ -1046,12 +1143,12 @@
             <span class="post-date" title="2019-10-08 00:00:00">2019/10/08</span>
         </a>
         
-        <a  class="Science "
-           href="/2019/10/14/Science/IO-EPOLL/"
-           data-tag="IO,EPOLL"
+        <a  class="人生经验 "
+           href="/2019/11/13/人生经验/2019感悟/"
+           data-tag="压力,调节"
            data-author="" >
-            <span class="post-title" title="EPOLL 用法">EPOLL 用法</span>
-            <span class="post-date" title="2019-10-14 00:00:00">2019/10/14</span>
+            <span class="post-title" title="2019感悟">2019感悟</span>
+            <span class="post-date" title="2019-11-13 00:00:00">2019/11/13</span>
         </a>
         
         <a  class="Science "
@@ -1060,6 +1157,22 @@
            data-author="" >
             <span class="post-title" title="IOCP 用法">IOCP 用法</span>
             <span class="post-date" title="2019-10-09 00:00:00">2019/10/09</span>
+        </a>
+        
+        <a  class="Science "
+           href="/2019/10/14/Science/IO-EPOLL/"
+           data-tag="IO,EPOLL"
+           data-author="" >
+            <span class="post-title" title="EPOLL 用法">EPOLL 用法</span>
+            <span class="post-date" title="2019-10-14 00:00:00">2019/10/14</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/aurora/Aws-Aurora/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Aurora简洁快速文档">AWS-Aurora简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
         </a>
         
         <a  class="AWS "
@@ -1071,6 +1184,14 @@
         </a>
         
         <a  class="AWS "
+           href="/2019/09/26/AWS/cli/Aws-管理控制台/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-管理控制台简洁快速文档">AWS-管理控制台简洁快速文档</span>
+            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+        </a>
+        
+        <a  class="AWS "
            href="/2019/09/26/AWS/cli/Aws-CLI/"
            data-tag="aws"
            data-author="" >
@@ -1079,11 +1200,11 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/06/AWS/code/Aws-Code-code系列使用/"
-           data-tag="aws,ci,code"
+           href="/2019/09/29/AWS/config/Aws-Config/"
+           data-tag="aws"
            data-author="" >
-            <span class="post-title" title="AWS-CI-code系列使用">AWS-CI-code系列使用</span>
-            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+            <span class="post-title" title="AWS-Config简洁快速文档">AWS-Config简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
         </a>
         
         <a  class="AWS "
@@ -1095,6 +1216,14 @@
         </a>
         
         <a  class="AWS "
+           href="/2019/09/06/AWS/code/Aws-Code-code系列使用/"
+           data-tag="aws,ci,code"
+           data-author="" >
+            <span class="post-title" title="AWS-CI-code系列使用">AWS-CI-code系列使用</span>
+            <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
+        </a>
+        
+        <a  class="AWS "
            href="/2019/09/27/AWS/code/Aws-CodeBuild/"
            data-tag="aws"
            data-author="" >
@@ -1103,18 +1232,18 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/27/AWS/code/Aws-CodeCommit/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-CodeCommit简洁快速文档">AWS-CodeCommit简洁快速文档</span>
-            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
-        </a>
-        
-        <a  class="AWS "
            href="/2019/09/27/AWS/code/Aws-CodeDeploy/"
            data-tag="aws"
            data-author="" >
             <span class="post-title" title="AWS-CodeStar简洁快速文档">AWS-CodeStar简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/27/AWS/code/Aws-CodeCommit/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CodeCommit简洁快速文档">AWS-CodeCommit简洁快速文档</span>
             <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
         </a>
         
@@ -1135,26 +1264,10 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/29/AWS/config/Aws-Config/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-Config简洁快速文档">AWS-Config简洁快速文档</span>
-            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
-        </a>
-        
-        <a  class="AWS "
            href="/2019/09/21/AWS/dynamo/Aws-Dynamo/"
            data-tag="aws"
            data-author="" >
             <span class="post-title" title="AWS-DynamoDB简洁快速文档">AWS-DynamoDB简洁快速文档</span>
-            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/21/AWS/eks/Aws-EKS/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-EKS简洁快速文档">AWS-EKS简洁快速文档</span>
             <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
         </a>
         
@@ -1167,19 +1280,11 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/27/AWS/aurora/Aws-Aurora/"
+           href="/2019/09/21/AWS/eks/Aws-EKS/"
            data-tag="aws"
            data-author="" >
-            <span class="post-title" title="AWS-Aurora简洁快速文档">AWS-Aurora简洁快速文档</span>
-            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/26/AWS/cli/Aws-管理控制台/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-管理控制台简洁快速文档">AWS-管理控制台简洁快速文档</span>
-            <span class="post-date" title="2019-09-26 00:00:00">2019/09/26</span>
+            <span class="post-title" title="AWS-EKS简洁快速文档">AWS-EKS简洁快速文档</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
         </a>
         
         <a  class="AWS "
@@ -1188,14 +1293,6 @@
            data-author="" >
             <span class="post-title" title="AWS-Elasticsearch Service简洁快速文档">AWS-Elasticsearch Service简洁快速文档</span>
             <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/29/AWS/formation/Aws-CloudFormation/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-CloudFormation简洁快速文档">AWS-CloudFormation简洁快速文档</span>
-            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
         </a>
         
         <a  class="AWS "
@@ -1231,6 +1328,22 @@
         </a>
         
         <a  class="AWS "
+           href="/2019/09/29/AWS/formation/Aws-CloudFormation/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-CloudFormation简洁快速文档">AWS-CloudFormation简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/29/AWS/mesh/Aws-App Mesh/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-App Mesh简洁快速文档">AWS-App Mesh简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
            href="/2019/09/08/AWS/mesh/Aws-Service-AppMesh/"
            data-tag="aws,app mesh"
            data-author="" >
@@ -1247,19 +1360,19 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/21/AWS/rds/Aws-RDS/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-Relational Database Service简洁快速文档">AWS-Relational Database Service简洁快速文档</span>
-            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
-        </a>
-        
-        <a  class="AWS "
            href="/2019/09/29/AWS/mq/Aws-SQS/"
            data-tag="aws"
            data-author="" >
             <span class="post-title" title="AWS-Simple Queue Service简洁快速文档">AWS-Simple Queue Service简洁快速文档</span>
             <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/21/AWS/rds/Aws-RDS/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Relational Database Service简洁快速文档">AWS-Relational Database Service简洁快速文档</span>
+            <span class="post-date" title="2019-09-21 00:00:00">2019/09/21</span>
         </a>
         
         <a  class="AWS "
@@ -1287,14 +1400,6 @@
         </a>
         
         <a  class="AWS "
-           href="/2019/09/29/AWS/vpc/Aws-VPC/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-Virtual Private Cloud简洁快速文档">AWS-Virtual Private Cloud简洁快速文档</span>
-            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
-        </a>
-        
-        <a  class="AWS "
            href="/2019/09/29/AWS/sar/Aws-SAR/"
            data-tag="aws"
            data-author="" >
@@ -1311,27 +1416,19 @@
         </a>
         
         <a  class="AWS "
+           href="/2019/09/29/AWS/vpc/Aws-VPC/"
+           data-tag="aws"
+           data-author="" >
+            <span class="post-title" title="AWS-Virtual Private Cloud简洁快速文档">AWS-Virtual Private Cloud简洁快速文档</span>
+            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
+        </a>
+        
+        <a  class="AWS "
            href="/2019/09/06/AWS/sdk/Aws-Java-Spring cloud aws/"
            data-tag="aws,java,spring cloud aws"
            data-author="" >
             <span class="post-title" title="AWS-Java-Spring cloud aws">AWS-Java-Spring cloud aws</span>
             <span class="post-date" title="2019-09-06 00:00:00">2019/09/06</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/27/AWS/watch/Aws-CloudWatch/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-CloudWatch简洁快速文档">AWS-CloudWatch简洁快速文档</span>
-            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
-        </a>
-        
-        <a  class="AWS "
-           href="/2019/09/29/AWS/mesh/Aws-App Mesh/"
-           data-tag="aws"
-           data-author="" >
-            <span class="post-title" title="AWS-App Mesh简洁快速文档">AWS-App Mesh简洁快速文档</span>
-            <span class="post-date" title="2019-09-29 00:00:00">2019/09/29</span>
         </a>
         
         <a  class="Async "
@@ -1391,10 +1488,10 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
-           data-tag="cloud,k8s,log"
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
+           data-tag="cloud,k8s"
            data-author="" >
-            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
+            <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
             <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
@@ -1403,14 +1500,6 @@
            data-tag="cloud,k8s"
            data-author="" >
             <span class="post-title" title="Kubernetes的解决方案">Kubernetes的解决方案</span>
-            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
-        </a>
-        
-        <a  class="Cloud "
-           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/"
-           data-tag="cloud,k8s"
-           data-author="" >
-            <span class="post-title" title="Kubernetes vs Servicemesh">Kubernetes vs Servicemesh</span>
             <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
@@ -1431,19 +1520,19 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/03/Cloud/servicemesh/Cloud-Envoy/"
-           data-tag="service mesh,envoy"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--Envoy简介">ServiceMesh--Envoy简介</span>
-            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/"
            data-tag="service mesh,服务发现"
            data-author="" >
             <span class="post-title" title="ServiceMesh——Istio简介">ServiceMesh——Istio简介</span>
             <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/03/Cloud/servicemesh/Cloud-Envoy/"
+           data-tag="service mesh,envoy"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Envoy简介">ServiceMesh--Envoy简介</span>
+            <span class="post-date" title="2019-09-03 00:00:00">2019/09/03</span>
         </a>
         
         <a  class="Cloud "
@@ -1455,6 +1544,14 @@
         </a>
         
         <a  class="Cloud "
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--Spring">ServiceMesh--Spring</span>
+            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
+        </a>
+        
+        <a  class="Cloud "
            href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/"
            data-tag="service mesh"
            data-author="" >
@@ -1463,10 +1560,10 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/"
+           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/"
            data-tag="service mesh"
            data-author="" >
-            <span class="post-title" title="ServiceMesh--Spring">ServiceMesh--Spring</span>
+            <span class="post-title" title="ServiceMesh--Spring Cloud">ServiceMesh--Spring Cloud</span>
             <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
         </a>
         
@@ -1479,18 +1576,18 @@
         </a>
         
         <a  class="Cloud "
-           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
-           data-tag="service mesh"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
-            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
-        </a>
-        
-        <a  class="Cloud "
            href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/"
            data-tag="service mesh"
            data-author="" >
             <span class="post-title" title="ServiceMesh--网络通讯">ServiceMesh--网络通讯</span>
+            <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/"
+           data-tag="service mesh"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh--零侵入代价">ServiceMesh--零侵入代价</span>
             <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
         </a>
         
@@ -1500,6 +1597,14 @@
            data-author="" >
             <span class="post-title" title="ServiceMesh--问题">ServiceMesh--问题</span>
             <span class="post-date" title="2019-09-04 00:00:00">2019/09/04</span>
+        </a>
+        
+        <a  class="Cloud "
+           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
+           data-tag="service mesh,服务发现"
+           data-author="" >
+            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
+            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
         </a>
         
         <a  class="Cloud "
@@ -1550,14 +1655,6 @@
             <span class="post-date" title="2019-10-09 09:11:29">2019/10/09</span>
         </a>
         
-        <a  class="Cloud "
-           href="/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/"
-           data-tag="service mesh"
-           data-author="" >
-            <span class="post-title" title="ServiceMesh--Spring Cloud">ServiceMesh--Spring Cloud</span>
-            <span class="post-date" title="2019-09-08 00:00:00">2019/09/08</span>
-        </a>
-        
         <a  class="Java "
            href="/2019/08/30/Java/memory/Java-Reference/"
            data-tag="java,memory"
@@ -1566,20 +1663,20 @@
             <span class="post-date" title="2019-08-30 00:00:00">2019/08/30</span>
         </a>
         
-        <a  class="Cloud "
-           href="/2019/09/02/Cloud/servicemesh/Cloud-SM/"
-           data-tag="service mesh,服务发现"
+        <a  class="AWS "
+           href="/2019/09/27/AWS/watch/Aws-CloudWatch/"
+           data-tag="aws"
            data-author="" >
-            <span class="post-title" title="ServiceMesh简介">ServiceMesh简介</span>
-            <span class="post-date" title="2019-09-02 00:00:00">2019/09/02</span>
+            <span class="post-title" title="AWS-CloudWatch简洁快速文档">AWS-CloudWatch简洁快速文档</span>
+            <span class="post-date" title="2019-09-27 00:00:00">2019/09/27</span>
         </a>
         
-        <a  class="人生经验 "
-           href="/2019/07/30/人生经验/职场效应/晕轮效应/"
-           data-tag="职场效应"
+        <a  class="Cloud "
+           href="/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/"
+           data-tag="cloud,k8s,log"
            data-author="" >
-            <span class="post-title" title="晕轮效应">晕轮效应</span>
-            <span class="post-date" title="2019-07-30 00:00:00">2019/07/30</span>
+            <span class="post-title" title="Kubernetes的应用日志-Logstash">Kubernetes的应用日志-Logstash</span>
+            <span class="post-date" title="2019-08-30 11:41:10">2019/08/30</span>
         </a>
         
         <a  class="Tomcat "
@@ -1590,12 +1687,12 @@
             <span class="post-date" title="2019-09-15 00:00:00">2019/09/15</span>
         </a>
         
-        <a  class="AWS "
-           href="/2019/09/19/AWS/sdk/Aws-Java-SDK2优化/"
-           data-tag="aws,java"
+        <a  class="人生经验 "
+           href="/2019/07/30/人生经验/职场效应/晕轮效应/"
+           data-tag="职场效应"
            data-author="" >
-            <span class="post-title" title="AWS-Java-SDK2优化">AWS-Java-SDK2优化</span>
-            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+            <span class="post-title" title="晕轮效应">晕轮效应</span>
+            <span class="post-date" title="2019-07-30 00:00:00">2019/07/30</span>
         </a>
         
         <a  class="AWS "
@@ -1603,6 +1700,14 @@
            data-tag="aws,java"
            data-author="" >
             <span class="post-title" title="AWS-Java-SDK2使用步骤">AWS-Java-SDK2使用步骤</span>
+            <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
+        </a>
+        
+        <a  class="AWS "
+           href="/2019/09/19/AWS/sdk/Aws-Java-SDK2优化/"
+           data-tag="aws,java"
+           data-author="" >
+            <span class="post-title" title="AWS-Java-SDK2优化">AWS-Java-SDK2优化</span>
             <span class="post-date" title="2019-09-19 00:00:00">2019/09/19</span>
         </a>
         
@@ -1652,6 +1757,22 @@
            data-author="" >
             <span class="post-title" title="函数式编程">函数式编程</span>
             <span class="post-date" title="2019-05-30 00:00:00">2019/05/30</span>
+        </a>
+        
+        <a  class="Principle "
+           href="/2019/11/20/Principle/TDD/"
+           data-tag="tdd"
+           data-author="" >
+            <span class="post-title" title="测试驱动开发TDD">测试驱动开发TDD</span>
+            <span class="post-date" title="2019-11-20 00:00:00">2019/11/20</span>
+        </a>
+        
+        <a  class="Reactive "
+           href="/2019/11/20/Reactive/RSocket/"
+           data-tag="reactive,rsocket"
+           data-author="" >
+            <span class="post-title" title="RSocket">RSocket</span>
+            <span class="post-date" title="2019-11-20 00:00:00">2019/11/20</span>
         </a>
         
     </nav>
@@ -1818,7 +1939,7 @@
     /*作者、标签的自动补全*/
     $(function () {
         $('.search').AutoComplete({
-            'data': ['#aws','#c++','#cloud','#Ctrip','#技术分享','#google','#read','#响应式','#function','#声明式','#medium','#Qcon','#linux','#stack','#IO','#IOCP','#java','#reactive','#net','#node','#vertx','#rpc','#系统调用','#tomcat','#work','#工作','#cloud native','#http','#stream','#EPOLL','#ci','#code','#app mesh','#spring cloud aws','#async','#CompletableFuture','#k8s','#ci/cd','#kubectl','#log','#serverless','#lambda','#service mesh','#envoy','#服务发现','#linkerd','#concurrent','#memory','#职场效应','#istio','#javaagent','#函数式',],
+            'data': ['#aws','#c++','#cloud','#Ctrip','#技术分享','#google','#read','#响应式','#function','#声明式','#medium','#netty','#channel','#eventloop','#Qcon','#linux','#stack','#domain','#model','#IO','#IOCP','#java','#reactive','#net','#node','#vertx','#rpc','#系统调用','#tomcat','#tool','#vim','#work','#工作','#cloud native','#http','#stream','#压力','#调节','#EPOLL','#ci','#code','#app mesh','#spring cloud aws','#async','#CompletableFuture','#k8s','#ci/cd','#kubectl','#log','#serverless','#lambda','#service mesh','#服务发现','#envoy','#linkerd','#concurrent','#memory','#职场效应','#istio','#javaagent','#函数式','#tdd','#rsocket',],
             'itemHeight': 20,
             'width': 418
         }).AutoComplete('show');
