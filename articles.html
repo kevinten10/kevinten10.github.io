@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技术文章 - KevinTen</title>
+    <meta name="description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://kevinten10.github.io/articles.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kevinten10.github.io/articles.html">
+    <meta property="og:title" content="技术文章 - KevinTen">
+    <meta property="og:description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="技术文章 - KevinTen">
+    <meta name="twitter:description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
+    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/theme.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/articles.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
+    <link rel="preload" href="/assets/js/articles.js" as="script">
+</head>
+<body>
+    <!-- Skip to content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">跳转到主要内容</a>
+    
+    <!-- Navigation -->
+    <header class="nav-header" role="banner">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen" width="40" height="40">
+                <span>KevinTen</span>
+            </a>
+            
+            <nav class="nav-links" role="navigation" aria-label="主导航">
+                <a href="/" class="nav-link">首页</a>
+                <a href="/articles.html" class="nav-link active" aria-current="page">文章</a>
+                <a href="/#projects" class="nav-link">项目</a>
+                <a href="/#tech" class="nav-link">技术</a>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="https://github.com/kevinten10" target="_blank" class="btn btn-ghost btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="articles-hero">
+        <div class="container">
+            <h1 class="articles-hero-title">技术文章</h1>
+            <p class="articles-hero-description">分享云原生、微服务、Java、Go等技术领域的实践经验</p>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <div class="search-box">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <input type="text" class="search-input" id="searchInput" placeholder="搜索文章..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="articles-main" id="main-content" role="main">
+        <div class="container">
+            <div class="articles-layout">
+                <!-- Sidebar -->
+                <aside class="articles-sidebar">
+                    <!-- Categories -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">分类</h3>
+                        <ul class="category-list" id="categoryList">
+                            <li class="category-item active" data-category="all">
+                                <span class="category-name">全部文章</span>
+                                <span class="category-count">156</span>
+                            </li>
+                            <li class="category-item" data-category="cloud">
+                                <span class="category-name">云原生</span>
+                                <span class="category-count">45</span>
+                            </li>
+                            <li class="category-item" data-category="java">
+                                <span class="category-name">Java</span>
+                                <span class="category-count">32</span>
+                            </li>
+                            <li class="category-item" data-category="reactive">
+                                <span class="category-name">Reactive</span>
+                                <span class="category-count">28</span>
+                            </li>
+                            <li class="category-item" data-category="aws">
+                                <span class="category-name">AWS</span>
+                                <span class="category-count">24</span>
+                            </li>
+                            <li class="category-item" data-category="servicemesh">
+                                <span class="category-name">Service Mesh</span>
+                                <span class="category-count">18</span>
+                            </li>
+                            <li class="category-item" data-category="kubernetes">
+                                <span class="category-name">Kubernetes</span>
+                                <span class="category-count">15</span>
+                            </li>
+                            <li class="category-item" data-category="qcon">
+                                <span class="category-name">QCon</span>
+                                <span class="category-count">12</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">热门标签</h3>
+                        <div class="tag-cloud" id="tagCloud">
+                            <span class="tag-item" data-tag="microservices">微服务</span>
+                            <span class="tag-item" data-tag="istio">Istio</span>
+                            <span class="tag-item" data-tag="envoy">Envoy</span>
+                            <span class="tag-item" data-tag="grpc">gRPC</span>
+                            <span class="tag-item" data-tag="netty">Netty</span>
+                            <span class="tag-item" data-tag="concurrent">并发</span>
+                            <span class="tag-item" data-tag="io">IO模型</span>
+                            <span class="tag-item" data-tag="serverless">Serverless</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Article List -->
+                <div class="articles-content">
+                    <!-- Filter Status -->
+                    <div class="filter-status" id="filterStatus">
+                        <span class="filter-text">显示全部文章</span>
+                        <button class="filter-clear" id="clearFilter" style="display: none;">清除筛选</button>
+                    </div>
+
+                    <!-- Articles Grid -->
+                    <div class="articles-grid" id="articlesGrid">
+                        <!-- Articles will be loaded dynamically -->
+                    </div>
+
+                    <!-- Loading Indicator -->
+                    <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <span>加载中...</span>
+                    </div>
+
+                    <!-- Load More -->
+                    <div class="load-more-container" id="loadMoreContainer">
+                        <button class="btn btn-secondary" id="loadMoreBtn">加载更多</button>
+                    </div>
+
+                    <!-- No Results -->
+                    <div class="no-results" id="noResults" style="display: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                        <h3>未找到相关文章</h3>
+                        <p>尝试使用其他关键词或清除筛选条件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-quote">"Building systems where humans design, agents execute, and runtimes collaborate."</p>
+            <div class="footer-links">
+                <a href="https://github.com/kevinten10" target="_blank">GitHub</a>
+                <a href="mailto:wshten@gmail.com">Email</a>
+            </div>
+            <p class="footer-copyright">© 2024 KevinTen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/assets/js/articles.js"></script>
+</body>
+</html>
