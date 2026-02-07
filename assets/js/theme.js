@@ -1,6 +1,7 @@
 /**
  * Theme Manager - Dark/Light mode toggle
  * Supports system preference and manual override
+ * @version 1.1.0
  */
 
 (function() {
@@ -11,31 +12,77 @@
 
   // Theme manager object
   const ThemeManager = {
+    currentTheme: 'dark',
+
+    // Theme colors for browser UI (theme-color meta tag)
+    themeColors: {
+      light: '#F8FAFC',
+      dark: '#0F172A'
+    },
+
+    // Theme CSS variables for smooth transitions
+    themes: {
+      light: {
+        '--color-bg': '#F8FAFC',
+        '--color-bg-secondary': '#F1F5F9',
+        '--color-bg-tertiary': '#E2E8F0',
+        '--color-bg-card': '#FFFFFF',
+        '--color-text': '#0F172A',
+        '--color-text-secondary': '#475569',
+        '--color-text-muted': '#64748B',
+        '--color-text-subtle': '#94A3B8',
+        '--color-border': '#E2E8F0',
+        '--color-border-light': '#CBD5E1',
+        '--color-border-glow': 'rgba(59, 130, 246, 0.3)',
+        '--gradient-hero': 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)'
+      },
+      dark: {
+        '--color-bg': '#0F172A',
+        '--color-bg-secondary': '#1E293B',
+        '--color-bg-tertiary': '#334155',
+        '--color-bg-card': 'rgba(30, 41, 59, 0.8)',
+        '--color-text': '#F8FAFC',
+        '--color-text-secondary': '#CBD5E1',
+        '--color-text-muted': '#64748B',
+        '--color-text-subtle': '#475569',
+        '--color-border': '#334155',
+        '--color-border-light': '#475569',
+        '--color-border-glow': 'rgba(59, 130, 246, 0.5)',
+        '--gradient-hero': 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)'
+      }
+    },
+
     // Get current theme
     getCurrentTheme() {
-      // Check localStorage first
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        return stored;
-      }
-      
-      // Check system preference
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
-      
-      return 'light';
+      return this.currentTheme;
     },
 
     // Set theme
-    setTheme(theme) {
+    setTheme(theme, save = true) {
+      this.currentTheme = theme;
+      const themeVars = this.themes[theme];
+
       if (theme === 'dark') {
         document.documentElement.setAttribute(THEME_ATTRIBUTE, 'dark');
       } else {
         document.documentElement.setAttribute(THEME_ATTRIBUTE, 'light');
       }
-      localStorage.setItem(STORAGE_KEY, theme);
-      this.updateToggleIcon(theme);
+
+      // Apply CSS variables for smooth transition
+      if (themeVars) {
+        const root = document.documentElement;
+        Object.entries(themeVars).forEach(([key, value]) => {
+          root.style.setProperty(key, value);
+        });
+      }
+
+      if (save) {
+        localStorage.setItem(STORAGE_KEY, theme);
+      }
+
+      this.updateThemeColor(theme);
+      this.updateToggleButton(theme);
+      this.announceThemeChange(theme);
     },
 
     // Toggle theme
@@ -45,40 +92,90 @@
       this.setTheme(next);
     },
 
-    // Update toggle button icon
-    updateToggleIcon(theme) {
-      const toggle = document.querySelector('.theme-toggle');
+    // Update browser theme-color meta tag
+    updateThemeColor(theme) {
+      const themeColorMeta = document.getElementById('theme-color-meta');
+      if (themeColorMeta) {
+        const color = this.themeColors[theme] || this.themeColors.dark;
+        themeColorMeta.setAttribute('content', color);
+      }
+    },
+
+    // Update toggle button icons
+    updateToggleButton(theme) {
+      const toggle = document.getElementById('theme-toggle');
       if (!toggle) return;
 
-      const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
-      
-      const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+      const sunIcon = toggle.querySelector('.sun-icon');
+      const moonIcon = toggle.querySelector('.moon-icon');
 
-      toggle.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-      toggle.setAttribute('aria-label', theme === 'dark' ? '切换到亮色模式' : '切换到暗色模式');
+      if (theme === 'dark') {
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
+        toggle.setAttribute('aria-label', 'Switch to light theme');
+      } else {
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+        toggle.setAttribute('aria-label', 'Switch to dark theme');
+      }
+    },
+
+    // Announce theme change to screen readers
+    announceThemeChange(theme) {
+      let announcement = document.getElementById('theme-announcement');
+      if (!announcement) {
+        announcement = document.createElement('div');
+        announcement.id = 'theme-announcement';
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        document.body.appendChild(announcement);
+      }
+
+      const themeName = theme === 'dark' ? 'Dark' : 'Light';
+      announcement.textContent = `${themeName} theme activated`;
+
+      setTimeout(() => {
+        announcement.textContent = '';
+      }, 1000);
     },
 
     // Initialize
     init() {
-      // Set initial theme
-      const theme = this.getCurrentTheme();
-      this.setTheme(theme);
+      // Check localStorage first, default to dark theme
+      const stored = localStorage.getItem(STORAGE_KEY);
+      let theme;
+
+      if (stored) {
+        theme = stored;
+      } else {
+        // Default to dark theme for new visitors
+        theme = 'dark';
+      }
+
+      this.setTheme(theme, false);
 
       // Listen for system theme changes
       if (window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.addEventListener('change', (e) => {
           // Only auto-switch if user hasn't manually set preference
           if (!localStorage.getItem(STORAGE_KEY)) {
-            this.setTheme(e.matches ? 'dark' : 'light');
+            this.setTheme(e.matches ? 'dark' : 'light', false);
           }
         });
       }
 
       // Bind toggle button
-      const toggle = document.querySelector('.theme-toggle');
+      const toggle = document.getElementById('theme-toggle');
       if (toggle) {
         toggle.addEventListener('click', () => this.toggle());
       }
+    },
+
+    // Get theme value (for external use)
+    getTheme() {
+      return this.getCurrentTheme();
     }
   };
 

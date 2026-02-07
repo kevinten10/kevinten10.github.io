@@ -1,68 +1,78 @@
 /* ============================================
    KevinTen Personal Website - Theme Variables
-   Professional Tech Color System
+   Tech/Futuristic Cyberpunk Color System
    ============================================ */
 
 :root {
-  /* Primary Colors - Tech Professional */
-  --color-primary: #3B82F6;
-  --color-primary-dark: #2563EB;
-  --color-primary-light: #60A5FA;
-  --color-secondary: #8B5CF6;
-  --color-secondary-dark: #7C3AED;
-  --color-secondary-light: #A78BFA;
-  --color-accent: #06B6D4;
-  --color-accent-dark: #0891B2;
-  --color-accent-light: #22D3EE;
-  
-  /* Background Colors - Dark Tech Theme */
-  --color-bg: #0F172A;
-  --color-bg-secondary: #1E293B;
-  --color-bg-tertiary: #334155;
-  --color-bg-card: rgba(30, 41, 59, 0.8);
-  
-  /* Text Colors - High Contrast */
-  --color-text: #F8FAFC;
-  --color-text-secondary: #CBD5E1;
-  --color-text-muted: #64748B;
-  --color-text-subtle: #475569;
-  
-  /* Border Colors */
-  --color-border: #334155;
-  --color-border-light: #475569;
-  --color-border-glow: rgba(59, 130, 246, 0.5);
-  
+  /* Primary Colors - Cyberpunk Blue-Purple Gradient */
+  --color-primary: #00D4FF;
+  --color-primary-dark: #00A8CC;
+  --color-primary-light: #33E0FF;
+  --color-secondary: #7B2FFF;
+  --color-secondary-dark: #6200CC;
+  --color-secondary-light: #994DFF;
+  --color-accent: #FF006E;
+  --color-accent-dark: #CC0058;
+  --color-accent-light: #FF338A;
+
+  /* Neon Glow Colors - Tech Futuristic */
+  --glow-blue: #00D4FF;
+  --glow-purple: #7B2FFF;
+  --glow-pink: #FF006E;
+  --glow-green: #00FF94;
+  --glow-cyan: #00FFFF;
+  --glow-magenta: #FF00FF;
+
+  /* Background Colors - Deep Space Tech Black */
+  --color-bg: #050508;
+  --color-bg-secondary: #0A0A12;
+  --color-bg-tertiary: #12121A;
+  --color-bg-card: rgba(10, 10, 18, 0.6);
+
+  /* Text Colors - High Contrast Tech White */
+  --color-text: #F0F0F0;
+  --color-text-secondary: #B0B0C0;
+  --color-text-muted: #606070;
+  --color-text-subtle: #404050;
+
+  /* Border Colors - Neon Glow */
+  --color-border: rgba(0, 212, 255, 0.2);
+  --color-border-light: rgba(123, 47, 255, 0.3);
+  --color-border-glow: rgba(0, 212, 255, 0.6);
+
   /* Semantic Colors */
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-info: #3B82F6;
-  
-  /* Language Colors */
-  --color-java: #B07219;
+  --color-success: #00FF94;
+  --color-warning: #FFB800;
+  --color-error: #FF006E;
+  --color-info: #00D4FF;
+
+  /* Language Colors - Enhanced */
+  --color-java: #FBBF24;
   --color-go: #00ADD8;
   --color-python: #3776AB;
   --color-javascript: #F7DF1E;
   --color-typescript: #3178C6;
-  
-  /* Gradient Definitions */
-  --gradient-hero: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
-  --gradient-card: linear-gradient(145deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-  --gradient-primary: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-  --gradient-accent: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
-  --gradient-neon: linear-gradient(135deg, #F472B6 0%, #8B5CF6 50%, #3B82F6 100%);
-  --gradient-glow: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-  
-  /* Glassmorphism */
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(59, 130, 246, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+
+  /* Gradient Definitions - Cyberpunk Style */
+  --gradient-hero: linear-gradient(135deg, #050508 0%, #0A0A12 50%, #12121A 100%);
+  --gradient-card: linear-gradient(145deg, rgba(0, 212, 255, 0.15) 0%, rgba(123, 47, 255, 0.15) 100%);
+  --gradient-primary: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
+  --gradient-accent: linear-gradient(135deg, #00D4FF 0%, #00FF94 100%);
+  --gradient-neon: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
+  --gradient-cyber: linear-gradient(90deg, #00D4FF, #7B2FFF, #FF006E, #00FF94);
+  --gradient-glow: linear-gradient(135deg, rgba(0, 212, 255, 0.4) 0%, rgba(123, 47, 255, 0.4) 100%);
+
+  /* Glassmorphism - Enhanced */
+  --glass-bg: rgba(10, 10, 18, 0.7);
+  --glass-border: rgba(0, 212, 255, 0.3);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.15);
   --glass-blur: 20px;
-  
-  /* Glow Effects */
-  --glow-primary: 0 0 20px rgba(59, 130, 246, 0.5);
-  --glow-secondary: 0 0 20px rgba(139, 92, 246, 0.5);
-  --glow-accent: 0 0 20px rgba(6, 182, 212, 0.5);
+
+  /* Glow Effects - Neon Style */
+  --glow-primary: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.4);
+  --glow-secondary: 0 0 20px rgba(123, 47, 255, 0.8), 0 0 40px rgba(123, 47, 255, 0.4);
+  --glow-accent: 0 0 20px rgba(255, 0, 110, 0.8), 0 0 40px rgba(255, 0, 110, 0.4);
+  --glow-cyber: 0 0 30px rgba(0, 212, 255, 0.6), 0 0 60px rgba(123, 47, 255, 0.3);
   
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -324,6 +334,129 @@ body {
   50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.4); }
 }
 
+/* ============================================
+   Tech/Futuristic Animations
+   ============================================ */
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px var(--glow-blue),
+      0 0 10px var(--glow-blue),
+      0 0 20px var(--glow-blue),
+      0 0 40px var(--glow-blue);
+  }
+  20%, 24%, 55% {
+    opacity: 0.8;
+    text-shadow: none;
+  }
+}
+
+@keyframes hologram {
+  0% { opacity: 1; transform: translateX(0); }
+  50% { opacity: 0.98; transform: translateX(1px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes energy-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+  }
+}
+
+@keyframes scan {
+  0% { top: 0; opacity: 0.8; }
+  50% { opacity: 0.4; }
+  100% { top: 100%; opacity: 0.8; }
+}
+
+@keyframes border-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+@keyframes cyber-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px var(--glow-blue));
+    text-shadow: 0 0 10px var(--glow-blue);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px var(--glow-purple));
+    text-shadow: 0 0 30px var(--glow-purple);
+  }
+}
+
+@keyframes data-flow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes matrix-rain {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes trail-fade {
+  0% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+@keyframes skill-load {
+  from { width: 0; }
+  to { width: var(--skill-level); }
+}
+
+@keyframes number-glow {
+  from { filter: drop-shadow(0 0 5px var(--glow-blue)); }
+  to { filter: drop-shadow(0 0 20px var(--glow-purple)); }
+}
+
+/* Tech Animation Classes */
+.animate-neon-flicker {
+  animation: neon-flicker 3s infinite alternate;
+}
+
+.animate-hologram {
+  animation: hologram 0.1s infinite;
+}
+
+.animate-energy-pulse {
+  animation: energy-pulse 4s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+.animate-border-rotate {
+  background-size: 300% 300%;
+  animation: border-rotate 3s linear infinite;
+}
+
+.animate-cyber-glow {
+  animation: cyber-glow 2s ease-in-out infinite alternate;
+}
+
+.animate-grid-move {
+  animation: grid-move 20s linear infinite;
+}
+
 .animate-fadeIn {
   animation: fadeIn var(--transition-slow) ease-out;
 }
@@ -356,6 +489,53 @@ body {
 .animate-glow {
   animation: glow 2s ease-in-out infinite;
 }
+
+/* ============================================
+   Scroll-Triggered Animations
+   ============================================ */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll.from-left {
+  transform: translateX(-30px);
+}
+
+.animate-on-scroll.from-left.is-visible {
+  transform: translateX(0);
+}
+
+.animate-on-scroll.from-right {
+  transform: translateX(30px);
+}
+
+.animate-on-scroll.from-right.is-visible {
+  transform: translateX(0);
+}
+
+.animate-on-scroll.scale-in {
+  transform: scale(0.95);
+}
+
+.animate-on-scroll.scale-in.is-visible {
+  transform: scale(1);
+}
+
+/* Staggered animation delays */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
