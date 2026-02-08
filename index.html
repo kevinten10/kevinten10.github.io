@@ -11,7 +11,7 @@
     <meta name="author" content="KevinTen">
     <meta name="robots" content="index, follow">
     <meta name="language" content="zh-CN">
-    <meta name="theme-color" id="theme-color-meta" content="#0F172A">
+    <meta name="theme-color" id="theme-color-meta" content="#000000">
     <link rel="canonical" href="https://kevinten10.github.io/">
 
     <!-- Open Graph -->
@@ -34,7 +34,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/theme.css">
@@ -146,28 +146,34 @@
     <!-- Main Content -->
     <main id="main-content">
     
-    <!-- Hero Section - Cyberpunk Tech Style -->
+    <!-- Hero Section - Modern Professional Design -->
     <section class="hero" id="about" aria-label="个人简介">
-        <!-- Energy Field Background Effect -->
-        <div class="energy-field"></div>
+        <!-- Subtle Grid Background -->
+        <div class="hero-background"></div>
 
-        <!-- Hero Title Section -->
-        <div class="hero-header">
-            <h1 class="hero-title neon-text">KevinTen</h1>
-            <p class="hero-subtitle animate-neon-flicker">Building the Future with AI-Native Architecture</p>
-        </div>
+        <!-- Hero Container -->
+        <div class="hero-container">
+            <!-- Hero Header -->
+            <div class="hero-header animate-on-scroll">
+                <h1 class="hero-title">KevinTen</h1>
+                <p class="hero-subtitle">Software Architect · AI-Native Developer</p>
+                <p class="hero-description">构建可扩展的分布式系统，探索 AI 与多运行时架构</p>
+            </div>
+
+            <!-- HR Quick Facts Banner - 保留 -->
+            <div class="hr-quick-facts-container animate-on-scroll stagger-1">
 
         <!-- HR Quick Facts Banner - 突出显示关键信息 -->
         <div class="hr-quick-facts-container">
             <!-- Primary Facts -->
-            <div class="hr-quick-facts card-cyber">
+            <div class="hr-quick-facts">
                 <div class="quick-fact-item">
-                    <span class="quick-fact-value neon-text">5+ 年</span>
+                    <span class="quick-fact-value">5+ 年</span>
                     <span class="quick-fact-label">工作经验</span>
                 </div>
                 <div class="quick-fact-divider"></div>
                 <div class="quick-fact-item">
-                    <span class="quick-fact-value neon-text-purple">Software Architect</span>
+                    <span class="quick-fact-value">Software Architect</span>
                     <span class="quick-fact-label">当前位置</span>
                 </div>
                 <div class="quick-fact-divider"></div>
@@ -186,170 +192,115 @@
             </div>
         </div>
 
-        <!-- Bento Grid Layout - Three Column Design -->
-        <div class="hero-bento-grid">
-            <!-- Column 1: Personal Profile Card -->
-            <div class="hero-bento-card card-cyber scanline">
-                <div class="profile-header">
-                    <div class="avatar-container">
-                        <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen Avatar" class="avatar-cyber">
-                        <div class="avatar-glow"></div>
+        <!-- Bento Grid Layout -->
+        <div class="bento-grid">
+            <!-- Large Card: Personal Profile -->
+            <div class="bento-item bento-large animate-on-scroll stagger-1">
+                <div class="bento-content">
+                    <div class="avatar-section">
+                        <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="Avatar" class="avatar">
+                        <div class="status-badge">Available for work</div>
                     </div>
                     <div class="profile-info">
-                        <h2 class="profile-name neon-text">王世豪</h2>
-                        <p class="profile-title">Wang Shihao</p>
-                    </div>
-                </div>
-
-                <div class="profile-content">
-                    <div class="profile-role">
-                        <span class="role-badge">Software Architect</span>
-                        <span class="role-badge role-secondary">AI-Native Developer</span>
-                    </div>
-
-                    <p class="profile-description">
-                        江南大学（985）物联网工程<br>
-                        专注云原生分布式系统、多运行时架构、AI原生开发
-                    </p>
-
-                    <div class="profile-highlights">
-                        <div class="highlight-item">
-                            <span class="highlight-icon">⚡</span>
-                            <span class="highlight-text">Apache Dubbo Contributor</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-icon">🌟</span>
-                            <span class="highlight-text">Dapr api-sig Co-Chair</span>
-                        </div>
-                        <div class="highlight-item">
-                            <span class="highlight-icon">🚀</span>
-                            <span class="highlight-text">Trip.com Tech Lead</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-meta">
-                        <span class="meta-item">📍 China · GMT+8</span>
-                        <span class="meta-item status-dot">🟢 Open to Opportunities</span>
+                        <h3>王世豪 · KevinTen</h3>
+                        <p class="role">Backend Tech Lead @ Trip.com</p>
+                        <p class="location">Shanghai, China · GMT+8</p>
+                        <p class="bio">江南大学（985）物联网工程 · 专注云原生分布式系统、多运行时架构、AI原生开发</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Column 2: Core Skills Card -->
-            <div class="hero-bento-card card-cyber scanline">
-                <div class="skills-header">
-                    <h2 class="card-title neon-text-purple">核心技能</h2>
-                    <p class="card-subtitle">Core Expertise</p>
+            <!-- Card: Core Skills -->
+            <div class="bento-item animate-on-scroll stagger-2">
+                <div class="bento-header">
+                    <span class="bento-icon">⚡</span>
+                    <h4>Core Skills</h4>
                 </div>
-
-                <div class="skills-content">
-                    <!-- Skill Progress Bars - Cyberpunk Style -->
-                    <div class="skill-item-cyber">
-                        <div class="skill-info">
+                <div class="bento-body">
+                    <div class="skill-list">
+                        <div class="skill-item">
                             <span class="skill-name">Java</span>
-                            <span class="skill-level">⭐⭐⭐⭐⭐</span>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 95%"></div></div>
                         </div>
-                        <div class="skill-bar-cyber" style="--skill-level: 95%;"></div>
-                    </div>
-
-                    <div class="skill-item-cyber">
-                        <div class="skill-info">
+                        <div class="skill-item">
                             <span class="skill-name">Go</span>
-                            <span class="skill-level">⭐⭐⭐⭐</span>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
                         </div>
-                        <div class="skill-bar-cyber" style="--skill-level: 80%;"></div>
-                    </div>
-
-                    <div class="skill-item-cyber">
-                        <div class="skill-info">
+                        <div class="skill-item">
                             <span class="skill-name">AI/LLM</span>
-                            <span class="skill-level">⭐⭐⭐⭐⭐</span>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
                         </div>
-                        <div class="skill-bar-cyber" style="--skill-level: 90%;"></div>
-                    </div>
-
-                    <div class="skill-item-cyber">
-                        <div class="skill-info">
+                        <div class="skill-item">
                             <span class="skill-name">Cloud Native</span>
-                            <span class="skill-level">⭐⭐⭐⭐⭐</span>
+                            <div class="skill-bar"><div class="skill-fill" style="width: 92%"></div></div>
                         </div>
-                        <div class="skill-bar-cyber" style="--skill-level: 92%;"></div>
-                    </div>
-
-                    <div class="skill-tags">
-                        <span class="skill-tag-mini java">Dubbo</span>
-                        <span class="skill-tag-mini ai">Dapr</span>
-                        <span class="skill-tag-mini cloud">K8s</span>
-                        <span class="skill-tag-mini go">Service Mesh</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Column 3: Featured Work Card -->
-            <div class="hero-bento-card card-cyber scanline">
-                <div class="work-header">
-                    <h2 class="card-title neon-text-pink">精选作品</h2>
-                    <p class="card-subtitle">Featured Projects</p>
+            <!-- Card: Featured Projects -->
+            <div class="bento-item bento-wide animate-on-scroll stagger-3">
+                <div class="bento-header">
+                    <span class="bento-icon">🚀</span>
+                    <h4>Featured Projects</h4>
                 </div>
-
-                <div class="work-content">
-                    <!-- Project Preview -->
-                    <div class="work-preview">
-                        <div class="project-spotlight">
-                            <div class="project-icon">🔮</div>
+                <div class="bento-body">
+                    <div class="project-preview">
+                        <div class="project-mini">
+                            <div class="project-icon">📦</div>
                             <div class="project-info">
-                                <h3 class="project-title">Capa</h3>
-                                <p class="project-desc">多运行时统一架构</p>
-                                <div class="project-stats">
-                                    <span class="project-stat">⭐ 1.4k</span>
-                                    <span class="project-stat">🔧 Apache</span>
-                                </div>
+                                <h5>Capa</h5>
+                                <p>多运行时架构平台</p>
                             </div>
+                            <span class="project-stat">⭐ 800</span>
+                        </div>
+                        <div class="project-mini">
+                            <div class="project-icon">🔄</div>
+                            <div class="project-info">
+                                <h5>Dubbo</h5>
+                                <p>Apache RPC 框架</p>
+                            </div>
+                            <span class="project-stat">⭐ 40k</span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div class="work-list">
-                        <div class="work-item">
-                            <span class="work-icon">🌐</span>
-                            <div class="work-details">
-                                <span class="work-name">Dubbo</span>
-                                <span class="work-status active">Maintainer</span>
-                            </div>
+            <!-- Card: Quick Stats -->
+            <div class="bento-item animate-on-scroll stagger-4">
+                <div class="bento-header">
+                    <span class="bento-icon">📊</span>
+                    <h4>Quick Stats</h4>
+                </div>
+                <div class="bento-body">
+                    <div class="stat-grid">
+                        <div class="stat">
+                            <span class="stat-value">5+</span>
+                            <span class="stat-label">Years</span>
                         </div>
-                        <div class="work-item">
-                            <span class="work-icon">🚀</span>
-                            <div class="work-details">
-                                <span class="work-name">Layotto</span>
-                                <span class="work-status active">Committer</span>
-                            </div>
-                        </div>
-                        <div class="work-item">
-                            <span class="work-icon">⚙️</span>
-                            <div class="work-details">
-                                <span class="work-name">Reactor</span>
-                                <span class="work-status">Contributor</span>
-                            </div>
+                        <div class="stat">
+                            <span class="stat-value">1.4k</span>
+                            <span class="stat-label">Stars</span>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <a href="#projects" class="view-all-btn btn-cyber">
-                        <span>查看全部作品</span>
-                        <span class="btn-arrow">→</span>
-                    </a>
+            <!-- Card: Contact -->
+            <div class="bento-item animate-on-scroll stagger-5">
+                <div class="bento-header">
+                    <span class="bento-icon">💬</span>
+                    <h4>Connect</h4>
+                </div>
+                <div class="bento-body">
+                    <div class="social-links">
+                        <a href="https://github.com/kevinten10" class="social-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="mailto:wshten@gmail.com" class="social-link">Email</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Quick Actions -->
-        <div class="hero-actions-cyber">
-            <a href="#experience" class="btn btn-cyber btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                查看经历
-            </a>
-            <a href="#contact" class="btn btn-cyber btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                联系我
-            </a>
-        </div>
+    </section>
 
         <div class="hero-scroll">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
@@ -360,39 +311,31 @@
     <section class="section" id="impact">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2 class="section-title neon-text">影响力指标</h2>
-                <p class="section-description">Impact & Achievements</p>
+                <h2 class="section-title">Impact</h2>
+                <p class="section-description">数字化成果展示</p>
             </div>
 
-            <div class="impact-dashboard" data-stagger data-stagger="100">
+            <div class="impact-dashboard">
                 <!-- Experience Years -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-1">
-                    <div class="metric-icon hologram-flicker">💼</div>
-                    <div class="metric-value neon-text animate-number" data-value="5" data-duration="2000">5</div>
+                <div class="impact-metric animate-on-scroll stagger-1">
+                    <div class="metric-icon">💼</div>
+                    <div class="metric-value animate-number" data-value="5" data-duration="2000">5</div>
                     <div class="metric-label">年工作经验</div>
                     <div class="metric-desc">从初级到架构师</div>
-                    <div class="metric-trend">
-                        <span class="trend-icon">📈</span>
-                        <span class="trend-text">持续成长</span>
-                    </div>
                 </div>
 
                 <!-- Major Systems -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-2">
-                    <div class="metric-icon hologram-flicker">🏗️</div>
-                    <div class="metric-value neon-text-purple animate-number" data-value="4" data-duration="2000">4</div>
+                <div class="impact-metric animate-on-scroll stagger-2">
+                    <div class="metric-icon">🏗️</div>
+                    <div class="metric-value animate-number" data-value="4" data-duration="2000">4</div>
                     <div class="metric-label">千万级系统</div>
                     <div class="metric-desc">主导设计与开发</div>
-                    <div class="metric-trend">
-                        <span class="trend-icon">⚡</span>
-                        <span class="trend-text">生产环境</span>
-                    </div>
                 </div>
 
                 <!-- GitHub Stars -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-3">
-                    <div class="metric-icon hologram-flicker">⭐</div>
-                    <div class="metric-value neon-text-pink animate-number" data-value="1400" data-duration="2500">1400</div>
+                <div class="impact-metric animate-on-scroll stagger-3">
+                    <div class="metric-icon">⭐</div>
+                    <div class="metric-value animate-number" data-value="1400" data-duration="2500">1400</div>
                     <div class="metric-label">GitHub Stars</div>
                     <div class="metric-desc">开源项目影响力</div>
                     <div class="metric-trend">
@@ -402,56 +345,44 @@
                 </div>
 
                 <!-- Tech Sharing -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-4">
-                    <div class="metric-icon hologram-flicker">👥</div>
-                    <div class="metric-value neon-text animate-number" data-value="700" data-duration="2000">700+</div>
+                <div class="impact-metric animate-on-scroll stagger-4">
+                    <div class="metric-icon">👥</div>
+                    <div class="metric-value animate-number" data-value="700" data-duration="2000">700+</div>
                     <div class="metric-label">技术分享</div>
                     <div class="metric-desc">累计听众人数</div>
-                    <div class="metric-trend">
-                        <span class="trend-icon">🎤</span>
-                        <span class="trend-text">社区影响</span>
-                    </div>
                 </div>
 
                 <!-- Open Source -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-5">
-                    <div class="metric-icon hologram-flicker">🔓</div>
-                    <div class="metric-value neon-text animate-number" data-value="7" data-duration="1500">7</div>
+                <div class="impact-metric animate-on-scroll stagger-5">
+                    <div class="metric-icon">🔓</div>
+                    <div class="metric-value animate-number" data-value="7" data-duration="1500">7</div>
                     <div class="metric-label">MCP 工具</div>
                     <div class="metric-desc">AI 开发工具链</div>
-                    <div class="metric-trend">
-                        <span class="trend-icon">🚀</span>
-                        <span class="trend-text">持续创新</span>
-                    </div>
                 </div>
 
                 <!-- Performance -->
-                <div class="impact-metric card-cyber animate-on-scroll stagger-6">
-                    <div class="metric-icon hologram-flicker">📊</div>
-                    <div class="metric-value neon-text animate-number" data-value="50" data-duration="2000">50%</div>
+                <div class="impact-metric animate-on-scroll stagger-6">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-value animate-number" data-value="50" data-duration="2000">50%</div>
                     <div class="metric-label">性能提升</div>
                     <div class="metric-desc">资源消耗优化</div>
-                    <div class="metric-trend">
-                        <span class="trend-icon">⚡</span>
-                        <span class="trend-text">架构优化</span>
-                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Me Section - Cyberpunk Style -->
+    <!-- About Me Section -->
     <section class="section" id="about-me">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <h2 class="section-title neon-text">关于我</h2>
+                <h2 class="section-title">关于我</h2>
                 <p class="section-description">Code Quality · Open Source · AI-Native</p>
             </div>
 
             <div class="about-grid" data-stagger data-stagger="100">
                 <!-- Code Quality -->
-                <div class="about-card card-cyber animate-on-scroll stagger-1">
-                    <div class="about-icon neon-text">
+                <div class="about-card animate-on-scroll stagger-1">
+                    <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     </div>
                     <h3 class="about-title">代码质量</h3>
@@ -463,8 +394,8 @@
                 </div>
 
                 <!-- Technical Leadership -->
-                <div class="about-card card-cyber animate-on-scroll stagger-2">
-                    <div class="about-icon neon-text-purple">
+                <div class="about-card animate-on-scroll stagger-2">
+                    <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <h3 class="about-title">技术领导力</h3>
@@ -476,8 +407,8 @@
                 </div>
 
                 <!-- Open Source -->
-                <div class="about-card card-cyber animate-on-scroll stagger-3">
-                    <div class="about-icon neon-text-pink">
+                <div class="about-card animate-on-scroll stagger-3">
+                    <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     </div>
                     <h3 class="about-title">开源贡献</h3>
@@ -489,8 +420,8 @@
                 </div>
 
                 <!-- AI & Innovation -->
-                <div class="about-card card-cyber animate-on-scroll stagger-4">
-                    <div class="about-icon neon-text">
+                <div class="about-card animate-on-scroll stagger-4">
+                    <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg>
                     </div>
                     <h3 class="about-title">AI 创新</h3>
@@ -504,7 +435,7 @@
 
             <!-- Personal Interests -->
             <div class="interests-section">
-                <h3 class="interests-title neon-text-purple">🎯 兴趣爱好</h3>
+                <h3 class="interests-title">🎯 兴趣爱好</h3>
                 <div class="interests-tags">
                     <span class="interest-tag">🌍 旅游博主（已环游中国）</span>
                     <span class="interest-tag">🏍️ ADV</span>
@@ -1357,7 +1288,8 @@
     <script src="/assets/js/theme.js"></script>
     <script src="/assets/js/toc.js"></script>
     <script src="/assets/js/animations.js"></script>
-    <script src="/assets/js/tech-cursor.js"></script>
+    <script src="/assets/js/bento-interactions.js"></script>
+    <!-- <script src="/assets/js/tech-cursor.js"></script> Removed for professional style -->
     <script src="/assets/js/data-viz.js"></script>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/js/mobile-nav.js"></script>

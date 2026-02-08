@@ -1,50 +1,39 @@
 /* ============================================
    KevinTen Personal Website - Theme Variables
-   Tech/Futuristic Cyberpunk Color System
+   Bento Grid Design System (ui-ux-pro-max)
    ============================================ */
 
 :root {
-  /* Primary Colors - Cyberpunk Blue-Purple Gradient */
-  --color-primary: #00D4FF;
-  --color-primary-dark: #00A8CC;
-  --color-primary-light: #33E0FF;
-  --color-secondary: #7B2FFF;
-  --color-secondary-dark: #6200CC;
-  --color-secondary-light: #994DFF;
-  --color-accent: #FF006E;
-  --color-accent-dark: #CC0058;
-  --color-accent-light: #FF338A;
+  /* Primary Colors - Vercel Style */
+  --color-primary: #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-light: #3B82F6;
+  --color-secondary: #7C3AED;
+  --color-secondary-dark: #5B21B6;
+  --color-secondary-light: #8B5CF6;
+  --color-accent: #2563EB;
 
-  /* Neon Glow Colors - Tech Futuristic */
-  --glow-blue: #00D4FF;
-  --glow-purple: #7B2FFF;
-  --glow-pink: #FF006E;
-  --glow-green: #00FF94;
-  --glow-cyan: #00FFFF;
-  --glow-magenta: #FF00FF;
+  /* Background Colors - Professional Dark */
+  --color-bg: #000000;
+  --color-bg-secondary: #18181B;
+  --color-bg-tertiary: #27272A;
+  --color-bg-card: #18181B;
 
-  /* Background Colors - Deep Space Tech Black */
-  --color-bg: #050508;
-  --color-bg-secondary: #0A0A12;
-  --color-bg-tertiary: #12121A;
-  --color-bg-card: rgba(10, 10, 18, 0.6);
+  /* Text Colors - High Contrast */
+  --color-text: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
+  --color-text-subtle: #52525B;
 
-  /* Text Colors - High Contrast Tech White */
-  --color-text: #F0F0F0;
-  --color-text-secondary: #B0B0C0;
-  --color-text-muted: #606070;
-  --color-text-subtle: #404050;
-
-  /* Border Colors - Neon Glow */
-  --color-border: rgba(0, 212, 255, 0.2);
-  --color-border-light: rgba(123, 47, 255, 0.3);
-  --color-border-glow: rgba(0, 212, 255, 0.6);
+  /* Border Colors */
+  --color-border: #3F3F46;
+  --color-border-light: #52525B;
 
   /* Semantic Colors */
-  --color-success: #00FF94;
-  --color-warning: #FFB800;
-  --color-error: #FF006E;
-  --color-info: #00D4FF;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
 
   /* Language Colors - Enhanced */
   --color-java: #FBBF24;
@@ -53,31 +42,34 @@
   --color-javascript: #F7DF1E;
   --color-typescript: #3178C6;
 
-  /* Gradient Definitions - Cyberpunk Style */
-  --gradient-hero: linear-gradient(135deg, #050508 0%, #0A0A12 50%, #12121A 100%);
-  --gradient-card: linear-gradient(145deg, rgba(0, 212, 255, 0.15) 0%, rgba(123, 47, 255, 0.15) 100%);
-  --gradient-primary: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
-  --gradient-accent: linear-gradient(135deg, #00D4FF 0%, #00FF94 100%);
-  --gradient-neon: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
-  --gradient-cyber: linear-gradient(90deg, #00D4FF, #7B2FFF, #FF006E, #00FF94);
-  --gradient-glow: linear-gradient(135deg, rgba(0, 212, 255, 0.4) 0%, rgba(123, 47, 255, 0.4) 100%);
+  /* Gradient Definitions - Professional Style */
+  --gradient-hero: linear-gradient(135deg, #000000 0%, #0A0A0A 50%, #111111 100%);
+  --gradient-card: linear-gradient(145deg, rgba(24, 24, 27, 0.9) 0%, rgba(15, 15, 17, 0.95) 100%);
+  --gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+  --gradient-accent: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
 
-  /* Glassmorphism - Enhanced */
-  --glass-bg: rgba(10, 10, 18, 0.7);
-  --glass-border: rgba(0, 212, 255, 0.3);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 212, 255, 0.15);
-  --glass-blur: 20px;
+  /* Glassmorphism - Professional */
+  --glass-bg: rgba(24, 24, 27, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --glass-blur: 12px;
 
-  /* Glow Effects - Neon Style */
-  --glow-primary: 0 0 20px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.4);
-  --glow-secondary: 0 0 20px rgba(123, 47, 255, 0.8), 0 0 40px rgba(123, 47, 255, 0.4);
-  --glow-accent: 0 0 20px rgba(255, 0, 110, 0.8), 0 0 40px rgba(255, 0, 110, 0.4);
-  --glow-cyber: 0 0 30px rgba(0, 212, 255, 0.6), 0 0 60px rgba(123, 47, 255, 0.3);
-  
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-body);
   --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
   --font-chinese: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+  /* Bento Grid */
+  --bento-grid-gap: 20px;
+  --bento-card-radius: 20px;
+  --bento-hover-scale: 1.02;
+  --bento-transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --bento-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --bento-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --bento-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
   
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -107,6 +99,7 @@
   
   /* Spacing Scale */
   --space-0: 0;
+  --space-0_5: 0.125rem;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -138,7 +131,7 @@
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
   --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.3);
-  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.4);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -330,133 +323,22 @@ body {
 }
 
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
-  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.4); }
+  0%, 100% { box-shadow: 0 0 5px rgba(37, 99, 235, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
 }
 
 /* ============================================
-   Tech/Futuristic Animations
+   Professional Animations - Simplified
    ============================================ */
 
-@keyframes neon-flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow:
-      0 0 5px var(--glow-blue),
-      0 0 10px var(--glow-blue),
-      0 0 20px var(--glow-blue),
-      0 0 40px var(--glow-blue);
-  }
-  20%, 24%, 55% {
-    opacity: 0.8;
-    text-shadow: none;
-  }
-}
-
-@keyframes hologram {
-  0% { opacity: 1; transform: translateX(0); }
-  50% { opacity: 0.98; transform: translateX(1px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes energy-pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.5;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.8;
-    box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
-  }
-}
-
-@keyframes scan {
-  0% { top: 0; opacity: 0.8; }
-  50% { opacity: 0.4; }
-  100% { top: 100%; opacity: 0.8; }
-}
-
-@keyframes border-rotate {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes grid-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 50px 50px; }
-}
-
-@keyframes cyber-glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 5px var(--glow-blue));
-    text-shadow: 0 0 10px var(--glow-blue);
-  }
-  50% {
-    filter: drop-shadow(0 0 20px var(--glow-purple));
-    text-shadow: 0 0 30px var(--glow-purple);
-  }
-}
-
-@keyframes data-flow {
-  0% { transform: translateY(-100%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0; }
-}
-
-@keyframes matrix-rain {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
-@keyframes trail-fade {
-  0% { opacity: 0.6; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0); }
-}
+/* Keep only essential animations */
 
 @keyframes skill-load {
   from { width: 0; }
   to { width: var(--skill-level); }
 }
 
-@keyframes number-glow {
-  from { filter: drop-shadow(0 0 5px var(--glow-blue)); }
-  to { filter: drop-shadow(0 0 20px var(--glow-purple)); }
-}
-
-/* Tech Animation Classes */
-.animate-neon-flicker {
-  animation: neon-flicker 3s infinite alternate;
-}
-
-.animate-hologram {
-  animation: hologram 0.1s infinite;
-}
-
-.animate-energy-pulse {
-  animation: energy-pulse 4s ease-in-out infinite;
-}
-
-.animate-scan {
-  animation: scan 3s linear infinite;
-}
-
-.animate-border-rotate {
-  background-size: 300% 300%;
-  animation: border-rotate 3s linear infinite;
-}
-
-.animate-cyber-glow {
-  animation: cyber-glow 2s ease-in-out infinite alternate;
-}
-
-.animate-grid-move {
-  animation: grid-move 20s linear infinite;
-}
-
+/* Professional Animation Classes */
 .animate-fadeIn {
   animation: fadeIn var(--transition-slow) ease-out;
 }
