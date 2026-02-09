@@ -3,13 +3,14 @@
  * Provides offline caching and performance optimization
  */
 
-const CACHE_NAME = 'kevinten-v1';
-const RUNTIME_CACHE = 'runtime-cache';
-const STATIC_CACHE = 'static-cache';
+const CACHE_NAME = 'kevinten-v9';
+const RUNTIME_CACHE = 'runtime-v9';
+const STATIC_CACHE = 'static-v9';
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
   '/',
+  '/index.html',
   '/assets/css/main.css',
   '/assets/css/theme.css',
   '/assets/js/app.js',
@@ -33,7 +34,7 @@ const CACHE_ASSETS = [
 // Install event - cache assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(RUNTIME_CACHE).then((cache) => {
+    caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
     }).then(() => {
       // Force the waiting service worker to become the active service worker
@@ -48,7 +49,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE) {
+          if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE && cacheName !== STATIC_CACHE) {
             return caches.delete(cacheName);
           }
         })
@@ -82,7 +83,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Handle static assets - cache first
-  if (isStaticAsset(request.url)) {
+  if (isStaticAsset(url)) {
     event.respondWith(cacheFirst(request));
     return;
   }
@@ -345,9 +346,8 @@ async function cleanupCache() {
         }
       }
     }
-  }
-} catch (error) {
-  console.error('Cache cleanup failed:', error);
+  } catch (error) {
+    console.error('Cache cleanup failed:', error);
   }
 }
 
@@ -360,6 +360,6 @@ self.addEventListener('activate', () => {
   console.log('[SW] Activating service worker...');
 });
 
-self.addEventListener('fetch', () => {
+self.addEventListener('fetch', (event) => {
   console.log('[SW] Fetching:', event.request.url);
 });
