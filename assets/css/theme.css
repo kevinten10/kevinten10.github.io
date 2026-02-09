@@ -549,3 +549,49 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================
+   Light Theme Variables
+   ============================================ */
+
+[data-theme="light"] {
+  /* Background Colors - Light Theme */
+  --color-bg: #F8FAFC;
+  --color-bg-secondary: #F1F5F9;
+  --color-bg-tertiary: #E2E8F0;
+  --color-bg-card: #FFFFFF;
+
+  /* Text Colors - High Contrast for Light Theme */
+  --color-text: #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --color-text-subtle: #94A3B8;
+
+  /* Border Colors - Light Theme */
+  --color-border: #E2E8F0;
+  --color-border-light: #CBD5E1;
+
+  /* Gradient Definitions - Light Theme */
+  --gradient-hero: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
+  --gradient-card: linear-gradient(145deg, #FFFFFF 0%, #F8FAFC 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+
+  /* Glassmorphism - Light Theme */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  /* Bento Grid Shadows - Light Theme */
+  --bento-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --bento-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --bento-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+  /* Shadows - Light Theme */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.08);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.1);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.2);
+}
