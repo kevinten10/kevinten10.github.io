@@ -76,6 +76,7 @@
           const counter = entry.target;
           const target = parseInt(counter.dataset.value, 10);
           const duration = parseInt(counter.dataset.duration, 10) || 2000;
+          const suffix = counter.dataset.suffix || '';
           const startTime = performance.now();
           const startValue = 0;
 
@@ -89,7 +90,7 @@
 
             // Format number with K suffix for large values
             if (target >= 1000) {
-              counter.textContent = (currentValue / 1000).toFixed(1) + 'k';
+              counter.textContent = (currentValue / 1000).toFixed(1) + 'k' + suffix;
             } else {
               counter.textContent = currentValue;
             }
@@ -99,7 +100,7 @@
             } else {
               // Ensure final value is exact
               if (target >= 1000) {
-                counter.textContent = (target / 1000).toFixed(1) + 'k';
+                counter.textContent = (target / 1000).toFixed(1) + 'k' + suffix;
               } else {
                 counter.textContent = target;
               }
@@ -172,7 +173,8 @@
       });
       document.querySelectorAll('.animate-number').forEach(counter => {
         const target = parseInt(counter.dataset.value, 10);
-        counter.textContent = target >= 1000 ? (target / 1000).toFixed(1) + 'k' : target;
+        const suffix = counter.dataset.suffix || '';
+        counter.textContent = target >= 1000 ? (target / 1000).toFixed(1) + 'k' + suffix : target;
       });
     }
   }

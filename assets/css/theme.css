@@ -47,6 +47,8 @@
   --gradient-card: linear-gradient(145deg, rgba(24, 24, 27, 0.9) 0%, rgba(15, 15, 17, 0.95) 100%);
   --gradient-primary: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
   --gradient-accent: linear-gradient(135deg, #0EA5E9 0%, #10B981 100%);
+  --gradient-secondary: linear-gradient(135deg, #7B2FFF 0%, #FF6B35 100%);
+  --gradient-neon: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
   --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
 
   /* Glassmorphism - Professional */
