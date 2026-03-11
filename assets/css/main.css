@@ -456,7 +456,7 @@ body {
 /* Account Matrix - Bento Card 内的账号矩阵 */
 .account-matrix {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-3);
 }
 
@@ -565,7 +565,7 @@ body {
 /* 响应式 */
 @media (max-width: 640px) {
   .account-matrix {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-2);
   }
 
