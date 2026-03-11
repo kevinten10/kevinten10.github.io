@@ -3,9 +3,9 @@
  * Provides offline caching and performance optimization
  */
 
-const CACHE_NAME = 'kevinten-v9';
-const RUNTIME_CACHE = 'runtime-v9';
-const STATIC_CACHE = 'static-v9';
+const CACHE_NAME = 'kevinten-v11';
+const RUNTIME_CACHE = 'runtime-v11';
+const STATIC_CACHE = 'static-v11';
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
@@ -55,6 +55,8 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).then(() => {
+      // Clean up stale cache entries
+      cleanupCache();
       // Take control of all open clients immediately
       return self.clients.claim();
     })
@@ -119,26 +121,18 @@ function cacheFirst(request) {
 }
 
 function networkFirst(request) {
-  return caches.match(request).then((cachedResponse) => {
-    // Return cached response immediately if available
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-
-    // Otherwise fetch from network
-    return fetch(request).then((networkResponse) => {
-      // Cache successful network responses
-      if (networkResponse && networkResponse.ok) {
-        const responseToCache = networkResponse.clone();
-        caches.open(RUNTIME_CACHE).then((cache) => {
-          cache.put(request, responseToCache);
-        });
-      }
-      return networkResponse;
-    }).catch(() => {
-        // If network fails, try to return cached response
-        return caches.match(request);
+  return fetch(request).then((networkResponse) => {
+    // Cache successful network responses
+    if (networkResponse && networkResponse.ok) {
+      const responseToCache = networkResponse.clone();
+      caches.open(RUNTIME_CACHE).then((cache) => {
+        cache.put(request, responseToCache);
       });
+    }
+    return networkResponse;
+  }).catch(() => {
+    // If network fails, fall back to cache
+    return caches.match(request);
   });
 }
 
@@ -164,93 +158,6 @@ function staleWhileRevalidate(request) {
 function isStaticAsset(url) {
   const extensions = ['.css', '.js', '.png', '.jpg', '.jpeg', '.svg', '.woff', '.woff2', '.ico'];
   return extensions.some(ext => url.pathname.endsWith(ext));
-}
-
-// Background sync for offline support
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-articles') {
-    event.waitUntil(
-      Promise.all([
-        syncArticles(),
-        syncCategories(),
-        syncTags()
-      ])
-    );
-  }
-});
-
-// Sync functions
-async function syncArticles() {
-  try {
-    const response = await fetch('/api/articles/sync', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (response.ok) {
-      const articles = await response.json();
-      await updateArticleCache(articles);
-    }
-  } catch (error) {
-    console.error('Failed to sync articles:', error);
-  }
-}
-
-async function syncCategories() {
-  try {
-    const response = await fetch('/api/categories/sync', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (response.ok) {
-      const categories = await response.json();
-      await updateCategoryCache(categories);
-    }
-  } catch (error) {
-    console.error('Failed to sync categories:', error);
-  }
-}
-
-async function syncTags() {
-  try {
-    const response = await fetch('/api/tags/sync', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (response.ok) {
-      const tags = await response.json();
-      await updateTagCache(tags);
-    }
-  } catch (error) {
-    console.error('Failed to sync tags:', error);
-  }
-}
-
-// Cache update helpers
-async function updateArticleCache(articles) {
-  const cache = await caches.open(RUNTIME_CACHE);
-  for (const article of articles) {
-    const url = new URL(article.url, self.location.href).href;
-    await cache.add(new Request(url));
-  }
-}
-
-async function updateCategoryCache(categories) {
-  const cache = await caches.open(RUNTIME_CACHE);
-  for (const category of categories) {
-    const url = new URL(category.url, self.location.href).href;
-    await cache.add(new Request(url));
-  }
-}
-
-async function updateTagCache(tags) {
-  const cache = await caches.open(RUNTIME_CACHE);
-  for (const tag of tags) {
-    const url = new URL(tag.url, self.location.href).href;
-    await cache.add(new Request(url));
-  }
 }
 
 // Message handling from main thread
@@ -320,11 +227,6 @@ self.addEventListener('notificationclick', (event) => {
     );
   }
 });
-
-// Periodic cache cleanup (every 24 hours)
-setInterval(() => {
-  cleanupCache();
-}, 24 * 60 * 60 * 1000);
 
 async function cleanupCache() {
   try {

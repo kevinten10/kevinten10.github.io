@@ -22,12 +22,13 @@
   /* Text Colors - High Contrast */
   --color-text: #FAFAFA;
   --color-text-secondary: #A1A1AA;
-  --color-text-muted: #71717A;
+  --color-text-muted: #8B8B96;
   --color-text-subtle: #52525B;
 
   /* Border Colors */
   --color-border: #3F3F46;
   --color-border-light: #52525B;
+  --color-border-glow: rgba(37, 99, 235, 0.3);
 
   /* Semantic Colors */
   --color-success: #10B981;
@@ -50,11 +51,26 @@
   --gradient-secondary: linear-gradient(135deg, #7B2FFF 0%, #FF6B35 100%);
   --gradient-neon: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
   --gradient-subtle: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  --gradient-cyber: linear-gradient(135deg, #00D4FF 0%, #7B2FFF 50%, #FF006E 100%);
+  --glow-primary: 0 0 20px rgba(37, 99, 235, 0.4);
 
   /* Glassmorphism - Professional */
   --glass-bg: rgba(24, 24, 27, 0.7);
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+
+  /* Semantic Alpha Colors - for card backgrounds, borders, hovers */
+  --color-card-bg: rgba(30, 41, 59, 0.6);
+  --color-card-bg-hover: rgba(30, 41, 59, 0.8);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.15);
+  --color-primary-alpha-8: rgba(59, 130, 246, 0.08);
+  --color-primary-alpha-10: rgba(59, 130, 246, 0.1);
+  --color-primary-alpha-15: rgba(59, 130, 246, 0.15);
+  --color-primary-alpha-20: rgba(59, 130, 246, 0.2);
+  --color-primary-alpha-30: rgba(59, 130, 246, 0.3);
+  --color-overlay-bg: rgba(0, 0, 0, 0.9);
+
   --glass-blur: 12px;
 
   /* Typography */
@@ -421,6 +437,75 @@ body {
 .stagger-3 { transition-delay: 0.3s; }
 .stagger-4 { transition-delay: 0.4s; }
 .stagger-5 { transition-delay: 0.5s; }
+
+/* ============================================
+   Light Theme Override
+   ============================================ */
+
+[data-theme="light"] {
+  /* Primary Colors */
+  --color-primary: #2563EB;
+  --color-primary-dark: #1D4ED8;
+  --color-primary-light: #3B82F6;
+  --color-secondary: #7C3AED;
+  --color-secondary-dark: #5B21B6;
+  --color-secondary-light: #8B5CF6;
+  --color-accent: #2563EB;
+
+  /* Background Colors */
+  --color-bg: #FAFAFA;
+  --color-bg-secondary: #F4F4F5;
+  --color-bg-tertiary: #E4E4E7;
+  --color-bg-card: #FFFFFF;
+
+  /* Text Colors */
+  --color-text: #18181B;
+  --color-text-secondary: #52525B;
+  --color-text-muted: #71717A;
+  --color-text-subtle: #A1A1AA;
+
+  /* Border Colors */
+  --color-border: #D4D4D8;
+  --color-border-light: #E4E4E7;
+  --color-border-glow: rgba(37, 99, 235, 0.3);
+
+  /* Gradient Definitions */
+  --gradient-hero: linear-gradient(135deg, #FAFAFA 0%, #F4F4F5 50%, #E4E4E7 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(244, 244, 245, 0.95) 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  /* Shadows - Lighter */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.15);
+
+  /* Bento Grid - Light */
+  --bento-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --bento-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --bento-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --glow-primary: 0 0 20px rgba(37, 99, 235, 0.2);
+
+  /* Semantic Alpha Colors */
+  --color-card-bg: rgba(255, 255, 255, 0.8);
+  --color-card-bg-hover: rgba(255, 255, 255, 0.95);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-border-hover: rgba(0, 0, 0, 0.12);
+  --color-primary-alpha-8: rgba(37, 99, 235, 0.06);
+  --color-primary-alpha-10: rgba(37, 99, 235, 0.08);
+  --color-primary-alpha-15: rgba(37, 99, 235, 0.12);
+  --color-primary-alpha-20: rgba(37, 99, 235, 0.15);
+  --color-primary-alpha-30: rgba(37, 99, 235, 0.25);
+  --color-overlay-bg: rgba(0, 0, 0, 0.7);
+}
 
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {

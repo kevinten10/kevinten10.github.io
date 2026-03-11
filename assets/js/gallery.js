@@ -53,15 +53,18 @@
 
     const lightboxImg = lightbox.querySelector('img');
     const lightboxClose = lightbox.querySelector('.lightbox-close');
+    let triggerElement = null;
 
     // Add click events to gallery items
     galleryItems.forEach(item => {
       item.addEventListener('click', () => {
+        triggerElement = item;
         const img = item.querySelector('img');
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        lightboxClose.focus();
       });
     });
 
@@ -73,16 +76,26 @@
       }
     });
 
-    // Close on Escape key
+    // Close on Escape key and trap focus
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      if (!lightbox.classList.contains('active')) return;
+
+      if (e.key === 'Escape') {
         closeLightbox();
+      } else if (e.key === 'Tab') {
+        // Trap focus within lightbox - only close button is focusable
+        e.preventDefault();
+        lightboxClose.focus();
       }
     });
 
     function closeLightbox() {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
+      if (triggerElement) {
+        triggerElement.focus();
+        triggerElement = null;
+      }
     }
   }
 
@@ -90,17 +103,8 @@
    * Initialize gallery on page load
    */
   function init() {
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (!prefersReducedMotion) {
-      initGalleryFilter();
-      initLightbox();
-    } else {
-      // For reduced motion, just enable basic functionality
-      initGalleryFilter();
-      initLightbox();
-    }
+    initGalleryFilter();
+    initLightbox();
   }
 
   // Initialize when DOM is ready

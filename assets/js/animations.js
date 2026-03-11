@@ -29,8 +29,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // Optional: stop observing after animation
-          // observer.unobserve(entry.target);
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
