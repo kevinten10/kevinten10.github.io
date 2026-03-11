@@ -25,9 +25,15 @@
       threshold: ANIMATION_THRESHOLD
     };
 
+    // Track which elements become visible in the same batch
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
+          // Add staggered delay based on existing stagger classes or index
+          const delay = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
+          if (delay === 0) {
+            entry.target.style.transitionDelay = `${index * 80}ms`;
+          }
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
         }
