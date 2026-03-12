@@ -11,7 +11,7 @@
     init() {
       this.initSkillBars();
       this.initStatCounters();
-      this.initNumberAnimations();
+      // initNumberAnimations removed: handled by bento-interactions.js initNumberCounters
     },
 
     // Initialize skill progress bars

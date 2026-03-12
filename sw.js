@@ -3,9 +3,9 @@
  * Provides offline caching and performance optimization
  */
 
-const CACHE_NAME = 'kevinten-v12';
-const RUNTIME_CACHE = 'runtime-v12';
-const STATIC_CACHE = 'static-v12';
+const CACHE_NAME = 'kevinten-v13';
+const RUNTIME_CACHE = 'runtime-v13';
+const STATIC_CACHE = 'static-v13';
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
