@@ -11,22 +11,7 @@
    * Tracks mouse position on cards for radial gradient effect
    */
   function initMouseTracking() {
-    const cards = document.querySelectorAll('.bento-item, .impact-metric');
-
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mouse-x', `${x}%`);
-        card.style.setProperty('--mouse-y', `${y}%`);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--mouse-x', `50%`);
-        card.style.setProperty('--mouse-y', `50%`);
-      });
-    });
+    // Mouse-tracking gradient removed in UI modernization
   }
 
   /**

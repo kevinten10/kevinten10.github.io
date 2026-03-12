@@ -3,7 +3,7 @@
  * Provides offline caching and performance optimization
  */
 
-const CACHE_NAME = 'kevinten-v14';
+const CACHE_NAME = 'kevinten-v15';
 const RUNTIME_CACHE = 'runtime-v14';
 const STATIC_CACHE = 'static-v14';
 

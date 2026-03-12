@@ -14,7 +14,7 @@
   --color-accent: #2563EB;
 
   /* Background Colors - Professional Dark */
-  --color-bg: #000000;
+  --color-bg: #050508;
   --color-bg-secondary: #18181B;
   --color-bg-tertiary: #27272A;
   --color-bg-card: #18181B;
@@ -71,6 +71,19 @@
   --color-primary-alpha-30: rgba(59, 130, 246, 0.3);
   --color-overlay-bg: rgba(0, 0, 0, 0.9);
 
+  /* Dual accent system */
+  --color-accent-indigo: #6366F1;
+  --color-accent-indigo-light: #818CF8;
+  --color-accent-indigo-alpha-8: rgba(99, 102, 241, 0.08);
+  --color-accent-indigo-alpha-10: rgba(99, 102, 241, 0.10);
+  --color-accent-indigo-alpha-15: rgba(99, 102, 241, 0.15);
+  --color-accent-indigo-alpha-20: rgba(99, 102, 241, 0.20);
+  --color-accent-cyan: #22D3EE;
+  --color-accent-cyan-deep: #06B6D4;
+  --color-accent-cyan-alpha-8: rgba(6, 182, 212, 0.08);
+  --color-accent-cyan-alpha-10: rgba(6, 182, 212, 0.10);
+  --color-accent-cyan-alpha-15: rgba(6, 182, 212, 0.15);
+
   --glass-blur: 12px;
 
   /* Typography */
@@ -88,6 +101,16 @@
   --bento-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
   --bento-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
   --bento-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Unified card system */
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-border-hover: rgba(255, 255, 255, 0.12);
+  --card-radius: 16px;
+  --card-blur: 8px;
+  --card-inner-glow: 0 0 0 0.5px rgba(255, 255, 255, 0.04);
+  --card-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 0 0 0.5px rgba(255, 255, 255, 0.06), 0 4px 16px rgba(0, 0, 0, 0.4);
   
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -143,14 +166,14 @@
   --radius-3xl: 1.5rem;
   --radius-full: 9999px;
   
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
-  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+  /* Shadows — unified 3-level system */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-2xl: 0 8px 32px rgba(0, 0, 0, 0.5);
   --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.3);
-  --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
+  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -397,9 +420,9 @@ body {
 
 .animate-on-scroll {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(20px);
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .animate-on-scroll.is-visible {
@@ -431,12 +454,12 @@ body {
   transform: scale(1);
 }
 
-/* Staggered animation delays */
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
-.stagger-5 { transition-delay: 0.5s; }
+/* Staggered animation delays — 60ms intervals */
+.stagger-1 { transition-delay: 60ms; }
+.stagger-2 { transition-delay: 120ms; }
+.stagger-3 { transition-delay: 180ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 300ms; }
 
 /* ============================================
    Light Theme Override
@@ -505,6 +528,14 @@ body {
   --color-primary-alpha-20: rgba(37, 99, 235, 0.15);
   --color-primary-alpha-30: rgba(37, 99, 235, 0.25);
   --color-overlay-bg: rgba(0, 0, 0, 0.7);
+
+  /* Unified card system — light */
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --card-border-hover: rgba(0, 0, 0, 0.12);
+  --card-inner-glow: none;
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Reduced motion preference */
