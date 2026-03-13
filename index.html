@@ -145,147 +145,111 @@
     <!-- Main Content -->
     <main id="main-content">
     
-    <!-- Hero Section - Modern Professional Design -->
+    <!-- Hero Section - Optimized Design -->
     <section class="hero section-spacious" id="about" aria-label="个人简介">
-        <!-- Subtle Grid Background -->
+        <!-- Background Effects -->
         <div class="hero-background"></div>
         <div class="hero-glow-cyan" aria-hidden="true"></div>
-
-        <div class="hero-illustration" aria-hidden="true"></div>
+        <canvas id="hero-particles" class="hero-particles" aria-hidden="true"></canvas>
 
         <!-- Hero Container -->
         <div class="hero-container">
+            <!-- Hero Avatar with Glow -->
+            <div class="hero-avatar-wrap animate-on-scroll">
+                <div class="hero-avatar-ring"></div>
+                <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen" class="hero-avatar">
+                <div class="hero-status" title="Open to opportunities">
+                    <span class="status-dot"></span>
+                </div>
+            </div>
+
             <!-- Hero Header -->
-            <div class="hero-header animate-on-scroll">
+            <div class="hero-header animate-on-scroll stagger-1">
                 <h1 class="hero-title">KevinTen</h1>
-                <p class="hero-subtitle">AI-Native Builder &middot; Software Architect &middot; Open Source Contributor</p>
-                <p class="hero-description">专注云原生分布式系统、多运行时架构与 AI 应用工程。Dapr/Layotto/Dubbo 贡献者。</p>
+                <p class="hero-subtitle">
+                    <span class="subtitle-highlight">AI-Native Builder</span> · Software Architect · Open Source Contributor
+                </p>
+                <p class="hero-description">专注云原生分布式系统、多运行时架构与 AI 应用工程</p>
             </div>
 
-            <!-- HR Quick Facts Banner - 突出显示关键信息 -->
-            <div class="hr-quick-facts-container animate-on-scroll stagger-1">
-            <!-- Primary Facts -->
-            <div class="hr-quick-facts">
-                <div class="quick-fact-item">
-                    <span class="quick-fact-value">7 年</span>
-                    <span class="quick-fact-label">工作经验</span>
+            <!-- Quick Facts Bar -->
+            <div class="hero-facts animate-on-scroll stagger-2">
+                <div class="fact-item">
+                    <span class="fact-number">7+</span>
+                    <span class="fact-text">年经验</span>
                 </div>
-                <div class="quick-fact-divider"></div>
-                <div class="quick-fact-item">
-                    <span class="quick-fact-value">Software Architect</span>
-                    <span class="quick-fact-label">当前职位</span>
+                <span class="fact-separator">·</span>
+                <div class="fact-item">
+                    <span class="fact-number">2</span>
+                    <span class="fact-text">亿级系统</span>
                 </div>
-                <div class="quick-fact-divider"></div>
-                <div class="quick-fact-item">
-                    <span class="quick-fact-value">某OTA集团</span>
-                    <span class="quick-fact-label">任职公司</span>
+                <span class="fact-separator">·</span>
+                <div class="fact-item">
+                    <span class="fact-number">1.4k</span>
+                    <span class="fact-text">GitHub Stars</span>
+                </div>
+                <span class="fact-separator">·</span>
+                <div class="fact-badge-group">
+                    <span class="fact-badge">Dapr</span>
+                    <span class="fact-badge">Layotto</span>
+                    <span class="fact-badge">Dubbo</span>
                 </div>
             </div>
 
-            <!-- Secondary Facts -->
-            <div class="hr-secondary-facts">
-                <span class="fact-badge">🎓 江南大学 211</span>
-                <span class="fact-badge">⭐ GitHub 1.4k Stars</span>
-                <span class="fact-badge">🔥 Dapr / Layotto / Dubbo Contributor</span>
-                <span class="fact-badge">🚀 AI-Native · Open Source</span>
+            <!-- CTA Buttons -->
+            <div class="hero-cta animate-on-scroll stagger-3">
+                <a href="#projects" class="btn btn-primary">
+                    <span>查看项目</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#contact" class="btn btn-secondary">联系我</a>
+            </div>
+
+            <!-- Bio Card -->
+            <div class="hero-bio-card animate-on-scroll stagger-4">
+                <p>从物联网到云原生，从分布式系统到 AI 应用 — 我一直在探索软件架构的边界。作为开源贡献者，我相信好的架构应该像乐高一样可组合。正全力构建 OpenOctopus 生活智能体系统，让 AI 融入日常生活。</p>
+            </div>
+
+            <!-- Social Links - Simplified -->
+            <div class="hero-social animate-on-scroll stagger-5">
+                <a href="https://github.com/kevinten10" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+                <a href="https://x.com/kevinten1024" target="_blank" rel="noopener" class="social-link" aria-label="X">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="https://www.zhihu.com/people/wang-shi-hao-93-9" target="_blank" rel="noopener" class="social-link" aria-label="知乎">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.721 0C2.251 0 0 2.25 0 5.719V18.28C0 21.751 2.252 24 5.721 24h12.56C21.751 24 24 21.75 24 18.281V5.72C24 2.249 21.75 0 18.281 0zm1.964 4.078c-.271.73-.5 1.434-.68 2.11h4.587c.545-.006.445 1.168.445 1.168H6.283c.04.404.18.843.266 1.242h3.983c.52-.006.53 1.168.53 1.168H6.042c.088.412.222.86.313 1.242h4.105c.52-.006.53 1.168.53 1.168H5.523c.096.435.237.907.344 1.242h3.72c.545-.006.445 1.168.445 1.168H5.721c.355 1.247.996 2.49 1.62 3.382-.84.424-1.723.788-2.64 1.086.627-.87 1.164-1.855 1.593-2.932H3.03c-.52.006-.53-1.168-.53-1.168h2.99c-.096-.435-.237-.907-.344-1.242H2.59c-.52.006-.53-1.168-.53-1.168h2.99c-.088-.412-.222-.86-.313-1.242H2.423c-.52.006-.53-1.168-.53-1.168h2.99c-.04-.404-.18-.843-.266-1.242H2.112c-.52.006-.53-1.168-.53-1.168h4.293c.18-.676.409-1.38.68-2.11h1.13zm12.523 4.258l-1.477 4.138h1.563l-.086-.578c.29.464.754.823 1.373 1.078-.54.15-1.078.336-1.614.558-.72.288-1.152.622-1.297 1.003-.247.627-.058 1.193.565 1.698.623.504 1.37.756 2.24.756.87 0 1.59-.254 2.16-.762.57-.507.742-1.077.515-1.71-.148-.396-.54-.744-1.174-1.043-.635-.3-1.388-.45-2.26-.45l1.293-3.688h-1.4zm-2.055 5.238c-.556 0-1.068.186-1.536.558-.467.372-.75.822-.848 1.35-.098.527.03 1.008.383 1.442.354.434.823.65 1.408.65.584 0 1.09-.216 1.516-.65.427-.434.64-.915.64-1.442 0-.528-.213-1.008-.64-1.35-.426-.342-.905-.513-1.437-.513l.514.555z"/></svg>
+                </a>
+                <div class="social-link social-wechat" tabindex="0" aria-label="微信公众号">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 01-.023-.156.49.49 0 01.201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                    <div class="wechat-tooltip">
+                        <img src="/images/wechat.png" alt="微信" width="100" height="100">
+                        <span>AIRider</span>
+                    </div>
+                </div>
+                <button class="social-more" id="social-more-btn" aria-label="更多社交平台">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </button>
+                <!-- Expanded Social Menu -->
+                <div class="social-expanded" id="social-expanded">
+                    <a href="https://www.linkedin.com/in/仕豪-王-6a648a152/" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://blog.csdn.net/wsh596823919" target="_blank" rel="noopener">CSDN</a>
+                    <a href="https://www.xiaohongshu.com/user/profile/5beeb71fe4873800017463fa" target="_blank" rel="noopener">小红书</a>
+                    <a href="https://www.douyin.com/user/MS4wLjABAAAAvJHfd8N6myG3RyTR480KNC3J0bqmXwd_263-MZksxzU" target="_blank" rel="noopener">抖音</a>
+                    <a href="https://www.tiktok.com/@kevinten1024" target="_blank" rel="noopener">TikTok</a>
+                </div>
             </div>
         </div>
 
-        <!-- Bento Grid Layout -->
-        <div class="bento-grid">
-            <!-- Large Card: Personal Profile -->
-            <div class="bento-item bento-large animate-on-scroll stagger-1">
-                <div class="bento-content">
-                    <div class="avatar-section">
-                        <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="Avatar" class="avatar">
-                        <div class="status-badge">Available for work</div>
-                    </div>
-                    <div class="profile-info">
-                        <h3>KevinTen</h3>
-                        <p class="role">Software Architect @ 某OTA集团</p>
-                        <p class="location">Shanghai, China &middot; GMT+8</p>
-                        <p class="bio">从物联网到云原生，从分布式系统到 AI 应用 — 我一直在探索软件架构的边界。作为 Dapr/Layotto/Dubbo 的开源贡献者，我相信好的架构应该像乐高一样可组合。如今，我正全力构建 OpenOctopus 生活智能体系统，让 AI 真正融入日常生活的每个领域。工作之余，我是一个环游中国的旅行博主、ADV 骑手和 3D 打印爱好者。</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card: Social Matrix -->
-            <div class="bento-item animate-on-scroll stagger-2">
-                <div class="bento-header">
-                    <span class="bento-icon">🔗</span>
-                    <h4>账号矩阵</h4>
-                </div>
-                <div class="bento-body">
-                    <div class="account-matrix">
-                        <a href="https://github.com/kevinten10" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="GitHub">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                            <span class="account-label">GitHub</span>
-                        </a>
-                        <a href="https://x.com/kevinten1024" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="X / Twitter">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                            <span class="account-label">X</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/%E4%BB%95%E8%B1%AA-%E7%8E%8B-6a648a152/" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="LinkedIn">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                            </svg>
-                            <span class="account-label">LinkedIn</span>
-                        </a>
-                        <a href="https://www.zhihu.com/people/wang-shi-hao-93-9" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="知乎">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                            </svg>
-                            <span class="account-label">知乎</span>
-                        </a>
-                        <a href="https://blog.csdn.net/wsh596823919" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="CSDN">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                            </svg>
-                            <span class="account-label">CSDN</span>
-                        </a>
-                        <a href="https://www.xiaohongshu.com/user/profile/5beeb71fe4873800017463fa" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="小红书">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
-                            </svg>
-                            <span class="account-label">小红书</span>
-                        </a>
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAAvJHfd8N6myG3RyTR480KNC3J0bqmXwd_263-MZksxzU" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="抖音">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.11v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.18z"/>
-                            </svg>
-                            <span class="account-label">抖音</span>
-                        </a>
-                        <a href="https://www.tiktok.com/@kevinten1024" target="_blank" rel="noopener noreferrer" class="account-card" aria-label="TikTok">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.11v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.75a8.18 8.18 0 004.76 1.52v-3.4a4.85 4.85 0 01-1-.18z"/>
-                            </svg>
-                            <span class="account-label">TikTok</span>
-                        </a>
-                        <div class="account-card account-card-wechat" tabindex="0" role="button" aria-label="微信公众号: AIRider">
-                            <svg class="account-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 01-.023-.156.49.49 0 01.201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 01-.969.983.976.976 0 01-.969-.983c0-.542.434-.982.969-.982z"/>
-                            </svg>
-                            <span class="account-label">微信</span>
-                            <div class="account-tooltip">
-                                <div class="tooltip-content">
-                                    <p class="tooltip-title">AIRider</p>
-                                    <div class="tooltip-qr">
-                                        <img src="/images/wechat.png" alt="AIRider 微信公众号" width="120" height="120">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <!-- Scroll Indicator -->
         <div class="hero-scroll">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <span class="scroll-text">Scroll to explore</span>
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
         </div>
     </section>
 
@@ -1464,5 +1428,6 @@
     <script src="/assets/js/github-stats.js" defer></script>
     <script src="/assets/js/project-modal.js" defer></script>
     <script src="/assets/js/gallery.js" defer></script>
+    <script src="/assets/js/hero-effects.js" defer></script>
 </body>
 </html>
