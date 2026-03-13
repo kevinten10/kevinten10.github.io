@@ -1,7 +1,7 @@
 /**
  * Mobile Navigation Module
  * Handles mobile menu toggle and interactions
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 (function() {
@@ -15,6 +15,7 @@
     links: null,
     isOpen: false,
     scrollPosition: 0,
+    boundHandlers: [],
 
     init() {
       this.nav = document.getElementById('mobile-nav');
@@ -28,34 +29,49 @@
       this.bindEvents();
     },
 
+    /**
+     * Bind event with cleanup tracking
+     */
+    bindEvent(element, event, handler) {
+      if (!element) return;
+      element.addEventListener(event, handler);
+      this.boundHandlers.push({ element, event, handler });
+    },
+
     bindEvents() {
       // Toggle button
-      this.toggleBtn.addEventListener('click', () => this.toggle());
+      this.bindEvent(this.toggleBtn, 'click', () => this.toggle());
 
       // Close button
-      this.closeBtn?.addEventListener('click', () => this.close());
+      if (this.closeBtn) {
+        this.bindEvent(this.closeBtn, 'click', () => this.close());
+      }
 
       // Backdrop
-      this.backdrop?.addEventListener('click', () => this.close());
+      if (this.backdrop) {
+        this.bindEvent(this.backdrop, 'click', () => this.close());
+      }
 
       // Navigation links
       this.links?.forEach(link => {
-        link.addEventListener('click', () => this.close());
+        this.bindEvent(link, 'click', () => this.close());
       });
 
-      // Escape key
-      document.addEventListener('keydown', (e) => {
+      // Escape key handler
+      this.keydownHandler = (e) => {
         if (e.key === 'Escape' && this.isOpen) {
           this.close();
         }
-      });
+      };
+      this.bindEvent(document, 'keydown', this.keydownHandler);
 
       // Handle resize
-      window.addEventListener('resize', () => {
+      this.resizeHandler = () => {
         if (window.innerWidth >= 768 && this.isOpen) {
           this.close();
         }
-      });
+      };
+      this.bindEvent(window, 'resize', this.resizeHandler);
     },
 
     toggle() {
@@ -107,6 +123,17 @@
 
       // Return focus to toggle button
       this.toggleBtn.focus();
+    },
+
+    /**
+     * Cleanup event listeners on page unload
+     */
+    destroy() {
+      this.boundHandlers.forEach(({ element, event, handler }) => {
+        element.removeEventListener(event, handler);
+      });
+      this.boundHandlers = [];
+      this.close();
     }
   };
 
@@ -119,4 +146,7 @@
 
   // Expose to global scope
   window.MobileNav = MobileNav;
+
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => MobileNav.destroy());
 })();

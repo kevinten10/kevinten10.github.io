@@ -1,46 +1,35 @@
 /**
  * Scroll Animations & Interactive Effects
- * Intersection Observer for scroll-triggered animations
- * @version 1.0.0
+ * Uses centralized ObserverManager for scroll-triggered animations
+ * @version 2.0.0
  */
 
 (function() {
   'use strict';
 
-  // Configuration
-  const ANIMATION_THRESHOLD = 0.1;
-  const ANIMATION_ROOT_MARGIN = '0px 0px -50px 0px';
-
   /**
-   * Initialize scroll animations using Intersection Observer
+   * Initialize scroll animations using ObserverManager
    */
   function initScrollAnimations() {
     const animatedElements = document.querySelectorAll('.animate-on-scroll');
-
     if (animatedElements.length === 0) return;
 
-    const observerOptions = {
-      root: null,
-      rootMargin: ANIMATION_ROOT_MARGIN,
-      threshold: ANIMATION_THRESHOLD
-    };
+    // Check for reduced motion preference
+    if (ObserverManager.prefersReducedMotion()) {
+      animatedElements.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
 
-    // Track which elements become visible in the same batch
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // Add staggered delay based on existing stagger classes or index
-          const delay = parseFloat(getComputedStyle(entry.target).transitionDelay) || 0;
-          if (delay === 0) {
-            entry.target.style.transitionDelay = `${index * 80}ms`;
-          }
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+    animatedElements.forEach((el, index) => {
+      ObserverManager.observe('scrollAnimation', el, (target) => {
+        // Add staggered delay based on existing stagger classes or index
+        const delay = parseFloat(getComputedStyle(target).transitionDelay) || 0;
+        if (delay === 0) {
+          target.style.transitionDelay = `${index * 80}ms`;
         }
+        target.classList.add('is-visible');
       });
-    }, observerOptions);
-
-    animatedElements.forEach(el => observer.observe(el));
+    });
   }
 
   /**
@@ -100,37 +89,39 @@
   }
 
   /**
-   * Initialize counter animation for stats
+   * Initialize counter animation for stats using ObserverManager
    */
   function initCounterAnimation() {
     const counters = document.querySelectorAll('.stat-value[data-target]');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const counter = entry.target;
-          const target = parseInt(counter.getAttribute('data-target'));
-          const duration = 2000; // 2 seconds
-          const step = target / (duration / 16); // 60 FPS
-          let current = 0;
-
-          const updateCounter = () => {
-            current += step;
-            if (current < target) {
-              counter.textContent = Math.floor(current);
-              requestAnimationFrame(updateCounter);
-            } else {
-              counter.textContent = target;
-            }
-          };
-
-          updateCounter();
-          observer.unobserve(counter);
-        }
+    if (ObserverManager.prefersReducedMotion()) {
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        counter.textContent = target;
       });
-    }, { threshold: 0.5 });
+      return;
+    }
 
-    counters.forEach(counter => observer.observe(counter));
+    counters.forEach(counter => {
+      ObserverManager.observe('counter', counter, (el) => {
+        const target = parseInt(el.getAttribute('data-target'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const updateCounter = () => {
+          current += step;
+          if (current < target) {
+            el.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            el.textContent = target;
+          }
+        };
+
+        updateCounter();
+      });
+    });
   }
 
   /**
@@ -140,6 +131,7 @@
     const parallaxElements = document.querySelectorAll('[data-parallax]');
 
     if (parallaxElements.length === 0) return;
+    if (ObserverManager.prefersReducedMotion()) return;
 
     let ticking = false;
 
@@ -164,7 +156,7 @@
   }
 
   /**
-   * Initialize typing animation
+   * Initialize typing animation using ObserverManager
    */
   function initTypingAnimation() {
     const typingElements = document.querySelectorAll('.typing-text[data-type]');
@@ -191,17 +183,20 @@
 
         if (!isDeleting && charIndex === currentText.length) {
           isDeleting = true;
-          typingSpeed = 2000; // Pause at end
+          typingSpeed = 2000;
         } else if (isDeleting && charIndex === 0) {
           isDeleting = false;
           textIndex = (textIndex + 1) % texts.length;
-          typingSpeed = 500; // Pause before typing next
+          typingSpeed = 500;
         }
 
         setTimeout(type, typingSpeed);
       }
 
-      type();
+      // Start typing when visible
+      ObserverManager.observe('typing', el, () => {
+        setTimeout(type, 500);
+      });
     });
   }
 
@@ -226,8 +221,9 @@
    * Initialize all animations
    */
   function init() {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
+    // Wait for ObserverManager to be available
+    const waitForObserver = () => {
+      if (window.ObserverManager) {
         setTimeout(() => {
           initScrollAnimations();
           initNavScroll();
@@ -237,17 +233,15 @@
           initTypingAnimation();
           addStaggerDelays();
         }, 100);
-      });
+      } else {
+        requestAnimationFrame(waitForObserver);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', waitForObserver);
     } else {
-      setTimeout(() => {
-        initScrollAnimations();
-        initNavScroll();
-        initSmoothScroll();
-        initCounterAnimation();
-        initParallax();
-        initTypingAnimation();
-        addStaggerDelays();
-      }, 100);
+      waitForObserver();
     }
   }
 

@@ -1,0 +1,94 @@
+<h2>色彩策略</h2>
+<p class="subtitle">在 Glassmorphism 2.0 方向下，你偏好哪种色彩方案？</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #0a0a0f; padding: 24px; min-height: 200px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -40px; right: -20px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, #6366f130 0%, transparent 70%);"></div>
+      <div style="font-family: system-ui; color: #fafafa;">
+        <div style="font-size: 13px; color: #6366f1; font-weight: 600; margin-bottom: 8px;">ACCENT COLOR</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #6366f1, #8b5cf6);"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf8;"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #6366f120; border: 1px solid #6366f140;"></div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #818cf8;">7+</div>
+            <div style="font-size: 11px; color: #64748b;">年经验</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #fafafa;">1.4k</div>
+            <div style="font-size: 11px; color: #64748b;">Stars</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 保持蓝紫色系，精简浓度</h3>
+      <p>保留现有蓝紫主色调 (Indigo #6366F1)，但大幅降低使用密度 — 只在关键交互点（按钮、链接、hover状态）使用，其余元素回归中性色。渐变只保留在极少数高亮处。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #0a0a0f; padding: 24px; min-height: 200px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -40px; right: -20px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, #06b6d425 0%, transparent 70%);"></div>
+      <div style="font-family: system-ui; color: #fafafa;">
+        <div style="font-size: 13px; color: #22d3ee; font-weight: 600; margin-bottom: 8px;">ACCENT COLOR</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #06b6d4, #0ea5e9);"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #22d3ee;"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #06b6d420; border: 1px solid #06b6d440;"></div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.15); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #22d3ee;">7+</div>
+            <div style="font-size: 11px; color: #64748b;">年经验</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #fafafa;">1.4k</div>
+            <div style="font-size: 11px; color: #64748b;">Stars</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 换为青蓝色系 (Cyan/Teal)</h3>
+      <p>主色换为 Cyan (#06B6D4 → #22D3EE)，更清新、更有科技感。与暗色背景的对比更锐利，适合「AI-Native Builder」的定位。同样克制使用密度。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #0a0a0f; padding: 24px; min-height: 200px; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -30px; right: 0; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #6366f120 0%, transparent 70%);"></div>
+      <div style="position: absolute; bottom: -20px; left: 30px; width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, #06b6d418 0%, transparent 70%);"></div>
+      <div style="font-family: system-ui; color: #fafafa;">
+        <div style="font-size: 13px; color: #a1a1aa; font-weight: 600; margin-bottom: 8px;">DUAL ACCENT</div>
+        <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #6366f1, #06b6d4);"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #818cf8;"></div>
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: #22d3ee;"></div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <div style="background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.12); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #818cf8;">7+</div>
+            <div style="font-size: 11px; color: #64748b;">年经验</div>
+          </div>
+          <div style="background: rgba(6,182,212,0.06); border: 1px solid rgba(6,182,212,0.10); border-radius: 12px; padding: 14px; flex: 1;">
+            <div style="font-size: 20px; font-weight: 700; color: #22d3ee;">1.4k</div>
+            <div style="font-size: 11px; color: #64748b;">Stars</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 双强调色 (Indigo + Cyan)</h3>
+      <p>保留蓝紫 (Indigo) 作为主强调色，加入青蓝 (Cyan) 作为次强调色。Indigo 用于交互元素（按钮、链接），Cyan 用于数据高亮（指标、标签）。两色互补但不混杂。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+  <h3 style="margin-bottom: 6px;">推荐: C — 双强调色</h3>
+  <p style="color: #94a3b8; font-size: 14px;">你的站点内容丰富（从开源到 AI 到生活），单一强调色容易单调。双强调色让不同内容区域有视觉区分（技术用 Indigo，AI/数据用 Cyan），同时保持整体协调。</p>
+</div>

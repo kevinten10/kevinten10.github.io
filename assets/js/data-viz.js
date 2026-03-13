@@ -1,7 +1,8 @@
 /**
  * Data Visualization Animations
  * 技能进度条和数据统计动画
- * @version 1.0.0
+ * Uses centralized ObserverManager
+ * @version 2.0.0
  */
 
 (function() {
@@ -9,30 +10,36 @@
 
   const DataViz = {
     init() {
-      this.initSkillBars();
-      this.initStatCounters();
-      // initNumberAnimations removed: handled by bento-interactions.js initNumberCounters
-    },
-
-    // Initialize skill progress bars
-    initSkillBars() {
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.5
+      // Wait for ObserverManager to be available
+      const waitForObserver = () => {
+        if (window.ObserverManager) {
+          this.initSkillBars();
+          this.initStatCounters();
+        } else {
+          requestAnimationFrame(waitForObserver);
+        }
       };
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.animateSkillBar(entry.target);
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', waitForObserver);
+      } else {
+        waitForObserver();
+      }
+    },
 
-      document.querySelectorAll('.skill-bar-cyber').forEach(bar => {
-        observer.observe(bar);
+    // Initialize skill progress bars using ObserverManager
+    initSkillBars() {
+      const skillBars = document.querySelectorAll('.skill-bar-cyber');
+
+      if (ObserverManager.prefersReducedMotion()) {
+        // For reduced motion, keep static state
+        return;
+      }
+
+      skillBars.forEach(bar => {
+        ObserverManager.observe('skillBar', bar, (target) => {
+          this.animateSkillBar(target);
+        });
       });
     },
 
@@ -60,27 +67,21 @@
       animate();
     },
 
-    // Initialize stat counters
+    // Initialize stat counters using ObserverManager
     initStatCounters() {
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.5
-      };
+      const counters = document.querySelectorAll('.stat-value[data-target]');
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.animateCounter(entry.target);
-            observer.unobserve(entry.target);
-          }
+      if (ObserverManager.prefersReducedMotion()) {
+        counters.forEach(counter => {
+          counter.textContent = counter.dataset.target;
         });
-      }, observerOptions);
+        return;
+      }
 
-      document.querySelectorAll('.stat-value').forEach(counter => {
-        if (counter.dataset.target) {
-          observer.observe(counter);
-        }
+      counters.forEach(counter => {
+        ObserverManager.observe('counter', counter, (el) => {
+          this.animateCounter(el);
+        });
       });
     },
 
@@ -107,60 +108,11 @@
       };
 
       animate();
-    },
-
-    // Initialize number animations
-    initNumberAnimations() {
-      const numberElements = document.querySelectorAll('.animate-number');
-
-      numberElements.forEach(el => {
-        const finalValue = parseInt(el.dataset.value) || 0;
-        const duration = parseInt(el.dataset.duration) || 2000;
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              this.animateNumber(el, finalValue, duration);
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.5 });
-
-        observer.observe(el);
-      });
-    },
-
-    animateNumber(element, finalValue, duration) {
-      const startTime = performance.now();
-      const startValue = 0;
-
-      const animate = (currentTime) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        const currentValue = startValue + (finalValue - startValue) * easeOutQuart;
-
-        element.textContent = Math.floor(currentValue);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          element.textContent = finalValue;
-        }
-      };
-
-      requestAnimationFrame(animate);
     }
   };
 
   // Auto-initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => DataViz.init());
-  } else {
-    DataViz.init();
-  }
+  DataViz.init();
 
   // Expose to global scope
   window.DataViz = DataViz;

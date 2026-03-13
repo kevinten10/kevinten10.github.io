@@ -37,12 +37,15 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
+    <link rel="preload" href="/assets/css/theme.css" as="style">
+    <link rel="preload" href="/assets/css/main.css" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
-    
+    <link rel="preload" href="images/hero/hero-bg-dark.webp" as="image" type="image/webp">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -147,6 +150,8 @@
         <!-- Subtle Grid Background -->
         <div class="hero-background"></div>
         <div class="hero-glow-cyan" aria-hidden="true"></div>
+
+        <div class="hero-illustration" aria-hidden="true"></div>
 
         <!-- Hero Container -->
         <div class="hero-container">
@@ -1449,6 +1454,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="/assets/js/observer-manager.js"></script>
     <script src="/assets/js/theme.js" defer></script>
     <script src="/assets/js/animations.js" defer></script>
     <script src="/assets/js/bento-interactions.js" defer></script>

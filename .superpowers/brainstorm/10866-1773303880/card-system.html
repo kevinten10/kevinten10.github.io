@@ -1,0 +1,111 @@
+<h2>统一卡片系统</h2>
+<p class="subtitle">当前 7+ 种卡片样式各自为政，需要统一为一套系统。你偏好哪种卡片基础风格？</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #08080c; padding: 24px; min-height: 300px;">
+      <div style="font-family: system-ui;">
+        <!-- Card Style A: Subtle Border -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; transition: all 0.2s;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px;">💼</div>
+              <div>
+                <div style="font-size: 24px; font-weight: 700; color: #fafafa;">7</div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: #a1a1aa;">年工作经验</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px;">
+            <div style="font-size: 15px; font-weight: 600; color: #fafafa; margin-bottom: 6px;">Capa</div>
+            <div style="font-size: 13px; color: #71717a; line-height: 1.5;">Mecha SDK of Cloud Application Api</div>
+            <div style="display: flex; gap: 6px; margin-top: 10px;">
+              <span style="padding: 3px 10px; border-radius: 6px; background: rgba(255,255,255,0.04); font-size: 11px; color: #a1a1aa;">Java</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 微妙边框 (Subtle Border)</h3>
+      <p>极淡的背景 + 细边框 (6% 白色)，hover 时边框亮度提升到 12%。无阴影、无装饰条、无光晕。所有卡片统一圆角 16px，hover 统一 translateY(-2px)。</p>
+      <div class="pros-cons" style="margin-top: 8px;">
+        <div class="pros"><h4>优点</h4><ul><li>最干净，呼吸感强</li><li>改动量最小</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>视觉层次略弱</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #08080c; padding: 24px; min-height: 300px;">
+      <div style="font-family: system-ui;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Card Style B: Glass with glow border -->
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; box-shadow: 0 0 0 0.5px rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.15); display: flex; align-items: center; justify-content: center; font-size: 16px;">💼</div>
+              <div>
+                <div style="font-size: 24px; font-weight: 700; color: #fafafa;">7</div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: #a1a1aa;">年工作经验</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; box-shadow: 0 0 0 0.5px rgba(255,255,255,0.04), 0 2px 8px rgba(0,0,0,0.3);">
+            <div style="font-size: 15px; font-weight: 600; color: #fafafa; margin-bottom: 6px;">Capa</div>
+            <div style="font-size: 13px; color: #71717a; line-height: 1.5;">Mecha SDK of Cloud Application Api</div>
+            <div style="display: flex; gap: 6px; margin-top: 10px;">
+              <span style="padding: 3px 10px; border-radius: 6px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.12); font-size: 11px; color: #818cf8;">Java</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 毛玻璃 + 微光 (Glass & Shimmer)</h3>
+      <p>半透明背景 + backdrop-filter blur + 0.5px 内光边。hover 时增加柔和阴影 + 边框色微亮。保留玻璃质感但去掉顶部装饰条和径向光晕。统一 16px 圆角，hover translateY(-2px)。</p>
+      <div class="pros-cons" style="margin-top: 8px;">
+        <div class="pros"><h4>优点</h4><ul><li>保留质感与深度</li><li>与 Glassmorphism 2.0 主题一致</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>backdrop-filter 有性能开销</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #08080c; padding: 24px; min-height: 300px;">
+      <div style="font-family: system-ui;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <!-- Card Style C: Elevated Surface -->
+          <div style="background: #111116; border: 1px solid #1e1e24; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05)); display: flex; align-items: center; justify-content: center; font-size: 16px;">💼</div>
+              <div>
+                <div style="font-size: 24px; font-weight: 700; color: #fafafa;">7</div>
+              </div>
+            </div>
+            <div style="font-size: 13px; color: #a1a1aa;">年工作经验</div>
+          </div>
+          <div style="background: #111116; border: 1px solid #1e1e24; border-radius: 16px; padding: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);">
+            <div style="font-size: 15px; font-weight: 600; color: #fafafa; margin-bottom: 6px;">Capa</div>
+            <div style="font-size: 13px; color: #71717a; line-height: 1.5;">Mecha SDK of Cloud Application Api</div>
+            <div style="display: flex; gap: 6px; margin-top: 10px;">
+              <span style="padding: 3px 10px; border-radius: 6px; background: #1a1a22; font-size: 11px; color: #a1a1aa;">Java</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 层叠表面 (Elevated Surface)</h3>
+      <p>实色背景 (#111116) + 柔和投影，不用 backdrop-filter。通过 bg 色阶区分层级（页面 #08080c → 卡片 #111116 → 内嵌 #1a1a22）。hover 时提升阴影深度。Material Design 3 风格。</p>
+      <div class="pros-cons" style="margin-top: 8px;">
+        <div class="pros"><h4>优点</h4><ul><li>性能最好</li><li>层次感清晰</li></ul></div>
+        <div class="cons"><h4>缺点</h4><ul><li>缺少透明质感</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+  <h3 style="margin-bottom: 6px;">推荐: B — 毛玻璃 + 微光</h3>
+  <p style="color: #94a3b8; font-size: 14px;">与 Glassmorphism 2.0 方向最一致。关键改进是：去掉所有顶部装饰条（accent bar）和径向光晕，只保留微妙的 blur + 内光边框。所有卡片共享同一套 hover 行为（translateY -2px + 边框提亮 + 阴影加深），不再每种卡片一套。</p>
+</div>

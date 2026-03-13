@@ -1,6 +1,8 @@
 /**
  * Main Application Module
  * KevinTen Personal Website - Core functionality
+ * Uses centralized ObserverManager
+ * @version 2.0.0
  */
 
 (function() {
@@ -23,56 +25,39 @@
       if (!header) return;
 
       let lastScroll = 0;
-      
+      let ticking = false;
+
       window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        // Add/remove scrolled class
-        if (currentScroll > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const currentScroll = window.pageYOffset;
+
+            // Add/remove scrolled class
+            if (currentScroll > 50) {
+              header.classList.add('scrolled');
+            } else {
+              header.classList.remove('scrolled');
+            }
+
+            // Hide/show on scroll direction (mobile)
+            if (window.innerWidth < 768) {
+              if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = 'translateY(-100%)';
+              } else {
+                header.style.transform = 'translateY(0)';
+              }
+            }
+
+            lastScroll = currentScroll;
+            ticking = false;
+          });
+          ticking = true;
         }
-        
-        // Hide/show on scroll direction (mobile)
-        if (window.innerWidth < 768) {
-          if (currentScroll > lastScroll && currentScroll > 100) {
-            header.style.transform = 'translateY(-100%)';
-          } else {
-            header.style.transform = 'translateY(0)';
-          }
-        }
-        
-        lastScroll = currentScroll;
       }, { passive: true });
     },
 
-    // Scroll-triggered effects
+    // Scroll-triggered effects using ObserverManager
     initScrollEffects() {
-      // Intersection Observer for fade-in animations
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      // Observe elements with animation classes
-      document.querySelectorAll('.feature-card, .project-card, .article-item, .section-header').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-      });
-
       // Add animate-in class styles
       const style = document.createElement('style');
       style.textContent = `
@@ -82,46 +67,61 @@
         }
       `;
       document.head.appendChild(style);
+
+      // Wait for ObserverManager
+      const initObserver = () => {
+        if (!window.ObserverManager) {
+          requestAnimationFrame(initObserver);
+          return;
+        }
+
+        // Observe elements with animation classes
+        const elements = document.querySelectorAll('.feature-card, .project-card, .article-item, .section-header');
+
+        elements.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+          ObserverManager.observe('scrollAnimation', el, (target) => {
+            target.classList.add('animate-in');
+          });
+        });
+      };
+
+      initObserver();
     },
 
-    // Lazy loading for images
+    // Lazy loading for images using ObserverManager
     initLazyLoading() {
-      if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const img = entry.target;
-              
-              // Handle srcset
-              if (img.dataset.srcset) {
-                img.srcset = img.dataset.srcset;
-              }
-              
-              // Handle src
-              if (img.dataset.src) {
-                img.src = img.dataset.src;
-              }
-              
-              img.classList.add('loaded');
-              img.removeAttribute('data-src');
-              img.removeAttribute('data-srcset');
-              
-              imageObserver.unobserve(img);
-            }
-          });
-        }, {
-          rootMargin: '50px 0px'
+      // Check for native lazy loading support first
+      const supportsLazyLoading = 'loading' in HTMLImageElement.prototype;
+
+      if (supportsLazyLoading) {
+        // Use native lazy loading for browsers that support it
+        document.querySelectorAll('img[data-src]').forEach(img => {
+          img.loading = 'lazy';
+          img.src = img.dataset.src;
+          if (img.dataset.srcset) {
+            img.srcset = img.dataset.srcset;
+          }
         });
+        return;
+      }
+
+      // Fallback to IntersectionObserver via ObserverManager
+      const initLazyLoadObserver = () => {
+        if (!window.ObserverManager) {
+          requestAnimationFrame(initLazyLoadObserver);
+          return;
+        }
 
         document.querySelectorAll('img[data-src]').forEach(img => {
-          imageObserver.observe(img);
+          ObserverManager.observe('lazyLoad', img);
         });
-      } else {
-        // Fallback: load all images immediately
-        document.querySelectorAll('img[data-src]').forEach(img => {
-          img.src = img.dataset.src;
-        });
-      }
+      };
+
+      initLazyLoadObserver();
     },
 
     // Mobile menu is now handled by mobile-nav.js module
@@ -200,7 +200,7 @@
           });
           ticking = true;
         }
-      });
+      }, { passive: true });
 
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -224,28 +224,37 @@
       });
     },
 
-    // Initialize animations
+    // Initialize animations using ObserverManager
     initAnimations() {
-      // Typing effect for hero subtitle
-      const typingElement = document.querySelector('.typing-text');
-      if (typingElement) {
-        this.initTypingEffect(typingElement);
-      }
+      const initWhenReady = () => {
+        if (!window.ObserverManager) {
+          requestAnimationFrame(initWhenReady);
+          return;
+        }
 
-      // Counter animation for stats
-      document.querySelectorAll('.counter').forEach(counter => {
-        this.initCounterAnimation(counter);
-      });
+        // Typing effect for hero subtitle
+        const typingElement = document.querySelector('.typing-text');
+        if (typingElement) {
+          this.initTypingEffect(typingElement);
+        }
+
+        // Counter animation for stats
+        document.querySelectorAll('.counter').forEach(counter => {
+          this.initCounterAnimation(counter);
+        });
+      };
+
+      initWhenReady();
     },
 
-    // Typing effect
+    // Typing effect using ObserverManager
     initTypingEffect(element) {
       const text = element.dataset.text || element.textContent;
       const speed = parseInt(element.dataset.speed) || 100;
-      
+
       element.textContent = '';
       element.classList.add('typing');
-      
+
       let i = 0;
       const type = () => {
         if (i < text.length) {
@@ -256,42 +265,28 @@
           element.classList.remove('typing');
         }
       };
-      
+
       // Start typing when element is visible
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setTimeout(type, 500);
-            observer.unobserve(element);
-          }
-        });
+      ObserverManager.observe('typing', element, () => {
+        setTimeout(type, 500);
       });
-      
-      observer.observe(element);
     },
 
-    // Counter animation
+    // Counter animation using ObserverManager
     initCounterAnimation(counter) {
       const target = parseInt(counter.dataset.target);
       const duration = parseInt(counter.dataset.duration) || 2000;
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.animateCounter(counter, target, duration);
-            observer.unobserve(counter);
-          }
-        });
+
+      ObserverManager.observe('counter', counter, (el) => {
+        this.animateCounter(el, target, duration);
       });
-      
-      observer.observe(counter);
     },
 
     animateCounter(element, target, duration) {
       const start = 0;
       const increment = target / (duration / 16);
       let current = start;
-      
+
       const updateCounter = () => {
         current += increment;
         if (current < target) {
@@ -301,7 +296,7 @@
           element.textContent = target;
         }
       };
-      
+
       updateCounter();
     },
 

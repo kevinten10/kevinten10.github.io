@@ -1,11 +1,13 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
+ * @version 17
  */
 
-const CACHE_NAME = 'kevinten-v15';
-const RUNTIME_CACHE = 'runtime-v14';
-const STATIC_CACHE = 'static-v14';
+const SW_VERSION = '17';
+const CACHE_NAME = `kevinten-v${SW_VERSION}`;
+const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
+const STATIC_CACHE = `static-v${SW_VERSION}`;
 
 // Assets to cache immediately
 const PRECACHE_ASSETS = [
@@ -13,26 +15,27 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/assets/css/main.css',
   '/assets/css/theme.css',
+  '/assets/js/observer-manager.js',
   '/assets/js/app.js',
   '/assets/js/theme.js',
-  '/assets/js/search.js',
+  '/assets/js/animations.js',
+  '/assets/js/bento-interactions.js',
+  '/assets/js/mobile-nav.js',
+  '/assets/js/github-stats.js',
+  '/assets/js/project-modal.js',
+  '/assets/js/gallery.js',
   '/img/avatar.jpg'
 ];
 
 // Assets to cache on demand
-const CACHE_ASSETS = [
-  '*.js',
-  '*.css',
-  '*.png',
-  '*.jpg',
-  '*.jpeg',
-  '*.svg',
-  '*.woff',
-  '*.woff2'
+const CACHE_EXTENSIONS = [
+  '.js', '.css', '.png', '.jpg', '.jpeg', '.svg',
+  '.woff', '.woff2', '.ico', '.webp'
 ];
 
 // Install event - cache assets
 self.addEventListener('install', (event) => {
+  console.log('[SW] Installing service worker v' + SW_VERSION);
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
@@ -45,11 +48,16 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  console.log('[SW] Activating service worker v' + SW_VERSION);
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME && cacheName !== RUNTIME_CACHE && cacheName !== STATIC_CACHE) {
+          // Delete any cache that doesn't match our current version
+          if (cacheName !== CACHE_NAME &&
+              cacheName !== RUNTIME_CACHE &&
+              cacheName !== STATIC_CACHE) {
+            console.log('[SW] Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -156,8 +164,7 @@ function staleWhileRevalidate(request) {
 
 // Check if request is for a static asset
 function isStaticAsset(url) {
-  const extensions = ['.css', '.js', '.png', '.jpg', '.jpeg', '.svg', '.woff', '.woff2', '.ico'];
-  return extensions.some(ext => url.pathname.endsWith(ext));
+  return CACHE_EXTENSIONS.some(ext => url.pathname.endsWith(ext));
 }
 
 // Message handling from main thread
@@ -228,14 +235,15 @@ self.addEventListener('notificationclick', (event) => {
   }
 });
 
+// Cache cleanup - remove stale entries
 async function cleanupCache() {
   try {
     const cache = await caches.open(RUNTIME_CACHE);
     const requests = await cache.keys();
-    
+
     const now = Date.now();
     const maxAge = 7 * 24 * 60 * 60 * 1000; // 7 days
-    
+
     for (const request of requests) {
       const response = await cache.match(request);
       if (response) {
@@ -244,24 +252,12 @@ async function cleanupCache() {
           const cacheDate = new Date(date).getTime();
           if (now - cacheDate > maxAge) {
             await cache.delete(request);
+            console.log('[SW] Cleaned up stale cache entry:', request.url);
           }
         }
       }
     }
   } catch (error) {
-    console.error('Cache cleanup failed:', error);
+    console.error('[SW] Cache cleanup failed:', error);
   }
 }
-
-// Log service worker lifecycle events
-self.addEventListener('install', () => {
-  console.log('[SW] Installing service worker...');
-});
-
-self.addEventListener('activate', () => {
-  console.log('[SW] Activating service worker...');
-});
-
-self.addEventListener('fetch', (event) => {
-  console.log('[SW] Fetching:', event.request.url);
-});

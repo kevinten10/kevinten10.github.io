@@ -1,0 +1,236 @@
+<h2>详细设计方案</h2>
+<p class="subtitle">账号矩阵 + Impact + AI 图示 + 样式优化</p>
+
+<!-- Section 1: Account Matrix -->
+<div class="section">
+  <h3>1. 账号矩阵重设计</h3>
+  <p>当前 7 账号 / 4 列 → <strong>9 账号 / 3 列（3×3 完美网格）</strong></p>
+</div>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">当前（4列，挤压）</div>
+    <div class="mockup-body">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">in</div>LinkedIn
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">👁</div>知乎
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">🌐</div>CSDN
+        </div>
+        <div style="background:#e74c3c;border-radius:8px;padding:12px 2px;text-align:center;font-size:9px;color:white;">
+          <div style="font-size:14px;margin-bottom:4px;">📕</div>小红书
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">🎵</div>抖音
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">🎵</div>TikTok
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;">
+          <div style="font-size:18px;margin-bottom:4px;">💬</div>微信
+        </div>
+        <div style="background:transparent;border-radius:8px;padding:12px 4px;text-align:center;font-size:11px;opacity:0.3;">
+          空
+        </div>
+      </div>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="cons"><h4>问题</h4><ul><li>第4列被压缩到58px</li><li>4+3 不对称</li><li>缺少 GitHub/X</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">优化后（3列，3×3）</div>
+    <div class="mockup-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">🐙</div>GitHub
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">𝕏</div>X
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">in</div>LinkedIn
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">👁</div>知乎
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">🌐</div>CSDN
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">📕</div>小红书
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">🎵</div>抖音
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">🎵</div>TikTok
+        </div>
+        <div style="background:#2a2a3e;border-radius:8px;padding:14px 8px;text-align:center;font-size:12px;">
+          <div style="font-size:20px;margin-bottom:4px;">💬</div>微信
+        </div>
+      </div>
+      <div class="pros-cons" style="margin-top:12px;">
+        <div class="pros"><h4>改进</h4><ul><li>3×3 完美对称</li><li>每个卡片宽度充足</li><li>新增 GitHub/X 两个重要平台</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 2: Impact -->
+<div class="section" style="margin-top:40px;">
+  <h3>2. Impact 指标扩充（6 → 9）</h3>
+  <p>新增 3 个高价值指标，形成 3×3 网格布局</p>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">Impact Dashboard — 9 指标（3×3 网格）</div>
+  <div class="mockup-body">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <!-- Row 1: Core -->
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">💼</div>
+        <div style="font-size:28px;font-weight:800;color:#818cf8;margin:6px 0;">7</div>
+        <div style="font-size:13px;font-weight:600;">年工作经验</div>
+        <div style="font-size:11px;color:#94a3b8;">软件架构师</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">🏗️</div>
+        <div style="font-size:28px;font-weight:800;color:#818cf8;margin:6px 0;">2</div>
+        <div style="font-size:13px;font-weight:600;">亿级流量系统</div>
+        <div style="font-size:11px;color:#94a3b8;">主导设计与开发</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">⭐</div>
+        <div style="font-size:28px;font-weight:800;color:#818cf8;margin:6px 0;">1.4k+</div>
+        <div style="font-size:13px;font-weight:600;">GitHub Stars</div>
+        <div style="font-size:11px;color:#94a3b8;">开源项目影响力</div>
+      </div>
+      <!-- Row 2: AI -->
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">👥</div>
+        <div style="font-size:28px;font-weight:800;color:#34d399;margin:6px 0;">700+</div>
+        <div style="font-size:13px;font-weight:600;">AI 技术分享</div>
+        <div style="font-size:11px;color:#94a3b8;">3 次集团分享 · 700+ 人</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">🔧</div>
+        <div style="font-size:28px;font-weight:800;color:#34d399;margin:6px 0;">7</div>
+        <div style="font-size:13px;font-weight:600;">集团 MCP 工具</div>
+        <div style="font-size:11px;color:#94a3b8;">数十万次调用</div>
+      </div>
+      <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:24px;">🤖</div>
+        <div style="font-size:28px;font-weight:800;color:#34d399;margin:6px 0;">10+</div>
+        <div style="font-size:13px;font-weight:600;">AI Agent 应用</div>
+        <div style="font-size:11px;color:#94a3b8;">旅行/健康/理财...</div>
+      </div>
+      <!-- Row 3: NEW -->
+      <div style="background:#1e293b;border:2px solid #f59e0b;border-radius:12px;padding:16px;text-align:center;position:relative;">
+        <div style="position:absolute;top:-8px;right:-8px;background:#f59e0b;color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">NEW</div>
+        <div style="font-size:24px;">🏆</div>
+        <div style="font-size:28px;font-weight:800;color:#fbbf24;margin:6px 0;">4+</div>
+        <div style="font-size:13px;font-weight:600;">Hackathon 奖项</div>
+        <div style="font-size:11px;color:#94a3b8;">金奖 · 亚军 · 铜奖</div>
+      </div>
+      <div style="background:#1e293b;border:2px solid #f59e0b;border-radius:12px;padding:16px;text-align:center;position:relative;">
+        <div style="position:absolute;top:-8px;right:-8px;background:#f59e0b;color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">NEW</div>
+        <div style="font-size:24px;">📦</div>
+        <div style="font-size:28px;font-weight:800;color:#fbbf24;margin:6px 0;">10+</div>
+        <div style="font-size:13px;font-weight:600;">开源项目</div>
+        <div style="font-size:11px;color:#94a3b8;">个人项目 + 社区贡献</div>
+      </div>
+      <div style="background:#1e293b;border:2px solid #f59e0b;border-radius:12px;padding:16px;text-align:center;position:relative;">
+        <div style="position:absolute;top:-8px;right:-8px;background:#f59e0b;color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;">NEW</div>
+        <div style="font-size:24px;">🎤</div>
+        <div style="font-size:28px;font-weight:800;color:#fbbf24;margin:6px 0;">20+</div>
+        <div style="font-size:13px;font-weight:600;">技术 Meetup</div>
+        <div style="font-size:11px;color:#94a3b8;">组织与参与</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section 3: AI Images -->
+<div class="section" style="margin-top:40px;">
+  <h3>3. AI 生成项目插图</h3>
+  <p>为 4 个核心项目生成概念插图，替换当前的 emoji 占位符</p>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;">
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <div style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+      <span style="font-size:36px;">☁️🔄☁️</span>
+    </div>
+    <h4 style="margin:0 0 4px;">Capa</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">跨云架构概念图 — 多云连接、Runtime 抽象层</p>
+    <p style="font-size:11px;color:#f59e0b;margin-top:8px;">Prompt: "Abstract cloud-native architecture, multiple cloud providers connected through a unified runtime layer, futuristic tech style, dark background, blue and purple gradients"</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <div style="background:linear-gradient(135deg,#10b981,#06b6d4);border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+      <span style="font-size:36px;">🐙🤖🌐</span>
+    </div>
+    <h4 style="margin:0 0 4px;">OpenOctopus</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">生活智能体 — 八爪鱼触手连接各生活领域</p>
+    <p style="font-size:11px;color:#f59e0b;margin-top:8px;">Prompt: "Digital octopus as AI agent hub, tentacles connecting life domains (travel, health, finance), glowing neural network style"</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <div style="background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+      <span style="font-size:36px;">✈️🗺️🤖</span>
+    </div>
+    <h4 style="margin:0 0 4px;">Trip Agent</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">智能旅行助手 — AI + 地图 + 行程规划</p>
+    <p style="font-size:11px;color:#f59e0b;margin-top:8px;">Prompt: "AI travel planning assistant, world map with glowing route paths, multi-agent collaboration, modern tech illustration"</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <div style="background:linear-gradient(135deg,#8b5cf6,#ec4899);border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;">
+      <span style="font-size:36px;">🛠️📊⚡</span>
+    </div>
+    <h4 style="margin:0 0 4px;">AI Tools</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">开发工具全景 — IDE/LLM/插件工具矩阵</p>
+    <p style="font-size:11px;color:#f59e0b;margin-top:8px;">Prompt: "Developer tools matrix, floating IDE windows and AI model icons, SWOT analysis dashboard, futuristic command center"</p>
+  </div>
+</div>
+
+<!-- Section 4: Style -->
+<div class="section" style="margin-top:40px;">
+  <h3>4. 样式优化清单</h3>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">🎨</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">Impact 图标升级</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">emoji → 带渐变背景圆形图标，区分颜色主题（蓝=核心、绿=AI、金=荣誉）</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">📐</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">Bento 间距统一</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">统一 bento-item padding、gap，确保账号矩阵和 bio 卡片高度对齐</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">✨</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">卡片 Hover 升级</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">项目卡片 hover 增加微光边框（glow border）和图标浮动动画</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">🌗</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">Light Theme 增强</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">Impact 卡片和 bento 卡片在亮色主题下增加 box-shadow 和边框对比度</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">📱</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">移动端响应式</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">Impact 9格在移动端变为 3×3→2列自适应，账号矩阵保持 3 列</p>
+  </div>
+  <div style="background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;">
+    <div style="font-size:18px;margin-bottom:6px;">🔢</div>
+    <h4 style="font-size:14px;margin:0 0 6px;">计数器动画优化</h4>
+    <p style="font-size:12px;color:#94a3b8;margin:0;">新增 3 个 Impact 指标同样使用 animate-number 滚动计数器</p>
+  </div>
+</div>

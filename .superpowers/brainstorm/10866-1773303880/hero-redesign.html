@@ -1,0 +1,82 @@
+<h2>Hero 区域重设计</h2>
+<p class="subtitle">当前 Hero 有粒子动画 + CSS 网格 + 渐变叠加，视觉噪音较重。选择新的 Hero 风格：</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #050508; padding: 0; min-height: 280px; position: relative; overflow: hidden;">
+      <!-- Ambient Glow Hero -->
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, rgba(6,182,212,0.06) 40%, transparent 70%); filter: blur(40px);"></div>
+      <div style="position: relative; z-index: 1; padding: 40px 32px; text-align: center;">
+        <div style="font-family: system-ui; color: #fafafa;">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #6366f1; font-weight: 600; margin-bottom: 16px;">Software Architect · AI-Native Builder</div>
+          <div style="font-size: 42px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 12px;">KevinTen</div>
+          <div style="font-size: 15px; color: #71717a; max-width: 360px; margin: 0 auto 24px; line-height: 1.6;">专注云原生分布式系统与 AI 应用工程</div>
+          <div style="display: flex; gap: 10px; justify-content: center;">
+            <div style="padding: 8px 20px; border-radius: 999px; background: #6366f1; color: white; font-size: 13px; font-weight: 600;">View Projects</div>
+            <div style="padding: 8px 20px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #d4d4d8; font-size: 13px; font-weight: 500;">Contact</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 环境光 Hero (Ambient Glow)</h3>
+      <p>去掉所有粒子和网格，只保留一个超大柔和光晕作为视觉锚点。标题居中、纯色大字、简短描述。干净、聚焦、高级感。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #050508; padding: 0; min-height: 280px; position: relative; overflow: hidden;">
+      <!-- Subtle Grid + Glow -->
+      <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 60px 60px;"></div>
+      <div style="position: absolute; top: 30%; left: 30%; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%); filter: blur(50px);"></div>
+      <div style="position: absolute; bottom: 20%; right: 20%; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%); filter: blur(40px);"></div>
+      <div style="position: relative; z-index: 1; padding: 36px 32px;">
+        <div style="font-family: system-ui; color: #fafafa;">
+          <div style="display: inline-block; padding: 4px 12px; border-radius: 999px; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); font-size: 11px; color: #818cf8; font-weight: 500; margin-bottom: 16px;">Available for work</div>
+          <div style="font-size: 38px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 8px;">KevinTen</div>
+          <div style="font-size: 16px; color: #a1a1aa; margin-bottom: 20px;">Software Architect · AI-Native Builder</div>
+          <div style="display: flex; gap: 20px;">
+            <div><span style="font-size: 22px; font-weight: 700; color: #818cf8;">7</span><span style="font-size: 12px; color: #52525b; margin-left: 4px;">年经验</span></div>
+            <div style="width: 1px; background: #27272a;"></div>
+            <div><span style="font-size: 22px; font-weight: 700; color: #22d3ee;">1.4k</span><span style="font-size: 12px; color: #52525b; margin-left: 4px;">Stars</span></div>
+            <div style="width: 1px; background: #27272a;"></div>
+            <div><span style="font-size: 22px; font-weight: 700; color: #fafafa;">10+</span><span style="font-size: 12px; color: #52525b; margin-left: 4px;">开源项目</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 精致网格 + 双光晕 (Grid & Glow)</h3>
+      <p>保留极淡的网格线作为背景纹理（致敬技术感），双色光晕（Indigo左 + Cyan右）。内容左对齐，inline指标栏。兼具结构感和现代气质。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #050508; padding: 0; min-height: 280px; position: relative; overflow: hidden;">
+      <!-- Gradient Mesh -->
+      <div style="position: absolute; top: -20%; right: -10%; width: 60%; height: 80%; border-radius: 50%; background: radial-gradient(ellipse, rgba(99,102,241,0.15) 0%, transparent 60%); filter: blur(60px); transform: rotate(-15deg);"></div>
+      <div style="position: absolute; bottom: -10%; left: 10%; width: 40%; height: 60%; border-radius: 50%; background: radial-gradient(ellipse, rgba(6,182,212,0.1) 0%, transparent 60%); filter: blur(50px); transform: rotate(10deg);"></div>
+      <div style="position: absolute; top: 20%; left: 40%; width: 20%; height: 30%; border-radius: 50%; background: radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 60%); filter: blur(30px);"></div>
+      <div style="position: relative; z-index: 1; padding: 36px 32px;">
+        <div style="font-family: system-ui; color: #fafafa;">
+          <div style="font-size: 38px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 8px;">KevinTen</div>
+          <div style="font-size: 15px; color: #a1a1aa; margin-bottom: 20px; line-height: 1.6;">AI-Native Builder · Software Architect<br>Open Source Contributor</div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <div style="padding: 6px 14px; border-radius: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: #a1a1aa;">☁️ 云原生</div>
+            <div style="padding: 6px 14px; border-radius: 8px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); font-size: 12px; color: #818cf8;">🤖 AI Agent</div>
+            <div style="padding: 6px 14px; border-radius: 8px; background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.15); font-size: 12px; color: #22d3ee;">🌐 Open Source</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 渐变网格 (Gradient Mesh)</h3>
+      <p>多个不规则形状的柔和光晕叠加，形成类似 Apple Mesh Gradient 的动态感。不用动画，纯 CSS 静态光晕就已经很有层次感。标签式关键词替代长描述。</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 24px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06);">
+  <h3 style="margin-bottom: 6px;">推荐: B — 精致网格 + 双光晕</h3>
+  <p style="color: #94a3b8; font-size: 14px;">网格线保留了你作为 Software Architect 的技术隐喻，双色光晕呼应 Indigo + Cyan 双强调色。左对齐排版比居中更现代。inline 指标栏直接传递关键数据，不需要跳到 Impact section。</p>
+</div>

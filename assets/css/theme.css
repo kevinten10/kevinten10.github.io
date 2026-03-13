@@ -170,9 +170,9 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-2xl: 0 8px 32px rgba(0, 0, 0, 0.5);
-  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-2xl: 0 24px 64px rgba(0, 0, 0, 0.7);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
   
   /* Transitions */
