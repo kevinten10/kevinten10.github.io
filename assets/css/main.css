@@ -1494,19 +1494,66 @@ body {
   border-radius: var(--card-radius);
   padding: var(--space-7);
   box-shadow: var(--card-shadow);
-  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 200ms ease, box-shadow 300ms ease;
   position: relative;
   overflow: hidden;
 }
 
+/* Shimmer loading effect */
+.shimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.project-card:hover .shimmer {
+  transform: translateX(100%);
+}
+
+/* Top gradient border */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
 .project-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-6px) scale(1.02);
   border-color: var(--card-border-hover);
-  box-shadow: var(--card-shadow-hover);
+  box-shadow: var(--card-shadow-hover), 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .project-card.featured {
   border-color: var(--color-accent-indigo-alpha-20);
+}
+
+.project-card.featured::before {
+  background: linear-gradient(90deg, transparent, var(--color-secondary), var(--color-primary), transparent);
+}
+
+.project-card.featured:hover {
+  box-shadow: var(--card-shadow-hover), 0 20px 40px rgba(139, 92, 246, 0.15);
 }
 
 .project-card:focus-within {
@@ -1530,16 +1577,10 @@ body {
 }
 
 .project-card:hover .project-cover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--space-4);
-}
-
+/* Project icon hover animation */
 .project-icon {
   width: 48px;
   height: 48px;
@@ -1549,6 +1590,19 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 300ms ease;
+}
+
+.project-card:hover .project-icon {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
 }
 
 .project-stats-badge {
@@ -1565,6 +1619,13 @@ body {
   border-radius: var(--radius-md);
   font-size: var(--text-xs);
   color: var(--color-text-secondary);
+  transition: transform 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+
+.project-card:hover .stat-badge {
+  transform: translateY(-2px);
+  background: var(--color-bg-tertiary);
+  color: var(--color-text);
 }
 
 .project-title {
@@ -1603,6 +1664,17 @@ body {
   gap: var(--space-2);
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
+  transition: transform 200ms ease, color 200ms ease;
+  cursor: pointer;
+}
+
+.language-badge:hover {
+  transform: translateY(-2px);
+  color: var(--color-text);
+}
+
+.language-badge:hover .language-dot {
+  transform: scale(1.2);
 }
 
 .language-dot {
@@ -1610,6 +1682,7 @@ body {
   height: 12px;
   border-radius: 50%;
   background: var(--color-primary);
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .language-badge.java .language-dot {
@@ -1627,6 +1700,12 @@ body {
   font-size: var(--text-xs);
   color: white;
   font-weight: var(--font-medium);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.contribution-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }
 
 .award-badge {
@@ -1636,6 +1715,12 @@ body {
   font-size: var(--text-xs);
   color: white;
   font-weight: var(--font-medium);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.award-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
 }
 
 /* ============================================
