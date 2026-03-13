@@ -11,21 +11,20 @@
    * Initialize scroll animations using ObserverManager
    */
   function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    var animatedElements = document.querySelectorAll('.animate-on-scroll');
     if (animatedElements.length === 0) return;
 
-    // Check for reduced motion preference
-    if (ObserverManager.prefersReducedMotion()) {
-      animatedElements.forEach(el => el.classList.add('is-visible'));
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      animatedElements.forEach(function(el) { el.classList.add('is-visible'); });
       return;
     }
 
-    animatedElements.forEach((el, index) => {
-      ObserverManager.observe('scrollAnimation', el, (target) => {
-        // Add staggered delay based on existing stagger classes or index
-        const delay = parseFloat(getComputedStyle(target).transitionDelay) || 0;
+    animatedElements.forEach(function(el, index) {
+      ObserverManager.observe('scrollAnimation', el, function(target) {
+        var delay = parseFloat(getComputedStyle(target).transitionDelay) || 0;
         if (delay === 0) {
-          target.style.transitionDelay = `${index * 80}ms`;
+          target.style.transitionDelay = (index * 80) + 'ms';
         }
         target.classList.add('is-visible');
       });
@@ -34,13 +33,12 @@
 
   /**
    * Initialize navigation scroll effect
-   * Adds 'scrolled' class when page is scrolled
    */
   function initNavScroll() {
-    const nav = document.querySelector('.nav-header');
+    var nav = document.querySelector('.nav-header');
     if (!nav) return;
 
-    let ticking = false;
+    var ticking = false;
 
     function updateNav() {
       if (window.scrollY > 50) {
@@ -51,7 +49,7 @@
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       if (!ticking) {
         window.requestAnimationFrame(updateNav);
         ticking = true;
@@ -63,25 +61,24 @@
    * Initialize smooth scroll for anchor links
    */
   function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
       anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+        var href = this.getAttribute('href');
         if (href === '#') return;
 
-        const target = document.querySelector(href);
+        var target = document.querySelector(href);
         if (target) {
           e.preventDefault();
 
-          const headerOffset = 100;
-          const elementPosition = target.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          var headerOffset = 100;
+          var elementPosition = target.getBoundingClientRect().top;
+          var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
           window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth'
           });
 
-          // Update URL hash without jumping
           history.pushState(null, null, href);
         }
       });
@@ -89,27 +86,28 @@
   }
 
   /**
-   * Initialize counter animation for stats using ObserverManager
+   * Initialize counter animation for stats
    */
   function initCounterAnimation() {
-    const counters = document.querySelectorAll('.stat-value[data-target]');
+    var counters = document.querySelectorAll('.stat-value[data-target]');
+    if (counters.length === 0) return;
 
-    if (ObserverManager.prefersReducedMotion()) {
-      counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-target'));
-        counter.textContent = target;
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      counters.forEach(function(counter) {
+        counter.textContent = counter.getAttribute('data-target');
       });
       return;
     }
 
-    counters.forEach(counter => {
-      ObserverManager.observe('counter', counter, (el) => {
-        const target = parseInt(el.getAttribute('data-target'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
+    counters.forEach(function(counter) {
+      ObserverManager.observe('counter', counter, function(el) {
+        var target = parseInt(el.getAttribute('data-target'));
+        var duration = 2000;
+        var step = target / (duration / 16);
+        var current = 0;
 
-        const updateCounter = () => {
+        function updateCounter() {
           current += step;
           if (current < target) {
             el.textContent = Math.floor(current);
@@ -117,7 +115,7 @@
           } else {
             el.textContent = target;
           }
-        };
+        }
 
         updateCounter();
       });
@@ -128,26 +126,27 @@
    * Initialize parallax effects for hero elements
    */
   function initParallax() {
-    const parallaxElements = document.querySelectorAll('[data-parallax]');
-
+    var parallaxElements = document.querySelectorAll('[data-parallax]');
     if (parallaxElements.length === 0) return;
-    if (ObserverManager.prefersReducedMotion()) return;
 
-    let ticking = false;
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    var ticking = false;
 
     function updateParallax() {
-      const scrolled = window.pageYOffset;
+      var scrolled = window.pageYOffset;
 
-      parallaxElements.forEach(el => {
-        const speed = parseFloat(el.getAttribute('data-parallax')) || 0.5;
-        const yPos = -(scrolled * speed);
-        el.style.transform = `translateY(${yPos}px)`;
+      parallaxElements.forEach(function(el) {
+        var speed = parseFloat(el.getAttribute('data-parallax')) || 0.5;
+        var yPos = -(scrolled * speed);
+        el.style.transform = 'translateY(' + yPos + 'px)';
       });
 
       ticking = false;
     }
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       if (!ticking) {
         window.requestAnimationFrame(updateParallax);
         ticking = true;
@@ -156,20 +155,20 @@
   }
 
   /**
-   * Initialize typing animation using ObserverManager
+   * Initialize typing animation
    */
   function initTypingAnimation() {
-    const typingElements = document.querySelectorAll('.typing-text[data-type]');
+    var typingElements = document.querySelectorAll('.typing-text[data-type]');
 
-    typingElements.forEach(el => {
-      const texts = JSON.parse(el.getAttribute('data-type'));
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-      let typingSpeed = 100;
+    typingElements.forEach(function(el) {
+      var texts = JSON.parse(el.getAttribute('data-type'));
+      var textIndex = 0;
+      var charIndex = 0;
+      var isDeleting = false;
+      var typingSpeed = 100;
 
       function type() {
-        const currentText = texts[textIndex];
+        var currentText = texts[textIndex];
 
         if (isDeleting) {
           el.textContent = currentText.substring(0, charIndex - 1);
@@ -193,8 +192,7 @@
         setTimeout(type, typingSpeed);
       }
 
-      // Start typing when visible
-      ObserverManager.observe('typing', el, () => {
+      ObserverManager.observe('typing', el, function() {
         setTimeout(type, 500);
       });
     });
@@ -204,15 +202,15 @@
    * Add stagger animation delays to child elements
    */
   function addStaggerDelays() {
-    const staggerContainers = document.querySelectorAll('[data-stagger]');
+    var staggerContainers = document.querySelectorAll('[data-stagger]');
 
-    staggerContainers.forEach(container => {
-      const children = container.children;
-      const delayStart = parseFloat(container.getAttribute('data-stagger-start')) || 0;
-      const delayIncrement = parseFloat(container.getAttribute('data-stagger')) || 100;
+    staggerContainers.forEach(function(container) {
+      var children = container.children;
+      var delayStart = parseFloat(container.getAttribute('data-stagger-start')) || 0;
+      var delayIncrement = parseFloat(container.getAttribute('data-stagger')) || 100;
 
-      Array.from(children).forEach((child, index) => {
-        child.style.transitionDelay = `${delayStart + (index * delayIncrement)}ms`;
+      Array.from(children).forEach(function(child, index) {
+        child.style.transitionDelay = (delayStart + (index * delayIncrement)) + 'ms';
       });
     });
   }
@@ -221,10 +219,9 @@
    * Initialize all animations
    */
   function init() {
-    // Wait for ObserverManager to be available
-    const waitForObserver = () => {
+    function waitForObserver() {
       if (window.ObserverManager) {
-        setTimeout(() => {
+        setTimeout(function() {
           initScrollAnimations();
           initNavScroll();
           initSmoothScroll();
@@ -236,7 +233,7 @@
       } else {
         requestAnimationFrame(waitForObserver);
       }
-    };
+    }
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', waitForObserver);
@@ -247,10 +244,10 @@
 
   // Expose to global scope
   window.AnimationManager = {
-    init,
-    initScrollAnimations,
-    initNavScroll,
-    initSmoothScroll
+    init: init,
+    initScrollAnimations: initScrollAnimations,
+    initNavScroll: initNavScroll,
+    initSmoothScroll: initSmoothScroll
   };
 
   // Auto-initialize

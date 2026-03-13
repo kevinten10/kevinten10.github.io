@@ -8,17 +8,18 @@
 (function() {
   'use strict';
 
-  const DataViz = {
-    init() {
-      // Wait for ObserverManager to be available
-      const waitForObserver = () => {
+  var DataViz = {
+    init: function() {
+      var self = this;
+
+      function waitForObserver() {
         if (window.ObserverManager) {
-          this.initSkillBars();
-          this.initStatCounters();
+          self.initSkillBars();
+          self.initStatCounters();
         } else {
           requestAnimationFrame(waitForObserver);
         }
-      };
+      }
 
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', waitForObserver);
@@ -27,75 +28,61 @@
       }
     },
 
-    // Initialize skill progress bars using ObserverManager
-    initSkillBars() {
-      const skillBars = document.querySelectorAll('.skill-bar-cyber');
+    initSkillBars: function() {
+      var self = this;
+      var skillBars = document.querySelectorAll('.skill-bar-cyber');
+      if (skillBars.length === 0) return;
 
-      if (ObserverManager.prefersReducedMotion()) {
-        // For reduced motion, keep static state
-        return;
-      }
-
-      skillBars.forEach(bar => {
-        ObserverManager.observe('skillBar', bar, (target) => {
-          this.animateSkillBar(target);
+      skillBars.forEach(function(bar) {
+        ObserverManager.observe('skillBar', bar, function(target) {
+          self.animateSkillBar(target);
         });
       });
     },
 
-    animateSkillBar(skillBar) {
-      // Get skill level from CSS variable
-      const skillLevel = skillBar.style.getPropertyValue('--skill-level');
+    animateSkillBar: function(skillBar) {
+      var skillLevel = skillBar.style.getPropertyValue('--skill-level');
       if (!skillLevel) return;
 
-      // Parse the percentage
-      const percentage = parseInt(skillLevel);
+      var percentage = parseInt(skillLevel);
+      var currentWidth = 0;
+      var increment = percentage / 60;
 
-      // Animate the bar
-      let currentWidth = 0;
-      const increment = percentage / 60; // 60 frames for smooth animation
-
-      const animate = () => {
+      function animate() {
         if (currentWidth < percentage) {
           currentWidth += increment;
           if (currentWidth > percentage) currentWidth = percentage;
-          skillBar.style.setProperty('--skill-level', `${currentWidth}%`);
+          skillBar.style.setProperty('--skill-level', currentWidth + '%');
           requestAnimationFrame(animate);
         }
-      };
+      }
 
       animate();
     },
 
-    // Initialize stat counters using ObserverManager
-    initStatCounters() {
-      const counters = document.querySelectorAll('.stat-value[data-target]');
+    initStatCounters: function() {
+      var self = this;
+      var counters = document.querySelectorAll('.stat-value[data-target]');
+      if (counters.length === 0) return;
 
-      if (ObserverManager.prefersReducedMotion()) {
-        counters.forEach(counter => {
-          counter.textContent = counter.dataset.target;
-        });
-        return;
-      }
-
-      counters.forEach(counter => {
-        ObserverManager.observe('counter', counter, (el) => {
-          this.animateCounter(el);
+      counters.forEach(function(counter) {
+        ObserverManager.observe('counter', counter, function(el) {
+          self.animateCounter(el);
         });
       });
     },
 
-    animateCounter(counter) {
-      const target = parseInt(counter.dataset.target);
-      const duration = 2000; // 2 seconds
-      const frameRate = 60;
-      const totalFrames = (duration / 1000) * frameRate;
-      const increment = target / totalFrames;
+    animateCounter: function(counter) {
+      var target = parseInt(counter.dataset.target);
+      var duration = 2000;
+      var frameRate = 60;
+      var totalFrames = (duration / 1000) * frameRate;
+      var increment = target / totalFrames;
 
-      let current = 0;
-      let frame = 0;
+      var current = 0;
+      var frame = 0;
 
-      const animate = () => {
+      function animate() {
         if (frame < totalFrames) {
           current += increment;
           if (current > target) current = target;
@@ -105,15 +92,12 @@
         } else {
           counter.textContent = target;
         }
-      };
+      }
 
       animate();
     }
   };
 
-  // Auto-initialize when DOM is ready
   DataViz.init();
-
-  // Expose to global scope
   window.DataViz = DataViz;
 })();

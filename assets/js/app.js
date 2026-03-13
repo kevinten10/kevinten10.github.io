@@ -8,9 +8,8 @@
 (function() {
   'use strict';
 
-  const App = {
-    // Initialize application
-    init() {
+  var App = {
+    init: function() {
       this.initNavigation();
       this.initScrollEffects();
       this.initLazyLoading();
@@ -19,27 +18,24 @@
       this.initAnimations();
     },
 
-    // Navigation scroll effect
-    initNavigation() {
-      const header = document.querySelector('.nav-header');
+    initNavigation: function() {
+      var header = document.querySelector('.nav-header');
       if (!header) return;
 
-      let lastScroll = 0;
-      let ticking = false;
+      var lastScroll = 0;
+      var ticking = false;
 
-      window.addEventListener('scroll', () => {
+      window.addEventListener('scroll', function() {
         if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const currentScroll = window.pageYOffset;
+          window.requestAnimationFrame(function() {
+            var currentScroll = window.pageYOffset;
 
-            // Add/remove scrolled class
             if (currentScroll > 50) {
               header.classList.add('scrolled');
             } else {
               header.classList.remove('scrolled');
             }
 
-            // Hide/show on scroll direction (mobile)
             if (window.innerWidth < 768) {
               if (currentScroll > lastScroll && currentScroll > 100) {
                 header.style.transform = 'translateY(-100%)';
@@ -56,50 +52,37 @@
       }, { passive: true });
     },
 
-    // Scroll-triggered effects using ObserverManager
-    initScrollEffects() {
-      // Add animate-in class styles
-      const style = document.createElement('style');
-      style.textContent = `
-        .animate-in {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
-        }
-      `;
+    initScrollEffects: function() {
+      var style = document.createElement('style');
+      style.textContent = '.animate-in { opacity: 1 !important; transform: translateY(0) !important; }';
       document.head.appendChild(style);
 
-      // Wait for ObserverManager
-      const initObserver = () => {
+      function initObserver() {
         if (!window.ObserverManager) {
           requestAnimationFrame(initObserver);
           return;
         }
 
-        // Observe elements with animation classes
-        const elements = document.querySelectorAll('.feature-card, .project-card, .article-item, .section-header');
-
-        elements.forEach(el => {
+        var elements = document.querySelectorAll('.feature-card, .project-card, .article-item, .section-header');
+        elements.forEach(function(el) {
           el.style.opacity = '0';
           el.style.transform = 'translateY(20px)';
           el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 
-          ObserverManager.observe('scrollAnimation', el, (target) => {
+          ObserverManager.observe('scrollAnimation', el, function(target) {
             target.classList.add('animate-in');
           });
         });
-      };
+      }
 
       initObserver();
     },
 
-    // Lazy loading for images using ObserverManager
-    initLazyLoading() {
-      // Check for native lazy loading support first
-      const supportsLazyLoading = 'loading' in HTMLImageElement.prototype;
+    initLazyLoading: function() {
+      var supportsLazyLoading = 'loading' in HTMLImageElement.prototype;
 
       if (supportsLazyLoading) {
-        // Use native lazy loading for browsers that support it
-        document.querySelectorAll('img[data-src]').forEach(img => {
+        document.querySelectorAll('img[data-src]').forEach(function(img) {
           img.loading = 'lazy';
           img.src = img.dataset.src;
           if (img.dataset.srcset) {
@@ -109,44 +92,38 @@
         return;
       }
 
-      // Fallback to IntersectionObserver via ObserverManager
-      const initLazyLoadObserver = () => {
+      function initLazyLoadObserver() {
         if (!window.ObserverManager) {
           requestAnimationFrame(initLazyLoadObserver);
           return;
         }
 
-        document.querySelectorAll('img[data-src]').forEach(img => {
+        document.querySelectorAll('img[data-src]').forEach(function(img) {
           ObserverManager.observe('lazyLoad', img);
         });
-      };
+      }
 
       initLazyLoadObserver();
     },
 
-    // Mobile menu is now handled by mobile-nav.js module
-    // This function is kept for compatibility but delegates to mobile-nav.js
-    initMobileMenu() {
-      // Check if mobile-nav.js has initialized
+    initMobileMenu: function() {
       if (window.MobileNav && window.MobileNav.init) {
         window.MobileNav.init();
         return;
       }
 
-      // Fallback implementation
-      const menuBtn = document.querySelector('.mobile-menu-btn');
-      const mobileNav = document.querySelector('.mobile-nav');
+      var menuBtn = document.querySelector('.mobile-menu-btn');
+      var mobileNav = document.querySelector('.mobile-nav');
 
       if (!menuBtn || !mobileNav) return;
 
-      menuBtn.addEventListener('click', () => {
+      menuBtn.addEventListener('click', function() {
         mobileNav.classList.toggle('active');
         menuBtn.classList.toggle('active');
 
-        const isOpen = mobileNav.classList.contains('active');
+        var isOpen = mobileNav.classList.contains('active');
         menuBtn.setAttribute('aria-expanded', isOpen);
 
-        // Prevent body scroll when menu is open
         if (isOpen) {
           document.body.style.overflow = 'hidden';
         } else {
@@ -154,9 +131,8 @@
         }
       });
 
-      // Close menu when clicking a link
-      mobileNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
+      mobileNav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
           mobileNav.classList.remove('active');
           menuBtn.classList.remove('active');
           menuBtn.setAttribute('aria-expanded', 'false');
@@ -165,20 +141,18 @@
       });
     },
 
-    // Smooth scroll for anchor links with active section tracking
-    initSmoothScroll() {
-      const headerOffset = 80; // Height of fixed header
-      const sections = document.querySelectorAll('section[id]');
+    initSmoothScroll: function() {
+      var headerOffset = 80;
+      var sections = document.querySelectorAll('section[id]');
 
-      // Update active nav link on scroll
-      const updateActiveNav = () => {
-        const scrollY = window.pageYOffset;
+      function updateActiveNav() {
+        var scrollY = window.pageYOffset;
 
-        sections.forEach(section => {
-          const sectionHeight = section.offsetHeight;
-          const sectionTop = section.offsetTop - headerOffset - 20;
-          const sectionId = section.getAttribute('id');
-          const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+        sections.forEach(function(section) {
+          var sectionHeight = section.offsetHeight;
+          var sectionTop = section.offsetTop - headerOffset - 20;
+          var sectionId = section.getAttribute('id');
+          var navLink = document.querySelector('.nav-link[href="#' + sectionId + '"]');
 
           if (navLink) {
             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
@@ -188,13 +162,12 @@
             }
           }
         });
-      };
+      }
 
-      // Throttle scroll events
-      let ticking = false;
-      window.addEventListener('scroll', () => {
+      var ticking = false;
+      window.addEventListener('scroll', function() {
         if (!ticking) {
-          window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(function() {
             updateActiveNav();
             ticking = false;
           });
@@ -202,18 +175,17 @@
         }
       }, { passive: true });
 
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          const targetId = anchor.getAttribute('href');
+      document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function(e) {
+          var targetId = anchor.getAttribute('href');
           if (targetId === '#') return;
 
-          const targetElement = document.querySelector(targetId);
+          var targetElement = document.querySelector(targetId);
           if (targetElement) {
             e.preventDefault();
 
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            var elementPosition = targetElement.getBoundingClientRect().top;
+            var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
             window.scrollTo({
               top: offsetPosition,
@@ -224,39 +196,37 @@
       });
     },
 
-    // Initialize animations using ObserverManager
-    initAnimations() {
-      const initWhenReady = () => {
+    initAnimations: function() {
+      var self = this;
+
+      function initWhenReady() {
         if (!window.ObserverManager) {
           requestAnimationFrame(initWhenReady);
           return;
         }
 
-        // Typing effect for hero subtitle
-        const typingElement = document.querySelector('.typing-text');
+        var typingElement = document.querySelector('.typing-text');
         if (typingElement) {
-          this.initTypingEffect(typingElement);
+          self.initTypingEffect(typingElement);
         }
 
-        // Counter animation for stats
-        document.querySelectorAll('.counter').forEach(counter => {
-          this.initCounterAnimation(counter);
+        document.querySelectorAll('.counter').forEach(function(counter) {
+          self.initCounterAnimation(counter);
         });
-      };
+      }
 
       initWhenReady();
     },
 
-    // Typing effect using ObserverManager
-    initTypingEffect(element) {
-      const text = element.dataset.text || element.textContent;
-      const speed = parseInt(element.dataset.speed) || 100;
+    initTypingEffect: function(element) {
+      var text = element.dataset.text || element.textContent;
+      var speed = parseInt(element.dataset.speed) || 100;
 
       element.textContent = '';
       element.classList.add('typing');
 
-      let i = 0;
-      const type = () => {
+      var i = 0;
+      function type() {
         if (i < text.length) {
           element.textContent += text.charAt(i);
           i++;
@@ -264,74 +234,66 @@
         } else {
           element.classList.remove('typing');
         }
-      };
+      }
 
-      // Start typing when element is visible
-      ObserverManager.observe('typing', element, () => {
+      ObserverManager.observe('typing', element, function() {
         setTimeout(type, 500);
       });
     },
 
-    // Counter animation using ObserverManager
-    initCounterAnimation(counter) {
-      const target = parseInt(counter.dataset.target);
-      const duration = parseInt(counter.dataset.duration) || 2000;
+    initCounterAnimation: function(counter) {
+      var target = parseInt(counter.dataset.target);
+      var duration = parseInt(counter.dataset.duration) || 2000;
 
-      ObserverManager.observe('counter', counter, (el) => {
-        this.animateCounter(el, target, duration);
+      ObserverManager.observe('counter', counter, function(el) {
+        var start = 0;
+        var increment = target / (duration / 16);
+        var current = start;
+
+        function updateCounter() {
+          current += increment;
+          if (current < target) {
+            el.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+          } else {
+            el.textContent = target;
+          }
+        }
+
+        updateCounter();
       });
     },
 
-    animateCounter(element, target, duration) {
-      const start = 0;
-      const increment = target / (duration / 16);
-      let current = start;
-
-      const updateCounter = () => {
-        current += increment;
-        if (current < target) {
-          element.textContent = Math.floor(current);
-          requestAnimationFrame(updateCounter);
-        } else {
-          element.textContent = target;
-        }
-      };
-
-      updateCounter();
-    },
-
-    // Utility: Debounce function
-    debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
-          clearTimeout(timeout);
-          func(...args);
+    debounce: function(func, wait) {
+      var timeout;
+      return function() {
+        var args = arguments;
+        var later = function() {
+          timeout = null;
+          func.apply(null, args);
         };
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
       };
     },
 
-    // Utility: Throttle function
-    throttle(func, limit) {
-      let inThrottle;
-      return function(...args) {
+    throttle: function(func, limit) {
+      var inThrottle;
+      return function() {
+        var args = arguments;
         if (!inThrottle) {
-          func.apply(this, args);
+          func.apply(null, args);
           inThrottle = true;
-          setTimeout(() => inThrottle = false, limit);
+          setTimeout(function() { inThrottle = false; }, limit);
         }
       };
     }
   };
 
-  // Expose to global scope
   window.App = App;
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => App.init());
+    document.addEventListener('DOMContentLoaded', function() { App.init(); });
   } else {
     App.init();
   }
