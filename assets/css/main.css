@@ -3856,16 +3856,53 @@ body {
   padding: var(--space-6);
   text-align: center;
   box-shadow: var(--card-shadow);
-  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 200ms ease, box-shadow 300ms ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Top gradient border glow effect */
+.impact-metric::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+  opacity: 0;
+  transition: opacity 300ms ease;
 }
 
 .impact-metric:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px) scale(1.02);
   border-color: var(--card-border-hover);
-  box-shadow: var(--card-shadow-hover);
+  box-shadow: var(--card-shadow-hover), 0 0 30px rgba(99, 102, 241, 0.15);
+}
+
+.impact-metric:hover::before {
+  opacity: 1;
+}
+
+/* Active/click effect */
+.impact-metric:active {
+  transform: translateY(-2px) scale(0.98);
+  transition-duration: 100ms;
+}
+
+/* Number count complete pulse animation */
+@keyframes metricPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.metric-value.count-complete {
+  animation: metricPulse 0.5s ease;
+  color: var(--color-secondary);
 }
 
 .metric-icon {
@@ -3880,6 +3917,25 @@ body {
   margin-right: auto;
   border-radius: var(--radius-xl);
   background: var(--color-primary-alpha-10);
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), background-color 200ms ease;
+}
+
+.impact-metric:hover .metric-icon {
+  transform: scale(1.1) rotate(-5deg);
+  background: var(--color-primary-alpha-20);
+}
+
+/* Icon row color variants */
+.impact-metric:nth-child(-n+3):hover .metric-icon {
+  background: rgba(99, 102, 241, 0.2);
+}
+
+.impact-metric:nth-child(n+4):nth-child(-n+6):hover .metric-icon {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.impact-metric:nth-child(n+7):hover .metric-icon {
+  background: rgba(245, 158, 11, 0.2);
 }
 
 .metric-value {

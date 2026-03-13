@@ -56,11 +56,17 @@
           if (progress < 1) {
             requestAnimationFrame(animate);
           } else {
+            // Final value with completion animation
             if (target >= 1000) {
               el.textContent = (target / 1000).toFixed(1) + 'k' + suffix;
             } else {
-              el.textContent = target;
+              el.textContent = target + suffix;
             }
+            // Add pulse animation class
+            el.classList.add('count-complete');
+            setTimeout(function() {
+              el.classList.remove('count-complete');
+            }, 500);
           }
         }
 
@@ -113,7 +119,11 @@
           document.querySelectorAll('.animate-number').forEach(function(counter) {
             var target = parseInt(counter.dataset.value, 10);
             var suffix = counter.dataset.suffix || '';
-            counter.textContent = target >= 1000 ? (target / 1000).toFixed(1) + 'k' + suffix : target;
+            if (target >= 1000) {
+              counter.textContent = (target / 1000).toFixed(1) + 'k' + suffix;
+            } else {
+              counter.textContent = target + suffix;
+            }
           });
         }
       } else {
