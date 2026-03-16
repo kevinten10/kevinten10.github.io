@@ -1383,8 +1383,8 @@ body {
   gap: var(--space-3);
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  opacity: 0;
-  transform: translateX(-10px);
+  opacity: 1;
+  transform: translateX(0);
   transition: opacity 300ms ease, transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -1392,10 +1392,6 @@ body {
 .experience-card.is-visible .highlight-item:nth-child(1) { transition-delay: 100ms; }
 .experience-card.is-visible .highlight-item:nth-child(2) { transition-delay: 200ms; }
 .experience-card.is-visible .highlight-item:nth-child(3) { transition-delay: 300ms; }
-.experience-card.is-visible .highlight-item {
-  opacity: 1;
-  transform: translateX(0);
-}
 
 .highlight-item:hover {
   transform: translateX(4px);
