@@ -2453,120 +2453,183 @@ body {
    Awards Section
    ============================================ */
 
-.awards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-6);
-  max-width: var(--container-xl);
-  margin: 0 auto var(--space-10);
+/* ============================================
+   Award Ribbons — Compact Horizontal Strips
+   ============================================ */
+
+.award-ribbons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--container-lg);
+  margin: 0 auto var(--space-8);
 }
 
-.award-card {
+.award-ribbon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
   background: var(--card-bg);
-  backdrop-filter: blur(var(--card-blur));
   border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--space-6);
+  border-left: 3px solid var(--accent, var(--color-primary));
+  border-radius: var(--radius-lg);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease,
+    background 0.3s ease;
+}
+
+.award-ribbon:hover {
+  border-color: var(--accent, var(--color-primary));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    inset 0 0 40px color-mix(in srgb, var(--accent) 4%, transparent);
+  transform: translateX(4px);
+  background: color-mix(in srgb, var(--accent) 3%, var(--card-bg));
+}
+
+/* Featured (gold) gets extra emphasis */
+.award-ribbon.featured {
+  border-left-width: 4px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--card-bg));
+  padding: var(--space-5) var(--space-5);
+}
+
+.award-ribbon.featured .ribbon-title {
+  font-size: var(--text-xl);
+}
+
+.award-ribbon.featured .ribbon-badge {
+  font-size: 1.75rem;
+}
+
+.ribbon-badge {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  width: 36px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
 }
 
-.award-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--card-border-hover);
-  box-shadow: var(--card-shadow-hover);
-}
-
-/* Award Types — left accent border */
-.award-card.gold {
-  border-left: 4px solid #F59E0B;
-}
-
-.award-card.silver {
-  border-left: 4px solid #94A3B8;
-}
-
-.award-card.bronze {
-  border-left: 4px solid #D97706;
-}
-
-.award-card.excellence {
-  border-left: 4px solid var(--color-accent-cyan);
-}
-
-.award-card.chengguo {
-  border-left: 4px solid var(--color-accent-indigo);
-}
-
-.award-card.architecture {
-  border-left: 4px solid #8B5CF6;
-}
-
-.award-badge-large {
-  font-size: var(--text-4xl);
-  margin-bottom: var(--space-3);
-}
-
-.award-year {
+.ribbon-year {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  color: var(--color-accent);
+  font-size: var(--text-xs);
+  color: var(--accent, var(--color-primary));
   font-weight: var(--font-semibold);
-  margin-bottom: var(--space-2);
+  flex-shrink: 0;
+  min-width: 40px;
+  letter-spacing: 0.02em;
 }
 
-.award-title {
-  font-size: var(--text-lg);
+.ribbon-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.ribbon-title {
+  font-size: var(--text-base);
   font-weight: var(--font-bold);
   color: var(--color-text);
-  margin-bottom: var(--space-2);
+  white-space: nowrap;
 }
 
-.award-project {
-  font-size: var(--text-base);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--space-2);
-}
-
-.award-role {
+.ribbon-project {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
-  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Achievement Summary */
-.achievement-summary {
+.ribbon-role {
+  font-size: var(--text-xs);
+  color: var(--color-text-subtle);
+  flex-shrink: 0;
+  padding: 2px var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Achievement Badges — Unified */
+.achievement-badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: var(--container-lg);
+  margin: 0 auto;
+}
+
+.badge-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-6);
-  padding: var(--space-8);
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--color-border);
+  gap: var(--space-2);
 }
 
-.achievement-item {
-  display: flex;
+.badge-chip {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-3);
-}
-
-.achievement-icon {
-  font-size: var(--text-2xl);
-}
-
-.achievement-text {
-  font-size: var(--text-base);
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
   color: var(--color-text-secondary);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.achievement-text strong {
+.badge-chip:hover {
+  border-color: var(--card-border-hover);
+  background: var(--color-bg-secondary);
+}
+
+.badge-chip span:first-child {
+  font-size: 1rem;
+}
+
+.badge-chip strong {
   color: var(--color-primary);
-  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+}
+
+.badge-chip.gh {
+  border-style: dashed;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .award-ribbon {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .ribbon-body {
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .ribbon-role {
+    order: 4;
+  }
+
+  .ribbon-year {
+    min-width: auto;
+  }
+
+  .award-ribbon.featured .ribbon-title {
+    font-size: var(--text-lg);
+  }
 }
 
 /* ============================================
@@ -3616,17 +3679,6 @@ body {
   .awards-grid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
-  }
-
-  .achievement-summary {
-    flex-direction: column;
-    gap: var(--space-3);
-    padding: var(--space-6);
-  }
-
-  .achievement-item {
-    justify-content: center;
-    text-align: center;
   }
 
   /* Writing Grid Mobile */
