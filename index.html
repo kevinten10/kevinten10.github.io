@@ -809,91 +809,65 @@
                 <p class="section-description">核心技术能力与专业领域</p>
             </div>
 
-            <div class="tech-categories">
-                <!-- Expert Level (5+ years / Deep expertise) -->
-                <div class="tech-category">
-                    <h3 class="tech-category-title">
-                        <span class="proficiency-indicator expert">Expert</span>
-                        核心专长
-                    </h3>
-                    <div class="tech-tags">
-                        <span class="tech-tag expert java-tag">Java</span>
-                        <span class="tech-tag expert dubbo-tag">Apache Dubbo</span>
-                        <span class="tech-tag expert spring-tag">Spring Boot</span>
-                        <span class="tech-tag expert netty-tag">Netty</span>
-                        <span class="tech-tag expert reactive-tag">Reactive</span>
-                        <span class="tech-tag expert ddd-tag">Distributed Systems</span>
-                    </div>
+            <!-- Skill Galaxy: Interactive weighted cloud visualization -->
+            <div class="skill-galaxy" aria-label="Technical skills visualization">
+                <div class="skill-galaxy-bg"></div>
+                <div class="skill-galaxy-cloud">
+                    <!-- Expert: largest, brightest nodes -->
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 38; --sat: 92%; --delay: 0s; --drift-x: 12px; --drift-y: -8px; --dur: 7s;">Java</span>
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 24; --sat: 90%; --delay: 0.3s; --drift-x: -10px; --drift-y: 14px; --dur: 8s;">Apache Dubbo</span>
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 100; --sat: 52%; --delay: 0.6s; --drift-x: 8px; --drift-y: -12px; --dur: 9s;">Spring Boot</span>
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 40; --sat: 88%; --delay: 0.9s; --drift-x: -14px; --drift-y: 6px; --dur: 7.5s;">Netty</span>
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 330; --sat: 75%; --delay: 1.2s; --drift-x: 6px; --drift-y: 10px; --dur: 8.5s;">Reactive</span>
+                    <span class="skill-node skill-expert" data-level="expert" style="--hue: 220; --sat: 80%; --delay: 1.5s; --drift-x: -8px; --drift-y: -14px; --dur: 9.5s;">Distributed Systems</span>
+
+                    <!-- Advanced: medium-large nodes -->
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 190; --sat: 100%; --delay: 0.2s; --drift-x: -6px; --drift-y: 10px; --dur: 8s;">Golang</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 140; --sat: 70%; --delay: 0.5s; --drift-x: 10px; --drift-y: -6px; --dur: 9s;">Dapr</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 265; --sat: 65%; --delay: 0.8s; --drift-x: -12px; --drift-y: 8px; --dur: 7s;">Layotto</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 225; --sat: 78%; --delay: 1.1s; --drift-x: 8px; --drift-y: 12px; --dur: 8.5s;">Kubernetes</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 185; --sat: 60%; --delay: 1.4s; --drift-x: -10px; --drift-y: -10px; --dur: 9.5s;">Service Mesh</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 235; --sat: 55%; --delay: 0.1s; --drift-x: 14px; --drift-y: 4px; --dur: 7.5s;">Envoy</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 210; --sat: 85%; --delay: 0.4s; --drift-x: -4px; --drift-y: -12px; --dur: 8s;">Docker</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 200; --sat: 45%; --delay: 0.7s; --drift-x: 12px; --drift-y: 8px; --dur: 9s;">Observability</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 10; --sat: 70%; --delay: 1.0s; --drift-x: -8px; --drift-y: 6px; --dur: 7s;">Prometheus</span>
+                    <span class="skill-node skill-advanced" data-level="advanced" style="--hue: 30; --sat: 80%; --delay: 1.3s; --drift-x: 6px; --drift-y: -8px; --dur: 8.5s;">Grafana</span>
+
+                    <!-- Proficient: medium nodes -->
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 215; --sat: 50%; --delay: 0.15s; --drift-x: 10px; --drift-y: 6px; --dur: 8s;">Python</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 265; --sat: 65%; --delay: 0.45s; --drift-x: -6px; --drift-y: -10px; --dur: 9s;">AI Agents</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 330; --sat: 75%; --delay: 0.75s; --drift-x: 8px; --drift-y: 12px; --dur: 7.5s;">MCP</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 160; --sat: 70%; --delay: 1.05s; --drift-x: -12px; --drift-y: -4px; --dur: 8.5s;">RAG</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 280; --sat: 55%; --delay: 1.35s; --drift-x: 4px; --drift-y: 8px; --dur: 9.5s;">LLM</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 240; --sat: 70%; --delay: 0.25s; --drift-x: -8px; --drift-y: 10px; --dur: 7s;">Dify</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 200; --sat: 40%; --delay: 0.55s; --drift-x: 12px; --drift-y: -6px; --dur: 8s;">Kafka</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 210; --sat: 55%; --delay: 0.85s; --drift-x: -10px; --drift-y: 4px; --dur: 9s;">MySQL</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 0; --sat: 70%; --delay: 1.15s; --drift-x: 6px; --drift-y: -12px; --dur: 7.5s;">Redis</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 50; --sat: 60%; --delay: 1.45s; --drift-x: -14px; --drift-y: 8px; --dur: 8.5s;">ClickHouse</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 170; --sat: 50%; --delay: 0.35s; --drift-x: 10px; --drift-y: 10px; --dur: 9.5s;">Elasticsearch</span>
+                    <span class="skill-node skill-proficient" data-level="proficient" style="--hue: 25; --sat: 65%; --delay: 0.65s; --drift-x: -6px; --drift-y: -8px; --dur: 7s;">GitLab CI</span>
+
+                    <!-- Familiar: smaller nodes -->
+                    <span class="skill-node skill-familiar" data-level="familiar" style="--hue: 52; --sat: 90%; --delay: 0.4s; --drift-x: 8px; --drift-y: 6px; --dur: 8s;">JavaScript</span>
+                    <span class="skill-node skill-familiar" data-level="familiar" style="--hue: 120; --sat: 45%; --delay: 0.8s; --drift-x: -10px; --drift-y: -6px; --dur: 9s;">Node.js</span>
+                    <span class="skill-node skill-familiar" data-level="familiar" style="--hue: 220; --sat: 65%; --delay: 1.2s; --drift-x: 6px; --drift-y: 10px; --dur: 7.5s;">gRPC</span>
+                    <span class="skill-node skill-familiar" data-level="familiar" style="--hue: 260; --sat: 55%; --delay: 0.6s; --drift-x: -8px; --drift-y: 8px; --dur: 8.5s;">WebAssembly</span>
+                    <span class="skill-node skill-familiar" data-level="familiar" style="--hue: 180; --sat: 40%; --delay: 1.0s; --drift-x: 12px; --drift-y: -10px; --dur: 9.5s;">Workflow</span>
+
+                    <!-- Practices & Patterns: accent nodes -->
+                    <span class="skill-node skill-practice" data-level="practice" style="--hue: 220; --sat: 80%; --delay: 0.3s; --drift-x: -6px; --drift-y: 12px; --dur: 8s;">DDD</span>
+                    <span class="skill-node skill-practice" data-level="practice" style="--hue: 330; --sat: 75%; --delay: 0.7s; --drift-x: 10px; --drift-y: -8px; --dur: 9s;">Reactive</span>
+                    <span class="skill-node skill-practice" data-level="practice" style="--hue: 210; --sat: 30%; --delay: 1.1s; --drift-x: -12px; --drift-y: 4px; --dur: 7.5s;">Design Patterns</span>
+                    <span class="skill-node skill-practice" data-level="practice" style="--hue: 0; --sat: 65%; --delay: 1.5s; --drift-x: 8px; --drift-y: 10px; --dur: 8.5s;">Chaos Engineering</span>
                 </div>
 
-                <!-- Advanced Level (3-5 years / Strong proficiency) -->
-                <div class="tech-category">
-                    <h3 class="tech-category-title">
-                        <span class="proficiency-indicator advanced">Advanced</span>
-                        精通领域
-                    </h3>
-                    <div class="tech-tags">
-
-                        <span class="tech-tag advanced go-tag">Golang</span>
-                        <span class="tech-tag advanced dapr-tag">Dapr</span>
-                        <span class="tech-tag advanced layotto-tag">Layotto</span>
-                        <span class="tech-tag advanced k8s-tag">Kubernetes</span>
-                        <span class="tech-tag advanced servicemesh-tag">Service Mesh</span>
-                        <span class="tech-tag advanced envoy-tag">Envoy</span>
-                        <span class="tech-tag advanced docker-tag">Docker</span>
-                        <span class="tech-tag advanced observability-tag">Observability</span>
-                        <span class="tech-tag advanced prometheus-tag">Prometheus</span>
-                        <span class="tech-tag advanced grafana-tag">Grafana</span>
-</div>
-                </div>
-
-                <!-- Proficient Level (1-3 years / Working knowledge) -->
-                <div class="tech-category">
-                    <h3 class="tech-category-title">
-                        <span class="proficiency-indicator proficient">Proficient</span>
-                        熟练使用
-                    </h3>
-                    <div class="tech-tags">
-
-                        <span class="tech-tag proficient python-tag">Python</span>
-                        <span class="tech-tag proficient ai-tag">AI Agents</span>
-                        <span class="tech-tag proficient mcp-tag">MCP</span>
-                        <span class="tech-tag proficient rag-tag">RAG</span>
-                        <span class="tech-tag proficient llm-tag">LLM</span>
-                        <span class="tech-tag proficient dify-tag">Dify</span>
-                        <span class="tech-tag proficient kafka-tag">Kafka</span>
-                        <span class="tech-tag proficient mysql-tag">MySQL</span>
-                        <span class="tech-tag proficient redis-tag">Redis</span>
-                        <span class="tech-tag proficient clickhouse-tag">ClickHouse</span>
-                        <span class="tech-tag proficient es-tag">Elasticsearch</span>
-                        <span class="tech-tag proficient ci-tag">GitLab CI</span>
-</div>
-                </div>
-
-                <!-- Familiar Level (Learning / Basic knowledge) -->
-                <div class="tech-category">
-                    <h3 class="tech-category-title">
-                        <span class="proficiency-indicator familiar">Familiar</span>
-                        了解掌握
-                    </h3>
-                    <div class="tech-tags">
-                        <span class="tech-tag familiar js-tag">JavaScript</span>
-                        <span class="tech-tag familiar node-tag">Node.js</span>
-                        <span class="tech-tag familiar grpc-tag">gRPC</span>
-                        <span class="tech-tag familiar wasm-tag">WebAssembly</span>
-                        <span class="tech-tag familiar workflow-tag">Workflow</span>
-                    </div>
-                </div>
-
-                <!-- Practices & Patterns -->
-                <div class="tech-category">
-                    <h3 class="tech-category-title">Practices & Patterns</h3>
-                    <div class="tech-tags">
-                        <span class="tech-tag primary ddd-tag">DDD</span>
-                        <span class="tech-tag primary reactive-tag">Reactive</span>
-                        <span class="tech-tag secondary pattern-tag">Design Patterns</span>
-                        <span class="tech-tag secondary chaos-tag">Chaos Engineering</span>
-                    </div>
+                <!-- Proficiency Legend -->
+                <div class="skill-galaxy-legend">
+                    <span class="legend-item"><span class="legend-dot expert-dot"></span>Expert 核心专长</span>
+                    <span class="legend-item"><span class="legend-dot advanced-dot"></span>Advanced 精通</span>
+                    <span class="legend-item"><span class="legend-dot proficient-dot"></span>Proficient 熟练</span>
+                    <span class="legend-item"><span class="legend-dot familiar-dot"></span>Familiar 了解</span>
+                    <span class="legend-item"><span class="legend-dot practice-dot"></span>Practices 实践</span>
                 </div>
             </div>
         </div>
@@ -1449,5 +1423,6 @@
     <script src="/assets/js/project-modal.js" defer></script>
     <script src="/assets/js/gallery.js" defer></script>
     <script src="/assets/js/hero-effects.js" defer></script>
+    <script src="/assets/js/skill-galaxy.js" defer></script>
 </body>
 </html>

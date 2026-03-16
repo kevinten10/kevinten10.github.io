@@ -1723,212 +1723,334 @@ body {
    Tech Stack
    ============================================ */
 
-.tech-categories {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-8);
+/* ============================================
+   Skill Galaxy - Interactive Cloud Visualization
+   ============================================ */
+
+.skill-galaxy {
+  position: relative;
   max-width: var(--container-xl);
   margin: 0 auto;
+  padding: var(--space-12) var(--space-4);
+  overflow: hidden;
+  border-radius: var(--radius-2xl);
 }
 
-.tech-category {
-  text-align: center;
-  background: var(--card-bg);
-  backdrop-filter: blur(var(--card-blur));
-  border: 1px solid var(--card-border);
-  border-radius: var(--card-radius);
-  padding: var(--space-6);
-  box-shadow: var(--card-shadow);
-  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), border-color 200ms ease, box-shadow 300ms ease;
+/* Nebula background effect */
+.skill-galaxy-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(6, 182, 212, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-.tech-category:hover {
-  transform: translateY(-4px);
-  border-color: var(--card-border-hover);
-  box-shadow: var(--card-shadow-hover);
+/* Mouse spotlight overlay */
+.skill-galaxy::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-2xl);
+  background: radial-gradient(
+    circle 300px at var(--mx, 50%) var(--my, 50%),
+    rgba(99, 102, 241, 0.06) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-.tech-category-title {
-  font-size: var(--text-lg);
-  font-weight: var(--font-semibold);
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+.skill-galaxy:hover::after {
+  opacity: 1;
 }
 
-/* Proficiency Indicators */
-.proficiency-indicator {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--text-xs);
-  font-weight: var(--font-bold);
-  border-radius: var(--radius-full);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  transition: transform 200ms ease, box-shadow 200ms ease;
-  cursor: pointer;
-}
-
-.proficiency-indicator:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.proficiency-indicator.expert {
-  background: linear-gradient(135deg, #10B981, #059669);
-  color: white;
-}
-
-.proficiency-indicator.expert:hover {
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
-}
-
-.proficiency-indicator.advanced {
-  background: linear-gradient(135deg, #3B82F6, #2563EB);
-  color: white;
-}
-
-.proficiency-indicator.advanced:hover {
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-}
-
-.proficiency-indicator.proficient {
-  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-  color: white;
-}
-
-.proficiency-indicator.proficient:hover {
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-}
-
-.proficiency-indicator.familiar {
-  background: linear-gradient(135deg, #64748B, #475569);
-  color: white;
-}
-
-.proficiency-indicator.familiar:hover {
-  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.4);
-}
-
-/* Tech Tag Proficiency Levels */
-.tech-tag.expert {
-  position: relative;
-}
-
-.tech-tag.expert::after {
-  content: '⭐';
-  margin-left: var(--space-2);
-  font-size: var(--text-xs);
-}
-
-.tech-tag.advanced {
-  opacity: 0.95;
-}
-
-.tech-tags {
+/* The cloud container */
+.skill-galaxy-cloud {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-2);
-}
-
-.tech-tag {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  transition: all var(--transition-fast);
-  cursor: default;
-}
-
-.tech-tag.primary {
-  background: var(--gradient-primary);
-  color: white;
-}
-
-.tech-tag.secondary {
-  background: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-}
-
-.tech-tag {
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
   position: relative;
-  overflow: hidden;
+  z-index: 1;
+  min-height: 320px;
 }
 
-.tech-tag:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+/* Floating drift keyframe */
+@keyframes skillDrift {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(calc(var(--drift-x) * 0.6), calc(var(--drift-y) * 0.4));
+  }
+  50% {
+    transform: translate(var(--drift-x), var(--drift-y));
+  }
+  75% {
+    transform: translate(calc(var(--drift-x) * 0.3), calc(var(--drift-y) * 0.7));
+  }
 }
 
-.tech-tag.primary:hover {
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+/* Subtle glow pulse */
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-/* Shimmer effect on tech tags */
-.tech-tag::before {
+/* Base skill node */
+.skill-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  cursor: default;
+  position: relative;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  border: 1px solid transparent;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.4s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.3s ease;
+  animation: skillDrift var(--dur, 8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+
+  /* Dynamic color from CSS vars */
+  --node-color: hsl(var(--hue, 220), var(--sat, 60%), 60%);
+  --node-glow: hsl(var(--hue, 220), var(--sat, 60%), 50%);
+  --node-bg: hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.12);
+  --node-border: hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.25);
+
+  color: var(--node-color);
+  background: var(--node-bg);
+}
+
+/* Glow ring on hover */
+.skill-node::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.2) 50%,
+  inset: -2px;
+  border-radius: var(--radius-full);
+  background: hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.15);
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.skill-node:hover {
+  border-color: var(--node-border);
+  transform: scale(1.15) !important;
+  animation-play-state: paused;
+  background: hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.2);
+  box-shadow:
+    0 0 20px hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.3),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.skill-node:hover::before {
+  opacity: 1;
+}
+
+/* ---- Proficiency size tiers ---- */
+
+/* Expert: largest, most prominent */
+.skill-node.skill-expert {
+  font-size: 1.5rem;
+  padding: var(--space-3) var(--space-6);
+  font-weight: var(--font-bold);
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.18);
+  --node-border: hsla(var(--hue), var(--sat), 50%, 0.35);
+  text-shadow: 0 0 20px hsla(var(--hue), var(--sat), 50%, 0.4);
+}
+
+/* Advanced: medium-large */
+.skill-node.skill-advanced {
+  font-size: 1.15rem;
+  padding: var(--space-2) var(--space-5);
+  font-weight: var(--font-semibold);
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.12);
+}
+
+/* Proficient: medium */
+.skill-node.skill-proficient {
+  font-size: 0.95rem;
+  padding: var(--space-2) var(--space-4);
+  font-weight: var(--font-medium);
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.08);
+  opacity: 0.85;
+}
+
+/* Familiar: smaller */
+.skill-node.skill-familiar {
+  font-size: 0.825rem;
+  padding: 6px var(--space-3);
+  font-weight: var(--font-medium);
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.06);
+  opacity: 0.65;
+}
+
+.skill-node.skill-familiar:hover {
+  opacity: 1;
+}
+
+/* Practice: accent style with dashed border */
+.skill-node.skill-practice {
+  font-size: 0.875rem;
+  padding: 6px var(--space-3);
+  font-weight: var(--font-medium);
+  border: 1px dashed hsla(var(--hue), var(--sat), 50%, 0.3);
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.06);
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.skill-node.skill-practice:hover {
+  opacity: 1;
+  border-style: solid;
+}
+
+/* Proficiency Legend */
+.skill-galaxy-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.03em;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot.expert-dot {
+  background: #10B981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  width: 10px;
+  height: 10px;
+}
+
+.legend-dot.advanced-dot {
+  background: #3B82F6;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  width: 9px;
+  height: 9px;
+}
+
+.legend-dot.proficient-dot {
+  background: #8B5CF6;
+  box-shadow: 0 0 4px rgba(139, 92, 246, 0.4);
+}
+
+.legend-dot.familiar-dot {
+  background: #64748B;
+}
+
+.legend-dot.practice-dot {
+  background: transparent;
+  border: 1.5px dashed #6366F1;
+}
+
+/* Responsive: mobile compact layout */
+@media (max-width: 768px) {
+  .skill-galaxy {
+    padding: var(--space-6) var(--space-2);
+  }
+
+  .skill-galaxy-cloud {
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-2);
+    min-height: auto;
+  }
+
+  .skill-node.skill-expert {
+    font-size: 1.2rem;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .skill-node.skill-advanced {
+    font-size: 1rem;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .skill-node.skill-proficient {
+    font-size: 0.85rem;
+    padding: 5px var(--space-3);
+  }
+
+  .skill-node.skill-familiar,
+  .skill-node.skill-practice {
+    font-size: 0.75rem;
+    padding: 4px var(--space-2);
+  }
+
+  /* Reduce drift on mobile for less visual noise */
+  .skill-node {
+    --drift-x: 4px !important;
+    --drift-y: 3px !important;
+  }
+
+  .skill-galaxy-legend {
+    gap: var(--space-3);
+  }
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .skill-galaxy-bg {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(6, 182, 212, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(139, 92, 246, 0.04) 0%, transparent 70%);
+}
+
+[data-theme="light"] .skill-node {
+  --node-color: hsl(var(--hue, 220), var(--sat, 60%), 40%);
+  --node-bg: hsla(var(--hue, 220), var(--sat, 60%), 50%, 0.08);
+}
+
+[data-theme="light"] .skill-node.skill-expert {
+  --node-bg: hsla(var(--hue), var(--sat), 50%, 0.12);
+  text-shadow: none;
+}
+
+[data-theme="light"] .skill-galaxy::after {
+  background: radial-gradient(
+    circle 300px at var(--mx, 50%) var(--my, 50%),
+    rgba(99, 102, 241, 0.04) 0%,
     transparent 100%
   );
-  transition: left 0.5s ease;
 }
 
-.tech-tag:hover::before {
-  left: 100%;
+/* Reduced motion: disable drift animation */
+@media (prefers-reduced-motion: reduce) {
+  .skill-node {
+    animation: none !important;
+  }
 }
-
-/* Tech Tag Color Variants */
-.tech-tag.java-tag { background: linear-gradient(135deg, #B07219, #8B5A00); color: white; }
-.tech-tag.go-tag { background: linear-gradient(135deg, #00ADD8, #007D9C); color: white; }
-.tech-tag.python-tag { background: linear-gradient(135deg, #3776AB, #265680); color: white; }
-.tech-tag.js-tag { background: linear-gradient(135deg, #F7DF1E, #D4BE00); color: #1a1a1a; }
-
-.tech-tag.dubbo-tag { background: linear-gradient(135deg, #F97316, #EA580C); color: white; }
-.tech-tag.dapr-tag { background: linear-gradient(135deg, #22C55E, #16A34A); color: white; }
-.tech-tag.layotto-tag { background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: white; }
-.tech-tag.spring-tag { background: linear-gradient(135deg, #6DB33F, #5A9E32); color: white; }
-.tech-tag.webflux-tag { background: linear-gradient(135deg, #6DB33F, #88C425); color: white; }
-.tech-tag.netty-tag { background: linear-gradient(135deg, #F59E0B, #D97706); color: white; }
-.tech-tag.grpc-tag { background: linear-gradient(135deg, #2D72D2, #1E5BB8); color: white; }
-
-.tech-tag.k8s-tag { background: linear-gradient(135deg, #326CE5, #2654C7); color: white; }
-.tech-tag.servicemesh-tag { background: linear-gradient(135deg, #006175, #004D61); color: white; }
-.tech-tag.envoy-tag { background: linear-gradient(135deg, #5265CA, #4351B8); color: white; }
-.tech-tag.docker-tag { background: linear-gradient(135deg, #2496ED, #1B7BC9); color: white; }
-
-.tech-tag.ai-tag { background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: white; }
-.tech-tag.mcp-tag { background: linear-gradient(135deg, #EC4899, #DB2777); color: white; }
-.tech-tag.cursor-tag { background: linear-gradient(135deg, #000000, #1a1a1a); color: white; }
-.tech-tag.claude-tag { background: linear-gradient(135deg, #CC785C, #B85C45); color: white; }
-.tech-tag.dify-tag { background: linear-gradient(135deg, #6366F1, #4F46E5); color: white; }
-.tech-tag.rag-tag { background: linear-gradient(135deg, #10B981, #059669); color: white; }
-
-.tech-tag.reactor-tag { background: linear-gradient(135deg, #00B4AB, #009A92); color: white; }
-.tech-tag.tomcat-tag { background: linear-gradient(135deg, #F89820, #E38815); color: white; }
-
-.tech-tag.ddd-tag { background: linear-gradient(135deg, #3B82F6, #2563EB); color: white; }
-.tech-tag.reactive-tag { background: linear-gradient(135deg, #EC4899, #DB2777); color: white; }
-.tech-tag.pattern-tag { background: linear-gradient(135deg, #64748B, #475569); color: white; }
-.tech-tag.chaos-tag { background: linear-gradient(135deg, #EF4444, #DC2626); color: white; }
 
 /* ============================================
    Contributions
