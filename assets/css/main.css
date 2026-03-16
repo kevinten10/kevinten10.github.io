@@ -2489,6 +2489,12 @@ body {
   inset: 0;
   z-index: var(--z-modal);
   pointer-events: none;
+  visibility: hidden;
+}
+
+.mobile-nav.active {
+  pointer-events: auto;
+  visibility: visible;
 }
 
 .mobile-nav.active {
