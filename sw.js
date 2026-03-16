@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 20
+ * @version 21
  */
 
-const SW_VERSION = '20';
+const SW_VERSION = '21';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
