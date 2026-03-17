@@ -63,7 +63,7 @@
           return;
         }
 
-        var elements = document.querySelectorAll('.feature-card, .project-card, .article-item, .section-header');
+        var elements = document.querySelectorAll('.feature-card, .project-card, .article-item');
         elements.forEach(function(el) {
           el.style.opacity = '0';
           el.style.transform = 'translateY(20px)';

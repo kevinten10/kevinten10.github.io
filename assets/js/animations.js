@@ -20,12 +20,8 @@
       return;
     }
 
-    animatedElements.forEach(function(el, index) {
+    animatedElements.forEach(function(el) {
       ObserverManager.observe('scrollAnimation', el, function(target) {
-        var delay = parseFloat(getComputedStyle(target).transitionDelay) || 0;
-        if (delay === 0) {
-          target.style.transitionDelay = (index * 80) + 'ms';
-        }
         target.classList.add('is-visible');
       });
     });

@@ -370,7 +370,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--header-height) + var(--space-8)) var(--space-6) var(--space-24);
+  padding: calc(var(--header-height) + var(--space-8)) var(--space-6) var(--space-12);
   background: var(--color-bg);
   overflow: hidden;
 }
@@ -927,18 +927,18 @@ body {
    ============================================ */
 
 .section {
-  padding: 6rem var(--space-6);
+  padding: 3rem var(--space-6);
   position: relative;
 }
 
 .section-spacious {
-  padding: 7rem var(--space-6);
+  padding: 3.5rem var(--space-6);
 }
 
 .section-header {
   text-align: center;
   max-width: 600px;
-  margin: 0 auto var(--space-16);
+  margin: 0 auto 1.8rem;
 }
 
 .section-title {
@@ -956,6 +956,150 @@ body {
   color: var(--color-text-muted);
   line-height: 1.7;
   letter-spacing: 0.01em;
+}
+
+/* Section Index Number — editorial numbering */
+.section-idx {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-3);
+  opacity: 0.6;
+}
+
+.section-idx::before {
+  content: '—— ';
+  color: var(--color-border);
+}
+
+.section-idx::after {
+  content: ' ——';
+  color: var(--color-border);
+}
+
+/* Alternating section background tint */
+.section-alt {
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.section-alt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(37, 99, 235, 0.015) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ============================================
+   Section Bridge — transition connectors
+   ============================================ */
+.section-bridge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  position: relative;
+  height: 36px;
+  justify-content: center;
+}
+
+.bridge-line {
+  width: 1px;
+  flex: 1;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-border) 40%,
+    var(--color-border) 60%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+.bridge-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-subtle);
+  padding: 6px 0;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* Variant: three dots */
+.bridge-accent--dots {
+  gap: 6px;
+}
+
+.bridge-accent--dots span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.bridge-accent--dots span:nth-child(2) {
+  opacity: 0.7;
+}
+
+/* Variant: diamond SVG */
+.bridge-accent--diamond svg {
+  display: block;
+}
+
+/* Variant: chevron SVG */
+.bridge-accent--chevron svg {
+  display: block;
+}
+
+/* Variant: cross SVG */
+.bridge-accent--cross svg {
+  display: block;
+}
+
+/* Reduce gap: sections after a bridge get reduced top padding */
+.section-bridge + .section {
+  padding-top: 1.2rem;
+}
+
+.section-bridge + .section-spacious {
+  padding-top: 1.5rem;
+}
+
+/* Section before bridge: reduce bottom padding */
+.section-spacious {
+  padding-bottom: 2.5rem;
+}
+
+/* Light theme adjustments */
+[data-theme="light"] .section-alt {
+  background: rgba(0, 0, 0, 0.015);
+}
+
+[data-theme="light"] .section-alt::before {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(37, 99, 235, 0.02) 50%,
+    transparent 100%
+  );
+}
+
+[data-theme="light"] .section-idx {
+  color: var(--color-text-muted);
+}
+
+[data-theme="light"] .bridge-accent {
+  color: var(--color-border-light);
 }
 
 [data-theme="light"] .section-title {
@@ -3671,6 +3815,15 @@ body {
 
   .section-description {
     font-size: var(--text-base);
+  }
+
+  /* Section Bridge Mobile */
+  .section-bridge {
+    height: 24px;
+  }
+
+  .section-idx {
+    font-size: 0.6rem;
   }
 
   /* About Grid Mobile */

@@ -37,10 +37,10 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="preload" href="/assets/css/theme.css" as="style">
-    <link rel="preload" href="/assets/css/main.css" as="style">
-    <link rel="stylesheet" href="/assets/css/theme.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="preload" href="/assets/css/theme.css?v=23" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=23" as="style">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=23">
+    <link rel="stylesheet" href="/assets/css/main.css?v=23">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -253,10 +253,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Hero → Impact -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--dots">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Impact Dashboard - 关键成果与影响力 -->
-                        <section class="section section-spacious" id="impact">
+                        <section class="section section-spacious section-alt" id="impact" data-section-idx="01">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">01</span>
                 <h2 class="section-title">Impact</h2>
                 <p class="section-description">关键成果与影响力</p>
             </div>
@@ -338,10 +348,20 @@
     </section>
 
 
+    <!-- Section Bridge: Impact → Experience -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--diamond">
+            <svg width="12" height="12" viewBox="0 0 12 12"><rect x="6" y="0" width="8.5" height="8.5" rx="1.5" transform="rotate(45 6 0)" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Work Experience Section -->
-    <section class="section section-spacious" id="experience">
+    <section class="section section-spacious" id="experience" data-section-idx="02">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">02</span>
                 <h2 class="section-title">工作经历</h2>
                 <p class="section-description">主要项目与技术成就</p>
             </div>
@@ -514,10 +534,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Experience → Projects -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--chevron">
+            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><polyline points="1,1 7,6 13,1"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Pinned Projects Section -->
-    <section class="section section-spacious" id="projects">
+    <section class="section section-spacious section-alt" id="projects" data-section-idx="03">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">03</span>
                 <h2 class="section-title">Pinned Projects</h2>
                 <p class="section-description">精选开源项目与贡献</p>
             </div>
@@ -801,10 +831,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Projects → Tech Stack -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--cross">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><line x1="0" y1="5" x2="10" y2="5"/><line x1="5" y1="0" x2="5" y2="10"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Tech Stack Section -->
-    <section class="section section-spacious" id="tech">
+    <section class="section section-spacious" id="tech" data-section-idx="04">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">04</span>
                 <h2 class="section-title">Tech Stack</h2>
                 <p class="section-description">核心技术能力与专业领域</p>
             </div>
@@ -873,10 +913,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Tech Stack → Contributions -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--dots">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Contributions Section -->
-    <section class="section section-spacious" id="contributions">
+    <section class="section section-spacious section-alt" id="contributions" data-section-idx="05">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">05</span>
                 <h2 class="section-title">Open Source Contributions</h2>
                 <p class="section-description">开源社区贡献与项目</p>
             </div>
@@ -1042,10 +1092,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Contributions → Awards -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--diamond">
+            <svg width="12" height="12" viewBox="0 0 12 12"><rect x="6" y="0" width="8.5" height="8.5" rx="1.5" transform="rotate(45 6 0)" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Awards Section -->
-    <section class="section section-spacious" id="awards">
+    <section class="section section-spacious" id="awards" data-section-idx="06">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">06</span>
                 <h2 class="section-title">荣誉成就</h2>
                 <p class="section-description">Awards & Recognitions</p>
             </div>
@@ -1142,10 +1202,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Awards → Writing -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--chevron">
+            <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><polyline points="1,1 7,6 13,1"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Writing/Blog Section -->
-    <section class="section section-spacious" id="writing">
+    <section class="section section-spacious section-alt" id="writing" data-section-idx="07">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">07</span>
                 <h2 class="section-title">发表文章</h2>
                 <p class="section-description">技术文章与实践分享</p>
             </div>
@@ -1210,10 +1280,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Writing → Gallery -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--cross">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"><line x1="0" y1="5" x2="10" y2="5"/><line x1="5" y1="0" x2="5" y2="10"/></svg>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Gallery Section -->
-    <section class="section section-spacious gallery-section" id="gallery">
+    <section class="section section-spacious gallery-section" id="gallery" data-section-idx="08">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">08</span>
                 <h2 class="section-title">相册</h2>
                 <p class="section-description">记录技术成长与生活点滴</p>
             </div>
@@ -1300,10 +1380,20 @@
         </div>
     </section>
 
+    <!-- Section Bridge: Gallery → Contact -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--dots">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
     <!-- Contact Section -->
-    <section class="section section-spacious contact-section" id="contact">
+    <section class="section section-spacious contact-section section-alt" id="contact" data-section-idx="09">
         <div class="container">
             <div class="section-header animate-on-scroll">
+                <span class="section-idx">09</span>
                 <h2 class="section-title">Get In Touch</h2>
                 <p class="section-description">欢迎技术交流、合作机会、人才引进</p>
             </div>
@@ -1436,17 +1526,17 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/assets/js/observer-manager.js" defer></script>
-    <script src="/assets/js/theme.js" defer></script>
-    <script src="/assets/js/animations.js" defer></script>
-    <script src="/assets/js/bento-interactions.js" defer></script>
-    <script src="/assets/js/data-viz.js" defer></script>
-    <script src="/assets/js/app.js" defer></script>
-    <script src="/assets/js/mobile-nav.js" defer></script>
-    <script src="/assets/js/github-stats.js" defer></script>
-    <script src="/assets/js/project-modal.js" defer></script>
-    <script src="/assets/js/gallery.js" defer></script>
-    <script src="/assets/js/hero-effects.js" defer></script>
-    <script src="/assets/js/skill-galaxy.js" defer></script>
+    <script src="/assets/js/observer-manager.js?v=23" defer></script>
+    <script src="/assets/js/theme.js?v=23" defer></script>
+    <script src="/assets/js/animations.js?v=23" defer></script>
+    <script src="/assets/js/bento-interactions.js?v=23" defer></script>
+    <script src="/assets/js/data-viz.js?v=23" defer></script>
+    <script src="/assets/js/app.js?v=23" defer></script>
+    <script src="/assets/js/mobile-nav.js?v=23" defer></script>
+    <script src="/assets/js/github-stats.js?v=23" defer></script>
+    <script src="/assets/js/project-modal.js?v=23" defer></script>
+    <script src="/assets/js/gallery.js?v=23" defer></script>
+    <script src="/assets/js/hero-effects.js?v=23" defer></script>
+    <script src="/assets/js/skill-galaxy.js?v=23" defer></script>
 </body>
 </html>
