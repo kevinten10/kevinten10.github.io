@@ -31,16 +31,18 @@
     <link rel="icon" type="image/jpeg" href="https://avatars.githubusercontent.com/u/22876610?v=4">
     <link rel="apple-touch-icon" href="https://avatars.githubusercontent.com/u/22876610?v=4">
     
-    <!-- Fonts -->
+    <!-- Fonts — optimized loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Styles -->
-    <link rel="preload" href="/assets/css/theme.css?v=28" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=28" as="style">
-    <link rel="stylesheet" href="/assets/css/theme.css?v=28">
-    <link rel="stylesheet" href="/assets/css/main.css?v=28">
+    <link rel="preload" href="/assets/css/theme.css?v=29" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=29" as="style">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=29">
+    <link rel="stylesheet" href="/assets/css/main.css?v=29">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -78,6 +80,9 @@
     </script>
 </head>
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" aria-hidden="true"></div>
+
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="skip-to-content">跳转到主要内容</a>
 
@@ -266,7 +271,68 @@
         </div>
     </section>
 
-    <!-- Section Bridge: Hero → Impact -->
+    <!-- Architecture Philosophy + Career Evolution -->
+    <section class="philosophy-section" aria-label="Architecture Philosophy">
+        <div class="container">
+            <div class="philosophy-content animate-on-scroll">
+                <blockquote class="philosophy-manifesto">
+                    <span class="philosophy-label">Architecture Philosophy</span>
+                    <p class="philosophy-text">
+                        I believe <strong class="philosophy-highlight">software should be written once and run anywhere</strong> —
+                        middleware should be invisible, runtimes should collaborate, and
+                        <strong class="philosophy-highlight">agents should think for themselves</strong>.
+                    </p>
+                </blockquote>
+
+                <!-- Career Evolution Timeline -->
+                <div class="career-timeline animate-on-scroll stagger-2">
+                    <div class="timeline-track">
+                        <div class="timeline-fill"></div>
+                    </div>
+                    <div class="timeline-era" style="--accent: #10B981;">
+                        <div class="timeline-marker"></div>
+                        <span class="timeline-year">2018</span>
+                        <span class="timeline-domain">IoT</span>
+                    </div>
+                    <div class="timeline-era" style="--accent: #3B82F6;">
+                        <div class="timeline-marker"></div>
+                        <span class="timeline-year">2021</span>
+                        <span class="timeline-domain">Cloud Native</span>
+                    </div>
+                    <div class="timeline-era" style="--accent: #8B5CF6;">
+                        <div class="timeline-marker"></div>
+                        <span class="timeline-year">2023</span>
+                        <span class="timeline-domain">Distributed</span>
+                    </div>
+                    <div class="timeline-era active" style="--accent: #F59E0B;">
+                        <div class="timeline-marker"></div>
+                        <span class="timeline-year">2025</span>
+                        <span class="timeline-domain">AI Native</span>
+                    </div>
+                </div>
+
+                <!-- Three Pillars -->
+                <div class="philosophy-pillars animate-on-scroll stagger-3">
+                    <div class="pillar">
+                        <span class="pillar-icon">⚡</span>
+                        <span class="pillar-label">AI Native</span>
+                    </div>
+                    <span class="pillar-divider">/</span>
+                    <div class="pillar">
+                        <span class="pillar-icon">🧬</span>
+                        <span class="pillar-label">One-Person Company</span>
+                    </div>
+                    <span class="pillar-divider">/</span>
+                    <div class="pillar">
+                        <span class="pillar-icon">🌐</span>
+                        <span class="pillar-label">Open Source</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Bridge: Philosophy → Impact -->
     <div class="section-bridge" aria-hidden="true">
         <div class="bridge-line"></div>
         <div class="bridge-accent bridge-accent--dots">
@@ -880,6 +946,65 @@
                         </span>
                     </div>
                 </article>
+            </div>
+
+            <!-- OpenOctopus Immersive Showcase -->
+            <div class="octopus-showcase animate-on-scroll">
+                <div class="octopus-visual" aria-hidden="true">
+                    <svg class="octopus-svg" viewBox="0 0 200 200" fill="none">
+                        <!-- Central body -->
+                        <circle cx="100" cy="80" r="28" fill="url(#octo-grad)" opacity="0.9"/>
+                        <circle cx="100" cy="80" r="20" fill="url(#octo-grad-inner)" opacity="0.6"/>
+                        <!-- Eyes -->
+                        <circle cx="92" cy="75" r="4" fill="#050508"/>
+                        <circle cx="108" cy="75" r="4" fill="#050508"/>
+                        <circle cx="93" cy="74" r="1.5" fill="white"/>
+                        <circle cx="109" cy="74" r="1.5" fill="white"/>
+                        <!-- Tentacles -->
+                        <path class="tentacle t1" d="M75 95 Q60 120 45 140" stroke="url(#t-travel)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="tentacle t2" d="M82 100 Q72 130 55 155" stroke="url(#t-wellness)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="tentacle t3" d="M92 105 Q88 140 80 165" stroke="url(#t-finance)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="tentacle t4" d="M108 105 Q112 140 120 165" stroke="url(#t-tool)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="tentacle t5" d="M118 100 Q128 130 145 155" stroke="url(#t-creative)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="tentacle t6" d="M125 95 Q140 120 155 140" stroke="url(#t-learn)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <!-- Realm dots -->
+                        <circle cx="45" cy="140" r="5" fill="#10B981" opacity="0.8"/>
+                        <circle cx="55" cy="155" r="5" fill="#EC4899" opacity="0.8"/>
+                        <circle cx="80" cy="165" r="5" fill="#F59E0B" opacity="0.8"/>
+                        <circle cx="120" cy="165" r="5" fill="#8B5CF6" opacity="0.8"/>
+                        <circle cx="145" cy="155" r="5" fill="#06B6D4" opacity="0.8"/>
+                        <circle cx="155" cy="140" r="5" fill="#3B82F6" opacity="0.8"/>
+                        <!-- Gradients -->
+                        <defs>
+                            <radialGradient id="octo-grad"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#6366F1"/></radialGradient>
+                            <radialGradient id="octo-grad-inner"><stop offset="0%" stop-color="#A5F3FC"/><stop offset="100%" stop-color="#818CF8"/></radialGradient>
+                            <linearGradient id="t-travel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22D3EE"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+                            <linearGradient id="t-wellness" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC4899"/></linearGradient>
+                            <linearGradient id="t-finance" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+                            <linearGradient id="t-tool" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+                            <linearGradient id="t-creative" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22D3EE"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+                            <linearGradient id="t-learn" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="octopus-content">
+                    <span class="octopus-badge">Flagship Project</span>
+                    <h3 class="octopus-title">OpenOctopus</h3>
+                    <p class="octopus-tagline">Realm-native 生活智能体系统</p>
+                    <p class="octopus-desc">如章鱼般，每条触手拥有独立神经中枢 — 按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</p>
+                    <div class="octopus-realms">
+                        <span class="realm-tag" style="--c: #10B981;">旅行</span>
+                        <span class="realm-tag" style="--c: #EC4899;">健康</span>
+                        <span class="realm-tag" style="--c: #F59E0B;">财务</span>
+                        <span class="realm-tag" style="--c: #8B5CF6;">工具</span>
+                        <span class="realm-tag" style="--c: #06B6D4;">创作</span>
+                        <span class="realm-tag" style="--c: #3B82F6;">学习</span>
+                    </div>
+                    <a href="https://openoctopus.club" target="_blank" rel="noopener noreferrer" class="octopus-cta">
+                        Explore OpenOctopus
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
+                    </a>
+                </div>
             </div>
 
             <!-- AI Agent Ecosystem -->
@@ -1750,17 +1875,17 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/assets/js/observer-manager.js?v=28" defer></script>
-    <script src="/assets/js/theme.js?v=28" defer></script>
-    <script src="/assets/js/animations.js?v=28" defer></script>
-    <script src="/assets/js/bento-interactions.js?v=28" defer></script>
-    <script src="/assets/js/data-viz.js?v=28" defer></script>
-    <script src="/assets/js/app.js?v=28" defer></script>
-    <script src="/assets/js/mobile-nav.js?v=28" defer></script>
-    <script src="/assets/js/github-stats.js?v=28" defer></script>
-    <script src="/assets/js/project-modal.js?v=28" defer></script>
-    <script src="/assets/js/gallery.js?v=28" defer></script>
-    <script src="/assets/js/hero-effects.js?v=28" defer></script>
-    <script src="/assets/js/skill-galaxy.js?v=28" defer></script>
+    <script src="/assets/js/observer-manager.js?v=29" defer></script>
+    <script src="/assets/js/theme.js?v=29" defer></script>
+    <script src="/assets/js/animations.js?v=29" defer></script>
+    <script src="/assets/js/bento-interactions.js?v=29" defer></script>
+    <script src="/assets/js/data-viz.js?v=29" defer></script>
+    <script src="/assets/js/app.js?v=29" defer></script>
+    <script src="/assets/js/mobile-nav.js?v=29" defer></script>
+    <script src="/assets/js/github-stats.js?v=29" defer></script>
+    <script src="/assets/js/project-modal.js?v=29" defer></script>
+    <script src="/assets/js/gallery.js?v=29" defer></script>
+    <script src="/assets/js/hero-effects.js?v=29" defer></script>
+    <script src="/assets/js/skill-galaxy.js?v=29" defer></script>
 </body>
 </html>

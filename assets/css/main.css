@@ -4869,6 +4869,31 @@ body {
 }
 
 /* Scroll Indicator — hidden (hero content is rich enough) */
+/* ============================================
+   Scroll Progress Bar — CSS Scroll-Driven
+   ============================================ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent-cyan) 50%, var(--color-secondary) 100%);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 9999;
+  animation: scroll-progress-fill linear;
+  animation-timeline: scroll();
+}
+
+@keyframes scroll-progress-fill {
+  to { transform: scaleX(1); }
+}
+
+/* Fallback for browsers without scroll-timeline */
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress { display: none; }
+}
 
 /* Mobile Adjustments */
 @media (max-width: 768px) {
@@ -5812,4 +5837,401 @@ body {
     padding: var(--space-2) var(--space-3);
     font-size: var(--text-xs);
   }
+}
+
+/* ============================================
+   Architecture Philosophy Section
+   ============================================ */
+.philosophy-section {
+  padding: 3rem var(--space-6) 1.5rem;
+  position: relative;
+}
+
+.philosophy-content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.philosophy-manifesto {
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  border: none;
+}
+
+.philosophy-label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+  margin-bottom: var(--space-5);
+  opacity: 0.6;
+}
+
+.philosophy-text {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.philosophy-highlight {
+  color: transparent;
+  background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Career Evolution Timeline */
+.career-timeline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  margin-bottom: var(--space-8);
+  padding: 0 var(--space-4);
+}
+
+.timeline-track {
+  position: absolute;
+  top: 8px;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: var(--color-border);
+  opacity: 0.3;
+  border-radius: 1px;
+}
+
+.timeline-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #10B981, #3B82F6, #8B5CF6, #F59E0B);
+  border-radius: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.career-timeline.is-visible .timeline-fill,
+.career-timeline:is(.is-visible) .timeline-fill {
+  transform: scaleX(1);
+}
+
+.timeline-era {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  border: 2px solid var(--accent);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.timeline-marker::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-era.active .timeline-marker {
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.timeline-era.active .timeline-marker::after {
+  opacity: 1;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.timeline-year {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.timeline-domain {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  letter-spacing: -0.01em;
+}
+
+/* Three Pillars */
+.philosophy-pillars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.pillar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pillar-icon {
+  font-size: 1.1rem;
+}
+
+.pillar-label {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.pillar-divider {
+  color: var(--color-text-subtle);
+  opacity: 0.3;
+  font-size: var(--text-lg);
+  font-weight: 300;
+}
+
+/* Philosophy responsive */
+@media (max-width: 768px) {
+  .philosophy-section {
+    padding: 2rem var(--space-4) 1rem;
+  }
+
+  .career-timeline {
+    gap: 0;
+    padding: 0;
+  }
+
+  .timeline-track {
+    left: 8%;
+    right: 8%;
+  }
+
+  .timeline-domain {
+    font-size: 0.65rem;
+  }
+
+  .philosophy-pillars {
+    gap: var(--space-3);
+  }
+
+  .pillar-label {
+    font-size: var(--text-xs);
+  }
+}
+
+/* Light theme */
+[data-theme="light"] .philosophy-highlight {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="light"] .timeline-marker {
+  background: var(--color-bg);
+}
+
+/* ============================================
+   OpenOctopus Immersive Showcase
+   ============================================ */
+.octopus-showcase {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: var(--space-8);
+  margin: var(--space-10) 0;
+  padding: var(--space-8);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(34, 211, 238, 0.04));
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  border-radius: var(--radius-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.octopus-showcase::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.octopus-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.octopus-svg {
+  width: 200px;
+  height: 200px;
+}
+
+/* Tentacle wave animation */
+.tentacle {
+  animation: tentacle-wave 3s ease-in-out infinite;
+  transform-origin: 50% 0%;
+}
+.tentacle.t1 { animation-delay: 0s; }
+.tentacle.t2 { animation-delay: 0.3s; }
+.tentacle.t3 { animation-delay: 0.6s; }
+.tentacle.t4 { animation-delay: 0.9s; }
+.tentacle.t5 { animation-delay: 1.2s; }
+.tentacle.t6 { animation-delay: 1.5s; }
+
+@keyframes tentacle-wave {
+  0%, 100% { stroke-dashoffset: 0; }
+  50% { stroke-dashoffset: 4; }
+}
+
+.octopus-content {
+  position: relative;
+  z-index: 1;
+}
+
+.octopus-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-cyan);
+  background: rgba(34, 211, 238, 0.1);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  margin-bottom: var(--space-3);
+}
+
+.octopus-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.octopus-tagline {
+  font-size: var(--text-sm);
+  color: var(--color-accent-cyan);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.octopus-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-5);
+  max-width: 480px;
+}
+
+.octopus-realms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.realm-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+  color: var(--c);
+  border: 1px solid color-mix(in srgb, var(--c) 20%, transparent);
+}
+
+.octopus-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent-cyan);
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  border-radius: var(--radius-full);
+  transition: all 0.25s ease;
+}
+
+.octopus-cta:hover {
+  background: rgba(34, 211, 238, 0.1);
+  border-color: rgba(34, 211, 238, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15);
+}
+
+.octopus-cta svg {
+  flex-shrink: 0;
+}
+
+/* OpenOctopus responsive */
+@media (max-width: 768px) {
+  .octopus-showcase {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .octopus-visual {
+    order: -1;
+  }
+
+  .octopus-svg {
+    width: 150px;
+    height: 150px;
+  }
+
+  .octopus-realms {
+    justify-content: center;
+  }
+
+  .octopus-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .octopus-cta {
+    margin: 0 auto;
+  }
+}
+
+/* Light theme */
+[data-theme="light"] .octopus-showcase {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.04), rgba(34, 211, 238, 0.03));
+  border-color: rgba(99, 102, 241, 0.1);
 }
