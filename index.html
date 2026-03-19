@@ -37,10 +37,10 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="preload" href="/assets/css/theme.css?v=25" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=25" as="style">
-    <link rel="stylesheet" href="/assets/css/theme.css?v=25">
-    <link rel="stylesheet" href="/assets/css/main.css?v=25">
+    <link rel="preload" href="/assets/css/theme.css?v=26" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=26" as="style">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=26">
+    <link rel="stylesheet" href="/assets/css/main.css?v=26">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -399,17 +399,26 @@
                             支持邮件、AppPush、站内信、WhatsApp等多渠道触达，带单量规模化。
                         </p>
                         <div class="experience-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">⚡</span>
-                                <span>系统框架采用责任链模式+桥接模式，面向组合子编程思想，通过注解快速组装业务 Pipeline，极大提升可拓展性，降低开发成本</span>
+                            <div class="highlight-item" style="--accent: #3B82F6;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">⚡</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">组合子 Pipeline</h4>
+                                    <p class="highlight-text">责任链+桥接模式，注解驱动快速组装业务 Pipeline，极大提升可拓展性，降低开发成本</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">📈</span>
-                                <span>基于 Sentinel 自研分布式流量平滑机制，应对业务任务潮汐流量突增；峰值时 HPA 快速扩容，通过平滑函数逐步增加下游 QPS，提升发送链路稳定性</span>
+                            <div class="highlight-item" style="--accent: #10B981;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">📈</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">流量平滑机制</h4>
+                                    <p class="highlight-text">基于 Sentinel 自研分布式流量平滑，HPA 快速扩容，平滑函数调控下游 QPS，提升发送稳定性</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🚀</span>
-                                <span>CTO 级立项推动 Reactive 异步非阻塞 IO 改造，优化 IO 密集型应用性能，缩减 50% CPU 和内存资源，显著降低部署成本并公开发表技术文章</span>
+                            <div class="highlight-item" style="--accent: #F59E0B;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🚀</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">Reactive IO</h4>
+                                    <p class="highlight-text">CTO 级立项推动异步非阻塞 IO 改造，缩减 50% CPU 和内存资源，公开发表技术文章</p>
+                                </div>
                             </div>
                         </div>
                         <div class="experience-tech">
@@ -440,17 +449,26 @@
                             支撑集团应用上云计划，私有云和 AWS 公有云全面接入，线上稳定性高。
                         </p>
                         <div class="experience-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🏗️</span>
-                                <span>主导整套混合云架构方案设计，负责 RPC、Crypto、Proxy、Secret 等中间件开发</span>
+                            <div class="highlight-item" style="--accent: #6366F1;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🏗️</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">混合云架构设计</h4>
+                                    <p class="highlight-text">主导整套方案设计，负责 RPC、Crypto、Proxy、Secret 等中间件开发</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">☁️</span>
-                                <span>承担公有云 SRE 职责，维护 K8s、Service Mesh、Envoy 等云原生组件</span>
+                            <div class="highlight-item" style="--accent: #06B6D4;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">☁️</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">公有云 SRE</h4>
+                                    <p class="highlight-text">承担公有云 SRE 职责，维护 K8s、Service Mesh、Envoy 等云原生组件</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🌐</span>
-                                <span>Dapr api-sig Co-Chair，Layotto Member，贡献 5+ 个 API 提案</span>
+                            <div class="highlight-item" style="--accent: #8B5CF6;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🌐</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">开源社区贡献</h4>
+                                    <p class="highlight-text">Dapr api-sig Co-Chair，Layotto Member，贡献 5+ 个 API 提案</p>
+                                </div>
                             </div>
                         </div>
                         <div class="experience-tech">
@@ -483,17 +501,26 @@
                             WeChat、LINE、WhatsApp、Kakao 等十几种发送渠道，服务集团下全球品牌。
                         </p>
                         <div class="experience-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🏢</span>
-                                <span>设计实现多租户机制，支持复杂配置和差异化计费</span>
+                            <div class="highlight-item" style="--accent: #F43F5E;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🏢</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">多租户架构</h4>
+                                    <p class="highlight-text">设计实现多租户机制，支持复杂配置和差异化计费</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🌍</span>
-                                <span>实现跨境多 Region 部署架构，通过 MQ 广播、DRC 同步确保数据合规</span>
+                            <div class="highlight-item" style="--accent: #14B8A6;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🌍</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">跨境多 Region</h4>
+                                    <p class="highlight-text">跨境多 Region 部署架构，MQ 广播、DRC 同步确保数据合规</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🎯</span>
-                                <span>基于 DDD + 状态机模式重构消息模板管理，实现良好逻辑隔离和扩展性</span>
+                            <div class="highlight-item" style="--accent: #F59E0B;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🎯</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">DDD 状态机</h4>
+                                    <p class="highlight-text">DDD + 状态机模式重构消息模板管理，实现良好逻辑隔离和扩展性</p>
+                                </div>
                             </div>
                         </div>
                         <div class="experience-tech">
@@ -524,17 +551,26 @@
                             随着 AI Coding 的兴起，深度探索并落地 AI 应用。AI Coding Token使用量集团Top1，主导建设集团 MCP 后端工具矩阵，推动 AI 与软件工程融合落地。
                         </p>
                         <div class="experience-highlights">
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🤖</span>
-                                <span>AI Coding Token使用量集团Top1，推动多类业务需求在 AI 辅助下完成</span>
+                            <div class="highlight-item" style="--accent: #A855F7;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🤖</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">AI Coding Top1</h4>
+                                    <p class="highlight-text">Token 使用量集团 Top1，推动多类业务需求在 AI 辅助下完成</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">🔧</span>
-                                <span>开发7个MCP工具（监控、DB查询、埋点、日志、GitLab等），累计调用量级数十万次</span>
+                            <div class="highlight-item" style="--accent: #0EA5E9;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">🔧</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">MCP 工具矩阵</h4>
+                                    <p class="highlight-text">开发 7 个 MCP 工具（监控、DB 查询、埋点、日志、GitLab），调用量数十万次</p>
+                                </div>
                             </div>
-                            <div class="highlight-item">
-                                <span class="highlight-icon">📊</span>
-                                <span>基于 Dify 构建 AI Code Review、报错分析、慢 SQL 分析产品，国际业务线全面接入</span>
+                            <div class="highlight-item" style="--accent: #EC4899;">
+                                <div class="highlight-icon-wrap"><span class="highlight-icon">📊</span></div>
+                                <div class="highlight-item-content">
+                                    <h4 class="highlight-title">AI 产品化</h4>
+                                    <p class="highlight-text">基于 Dify 构建 Code Review、报错分析、慢 SQL 分析产品，国际业务线全面接入</p>
+                                </div>
                             </div>
                         </div>
                         <div class="experience-tech">
@@ -1550,17 +1586,17 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/assets/js/observer-manager.js?v=25" defer></script>
-    <script src="/assets/js/theme.js?v=25" defer></script>
-    <script src="/assets/js/animations.js?v=25" defer></script>
-    <script src="/assets/js/bento-interactions.js?v=25" defer></script>
-    <script src="/assets/js/data-viz.js?v=25" defer></script>
-    <script src="/assets/js/app.js?v=25" defer></script>
-    <script src="/assets/js/mobile-nav.js?v=25" defer></script>
-    <script src="/assets/js/github-stats.js?v=25" defer></script>
-    <script src="/assets/js/project-modal.js?v=25" defer></script>
-    <script src="/assets/js/gallery.js?v=25" defer></script>
-    <script src="/assets/js/hero-effects.js?v=25" defer></script>
-    <script src="/assets/js/skill-galaxy.js?v=25" defer></script>
+    <script src="/assets/js/observer-manager.js?v=26" defer></script>
+    <script src="/assets/js/theme.js?v=26" defer></script>
+    <script src="/assets/js/animations.js?v=26" defer></script>
+    <script src="/assets/js/bento-interactions.js?v=26" defer></script>
+    <script src="/assets/js/data-viz.js?v=26" defer></script>
+    <script src="/assets/js/app.js?v=26" defer></script>
+    <script src="/assets/js/mobile-nav.js?v=26" defer></script>
+    <script src="/assets/js/github-stats.js?v=26" defer></script>
+    <script src="/assets/js/project-modal.js?v=26" defer></script>
+    <script src="/assets/js/gallery.js?v=26" defer></script>
+    <script src="/assets/js/hero-effects.js?v=26" defer></script>
+    <script src="/assets/js/skill-galaxy.js?v=26" defer></script>
 </body>
 </html>
