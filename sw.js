@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 24
+ * @version 25
  */
 
-const SW_VERSION = '24';
+const SW_VERSION = '25';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,17 +13,17 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=24',
-  '/assets/css/theme.css?v=24',
-  '/assets/js/observer-manager.js?v=24',
-  '/assets/js/app.js?v=24',
-  '/assets/js/theme.js?v=24',
-  '/assets/js/animations.js?v=24',
-  '/assets/js/bento-interactions.js?v=24',
-  '/assets/js/mobile-nav.js?v=24',
-  '/assets/js/github-stats.js?v=24',
-  '/assets/js/project-modal.js?v=24',
-  '/assets/js/gallery.js?v=24',
+  '/assets/css/main.css?v=25',
+  '/assets/css/theme.css?v=25',
+  '/assets/js/observer-manager.js?v=25',
+  '/assets/js/app.js?v=25',
+  '/assets/js/theme.js?v=25',
+  '/assets/js/animations.js?v=25',
+  '/assets/js/bento-interactions.js?v=25',
+  '/assets/js/mobile-nav.js?v=25',
+  '/assets/js/github-stats.js?v=25',
+  '/assets/js/project-modal.js?v=25',
+  '/assets/js/gallery.js?v=25',
   '/img/avatar.jpg'
 ];
 
