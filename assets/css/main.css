@@ -1844,6 +1844,28 @@ body {
   font-weight: var(--font-semibold);
 }
 
+.eco-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: opacity 200ms ease, color 200ms ease;
+}
+
+.eco-link svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+}
+
+.eco-item:hover .eco-link {
+  opacity: 1;
+  color: var(--accent);
+}
+
 /* Light theme */
 [data-theme="light"] .eco-item {
   background: #F8FAFC;
