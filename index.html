@@ -39,10 +39,10 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Styles -->
-    <link rel="preload" href="/assets/css/theme.css?v=29" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=29" as="style">
-    <link rel="stylesheet" href="/assets/css/theme.css?v=29">
-    <link rel="stylesheet" href="/assets/css/main.css?v=29">
+    <link rel="preload" href="/assets/css/theme.css?v=30" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=30" as="style">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=30">
+    <link rel="stylesheet" href="/assets/css/main.css?v=30">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -210,6 +210,10 @@
                     </svg>
                 </a>
                 <a href="#contact" class="btn btn-secondary">联系我</a>
+                <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    <span>观看视频</span>
+                </button>
             </div>
 
             <!-- Bio Card -->
@@ -1874,18 +1878,46 @@
         </div>
     </div>
 
+    <!-- Video Modal -->
+    <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="个人宣传视频">
+        <div class="video-modal-backdrop"></div>
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="关闭视频">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <video id="promo-video" controls preload="none" poster="/video/poster.jpg">
+                <source src="/video/final_v3.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <script>
+    (function() {
+        var modal = document.getElementById('video-modal');
+        var video = document.getElementById('promo-video');
+        var btn = document.getElementById('video-play-btn');
+        var close = modal.querySelector('.video-modal-close');
+        var backdrop = modal.querySelector('.video-modal-backdrop');
+        function open() { modal.classList.add('active'); video.play(); document.body.style.overflow = 'hidden'; }
+        function shut() { modal.classList.remove('active'); video.pause(); document.body.style.overflow = ''; }
+        btn.addEventListener('click', open);
+        close.addEventListener('click', shut);
+        backdrop.addEventListener('click', shut);
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('active')) shut(); });
+    })();
+    </script>
+
     <!-- Scripts -->
-    <script src="/assets/js/observer-manager.js?v=29" defer></script>
-    <script src="/assets/js/theme.js?v=29" defer></script>
-    <script src="/assets/js/animations.js?v=29" defer></script>
-    <script src="/assets/js/bento-interactions.js?v=29" defer></script>
-    <script src="/assets/js/data-viz.js?v=29" defer></script>
-    <script src="/assets/js/app.js?v=29" defer></script>
-    <script src="/assets/js/mobile-nav.js?v=29" defer></script>
-    <script src="/assets/js/github-stats.js?v=29" defer></script>
-    <script src="/assets/js/project-modal.js?v=29" defer></script>
-    <script src="/assets/js/gallery.js?v=29" defer></script>
-    <script src="/assets/js/hero-effects.js?v=29" defer></script>
-    <script src="/assets/js/skill-galaxy.js?v=29" defer></script>
+    <script src="/assets/js/observer-manager.js?v=30" defer></script>
+    <script src="/assets/js/theme.js?v=30" defer></script>
+    <script src="/assets/js/animations.js?v=30" defer></script>
+    <script src="/assets/js/bento-interactions.js?v=30" defer></script>
+    <script src="/assets/js/data-viz.js?v=30" defer></script>
+    <script src="/assets/js/app.js?v=30" defer></script>
+    <script src="/assets/js/mobile-nav.js?v=30" defer></script>
+    <script src="/assets/js/github-stats.js?v=30" defer></script>
+    <script src="/assets/js/project-modal.js?v=30" defer></script>
+    <script src="/assets/js/gallery.js?v=30" defer></script>
+    <script src="/assets/js/hero-effects.js?v=30" defer></script>
+    <script src="/assets/js/skill-galaxy.js?v=30" defer></script>
 </body>
 </html>
