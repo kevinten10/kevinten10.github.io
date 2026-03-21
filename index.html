@@ -39,10 +39,10 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     
     <!-- Styles -->
-    <link rel="preload" href="/assets/css/theme.css?v=30" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=30" as="style">
-    <link rel="stylesheet" href="/assets/css/theme.css?v=30">
-    <link rel="stylesheet" href="/assets/css/main.css?v=30">
+    <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=31" as="style">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=31">
+    <link rel="stylesheet" href="/assets/css/main.css?v=31">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -84,7 +84,7 @@
     <div class="scroll-progress" aria-hidden="true"></div>
 
     <!-- Skip to content link for accessibility -->
-    <a href="#main-content" class="skip-to-content">跳转到主要内容</a>
+    <a href="#main-content" class="skip-to-content" data-i18n="nav.skip">跳转到主要内容</a>
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
@@ -97,12 +97,12 @@
                 </button>
             </div>
                         <nav class="mobile-nav-links" aria-label="Mobile navigation">
-                <a href="#experience" class="mobile-nav-link">经历</a>
-                <a href="#projects" class="mobile-nav-link">项目</a>
-                <a href="#tech" class="mobile-nav-link">技术栈</a>
-                <a href="#contributions" class="mobile-nav-link">开源</a>
-                <a href="#gallery" class="mobile-nav-link">相册</a>
-                <a href="#contact" class="mobile-nav-link">联系</a>
+                <a href="#experience" class="mobile-nav-link" data-i18n="nav.experience">经历</a>
+                <a href="#projects" class="mobile-nav-link" data-i18n="nav.projects">项目</a>
+                <a href="#tech" class="mobile-nav-link" data-i18n="nav.tech">技术栈</a>
+                <a href="#contributions" class="mobile-nav-link" data-i18n="nav.contributions">开源</a>
+                <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">相册</a>
+                <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">联系</a>
             </nav>
         </div>
     </div>
@@ -117,12 +117,12 @@
             </a>
             
                         <nav class="nav-links" role="navigation" aria-label="主导航">
-                <a href="#experience" class="nav-link">经历</a>
-                <a href="#projects" class="nav-link">项目</a>
-                <a href="#tech" class="nav-link">技术栈</a>
-                <a href="#contributions" class="nav-link">开源</a>
-                <a href="#gallery" class="nav-link">相册</a>
-                <a href="#contact" class="nav-link">联系</a>
+                <a href="#experience" class="nav-link" data-i18n="nav.experience">经历</a>
+                <a href="#projects" class="nav-link" data-i18n="nav.projects">项目</a>
+                <a href="#tech" class="nav-link" data-i18n="nav.tech">技术栈</a>
+                <a href="#contributions" class="nav-link" data-i18n="nav.contributions">开源</a>
+                <a href="#gallery" class="nav-link" data-i18n="nav.gallery">相册</a>
+                <a href="#contact" class="nav-link" data-i18n="nav.contact">联系</a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -130,6 +130,12 @@
                 <span class="hamburger"></span>
                 <span class="hamburger"></span>
                 <span class="hamburger"></span>
+            </button>
+
+            <!-- Language Toggle Button -->
+            <button class="lang-toggle-btn" onclick="I18n.toggle()" aria-label="Switch language">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span>EN</span>
             </button>
 
             <!-- Theme Toggle Button -->
@@ -174,19 +180,19 @@
                 <p class="hero-subtitle">
                     <span class="subtitle-highlight">AI-Native Builder</span> · Software Architect · Open Source Contributor
                 </p>
-                <p class="hero-description">专注云原生分布式系统、多运行时架构与 AI 应用工程</p>
+                <p class="hero-description" data-i18n="hero.description">专注云原生分布式系统、多运行时架构与 AI 应用工程</p>
             </div>
 
             <!-- Quick Facts Bar -->
             <div class="hero-facts animate-on-scroll stagger-2">
                 <div class="fact-item">
                     <span class="fact-number">7+</span>
-                    <span class="fact-text">年经验</span>
+                    <span class="fact-text" data-i18n="hero.fact.years">年经验</span>
                 </div>
                 <span class="fact-separator">·</span>
                 <div class="fact-item">
                     <span class="fact-number">2</span>
-                    <span class="fact-text">亿级系统</span>
+                    <span class="fact-text" data-i18n="hero.fact.systems">亿级系统</span>
                 </div>
                 <span class="fact-separator">·</span>
                 <div class="fact-item">
@@ -204,21 +210,21 @@
             <!-- CTA Buttons -->
             <div class="hero-cta animate-on-scroll stagger-3">
                 <a href="#projects" class="btn btn-primary">
-                    <span>查看项目</span>
+                    <span data-i18n="hero.btn.projects">查看项目</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
-                <a href="#contact" class="btn btn-secondary">联系我</a>
+                <a href="#contact" class="btn btn-secondary" data-i18n="hero.btn.contact">联系我</a>
                 <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <span>观看视频</span>
+                    <span data-i18n="hero.btn.video">观看视频</span>
                 </button>
             </div>
 
             <!-- Bio Card -->
             <div class="hero-bio-card animate-on-scroll stagger-4">
-                <p>跨越 IoT → 云原生 → 分布式 → AI 的全栈架构师，信奉 <strong>AI Native · One-Person Company · Open Source</strong>。Apache Dubbo / Dapr / Layotto 开源贡献者，打造 20+ AI Agent 应用与 MCP 工具链。正在构建 <strong>OpenOctopus</strong> — 如章鱼般每条触手拥有独立神经中枢的生活智能体系统。</p>
+                <p><span data-i18n="hero.bio1">跨越 IoT → 云原生 → 分布式 → AI 的全栈架构师，信奉</span> <strong>AI Native · One-Person Company · Open Source</strong><span data-i18n="hero.bio2">。Apache Dubbo / Dapr / Layotto 开源贡献者，打造 20+ AI Agent 应用与 MCP 工具链。正在构建</span> <strong>OpenOctopus</strong><span data-i18n="hero.bio3"> — 如章鱼般每条触手拥有独立神经中枢的生活智能体系统。</span></p>
             </div>
 
             <!-- Social Matrix — All Platforms Visible -->
@@ -351,7 +357,7 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">01</span>
                 <h2 class="section-title">Impact</h2>
-                <p class="section-description">关键成果与影响力</p>
+                <p class="section-description" data-i18n="impact.desc">关键成果与影响力</p>
             </div>
 
             <div class="impact-dashboard">
@@ -359,16 +365,16 @@
                 <div class="impact-metric animate-on-scroll stagger-1">
                     <div class="metric-icon">&#x1F4BC;</div>
                     <div class="metric-value animate-number" data-value="7" data-duration="2000">7</div>
-                    <div class="metric-label">年工作经验</div>
-                    <div class="metric-desc">软件架构师</div>
+                    <div class="metric-label" data-i18n="impact.years.label">年工作经验</div>
+                    <div class="metric-desc" data-i18n="impact.years.desc">软件架构师</div>
                 </div>
 
                 <!-- Major Systems -->
                 <div class="impact-metric animate-on-scroll stagger-2">
                     <div class="metric-icon">&#x1F3D7;&#xFE0F;</div>
                     <div class="metric-value animate-number" data-value="2" data-duration="2000">0</div>
-                    <div class="metric-label">亿级流量系统</div>
-                    <div class="metric-desc">主导设计与开发</div>
+                    <div class="metric-label" data-i18n="impact.systems.label">亿级流量系统</div>
+                    <div class="metric-desc" data-i18n="impact.systems.desc">主导设计与开发</div>
                 </div>
 
                 <!-- GitHub Stars -->
@@ -376,55 +382,55 @@
                     <div class="metric-icon">&#x2B50;</div>
                     <div class="metric-value animate-number" data-value="1400" data-duration="2500" data-suffix="+">0</div>
                     <div class="metric-label">GitHub Stars</div>
-                    <div class="metric-desc">开源项目影响力</div>
+                    <div class="metric-desc" data-i18n="impact.stars.desc">开源项目影响力</div>
                 </div>
 
                 <!-- AI Sharing -->
                 <div class="impact-metric animate-on-scroll stagger-4">
                     <div class="metric-icon">&#x1F465;</div>
                     <div class="metric-value animate-number" data-value="700" data-duration="2000">700+</div>
-                    <div class="metric-label">AI 技术分享</div>
-                    <div class="metric-desc">3 次集团分享 &middot; 700+ 人</div>
+                    <div class="metric-label" data-i18n="impact.sharing.label">AI 技术分享</div>
+                    <div class="metric-desc" data-i18n="impact.sharing.desc">3 次集团分享 &middot; 700+ 人</div>
                 </div>
 
                 <!-- MCP Matrix -->
                 <div class="impact-metric animate-on-scroll stagger-5">
                     <div class="metric-icon">&#x1F527;</div>
                     <div class="metric-value animate-number" data-value="7" data-duration="1500">7</div>
-                    <div class="metric-label">集团 MCP 后端工具矩阵</div>
-                    <div class="metric-desc">监控 / DB / 日志 / 埋点 / GitLab</div>
+                    <div class="metric-label" data-i18n="impact.mcp.label">集团 MCP 后端工具矩阵</div>
+                    <div class="metric-desc" data-i18n="impact.mcp.desc">监控 / DB / 日志 / 埋点 / GitLab</div>
                 </div>
 
                 <!-- AI Agent Ecosystem -->
                 <div class="impact-metric animate-on-scroll stagger-6">
                     <div class="metric-icon">&#x1F916;</div>
                     <div class="metric-value animate-number" data-value="10" data-duration="1500">10+</div>
-                    <div class="metric-label">AI Agent 应用</div>
-                    <div class="metric-desc">旅行 / 健康 / 理财 / 起名 / 钓鱼...</div>
+                    <div class="metric-label" data-i18n="impact.agents.label">AI Agent 应用</div>
+                    <div class="metric-desc" data-i18n="impact.agents.desc">旅行 / 健康 / 理财 / 起名 / 钓鱼...</div>
                 </div>
 
                 <!-- Hackathon Awards -->
                 <div class="impact-metric animate-on-scroll stagger-1">
                     <div class="metric-icon">&#x1F3C6;</div>
                     <div class="metric-value animate-number" data-value="4" data-duration="1500" data-suffix="+">0</div>
-                    <div class="metric-label">Hackathon 奖项</div>
-                    <div class="metric-desc">金奖 &middot; 亚军 &middot; 铜奖</div>
+                    <div class="metric-label" data-i18n="impact.hackathon.label">Hackathon 奖项</div>
+                    <div class="metric-desc" data-i18n="impact.hackathon.desc">金奖 &middot; 亚军 &middot; 铜奖</div>
                 </div>
 
                 <!-- Open Source Projects -->
                 <div class="impact-metric animate-on-scroll stagger-2">
                     <div class="metric-icon">&#x1F4E6;</div>
                     <div class="metric-value animate-number" data-value="10" data-duration="1500" data-suffix="+">0</div>
-                    <div class="metric-label">开源项目</div>
-                    <div class="metric-desc">个人项目 + 社区贡献</div>
+                    <div class="metric-label" data-i18n="impact.opensource.label">开源项目</div>
+                    <div class="metric-desc" data-i18n="impact.opensource.desc">个人项目 + 社区贡献</div>
                 </div>
 
                 <!-- Tech Meetup -->
                 <div class="impact-metric animate-on-scroll stagger-3">
                     <div class="metric-icon">&#x1F3A4;</div>
                     <div class="metric-value animate-number" data-value="20" data-duration="1500" data-suffix="+">0</div>
-                    <div class="metric-label">技术 Meetup</div>
-                    <div class="metric-desc">组织与参与</div>
+                    <div class="metric-label" data-i18n="impact.meetup.label">技术 Meetup</div>
+                    <div class="metric-desc" data-i18n="impact.meetup.desc">组织与参与</div>
                 </div>
             </div>
         </div>
@@ -445,8 +451,8 @@
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">02</span>
-                <h2 class="section-title">工作经历</h2>
-                <p class="section-description">主要项目与技术成就</p>
+                <h2 class="section-title" data-i18n="exp.title">工作经历</h2>
+                <p class="section-description" data-i18n="exp.desc">主要项目与技术成就</p>
             </div>
 
             <div class="experience-timeline">
@@ -456,15 +462,15 @@
                     <div class="experience-content">
                         <img src="/img/concepts/message-hub.png" alt="" class="card-illustration card-illustration--card" aria-hidden="true">
                         <div class="experience-header">
-                            <h3 class="experience-title">Message Hub · 营销触达系统</h3>
+                            <h3 class="experience-title" data-i18n="exp.mh.title">Message Hub · 营销触达系统</h3>
                             <div class="experience-meta-tags">
-                                <span class="meta-tag role">核心开发 & Owner</span>
-                                <span class="meta-tag team">小型跨职能团队</span>
-                                <span class="meta-tag impact">日发送量规模化</span>
+                                <span class="meta-tag role" data-i18n="exp.mh.role">核心开发 & Owner</span>
+                                <span class="meta-tag team" data-i18n="exp.mh.team">小型跨职能团队</span>
+                                <span class="meta-tag impact" data-i18n="exp.mh.impact">日发送量规模化</span>
                             </div>
                         </div>
-                        <p class="experience-company">行业头部互联网公司</p>
-                        <p class="experience-description">
+                        <p class="experience-company" data-i18n="exp.mh.company">行业头部互联网公司</p>
+                        <p class="experience-description" data-i18n="exp.mh.description">
                             面向海外用户的营销消息触达系统，涵盖用户生命周期、会员、浏览流失、订前订后、交叉销售等场景。
                             支持邮件、AppPush、站内信、WhatsApp等多渠道触达，带单量规模化。
                         </p>
@@ -472,22 +478,22 @@
                             <div class="highlight-item" style="--accent: #3B82F6;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">⚡</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">组合子 Pipeline</h4>
-                                    <p class="highlight-text">责任链+桥接模式，注解驱动快速组装业务 Pipeline，极大提升可拓展性，降低开发成本</p>
+                                    <h4 class="highlight-title" data-i18n="exp.mh.h1.title">组合子 Pipeline</h4>
+                                    <p class="highlight-text" data-i18n="exp.mh.h1.text">责任链+桥接模式，注解驱动快速组装业务 Pipeline，极大提升可拓展性，降低开发成本</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #10B981;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">📈</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">流量平滑机制</h4>
-                                    <p class="highlight-text">基于 Sentinel 自研分布式流量平滑，HPA 快速扩容，平滑函数调控下游 QPS，提升发送稳定性</p>
+                                    <h4 class="highlight-title" data-i18n="exp.mh.h2.title">流量平滑机制</h4>
+                                    <p class="highlight-text" data-i18n="exp.mh.h2.text">基于 Sentinel 自研分布式流量平滑，HPA 快速扩容，平滑函数调控下游 QPS，提升发送稳定性</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #F59E0B;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🚀</span></div>
                                 <div class="highlight-item-content">
                                     <h4 class="highlight-title">Reactive IO</h4>
-                                    <p class="highlight-text">CTO 级立项推动异步非阻塞 IO 改造，缩减 50% CPU 和内存资源，公开发表技术文章</p>
+                                    <p class="highlight-text" data-i18n="exp.mh.h3.text">CTO 级立项推动异步非阻塞 IO 改造，缩减 50% CPU 和内存资源，公开发表技术文章</p>
                                 </div>
                             </div>
                         </div>
@@ -506,15 +512,15 @@
                     <div class="experience-content">
                         <img src="/img/concepts/cloud-middleware.png" alt="" class="card-illustration card-illustration--card" aria-hidden="true">
                         <div class="experience-header">
-                            <h3 class="experience-title">Capa · 混合云中间件</h3>
+                            <h3 class="experience-title" data-i18n="exp.capa.title">Capa · 混合云中间件</h3>
                             <div class="experience-meta-tags">
-                                <span class="meta-tag role">核心架构师 & 主要开发者</span>
-                                <span class="meta-tag team">跨团队协作</span>
-                                <span class="meta-tag impact">支撑集团应用上云</span>
+                                <span class="meta-tag role" data-i18n="exp.capa.role">核心架构师 & 主要开发者</span>
+                                <span class="meta-tag team" data-i18n="exp.capa.team">跨团队协作</span>
+                                <span class="meta-tag impact" data-i18n="exp.capa.impact">支撑集团应用上云</span>
                             </div>
                         </div>
-                        <p class="experience-company">行业头部互联网公司</p>
-                        <p class="experience-description">
+                        <p class="experience-company" data-i18n="exp.capa.company">行业头部互联网公司</p>
+                        <p class="experience-description" data-i18n="exp.capa.description">
                             基于 Mecha 设计理念的 Multi-Runtime 中间件，实现"一次编写，随处运行"的混合云架构目标。
                             支撑集团应用上云计划，私有云和 AWS 公有云全面接入，线上稳定性高。
                         </p>
@@ -522,22 +528,22 @@
                             <div class="highlight-item" style="--accent: #6366F1;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🏗️</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">混合云架构设计</h4>
-                                    <p class="highlight-text">主导整套方案设计，负责 RPC、Crypto、Proxy、Secret 等中间件开发</p>
+                                    <h4 class="highlight-title" data-i18n="exp.capa.h1.title">混合云架构设计</h4>
+                                    <p class="highlight-text" data-i18n="exp.capa.h1.text">主导整套方案设计，负责 RPC、Crypto、Proxy、Secret 等中间件开发</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #06B6D4;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">☁️</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">公有云 SRE</h4>
-                                    <p class="highlight-text">承担公有云 SRE 职责，维护 K8s、Service Mesh、Envoy 等云原生组件</p>
+                                    <h4 class="highlight-title" data-i18n="exp.capa.h2.title">公有云 SRE</h4>
+                                    <p class="highlight-text" data-i18n="exp.capa.h2.text">承担公有云 SRE 职责，维护 K8s、Service Mesh、Envoy 等云原生组件</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #8B5CF6;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🌐</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">开源社区贡献</h4>
-                                    <p class="highlight-text">Dapr api-sig Co-Chair，Layotto Member，贡献 5+ 个 API 提案</p>
+                                    <h4 class="highlight-title" data-i18n="exp.capa.h3.title">开源社区贡献</h4>
+                                    <p class="highlight-text" data-i18n="exp.capa.h3.text">Dapr api-sig Co-Chair，Layotto Member，贡献 5+ 个 API 提案</p>
                                 </div>
                             </div>
                         </div>
@@ -554,19 +560,19 @@
 
                 <!-- Message Gateway -->
                 <div class="experience-card">
-                    <div class="experience-period">2023.6 - 至今</div>
+                    <div class="experience-period" data-i18n="exp.mg.period">2023.6 - 至今</div>
                     <div class="experience-content">
                         <img src="/img/concepts/reactive-streams.png" alt="" class="card-illustration card-illustration--card" aria-hidden="true">
                         <div class="experience-header">
-                            <h3 class="experience-title">Message Gateway · 集团消息中台</h3>
+                            <h3 class="experience-title" data-i18n="exp.mg.title">Message Gateway · 集团消息中台</h3>
                             <div class="experience-meta-tags">
-                                <span class="meta-tag role">核心开发者</span>
-                                <span class="meta-tag team">中台团队</span>
-                                <span class="meta-tag impact">集团级消息平台</span>
+                                <span class="meta-tag role" data-i18n="exp.mg.role">核心开发者</span>
+                                <span class="meta-tag team" data-i18n="exp.mg.team">中台团队</span>
+                                <span class="meta-tag impact" data-i18n="exp.mg.impact">集团级消息平台</span>
                             </div>
                         </div>
-                        <p class="experience-company">行业头部互联网公司</p>
-                        <p class="experience-description">
+                        <p class="experience-company" data-i18n="exp.mg.company">行业头部互联网公司</p>
+                        <p class="experience-description" data-i18n="exp.mg.description">
                             负责集团对外大部分类型消息渠道的发送、回执和配置，涵盖 SMS、Email、Push、站内信、
                             WeChat、LINE、WhatsApp、Kakao 等十几种发送渠道，服务集团下全球品牌。
                         </p>
@@ -574,22 +580,22 @@
                             <div class="highlight-item" style="--accent: #F43F5E;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🏢</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">多租户架构</h4>
-                                    <p class="highlight-text">设计实现多租户机制，支持复杂配置和差异化计费</p>
+                                    <h4 class="highlight-title" data-i18n="exp.mg.h1.title">多租户架构</h4>
+                                    <p class="highlight-text" data-i18n="exp.mg.h1.text">设计实现多租户机制，支持复杂配置和差异化计费</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #14B8A6;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🌍</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">跨境多 Region</h4>
-                                    <p class="highlight-text">跨境多 Region 部署架构，MQ 广播、DRC 同步确保数据合规</p>
+                                    <h4 class="highlight-title" data-i18n="exp.mg.h2.title">跨境多 Region</h4>
+                                    <p class="highlight-text" data-i18n="exp.mg.h2.text">跨境多 Region 部署架构，MQ 广播、DRC 同步确保数据合规</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #F59E0B;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🎯</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">DDD 状态机</h4>
-                                    <p class="highlight-text">DDD + 状态机模式重构消息模板管理，实现良好逻辑隔离和扩展性</p>
+                                    <h4 class="highlight-title" data-i18n="exp.mg.h3.title">DDD 状态机</h4>
+                                    <p class="highlight-text" data-i18n="exp.mg.h3.text">DDD + 状态机模式重构消息模板管理，实现良好逻辑隔离和扩展性</p>
                                 </div>
                             </div>
                         </div>
@@ -605,19 +611,19 @@
 
                 <!-- AI Applications -->
                 <div class="experience-card featured">
-                    <div class="experience-period">2025.2 - 至今</div>
+                    <div class="experience-period" data-i18n="exp.ai.period">2025.2 - 至今</div>
                     <div class="experience-content">
                         <img src="/img/concepts/ai-tools.png" alt="" class="card-illustration card-illustration--card" aria-hidden="true">
                         <div class="experience-header">
-                            <h3 class="experience-title">AI 探索与应用</h3>
+                            <h3 class="experience-title" data-i18n="exp.ai.title">AI 探索与应用</h3>
                             <div class="experience-meta-tags">
-                                <span class="meta-tag role">AI 优先实践者</span>
-                                <span class="meta-tag team">技术布道</span>
-                                <span class="meta-tag impact">700+ 人次听众</span>
+                                <span class="meta-tag role" data-i18n="exp.ai.role">AI 优先实践者</span>
+                                <span class="meta-tag team" data-i18n="exp.ai.team">技术布道</span>
+                                <span class="meta-tag impact" data-i18n="exp.ai.impact">700+ 人次听众</span>
                             </div>
                         </div>
-                        <p class="experience-company">行业头部互联网公司</p>
-                        <p class="experience-description">
+                        <p class="experience-company" data-i18n="exp.ai.company">行业头部互联网公司</p>
+                        <p class="experience-description" data-i18n="exp.ai.description">
                             随着 AI Coding 的兴起，深度探索并落地 AI 应用。AI Coding Token使用量集团Top1，主导建设集团 MCP 后端工具矩阵，推动 AI 与软件工程融合落地。
                         </p>
                         <div class="experience-highlights">
@@ -625,21 +631,21 @@
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🤖</span></div>
                                 <div class="highlight-item-content">
                                     <h4 class="highlight-title">AI Coding Top1</h4>
-                                    <p class="highlight-text">Token 使用量集团 Top1，推动多类业务需求在 AI 辅助下完成</p>
+                                    <p class="highlight-text" data-i18n="exp.ai.h1.text">Token 使用量集团 Top1，推动多类业务需求在 AI 辅助下完成</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #0EA5E9;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">🔧</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">MCP 工具矩阵</h4>
-                                    <p class="highlight-text">开发 7 个 MCP 工具（监控、DB 查询、埋点、日志、GitLab），调用量数十万次</p>
+                                    <h4 class="highlight-title" data-i18n="exp.ai.h2.title">MCP 工具矩阵</h4>
+                                    <p class="highlight-text" data-i18n="exp.ai.h2.text">开发 7 个 MCP 工具（监控、DB 查询、埋点、日志、GitLab），调用量数十万次</p>
                                 </div>
                             </div>
                             <div class="highlight-item" style="--accent: #EC4899;">
                                 <div class="highlight-icon-wrap"><span class="highlight-icon">📊</span></div>
                                 <div class="highlight-item-content">
-                                    <h4 class="highlight-title">AI 产品化</h4>
-                                    <p class="highlight-text">基于 Dify 构建 Code Review、报错分析、慢 SQL 分析产品，国际业务线全面接入</p>
+                                    <h4 class="highlight-title" data-i18n="exp.ai.h3.title">AI 产品化</h4>
+                                    <p class="highlight-text" data-i18n="exp.ai.h3.text">基于 Dify 构建 Code Review、报错分析、慢 SQL 分析产品，国际业务线全面接入</p>
                                 </div>
                             </div>
                         </div>
@@ -672,7 +678,7 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">03</span>
                 <h2 class="section-title">Pinned Projects</h2>
-                <p class="section-description">精选开源项目与贡献</p>
+                <p class="section-description" data-i18n="proj.desc">精选开源项目与贡献</p>
             </div>
             
             <div class="projects-grid">
@@ -690,7 +696,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/capa-cloud/capa-java" target="_blank" rel="noopener noreferrer">Capa</a>
                     </h3>
-                    <p class="project-description">Mecha SDK of Cloud Application Api. 实现 "write once, run anywhere"，让Java应用具备跨云和混合云能力。</p>
+                    <p class="project-description" data-i18n="proj.capa.desc">Mecha SDK of Cloud Application Api. 实现 "write once, run anywhere"，让Java应用具备跨云和混合云能力。</p>
                     <div class="project-footer">
                         <span class="language-badge java">
                             <span class="language-dot"></span>
@@ -713,7 +719,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/project-vrml/vrml" target="_blank" rel="noopener noreferrer">Vrml</a>
                     </h3>
-                    <p class="project-description">高级抽象API库，用于应用运行时。目标是迁移到cloud-runtimes，成为标准API的实现部分。</p>
+                    <p class="project-description" data-i18n="proj.vrml.desc">高级抽象API库，用于应用运行时。目标是迁移到cloud-runtimes，成为标准API的实现部分。</p>
                     <div class="project-footer">
                         <span class="language-badge java">
                             <span class="language-dot"></span>
@@ -746,7 +752,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/apache/dubbo" target="_blank" rel="noopener noreferrer">Apache Dubbo</a>
                     </h3>
-                    <p class="project-description">Apache Dubbo的Java实现。一个高性能的RPC和微服务框架，被广泛应用于大规模分布式系统。</p>
+                    <p class="project-description" data-i18n="proj.dubbo.desc">Apache Dubbo的Java实现。一个高性能的RPC和微服务框架，被广泛应用于大规模分布式系统。</p>
                     <div class="project-footer">
                         <span class="language-badge java">
                             <span class="language-dot"></span>
@@ -780,7 +786,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/dapr/dapr" target="_blank" rel="noopener noreferrer">Dapr</a>
                     </h3>
-                    <p class="project-description">可移植的运行时，用于构建跨云和边缘的分布式应用，结合事件驱动架构与工作流编排。</p>
+                    <p class="project-description" data-i18n="proj.dapr.desc">可移植的运行时，用于构建跨云和边缘的分布式应用，结合事件驱动架构与工作流编排。</p>
                     <div class="project-footer">
                         <span class="language-badge go">
                             <span class="language-dot"></span>
@@ -814,7 +820,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/mosn/layotto" target="_blank" rel="noopener noreferrer">Layotto</a>
                     </h3>
-                    <p class="project-description">快速高效的云原生应用运行时，为应用提供分布式能力抽象。</p>
+                    <p class="project-description" data-i18n="proj.layotto.desc">快速高效的云原生应用运行时，为应用提供分布式能力抽象。</p>
                     <div class="project-footer">
                         <span class="language-badge go">
                             <span class="language-dot"></span>
@@ -847,7 +853,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/capa-cloud/capa-bff" target="_blank" rel="noopener noreferrer">CapaBFF</a>
                     </h3>
-                    <p class="project-description">[Hackathon] 零成本BFF解决方案 - 携程2021 Hackathon大赛金奖项目。</p>
+                    <p class="project-description" data-i18n="proj.capabff.desc">[Hackathon] 零成本BFF解决方案 - 携程2021 Hackathon大赛金奖项目。</p>
                     <div class="project-footer">
                         <span class="language-badge java">
                             <span class="language-dot"></span>
@@ -870,7 +876,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/open-octopus/openoctopus" target="_blank" rel="noopener noreferrer">OpenOctopus</a>
                     </h3>
-                    <p class="project-description">Realm-native 生活智能体系统。按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</p>
+                    <p class="project-description" data-i18n="proj.octopus.desc">Realm-native 生活智能体系统。按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</p>
                     <div class="project-footer">
                         <span class="language-badge python">
                             <span class="language-dot"></span>
@@ -894,7 +900,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/ava-agent/ai-tools" target="_blank" rel="noopener noreferrer">AI Tools</a>
                     </h3>
-                    <p class="project-description">全面的 AI 开发工具选型指南，涵盖 IDE、LLM、插件等 30+ 款工具的 SWOT 分析与实战数据。</p>
+                    <p class="project-description" data-i18n="proj.aitools.desc">全面的 AI 开发工具选型指南，涵盖 IDE、LLM、插件等 30+ 款工具的 SWOT 分析与实战数据。</p>
                     <div class="project-footer">
                         <span class="language-badge javascript">
                             <span class="language-dot"></span>
@@ -918,7 +924,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/ava-agent/trip-agent" target="_blank" rel="noopener noreferrer">Trip Agent</a>
                     </h3>
-                    <p class="project-description">基于 Multi-Agent 系统的智能旅行规划助手，使用 AI 生成个性化行程方案。</p>
+                    <p class="project-description" data-i18n="proj.trip.desc">基于 Multi-Agent 系统的智能旅行规划助手，使用 AI 生成个性化行程方案。</p>
                     <div class="project-footer">
                         <span class="language-badge python">
                             <span class="language-dot"></span>
@@ -942,7 +948,7 @@
                     <h3 class="project-title">
                         <a href="https://github.com/kevinten-ai/Compiling-the-Dao" target="_blank" rel="noopener noreferrer">Compiling the Dao</a>
                     </h3>
-                    <p class="project-description">AI 奇幻小说 &middot; 程序员修仙 &middot; 天道即源码。AI 辅助创作的修真世界观小说。</p>
+                    <p class="project-description" data-i18n="proj.dao.desc">AI 奇幻小说 &middot; 程序员修仙 &middot; 天道即源码。AI 辅助创作的修真世界观小说。</p>
                     <div class="project-footer">
                         <span class="language-badge python">
                             <span class="language-dot"></span>
@@ -994,15 +1000,15 @@
                 <div class="octopus-content">
                     <span class="octopus-badge">Flagship Project</span>
                     <h3 class="octopus-title">OpenOctopus</h3>
-                    <p class="octopus-tagline">Realm-native 生活智能体系统</p>
-                    <p class="octopus-desc">如章鱼般，每条触手拥有独立神经中枢 — 按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</p>
+                    <p class="octopus-tagline" data-i18n="octopus.tagline">Realm-native 生活智能体系统</p>
+                    <p class="octopus-desc" data-i18n="octopus.desc">如章鱼般，每条触手拥有独立神经中枢 — 按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</p>
                     <div class="octopus-realms">
-                        <span class="realm-tag" style="--c: #10B981;">旅行</span>
-                        <span class="realm-tag" style="--c: #EC4899;">健康</span>
-                        <span class="realm-tag" style="--c: #F59E0B;">财务</span>
-                        <span class="realm-tag" style="--c: #8B5CF6;">工具</span>
-                        <span class="realm-tag" style="--c: #06B6D4;">创作</span>
-                        <span class="realm-tag" style="--c: #3B82F6;">学习</span>
+                        <span class="realm-tag" style="--c: #10B981;" data-i18n="octopus.travel">旅行</span>
+                        <span class="realm-tag" style="--c: #EC4899;" data-i18n="octopus.health">健康</span>
+                        <span class="realm-tag" style="--c: #F59E0B;" data-i18n="octopus.finance">财务</span>
+                        <span class="realm-tag" style="--c: #8B5CF6;" data-i18n="octopus.tools">工具</span>
+                        <span class="realm-tag" style="--c: #06B6D4;" data-i18n="octopus.creative">创作</span>
+                        <span class="realm-tag" style="--c: #3B82F6;" data-i18n="octopus.learning">学习</span>
                     </div>
                     <a href="https://openoctopus.club" target="_blank" rel="noopener noreferrer" class="octopus-cta">
                         Explore OpenOctopus
@@ -1015,34 +1021,34 @@
             <div class="agent-ecosystem animate-on-scroll">
                 <div class="ecosystem-header">
                     <h3 class="ecosystem-title">🐙 AI Agent Ecosystem</h3>
-                    <p class="ecosystem-subtitle">20+ AI 应用 · 覆盖旅行、生活、学习、工具、创作等领域</p>
+                    <p class="ecosystem-subtitle" data-i18n="eco.subtitle">20+ AI 应用 · 覆盖旅行、生活、学习、工具、创作等领域</p>
                 </div>
 
                 <div class="ecosystem-grid">
                     <!-- Travel & Outdoor -->
                     <div class="eco-category">
-                        <span class="eco-category-label">🌏 旅行 & 户外</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.travel">🌏 旅行 & 户外</span>
                         <div class="eco-items">
                             <a href="https://trip-meta.github.io/TripMeta/site" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #F59E0B;">
                                 <span class="eco-name">Trip Meta</span>
-                                <span class="eco-desc">AI+VR 元宇宙旅游</span>
+                                <span class="eco-desc" data-i18n="eco.tripmeta.desc">AI+VR 元宇宙旅游</span>
                                 <span class="eco-badge">🏅 Hackathon</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>Website</span>
                             </a>
                             <a href="https://github.com/ava-agent/trip-ava" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #D97706;">
                                 <span class="eco-name">Trip AVA</span>
-                                <span class="eco-desc">AI 数字人旅行向导</span>
+                                <span class="eco-desc" data-i18n="eco.tripava.desc">AI 数字人旅行向导</span>
                                 <span class="eco-badge">🥉 铜奖</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>GitHub</span>
                             </a>
                             <a href="https://trip.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #10B981;">
                                 <span class="eco-name">Trip Agent</span>
-                                <span class="eco-desc">Multi-Agent 行程规划</span>
+                                <span class="eco-desc" data-i18n="eco.tripagent.desc">Multi-Agent 行程规划</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>trip.rxcloud.group</span>
                             </a>
                             <a href="https://adv.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #22D3EE;">
                                 <span class="eco-name">ADV Agent</span>
-                                <span class="eco-desc">摩托骑行社区 + AI 路线</span>
+                                <span class="eco-desc" data-i18n="eco.adv.desc">摩托骑行社区 + AI 路线</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>adv.rxcloud.group</span>
                             </a>
                         </div>
@@ -1050,26 +1056,26 @@
 
                     <!-- Life & Wellness -->
                     <div class="eco-category">
-                        <span class="eco-category-label">🏥 生活 & 健康</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.life">🏥 生活 & 健康</span>
                         <div class="eco-items">
                             <a href="https://meeting.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #8B5CF6;">
                                 <span class="eco-name">Meeting Agent</span>
-                                <span class="eco-desc">AI 会议策划一键生成</span>
+                                <span class="eco-desc" data-i18n="eco.meeting.desc">AI 会议策划一键生成</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>meeting.rxcloud.group</span>
                             </a>
                             <a href="https://pet.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #EC4899;">
                                 <span class="eco-name">PawPal</span>
-                                <span class="eco-desc">宠物社交 App</span>
+                                <span class="eco-desc" data-i18n="eco.pawpal.desc">宠物社交 App</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>pet.rxcloud.group</span>
                             </a>
                             <a href="https://spa.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #14B8A6;">
                                 <span class="eco-name">SPA Agent</span>
-                                <span class="eco-desc">SPA 知识大全 + AI 顾问</span>
+                                <span class="eco-desc" data-i18n="eco.spa.desc">SPA 知识大全 + AI 顾问</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>spa.rxcloud.group</span>
                             </a>
                             <a href="https://maichong.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #F43F5E;">
                                 <span class="eco-name">脉冲</span>
-                                <span class="eco-desc">AI 亲密圈节奏协调</span>
+                                <span class="eco-desc" data-i18n="eco.maichong.desc">AI 亲密圈节奏协调</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>maichong.rxcloud.group</span>
                             </a>
                         </div>
@@ -1077,21 +1083,21 @@
 
                     <!-- Learning & Finance -->
                     <div class="eco-category">
-                        <span class="eco-category-label">📚 学习 & 财务</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.learning">📚 学习 & 财务</span>
                         <div class="eco-items">
                             <a href="https://money.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #F59E0B;">
                                 <span class="eco-name">ClawX</span>
-                                <span class="eco-desc">AI 赚钱指南 · 33 种方法</span>
+                                <span class="eco-desc" data-i18n="eco.clawx.desc">AI 赚钱指南 · 33 种方法</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>money.rxcloud.group</span>
                             </a>
                             <a href="https://english.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #3B82F6;">
                                 <span class="eco-name">English Agent</span>
-                                <span class="eco-desc">沉浸式 AI 英语学习</span>
+                                <span class="eco-desc" data-i18n="eco.english.desc">沉浸式 AI 英语学习</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>english.rxcloud.group</span>
                             </a>
                             <a href="https://name.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #A855F7;">
                                 <span class="eco-name">Name Agent</span>
-                                <span class="eco-desc">GLM-4 AI 起名</span>
+                                <span class="eco-desc" data-i18n="eco.name.desc">GLM-4 AI 起名</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>name.rxcloud.group</span>
                             </a>
                         </div>
@@ -1099,21 +1105,21 @@
 
                     <!-- Utility & Rights -->
                     <div class="eco-category">
-                        <span class="eco-category-label">⚖️ 实用 & 维权</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.utility">⚖️ 实用 & 维权</span>
                         <div class="eco-items">
                             <a href="https://law.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #6366F1;">
                                 <span class="eco-name">Law Agent</span>
-                                <span class="eco-desc">AI 消费者维权咨询</span>
+                                <span class="eco-desc" data-i18n="eco.law.desc">AI 消费者维权咨询</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>law.rxcloud.group</span>
                             </a>
                             <a href="https://argue.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #EF4444;">
                                 <span class="eco-name">Argue Agent</span>
-                                <span class="eco-desc">实时辩论 + 论点验证</span>
+                                <span class="eco-desc" data-i18n="eco.argue.desc">实时辩论 + 论点验证</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>argue.rxcloud.group</span>
                             </a>
                             <a href="https://sb.rxcloud.group/" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #0EA5E9;">
                                 <span class="eco-name">Smart Brain</span>
-                                <span class="eco-desc">AI 思维陪练</span>
+                                <span class="eco-desc" data-i18n="eco.smartbrain.desc">AI 思维陪练</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>sb.rxcloud.group</span>
                             </a>
                         </div>
@@ -1121,36 +1127,36 @@
 
                     <!-- Tools & MCP -->
                     <div class="eco-category">
-                        <span class="eco-category-label">🔧 工具 & MCP</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.tools">🔧 工具 & MCP</span>
                         <div class="eco-items">
                             <a href="https://video.rxcloud.group/" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #F43F5E;">
                                 <span class="eco-name">Video Agent</span>
-                                <span class="eco-desc">AI 多媒体工具百科 · 61+</span>
+                                <span class="eco-desc" data-i18n="eco.video.desc">AI 多媒体工具百科 · 61+</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>video.rxcloud.group</span>
                             </a>
                             <a href="https://3d.rxcloud.group/" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #22D3EE;">
                                 <span class="eco-name">3D Agent</span>
-                                <span class="eco-desc">一站式 3D 模型生成</span>
+                                <span class="eco-desc" data-i18n="eco.3d.desc">一站式 3D 模型生成</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>3d.rxcloud.group</span>
                             </a>
                             <a href="https://github.com/kevinten-ai/mcp-video-gen" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #10B981;">
                                 <span class="eco-name">MCP Video Gen</span>
-                                <span class="eco-desc">多提供商视频/语音 MCP</span>
+                                <span class="eco-desc" data-i18n="eco.mcpvideo.desc">多提供商视频/语音 MCP</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>GitHub</span>
                             </a>
                             <a href="https://github.com/kevinten-ai/mcp-3d-gen" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #8B5CF6;">
                                 <span class="eco-name">MCP 3D Gen</span>
-                                <span class="eco-desc">多提供商 3D 模型 MCP</span>
+                                <span class="eco-desc" data-i18n="eco.mcp3d.desc">多提供商 3D 模型 MCP</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>GitHub</span>
                             </a>
                             <a href="https://github.com/kevinten-ai/mcp-image-gen" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #F59E0B;">
                                 <span class="eco-name">MCP Image Gen</span>
-                                <span class="eco-desc">Gemini 图像生成 MCP</span>
+                                <span class="eco-desc" data-i18n="eco.mcpimage.desc">Gemini 图像生成 MCP</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>GitHub</span>
                             </a>
                             <a href="https://github.com/kevinten-ai/ccuse" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #A855F7;">
                                 <span class="eco-name">ccuse</span>
-                                <span class="eco-desc">Claude Code 配置切换 CLI</span>
+                                <span class="eco-desc" data-i18n="eco.ccuse.desc">Claude Code 配置切换 CLI</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>GitHub</span>
                             </a>
                         </div>
@@ -1158,11 +1164,11 @@
 
                     <!-- Creative -->
                     <div class="eco-category">
-                        <span class="eco-category-label">🎮 创作 & 游戏</span>
+                        <span class="eco-category-label" data-i18n="eco.cat.creative">🎮 创作 & 游戏</span>
                         <div class="eco-items">
                             <a href="https://fish.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #06B6D4;">
                                 <span class="eco-name">Fish Game</span>
-                                <span class="eco-desc">像素风钓鱼模拟</span>
+                                <span class="eco-desc" data-i18n="eco.fish.desc">像素风钓鱼模拟</span>
                                 <span class="eco-link"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>fish.rxcloud.group</span>
                             </a>
                             <a href="https://spring.rxcloud.group" target="_blank" rel="noopener noreferrer" class="eco-item" style="--accent: #EF4444;">
@@ -1192,7 +1198,7 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">04</span>
                 <h2 class="section-title">Tech Stack</h2>
-                <p class="section-description">核心技术能力与专业领域</p>
+                <p class="section-description" data-i18n="tech.desc">核心技术能力与专业领域</p>
             </div>
 
             <!-- Skill Galaxy: Interactive weighted cloud visualization -->
@@ -1249,11 +1255,11 @@
 
                 <!-- Proficiency Legend -->
                 <div class="skill-galaxy-legend">
-                    <span class="legend-item"><span class="legend-dot expert-dot"></span>Expert 核心专长</span>
-                    <span class="legend-item"><span class="legend-dot advanced-dot"></span>Advanced 精通</span>
-                    <span class="legend-item"><span class="legend-dot proficient-dot"></span>Proficient 熟练</span>
-                    <span class="legend-item"><span class="legend-dot familiar-dot"></span>Familiar 了解</span>
-                    <span class="legend-item"><span class="legend-dot practice-dot"></span>Practices 实践</span>
+                    <span class="legend-item"><span class="legend-dot expert-dot"></span><span data-i18n="tech.legend.expert">Expert 核心专长</span></span>
+                    <span class="legend-item"><span class="legend-dot advanced-dot"></span><span data-i18n="tech.legend.advanced">Advanced 精通</span></span>
+                    <span class="legend-item"><span class="legend-dot proficient-dot"></span><span data-i18n="tech.legend.proficient">Proficient 熟练</span></span>
+                    <span class="legend-item"><span class="legend-dot familiar-dot"></span><span data-i18n="tech.legend.familiar">Familiar 了解</span></span>
+                    <span class="legend-item"><span class="legend-dot practice-dot"></span><span data-i18n="tech.legend.practice">Practices 实践</span></span>
                 </div>
             </div>
         </div>
@@ -1274,7 +1280,7 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">05</span>
                 <h2 class="section-title">Open Source Contributions</h2>
-                <p class="section-description">开源社区贡献与项目</p>
+                <p class="section-description" data-i18n="contrib.desc">开源社区贡献与项目</p>
             </div>
 
             <div class="contributions-enhanced">
@@ -1282,7 +1288,7 @@
                 <div class="contrib-section">
                     <div class="contrib-section-label">
                         <span class="contrib-label-icon">◆</span>
-                        <span>个人项目</span>
+                        <span data-i18n="contrib.personal">个人项目</span>
                         <span class="contrib-label-line"></span>
                     </div>
                     <div class="project-tiles">
@@ -1296,7 +1302,7 @@
                                     <h4 class="tile-title">VRML</h4>
                                     <span class="tile-arrow">→</span>
                                 </div>
-                                <p class="tile-desc">Java常用函数式拓展工具集合，提供监控埋点、日志组件、网络请求代理等工具</p>
+                                <p class="tile-desc" data-i18n="contrib.vrml.desc">Java常用函数式拓展工具集合，提供监控埋点、日志组件、网络请求代理等工具</p>
                                 <div class="tile-footer">
                                     <span class="tile-role">Project Lead</span>
                                     <span class="tile-lang"><span class="lang-dot" style="background: var(--color-java);"></span>Java</span>
@@ -1313,7 +1319,7 @@
                                     <h4 class="tile-title">Capa</h4>
                                     <span class="tile-arrow">→</span>
                                 </div>
-                                <p class="tile-desc">Mecha SDK 实现 "write once, run anywhere"，让 Java 应用具备跨云和混合云运行能力</p>
+                                <p class="tile-desc" data-i18n="contrib.capa.desc">Mecha SDK 实现 "write once, run anywhere"，让 Java 应用具备跨云和混合云运行能力</p>
                                 <div class="tile-footer">
                                     <span class="tile-role">Lead & Core Architect</span>
                                     <span class="tile-lang"><span class="lang-dot" style="background: var(--color-java);"></span>Java</span>
@@ -1330,7 +1336,7 @@
                                     <h4 class="tile-title">OpenOctopus</h4>
                                     <span class="tile-arrow">→</span>
                                 </div>
-                                <p class="tile-desc">Realm-native 生活智能体系统，按领域组织生活，召唤万物为 AI Agent</p>
+                                <p class="tile-desc" data-i18n="contrib.octopus.desc">Realm-native 生活智能体系统，按领域组织生活，召唤万物为 AI Agent</p>
                                 <div class="tile-footer">
                                     <span class="tile-role">Creator & Lead</span>
                                     <span class="tile-lang"><span class="lang-dot" style="background: var(--color-typescript);"></span>TypeScript</span>
@@ -1347,7 +1353,7 @@
                                     <h4 class="tile-title">AI Tools</h4>
                                     <span class="tile-arrow">→</span>
                                 </div>
-                                <p class="tile-desc">AI 开发工具选型指南，涵盖 30+ 款工具的 SWOT 分析与实战数据</p>
+                                <p class="tile-desc" data-i18n="contrib.aitools.desc">AI 开发工具选型指南，涵盖 30+ 款工具的 SWOT 分析与实战数据</p>
                                 <div class="tile-footer">
                                     <span class="tile-role">Creator & Lead</span>
                                     <span class="tile-lang"><span class="lang-dot" style="background: var(--color-javascript);"></span>JavaScript</span>
@@ -1361,7 +1367,7 @@
                 <div class="contrib-section">
                     <div class="contrib-section-label">
                         <span class="contrib-label-icon">◇</span>
-                        <span>主要贡献</span>
+                        <span data-i18n="contrib.major">主要贡献</span>
                         <span class="contrib-label-line"></span>
                     </div>
                     <div class="contrib-river">
@@ -1371,7 +1377,7 @@
                             </div>
                             <div class="river-content">
                                 <h4 class="river-title">Apache Dubbo</h4>
-                                <p class="river-desc">优化 Invoker 链路，提升框架面向对象设计</p>
+                                <p class="river-desc" data-i18n="contrib.dubbo.desc">优化 Invoker 链路，提升框架面向对象设计</p>
                                 <span class="river-role">Contributor · 41k+ Stars</span>
                             </div>
                         </a>
@@ -1384,7 +1390,7 @@
                             </div>
                             <div class="river-content">
                                 <h4 class="river-title">Dapr</h4>
-                                <p class="river-desc">api-sig Co-Chair，推动 Multi-Runtime 生态</p>
+                                <p class="river-desc" data-i18n="contrib.dapr.desc">api-sig Co-Chair，推动 Multi-Runtime 生态</p>
                                 <span class="river-role">Co-Chair · CNCF · 25k+ Stars</span>
                             </div>
                         </a>
@@ -1397,7 +1403,7 @@
                             </div>
                             <div class="river-content">
                                 <h4 class="river-title">Layotto</h4>
-                                <p class="river-desc">Reactive Java-SDK 编写，多项 API 提案</p>
+                                <p class="river-desc" data-i18n="contrib.layotto.desc">Reactive Java-SDK 编写，多项 API 提案</p>
                                 <span class="river-role">Member · 852 Stars</span>
                             </div>
                         </a>
@@ -1410,7 +1416,7 @@
                             </div>
                             <div class="river-content">
                                 <h4 class="river-title">Reactor-core</h4>
-                                <p class="river-desc">响应式编程核心库代码贡献</p>
+                                <p class="river-desc" data-i18n="contrib.reactor.desc">响应式编程核心库代码贡献</p>
                                 <span class="river-role">Contributor</span>
                             </div>
                         </a>
@@ -1452,7 +1458,7 @@
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">06</span>
-                <h2 class="section-title">荣誉成就</h2>
+                <h2 class="section-title" data-i18n="awards.title">荣誉成就</h2>
                 <p class="section-description">Awards & Recognitions</p>
             </div>
 
@@ -1466,10 +1472,10 @@
                     <div class="award-hero-content">
                         <div class="award-hero-meta">
                             <span class="award-hero-year">2021</span>
-                            <span class="award-hero-label">队长</span>
+                            <span class="award-hero-label" data-i18n="awards.hero.label">队长</span>
                         </div>
-                        <h3 class="award-hero-title">集团 Hackathon 金奖</h3>
-                        <p class="award-hero-project">《零成本 BFF 框架》</p>
+                        <h3 class="award-hero-title" data-i18n="awards.hero.title">集团 Hackathon 金奖</h3>
+                        <p class="award-hero-project" data-i18n="awards.hero.project">《零成本 BFF 框架》</p>
                     </div>
                 </div>
 
@@ -1480,9 +1486,9 @@
                             <span class="award-card-badge">🥈</span>
                             <span class="award-card-year">2024</span>
                         </div>
-                        <h3 class="award-card-title">校招生竞赛集团亚军</h3>
-                        <p class="award-card-project">《剧本旅游》</p>
-                        <span class="award-card-label">带队导师</span>
+                        <h3 class="award-card-title" data-i18n="awards.silver.title">校招生竞赛集团亚军</h3>
+                        <p class="award-card-project" data-i18n="awards.silver.project">《剧本旅游》</p>
+                        <span class="award-card-label" data-i18n="awards.silver.label">带队导师</span>
                     </div>
 
                     <div class="award-card" style="--accent: #D97706;">
@@ -1490,9 +1496,9 @@
                             <span class="award-card-badge">🥉</span>
                             <span class="award-card-year">2023</span>
                         </div>
-                        <h3 class="award-card-title">集团 GPT Hackathon 铜奖</h3>
-                        <p class="award-card-project">《AI 旅行内容助手》</p>
-                        <span class="award-card-label">队长</span>
+                        <h3 class="award-card-title" data-i18n="awards.bronze.title">集团 GPT Hackathon 铜奖</h3>
+                        <p class="award-card-project" data-i18n="awards.bronze.project">《AI 旅行内容助手》</p>
+                        <span class="award-card-label" data-i18n="awards.bronze.label">队长</span>
                     </div>
 
                     <div class="award-card" style="--accent: #22D3EE;">
@@ -1500,9 +1506,9 @@
                             <span class="award-card-badge">🏅</span>
                             <span class="award-card-year">2022</span>
                         </div>
-                        <h3 class="award-card-title">集团 Hackathon 入围奖</h3>
-                        <p class="award-card-project">《AI + VR 元宇宙旅游平台》</p>
-                        <span class="award-card-label">队长</span>
+                        <h3 class="award-card-title" data-i18n="awards.finalist.title">集团 Hackathon 入围奖</h3>
+                        <p class="award-card-project" data-i18n="awards.finalist.project">《AI + VR 元宇宙旅游平台》</p>
+                        <span class="award-card-label" data-i18n="awards.finalist.label">队长</span>
                     </div>
 
                     <div class="award-card" style="--accent: #22D3EE;">
@@ -1510,9 +1516,9 @@
                             <span class="award-card-badge">⭐</span>
                             <span class="award-card-year">2024</span>
                         </div>
-                        <h3 class="award-card-title">国际部优秀项目奖</h3>
-                        <p class="award-card-project">集团下一代跨渠道沟通平台</p>
-                        <span class="award-card-label">主导开发</span>
+                        <h3 class="award-card-title" data-i18n="awards.outstanding.title">国际部优秀项目奖</h3>
+                        <p class="award-card-project" data-i18n="awards.outstanding.project">集团下一代跨渠道沟通平台</p>
+                        <span class="award-card-label" data-i18n="awards.outstanding.label">主导开发</span>
                     </div>
 
                     <div class="award-card" style="--accent: #6366F1;">
@@ -1520,9 +1526,9 @@
                             <span class="award-card-badge">🎖️</span>
                             <span class="award-card-year">2020 · 2022 · 2023</span>
                         </div>
-                        <h3 class="award-card-title">集团年度程果奖</h3>
-                        <p class="award-card-project">个人贡献奖 - 优秀奖（集团三等奖）</p>
-                        <span class="award-card-label">连续多年</span>
+                        <h3 class="award-card-title" data-i18n="awards.annual.title">集团年度程果奖</h3>
+                        <p class="award-card-project" data-i18n="awards.annual.project">个人贡献奖 - 优秀奖（集团三等奖）</p>
+                        <span class="award-card-label" data-i18n="awards.annual.label">连续多年</span>
                     </div>
 
                     <div class="award-card" style="--accent: #8B5CF6;">
@@ -1530,9 +1536,9 @@
                             <span class="award-card-badge">🏛️</span>
                             <span class="award-card-year">2021</span>
                         </div>
-                        <h3 class="award-card-title">集团架构委员会优秀个人提名</h3>
-                        <p class="award-card-project">集团混合云中间件</p>
-                        <span class="award-card-label">核心架构师</span>
+                        <h3 class="award-card-title" data-i18n="awards.arch.title">集团架构委员会优秀个人提名</h3>
+                        <p class="award-card-project" data-i18n="awards.arch.project">集团混合云中间件</p>
+                        <span class="award-card-label" data-i18n="awards.arch.label">核心架构师</span>
                     </div>
                 </div>
             </div>
@@ -1540,10 +1546,10 @@
             <!-- Unified Achievement Badges -->
             <div class="achievement-badges">
                 <div class="badge-group">
-                    <div class="badge-chip"><span>🏆</span> <strong>4+</strong> Hackathon 奖项</div>
-                    <div class="badge-chip"><span>🎖️</span> <strong>4+</strong> 年度集团奖项</div>
-                    <div class="badge-chip"><span>👥</span> <strong>700+</strong> AI分享听众</div>
-                    <div class="badge-chip"><span>🎤</span> <strong>20+</strong> 技术meetup组织</div>
+                    <div class="badge-chip"><span>🏆</span> <strong>4+</strong> <span data-i18n="awards.badge.hackathon">Hackathon 奖项</span></div>
+                    <div class="badge-chip"><span>🎖️</span> <strong>4+</strong> <span data-i18n="awards.badge.annual">年度集团奖项</span></div>
+                    <div class="badge-chip"><span>👥</span> <strong>700+</strong> <span data-i18n="awards.badge.audience">AI分享听众</span></div>
+                    <div class="badge-chip"><span>🎤</span> <strong>20+</strong> <span data-i18n="awards.badge.meetup">技术meetup组织</span></div>
                 </div>
                 <div class="badge-group github-badges">
                     <div class="badge-chip gh"><span>🦈</span> Pull Shark x2</div>
@@ -1569,8 +1575,8 @@
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">07</span>
-                <h2 class="section-title">发表文章</h2>
-                <p class="section-description">技术文章与实践分享</p>
+                <h2 class="section-title" data-i18n="writing.title">发表文章</h2>
+                <p class="section-description" data-i18n="writing.desc">技术文章与实践分享</p>
             </div>
 
             <!-- Articles Showcase -->
@@ -1580,8 +1586,8 @@
                     <div class="article-featured-glow"></div>
                     <img src="/img/concepts/reactive-streams.png" alt="" class="card-illustration card-illustration--hero" loading="lazy">
                     <span class="article-tag">Reactive</span>
-                    <h3 class="article-featured-title">Reactive模式在某OTA消息推送平台上的实践</h3>
-                    <p class="article-featured-excerpt">基于实际业务，分享 Reactive 模式在消息触达平台中的落地与收益。</p>
+                    <h3 class="article-featured-title" data-i18n="writing.reactive.title">Reactive模式在某OTA消息推送平台上的实践</h3>
+                    <p class="article-featured-excerpt" data-i18n="writing.reactive.excerpt">基于实际业务，分享 Reactive 模式在消息触达平台中的落地与收益。</p>
                     <span class="article-arrow">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
                     </span>
@@ -1593,7 +1599,7 @@
                         <img src="/img/concepts/cloud-sdk.png" alt="" class="card-illustration card-illustration--card" loading="lazy">
                         <span class="article-tag">Multi-Runtime</span>
                         <h3 class="article-card-title">Capa: Mecha SDK of Cloud Application Api</h3>
-                        <p class="article-card-excerpt">介绍 Capa/Mecha SDK 的设计理念与跨云运行时实践。</p>
+                        <p class="article-card-excerpt" data-i18n="writing.capa.excerpt">介绍 Capa/Mecha SDK 的设计理念与跨云运行时实践。</p>
                         <span class="article-arrow">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
                         </span>
@@ -1602,8 +1608,8 @@
                     <a href="https://ava-agent.github.io/ai-tools/" target="_blank" rel="noopener noreferrer" class="article-card" style="--accent: #F59E0B;">
                         <img src="/img/concepts/ai-tools.png" alt="" class="card-illustration card-illustration--card" loading="lazy">
                         <span class="article-tag">AI Tools</span>
-                        <h3 class="article-card-title">AI 开发工具选型指南</h3>
-                        <p class="article-card-excerpt">涵盖 IDE、LLM、插件等 30+ 款 AI 开发工具的全面 SWOT 分析与实战数据。</p>
+                        <h3 class="article-card-title" data-i18n="writing.aitools.title">AI 开发工具选型指南</h3>
+                        <p class="article-card-excerpt" data-i18n="writing.aitools.excerpt">涵盖 IDE、LLM、插件等 30+ 款 AI 开发工具的全面 SWOT 分析与实战数据。</p>
                         <span class="article-arrow">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
                         </span>
@@ -1613,7 +1619,7 @@
                         <img src="/img/concepts/octopus-agent.png" alt="" class="card-illustration card-illustration--card" loading="lazy">
                         <span class="article-tag">OpenOctopus</span>
                         <h3 class="article-card-title">OpenOctopus: Realm-native 生活智能体系统</h3>
-                        <p class="article-card-excerpt">按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。项目官网与设计理念。</p>
+                        <p class="article-card-excerpt" data-i18n="writing.octopus.excerpt">按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。项目官网与设计理念。</p>
                         <span class="article-arrow">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
                         </span>
@@ -1622,8 +1628,8 @@
                     <a href="https://fanqienovel.com/page/7610459214112115736" target="_blank" rel="noopener noreferrer" class="article-card" style="--accent: #EF4444;">
                         <img src="/img/concepts/fantasy-code.png" alt="" class="card-illustration card-illustration--card" loading="lazy">
                         <span class="article-tag">AI Creative</span>
-                        <h3 class="article-card-title">编译天道 · AI 修仙小说</h3>
-                        <p class="article-card-excerpt">程序员修仙世界观，天道即源码。AI 辅助创作的奇幻修真小说，番茄小说连载中。</p>
+                        <h3 class="article-card-title" data-i18n="writing.dao.title">编译天道 · AI 修仙小说</h3>
+                        <p class="article-card-excerpt" data-i18n="writing.dao.excerpt">程序员修仙世界观，天道即源码。AI 辅助创作的奇幻修真小说，番茄小说连载中。</p>
                         <span class="article-arrow">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12L12 4M12 4H5M12 4v7"/></svg>
                         </span>
@@ -1647,15 +1653,15 @@
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">08</span>
-                <h2 class="section-title">相册</h2>
-                <p class="section-description">记录技术成长与生活点滴</p>
+                <h2 class="section-title" data-i18n="gallery.title">相册</h2>
+                <p class="section-description" data-i18n="gallery.desc">记录技术成长与生活点滴</p>
             </div>
 
             <!-- Gallery Filter -->
             <div class="gallery-filter animate-on-scroll">
-                <button class="filter-btn active" data-filter="all">全部</button>
-                <button class="filter-btn" data-filter="professional">专业</button>
-                <button class="filter-btn" data-filter="life">生活</button>
+                <button class="filter-btn active" data-filter="all" data-i18n="gallery.all">全部</button>
+                <button class="filter-btn" data-filter="professional" data-i18n="gallery.professional">专业</button>
+                <button class="filter-btn" data-filter="life" data-i18n="gallery.life">生活</button>
             </div>
 
             <!-- Gallery Grid -->
@@ -1748,7 +1754,7 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-idx">09</span>
                 <h2 class="section-title">Get In Touch</h2>
-                <p class="section-description">欢迎技术交流、合作机会、人才引进</p>
+                <p class="section-description" data-i18n="contact.desc">欢迎技术交流、合作机会、人才引进</p>
             </div>
 
             <div class="contact-content">
@@ -1802,14 +1808,14 @@
                                 Open to Opportunities
                             </span>
                         </div>
-                        <p class="availability-text">
+                        <p class="availability-text" data-i18n="contact.availability">
                             我对以下类型的机会特别感兴趣：
                         </p>
                         <ul class="availability-interests">
-                            <li>🚀 技术架构师 / 后端架构师</li>
-                            <li>🤖 AI应用架构 / AI基础设施</li>
-                            <li>☁️ 云原生平台 / 多运行时架构</li>
-                            <li>🌟 开源项目 / 技术影响力建设</li>
+                            <li data-i18n="contact.interest1">🚀 技术架构师 / 后端架构师</li>
+                            <li data-i18n="contact.interest2">🤖 AI应用架构 / AI基础设施</li>
+                            <li data-i18n="contact.interest3">☁️ 云原生平台 / 多运行时架构</li>
+                            <li data-i18n="contact.interest4">🌟 开源项目 / 技术影响力建设</li>
                         </ul>
                         <div class="contact-actions">
                             <a href="mailto:wshten@gmail.com" class="btn btn-primary">
@@ -1838,7 +1844,7 @@
                 <a href="https://x.com/kevinten1024" target="_blank" rel="noopener noreferrer">X / Twitter</a>
                 <a href="mailto:wshten@gmail.com">Email</a>
             </div>
-            <p class="footer-built-with">Built with vanilla JS, too much ☕, and a mass of curiosity.</p>
+            <p class="footer-built-with" data-i18n="footer.built">Built with vanilla JS, too much ☕, and a mass of curiosity.</p>
             <p class="footer-copyright">© 2019 - 2026 KevinTen. All rights reserved.</p>
         </div>
     </footer>
@@ -1907,17 +1913,18 @@
     </script>
 
     <!-- Scripts -->
-    <script src="/assets/js/observer-manager.js?v=30" defer></script>
-    <script src="/assets/js/theme.js?v=30" defer></script>
-    <script src="/assets/js/animations.js?v=30" defer></script>
-    <script src="/assets/js/bento-interactions.js?v=30" defer></script>
-    <script src="/assets/js/data-viz.js?v=30" defer></script>
-    <script src="/assets/js/app.js?v=30" defer></script>
-    <script src="/assets/js/mobile-nav.js?v=30" defer></script>
-    <script src="/assets/js/github-stats.js?v=30" defer></script>
-    <script src="/assets/js/project-modal.js?v=30" defer></script>
-    <script src="/assets/js/gallery.js?v=30" defer></script>
-    <script src="/assets/js/hero-effects.js?v=30" defer></script>
-    <script src="/assets/js/skill-galaxy.js?v=30" defer></script>
+    <script src="/assets/js/i18n.js?v=31"></script>
+    <script src="/assets/js/observer-manager.js?v=31" defer></script>
+    <script src="/assets/js/theme.js?v=31" defer></script>
+    <script src="/assets/js/animations.js?v=31" defer></script>
+    <script src="/assets/js/bento-interactions.js?v=31" defer></script>
+    <script src="/assets/js/data-viz.js?v=31" defer></script>
+    <script src="/assets/js/app.js?v=31" defer></script>
+    <script src="/assets/js/mobile-nav.js?v=31" defer></script>
+    <script src="/assets/js/github-stats.js?v=31" defer></script>
+    <script src="/assets/js/project-modal.js?v=31" defer></script>
+    <script src="/assets/js/gallery.js?v=31" defer></script>
+    <script src="/assets/js/hero-effects.js?v=31" defer></script>
+    <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
 </body>
 </html>

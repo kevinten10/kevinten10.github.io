@@ -4,7 +4,7 @@
  * @version 30
  */
 
-const SW_VERSION = '30';
+const SW_VERSION = '31';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,17 +13,18 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=30',
-  '/assets/css/theme.css?v=30',
-  '/assets/js/observer-manager.js?v=30',
-  '/assets/js/app.js?v=30',
-  '/assets/js/theme.js?v=30',
-  '/assets/js/animations.js?v=30',
-  '/assets/js/bento-interactions.js?v=30',
-  '/assets/js/mobile-nav.js?v=30',
-  '/assets/js/github-stats.js?v=30',
-  '/assets/js/project-modal.js?v=30',
-  '/assets/js/gallery.js?v=30',
+  '/assets/css/main.css?v=31',
+  '/assets/css/theme.css?v=31',
+  '/assets/js/observer-manager.js?v=31',
+  '/assets/js/app.js?v=31',
+  '/assets/js/theme.js?v=31',
+  '/assets/js/animations.js?v=31',
+  '/assets/js/bento-interactions.js?v=31',
+  '/assets/js/mobile-nav.js?v=31',
+  '/assets/js/github-stats.js?v=31',
+  '/assets/js/project-modal.js?v=31',
+  '/assets/js/gallery.js?v=31',
+  '/assets/js/i18n.js?v=31',
   '/img/avatar.jpg'
 ];
 
