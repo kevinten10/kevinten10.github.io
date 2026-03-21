@@ -134,6 +134,7 @@
 
     // AI Ecosystem
     'eco.subtitle': '20+ AI Apps · Covering travel, life, learning, tools, creative, and more',
+    'eco.openAll': 'Open All Projects',
     'eco.cat.travel': '🌏 Travel & Outdoor',
     'eco.cat.life': '🏥 Life & Health',
     'eco.cat.learning': '📚 Learning & Finance',

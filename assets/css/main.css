@@ -1794,6 +1794,33 @@ body {
   color: var(--color-text-muted);
 }
 
+.eco-open-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-4);
+  padding: 8px 20px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent, #8B5CF6));
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.eco-open-all-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.45);
+}
+
+.eco-open-all-btn:active {
+  transform: translateY(0);
+}
+
 .ecosystem-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
