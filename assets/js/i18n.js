@@ -248,10 +248,10 @@
     // Contact Section 09
     'contact.desc': 'Open to tech exchanges, collaboration & talent opportunities',
     'contact.availability': "I'm particularly interested in these opportunities:",
-    'contact.interest1': '🚀 Tech Architect / Backend Architect',
-    'contact.interest2': '🤖 AI Application Architecture / AI Infrastructure',
-    'contact.interest3': '☁️ Cloud Native Platform / Multi-Runtime Architecture',
-    'contact.interest4': '🌟 Open Source Projects / Tech Influence Building',
+    'contact.interest1': '🤖 AI Agent App Architecture / AI Native Full-Stack Dev',
+    'contact.interest2': '🐙 AI Agent Ecosystem / MCP Toolchain Building',
+    'contact.interest3': '🏗️ Distributed Systems Architecture / Cloud Native Platform',
+    'contact.interest4': '🌟 Open Source Community / One-Person Company / AI Startup',
 
     // Footer
     'footer.built': 'Built with vanilla JS, too much ☕, and a mass of curiosity.'
