@@ -246,8 +246,8 @@
     'gallery.life': 'Life',
 
     // Contact Section 09
-    'contact.desc': 'Open to tech exchanges, collaboration & talent opportunities',
-    'contact.availability': "I'm particularly interested in these opportunities:",
+    'contact.desc': 'Open to tech exchanges, collaboration & creative partnerships',
+    'contact.availability': "I'm particularly interested in these collaborations:",
     'contact.interest1': '🤖 AI Agent App Architecture / AI Native Full-Stack Dev',
     'contact.interest2': '🐙 AI Agent Ecosystem / MCP Toolchain Building',
     'contact.interest3': '🏗️ Distributed Systems Architecture / Cloud Native Platform',
