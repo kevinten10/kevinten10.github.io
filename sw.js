@@ -4,7 +4,7 @@
  * @version 30
  */
 
-const SW_VERSION = '31';
+const SW_VERSION = '32';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
