@@ -97,7 +97,7 @@
     'exp.mg.h3.text': 'DDD + State Machine pattern refactoring template management, achieving logic isolation and extensibility',
     // AI
     'exp.ai.title': 'AI Exploration & Applications',
-    'exp.ai.period': '2025.2 - Present',
+    'exp.ai.period': '2025.2 - 2026.3',
     'exp.ai.role': 'AI-First Practitioner',
     'exp.ai.team': 'Tech Evangelism',
     'exp.ai.impact': '700+ attendees',
