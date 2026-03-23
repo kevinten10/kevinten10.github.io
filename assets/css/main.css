@@ -1290,6 +1290,40 @@ body {
   margin: 0 auto;
 }
 
+.experience-chapter-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-12) 0;
+  padding-left: 210px;
+}
+
+.chapter-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-secondary), transparent);
+  opacity: 0.5;
+}
+
+.chapter-label {
+  white-space: nowrap;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  letter-spacing: 0.05em;
+  padding: 6px 20px;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 20px;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+@media (max-width: 768px) {
+  .experience-chapter-divider {
+    padding-left: 0;
+    margin: var(--space-8) 0;
+  }
+}
+
 .experience-card {
   display: grid;
   grid-template-columns: 180px 1fr;

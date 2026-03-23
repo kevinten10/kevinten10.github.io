@@ -83,7 +83,7 @@
     'exp.capa.h3.text': 'Dapr api-sig Co-Chair, Layotto Member, contributed 5+ API proposals',
     // Message Gateway
     'exp.mg.title': 'Message Gateway · Enterprise Messaging Platform',
-    'exp.mg.period': '2023.6 - Present',
+    'exp.mg.period': '2023.6 - 2026.3',
     'exp.mg.role': 'Core Developer',
     'exp.mg.team': 'Platform Team',
     'exp.mg.impact': 'Enterprise messaging platform',
@@ -108,6 +108,19 @@
     'exp.ai.h2.text': 'Developed 7 MCP tools (monitoring, DB, analytics, logs, GitLab), hundreds of thousands of invocations',
     'exp.ai.h3.title': 'AI Productization',
     'exp.ai.h3.text': 'Built Code Review, error analysis, slow SQL products on Dify, fully adopted by international business lines',
+    // New Chapter
+    'exp.chapter.new': '🚀 New Chapter',
+    'exp.new.period': '2026.4 - Present',
+    'exp.new.title': 'AI Agent · New Journey',
+    'exp.new.role': 'AI Agent Developer',
+    'exp.new.team': 'AI Native Team',
+    'exp.new.impact': 'Building...',
+    'exp.new.company': 'AI Agent Company',
+    'exp.new.description': 'Fully dedicated to AI Agent product development, integrating hands-on experience from distributed systems, cloud-native architecture, and 30+ AI Agent applications into production-grade AI Agent systems at scale.',
+    'exp.new.h1.title': 'AI Agent Product Dev',
+    'exp.new.h1.text': 'Deeply involved in core AI Agent product architecture design and engineering implementation',
+    'exp.new.h2.title': 'AI Engineering at Scale',
+    'exp.new.h2.text': 'Driving full-lifecycle engineering practices from AI Agent prototypes to production systems',
 
     // Projects Section 03
     'proj.desc': 'Featured Open Source Projects & Contributions',
