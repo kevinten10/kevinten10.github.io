@@ -115,7 +115,7 @@
     'exp.new.role': 'AI Agent Developer',
     'exp.new.team': 'AI Native Team',
     'exp.new.impact': 'Building...',
-    'exp.new.company': 'AI Agent Company',
+    'exp.new.company': 'Global Leading AI Company',
     'exp.new.description': 'Fully dedicated to AI Agent product development, integrating hands-on experience from distributed systems, cloud-native architecture, and 30+ AI Agent applications into production-grade AI Agent systems at scale.',
     'exp.new.h1.title': 'AI Agent Product Dev',
     'exp.new.h1.text': 'Deeply involved in core AI Agent product architecture design and engineering implementation',
