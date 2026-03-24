@@ -270,7 +270,7 @@
     'hobbies.moto': 'Motorcycle',
     'hobbies.moto.note': 'ADV Off-road · Touring',
     'hobbies.travel': 'Travel',
-    'hobbies.travel.note': 'Southeast Asia · Outdoor · Solo',
+    'hobbies.travel.note': 'Traveled across China · Neighboring countries',
     'hobbies.dj': 'DJ / Music',
     'hobbies.dj.note': 'Electronic Music Production',
     'hobbies.print': '3D Printing',

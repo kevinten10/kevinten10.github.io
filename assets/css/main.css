@@ -3889,6 +3889,20 @@ body {
    AI Infra Section
    ============================================ */
 
+.section-illustration {
+  max-width: 700px;
+  margin: 0 auto var(--space-8);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+.section-illustration img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .infra-showcase {
   max-width: 900px;
   margin: 0 auto;
