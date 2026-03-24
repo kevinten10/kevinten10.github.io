@@ -40,9 +40,9 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=32" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=33" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=32">
+    <link rel="stylesheet" href="/assets/css/main.css?v=33">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -1354,7 +1354,101 @@
         </div>
     </section>
 
-    <!-- Section Bridge: Tech Stack → Contributions -->
+    <!-- Section Bridge: Tech Stack → AI Infra -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--dots">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
+    <!-- AI Infra Section -->
+    <section class="section section-spacious" id="ai-infra">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-idx">04.5</span>
+                <h2 class="section-title" data-i18n="infra.title">AI Infra</h2>
+                <p class="section-description" data-i18n="infra.desc">从零训练大模型 · 全链路 AI 基础设施实践</p>
+            </div>
+
+            <!-- ikun-llm Showcase -->
+            <div class="infra-showcase animate-on-scroll">
+                <div class="infra-hero-card">
+                    <div class="infra-hero-header">
+                        <div class="infra-hero-icon">🐔</div>
+                        <div>
+                            <h3 class="infra-hero-name">
+                                <a href="https://github.com/ikun-llm" target="_blank" rel="noopener noreferrer">ikun-llm</a>
+                            </h3>
+                            <p class="infra-hero-tagline" data-i18n="infra.ikun.tagline">从零训练大语言模型 · 全流程 · 10 个仓库</p>
+                        </div>
+                        <a href="https://github.com/ikun-llm/ikun-2.5B" target="_blank" rel="noopener noreferrer" class="infra-github-link">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        </a>
+                    </div>
+                    <p class="infra-hero-desc" data-i18n="infra.ikun.desc">
+                        练习时长两年半的 AI 大模型训练项目。覆盖分词器训练、预训练、偏好对齐、强化学习、推理、混合专家、知识蒸馏、多模态到部署的完整 LLM 训练流程。
+                    </p>
+
+                    <!-- Pipeline Flow -->
+                    <div class="infra-pipeline">
+                        <a href="https://github.com/ikun-llm/ikun-basics" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #94A3B8;">
+                            <span class="pipeline-icon">📖</span>
+                            <span class="pipeline-name">Basics</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-tokenizer" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #F59E0B;">
+                            <span class="pipeline-icon">🔤</span>
+                            <span class="pipeline-name">Tokenizer</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-pretrain" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #3B82F6;">
+                            <span class="pipeline-icon">📚</span>
+                            <span class="pipeline-name">Pretrain</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-DPO" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #10B981;">
+                            <span class="pipeline-icon">👍</span>
+                            <span class="pipeline-name">DPO</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-GRPO" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #8B5CF6;">
+                            <span class="pipeline-icon">🎮</span>
+                            <span class="pipeline-name">GRPO</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-Reason" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #EC4899;">
+                            <span class="pipeline-icon">🧠</span>
+                            <span class="pipeline-name">Reason</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-MoE" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #F97316;">
+                            <span class="pipeline-icon">🧩</span>
+                            <span class="pipeline-name">MoE</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-Distill" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #06B6D4;">
+                            <span class="pipeline-icon">🎓</span>
+                            <span class="pipeline-name">Distill</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-V" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #EF4444;">
+                            <span class="pipeline-icon">👁️</span>
+                            <span class="pipeline-name">VLM</span>
+                        </a>
+                        <span class="pipeline-arrow">→</span>
+                        <a href="https://github.com/ikun-llm/ikun-deploy" target="_blank" rel="noopener noreferrer" class="pipeline-step" style="--step-color: #22D3EE;">
+                            <span class="pipeline-icon">🚀</span>
+                            <span class="pipeline-name">Deploy</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Bridge: AI Infra → Contributions -->
     <div class="section-bridge" aria-hidden="true">
         <div class="bridge-line"></div>
         <div class="bridge-accent bridge-accent--dots">
@@ -1828,7 +1922,70 @@
         </div>
     </section>
 
-    <!-- Section Bridge: Gallery → Contact -->
+    <!-- Section Bridge: Gallery → Hobbies -->
+    <div class="section-bridge" aria-hidden="true">
+        <div class="bridge-line"></div>
+        <div class="bridge-accent bridge-accent--dots">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="bridge-line"></div>
+    </div>
+
+    <!-- Hobbies Section -->
+    <section class="section section-spacious" id="hobbies">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-idx">✨</span>
+                <h2 class="section-title" data-i18n="hobbies.title">兴趣爱好</h2>
+                <p class="section-description" data-i18n="hobbies.desc">代码之外的世界</p>
+            </div>
+
+            <div class="hobbies-grid animate-on-scroll">
+                <div class="hobby-card" style="--hobby-color: #EF4444;">
+                    <span class="hobby-icon">🏍️</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.moto">摩托骑行</h4>
+                    <p class="hobby-note" data-i18n="hobbies.moto.note">ADV 越野 · 长途骑行</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #3B82F6;">
+                    <span class="hobby-icon">✈️</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.travel">旅行探索</h4>
+                    <p class="hobby-note" data-i18n="hobbies.travel.note">东南亚 · 户外 · 自由行</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #8B5CF6;">
+                    <span class="hobby-icon">🎵</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.dj">DJ / 音乐</h4>
+                    <p class="hobby-note" data-i18n="hobbies.dj.note">电子音乐制作</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #F59E0B;">
+                    <span class="hobby-icon">🖨️</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.print">3D 打印</h4>
+                    <p class="hobby-note" data-i18n="hobbies.print.note">模型设计 · 创客</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #10B981;">
+                    <span class="hobby-icon">📸</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.photo">摄影</h4>
+                    <p class="hobby-note" data-i18n="hobbies.photo.note">旅拍 · 街拍</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #EC4899;">
+                    <span class="hobby-icon">🐕</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.pet">宠物</h4>
+                    <p class="hobby-note" data-i18n="hobbies.pet.note">铲屎官 · 遛狗达人</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #06B6D4;">
+                    <span class="hobby-icon">🎣</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.fish">钓鱼</h4>
+                    <p class="hobby-note" data-i18n="hobbies.fish.note">路亚 · 海钓</p>
+                </div>
+                <div class="hobby-card" style="--hobby-color: #F97316;">
+                    <span class="hobby-icon">🎤</span>
+                    <h4 class="hobby-name" data-i18n="hobbies.host">主持</h4>
+                    <p class="hobby-note" data-i18n="hobbies.host.note">活动主持 · 校友会</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Bridge: Hobbies → Contact -->
     <div class="section-bridge" aria-hidden="true">
         <div class="bridge-line"></div>
         <div class="bridge-accent bridge-accent--dots">

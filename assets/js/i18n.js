@@ -251,12 +251,38 @@
     'writing.dao.title': 'Compiling the Dao · AI Cultivation Novel',
     'writing.dao.excerpt': 'Programmer cultivation worldview, the Dao is source code. AI-assisted novel serializing on Fanqie Novel.',
 
+    // AI Infra
+    'infra.title': 'AI Infra',
+    'infra.desc': 'Training LLMs from Scratch · Full-pipeline AI Infrastructure',
+    'infra.ikun.tagline': 'LLM Training from Scratch · Full Pipeline · 10 Repos',
+    'infra.ikun.desc': 'A hands-on LLM training project covering the complete pipeline: tokenizer, pretraining, preference alignment (DPO), reinforcement learning (GRPO), reasoning (CoT), Mixture of Experts, knowledge distillation, vision-language model, and deployment.',
+
     // Gallery Section 08
     'gallery.title': 'Gallery',
     'gallery.desc': 'Recording tech growth & life moments',
     'gallery.all': 'All',
     'gallery.professional': 'Professional',
     'gallery.life': 'Life',
+
+    // Hobbies
+    'hobbies.title': 'Hobbies',
+    'hobbies.desc': 'Life Beyond Code',
+    'hobbies.moto': 'Motorcycle',
+    'hobbies.moto.note': 'ADV Off-road · Touring',
+    'hobbies.travel': 'Travel',
+    'hobbies.travel.note': 'Southeast Asia · Outdoor · Solo',
+    'hobbies.dj': 'DJ / Music',
+    'hobbies.dj.note': 'Electronic Music Production',
+    'hobbies.print': '3D Printing',
+    'hobbies.print.note': 'Model Design · Maker',
+    'hobbies.photo': 'Photography',
+    'hobbies.photo.note': 'Travel · Street',
+    'hobbies.pet': 'Pets',
+    'hobbies.pet.note': 'Dog Parent · Walker',
+    'hobbies.fish': 'Fishing',
+    'hobbies.fish.note': 'Lure · Sea Fishing',
+    'hobbies.host': 'Hosting',
+    'hobbies.host.note': 'Events · Alumni',
 
     // Contact Section 09
     'contact.desc': 'Open to tech exchanges, collaboration & creative partnerships',

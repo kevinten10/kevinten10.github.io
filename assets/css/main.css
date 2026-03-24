@@ -3886,6 +3886,205 @@ body {
 }
 
 /* ============================================
+   AI Infra Section
+   ============================================ */
+
+.infra-showcase {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.infra-hero-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+}
+
+.infra-hero-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.infra-hero-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.infra-hero-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.infra-hero-name a {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.infra-hero-name a:hover {
+  color: var(--color-primary);
+}
+
+.infra-hero-tagline {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.infra-github-link {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+.infra-github-link:hover {
+  color: var(--color-primary);
+}
+
+.infra-hero-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+.infra-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-4);
+  background: rgba(99, 102, 241, 0.04);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.pipeline-step:hover {
+  border-color: var(--step-color, var(--color-primary));
+  color: var(--step-color, var(--color-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pipeline-icon {
+  font-size: 14px;
+}
+
+.pipeline-arrow {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .infra-hero-card {
+    padding: var(--space-5);
+  }
+
+  .infra-hero-icon {
+    font-size: 2rem;
+  }
+
+  .infra-pipeline {
+    gap: 4px;
+    padding: var(--space-3);
+  }
+
+  .pipeline-step {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .pipeline-arrow {
+    font-size: 10px;
+  }
+}
+
+/* ============================================
+   Hobbies Section
+   ============================================ */
+
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hobby-card {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: center;
+  transition: all var(--transition-base);
+  cursor: default;
+}
+
+.hobby-card:hover {
+  border-color: var(--hobby-color, var(--color-primary));
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.hobby-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.hobby-name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.hobby-note {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .hobbies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .hobby-card {
+    padding: var(--space-4);
+  }
+
+  .hobby-icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============================================
    Contact Section
    ============================================ */
 
