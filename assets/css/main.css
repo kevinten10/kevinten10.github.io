@@ -3163,6 +3163,8 @@ body {
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
 .award-card::before {
@@ -3901,6 +3903,57 @@ body {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Inline illustration merged into card */
+.infra-hero-card > .card-illustration-inline {
+  margin: calc(-1 * var(--space-8)) calc(-1 * var(--space-8)) var(--space-6);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  overflow: hidden;
+  max-height: 180px;
+}
+
+.infra-hero-card > .card-illustration-inline img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+}
+
+/* Hobbies inline illustration */
+.hobbies-illustration-inline {
+  max-width: 900px;
+  margin: 0 auto var(--space-6);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  max-height: 160px;
+}
+
+.hobbies-illustration-inline img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .infra-hero-card > .card-illustration-inline {
+    max-height: 120px;
+  }
+
+  .infra-hero-card > .card-illustration-inline img {
+    height: 120px;
+  }
+
+  .hobbies-illustration-inline {
+    max-height: 100px;
+  }
+
+  .hobbies-illustration-inline img {
+    height: 100px;
+  }
 }
 
 .infra-showcase {
