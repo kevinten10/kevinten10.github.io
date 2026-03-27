@@ -18,6 +18,8 @@
     'nav.projects': 'Projects',
     'nav.tech': 'Tech Stack',
     'nav.contributions': 'Open Source',
+    'nav.awards': 'Awards',
+    'nav.writing': 'Writing',
     'nav.gallery': 'Gallery',
     'nav.contact': 'Contact',
 
@@ -234,12 +236,20 @@
     'awards.arch.title': 'Architecture Committee Outstanding Individual',
     'awards.arch.project': 'Enterprise Hybrid Cloud Middleware',
     'awards.arch.label': 'Core Architect',
+    'awards.spotlight.title': 'Trip.com Group Employee Spotlight',
+    'awards.spotlight.project': 'Official LinkedIn Employee Feature',
+    'awards.spotlight.label': 'Corporate Recognition',
     'awards.badge.hackathon': 'Hackathon Awards',
     'awards.badge.annual': 'Annual Awards',
     'awards.badge.audience': 'AI Talk Attendees',
     'awards.badge.meetup': 'Tech Meetups',
 
-    // Writing Section 07
+    // Social Groups
+    'social.dev': 'Dev & AI',
+    'social.blog': 'Blog & Writing',
+    'social.social': 'Social',
+
+    // Writing Section 08
     'writing.title': 'Published Articles',
     'writing.desc': 'Technical Articles & Practice Sharing',
     'writing.reactive.title': 'Reactive Pattern Practice on an OTA Messaging Platform',
