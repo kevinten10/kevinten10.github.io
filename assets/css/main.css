@@ -1857,7 +1857,7 @@ body {
 
 .ecosystem-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-6);
 }
 
@@ -1983,6 +1983,12 @@ body {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .ecosystem-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .ecosystem-grid {
     grid-template-columns: 1fr;
