@@ -180,7 +180,7 @@
     'eco.2077.desc': 'Dispatches from the Future News',
     'eco.fish.desc': 'Pixel-style Fishing Simulator',
     'eco.yuanjie.desc': 'AI Technology & Application Innovation',
-    'eco.aiideas.desc': 'AI Creative Ideas Collection',
+    'eco.aiideas.desc': '35+ AI Product Incubator',
     'eco.rag.desc': 'RAG Retrieval-Augmented Generation Platform',
     'eco.hotel.desc': 'Browser-Use AI Agent for Hotels',
     'eco.deepresearch.desc': 'Mini Deep Research Agent',
