@@ -131,7 +131,7 @@
     'proj.dubbo.desc': 'Java implementation of Apache Dubbo. A high-performance RPC and microservices framework widely used in large-scale distributed systems.',
     'proj.dapr.desc': 'Portable runtime for building distributed apps across cloud and edge, combining event-driven architecture with workflow orchestration.',
     'proj.layotto.desc': 'Fast and efficient cloud-native application runtime, providing distributed capability abstraction for applications.',
-    'proj.capabff.desc': '[Hackathon] Zero-cost BFF solution - Gold Award at 2021 Hackathon.',
+    'proj.openclaw.desc': 'Your own personal AI assistant. Any OS. Any Platform.',
     'proj.octopus.desc': 'Realm-native life intelligence system. Organize life by domains, summon everything as AI Agents with memory and personality.',
     'proj.aitools.desc': 'Comprehensive AI development tool selection guide, covering SWOT analysis and real-world data for 30+ tools.',
     'proj.trip.desc': 'Multi-Agent intelligent travel planning assistant, using AI to generate personalized itineraries.',
