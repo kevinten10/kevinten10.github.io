@@ -32,10 +32,15 @@
   }
 
   function getSessionId() {
-    var id = localStorage.getItem(CONFIG.sessionKey);
-    if (!id) {
+    var id = '';
+    try {
+      id = localStorage.getItem(CONFIG.sessionKey) || '';
+      if (!id) {
+        id = generateUUID();
+        localStorage.setItem(CONFIG.sessionKey, id);
+      }
+    } catch (e) {
       id = generateUUID();
-      localStorage.setItem(CONFIG.sessionKey, id);
     }
     return id;
   }
