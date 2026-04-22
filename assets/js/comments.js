@@ -39,12 +39,19 @@
       return;
     }
 
-    cloudbase.init({ env: CONFIG.envId });
-    state.auth = cloudbase.auth();
-    state.db = cloudbase.database();
+    try {
+      cloudbase.init({ env: CONFIG.envId });
+      state.auth = cloudbase.auth();
+      state.db = cloudbase.database();
+    } catch (err) {
+      container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '评论系统加载失败，请刷新页面重试')) + '</p>';
+      return;
+    }
 
     signInAnonymous().then(function() {
       loadComments();
+    }).catch(function() {
+      // Anonymous login failed; form will show error on submit
     });
 
     renderForm(container);
@@ -54,8 +61,6 @@
   function signInAnonymous() {
     return state.auth.signInAnonymously().then(function(res) {
       state.user = res;
-    }).catch(function(err) {
-      console.error('[Comments] Anonymous login failed:', err);
     });
   }
 
@@ -76,8 +81,7 @@
       .then(function() {
         renderComments(container);
       })
-      .catch(function(err) {
-        console.error('[Comments] Load failed:', err);
+      .catch(function() {
         container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '加载失败，请稍后重试')) + '</p>';
       });
   }
