@@ -314,6 +314,19 @@
     // Comments Section
     'comments.title': 'Comments',
     'comments.desc': 'Share your thoughts and suggestions',
+    'comments.loading': 'Loading...',
+    'comments.empty': 'No comments yet. Be the first!',
+    'comments.error.load': 'Failed to load. Please try again later.',
+    'comments.error.submit': 'Submission failed. Please try again.',
+    'comments.error.rateLimit': 'Too frequent. Please wait a moment.',
+    'comments.error.notLoggedIn': 'Not logged in',
+    'comments.hint.markdown': 'Markdown supported',
+    'comments.submit': 'Post Comment',
+    'comments.reply': 'Reply',
+    'comments.reply.submit': 'Post Reply',
+    'comments.placeholder': 'Write your comment...',
+    'comments.reply.placeholder': 'Reply...',
+    'comments.guest': 'Guest',
 
     // Footer
     'footer.built': 'Built with vanilla JS, too much ☕, and a mass of curiosity.'
@@ -328,7 +341,20 @@
     'ai.suggested1': '什么是 OpenOctopus？',
     'ai.suggested2': '告诉我 KevinTen 的技术栈',
     'ai.suggested3': '什么是多运行时架构？',
-    'ai.error': '抱歉，我遇到了错误。请稍后再试。'
+    'ai.error': '抱歉，我遇到了错误。请稍后再试。',
+    'comments.loading': '加载中...',
+    'comments.empty': '暂无留言，来写第一条吧！',
+    'comments.error.load': '加载失败，请稍后重试',
+    'comments.error.submit': '提交失败',
+    'comments.error.rateLimit': '提交太频繁，请稍后再试',
+    'comments.error.notLoggedIn': '未登录',
+    'comments.hint.markdown': '支持 Markdown 语法',
+    'comments.submit': '提交留言',
+    'comments.reply': '回复',
+    'comments.reply.submit': '提交回复',
+    'comments.placeholder': '写下你的留言...',
+    'comments.reply.placeholder': '回复...',
+    'comments.guest': '访客'
   };
 
   function saveChinese() {

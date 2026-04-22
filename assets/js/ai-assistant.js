@@ -102,6 +102,28 @@
     return fallback;
   }
 
+  function getFocusableElements(drawer) {
+    return drawer.querySelectorAll('.ai-close, .ai-suggested-chip, .ai-input, .ai-send');
+  }
+
+  function trapFocus(e) {
+    if (!state.open || e.key !== 'Tab') return;
+    var drawer = document.getElementById('ai-drawer');
+    var focusable = Array.prototype.slice.call(getFocusableElements(drawer)).filter(function(el) {
+      return !el.disabled && el.offsetParent !== null;
+    });
+    if (focusable.length === 0) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+
   function bindEvents() {
     var fab = document.getElementById('ai-fab');
     var drawer = document.getElementById('ai-drawer');
@@ -140,6 +162,7 @@
       if (e.key === 'Escape' && state.open) {
         close();
       }
+      trapFocus(e);
     });
   }
 

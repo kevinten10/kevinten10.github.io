@@ -10,7 +10,6 @@
     envId: 'ai-native-2gknzsob14f42138',
     collection: 'comments',
     pageId: '/',
-    apiEndpoint: 'https://kevinten.com/trackView',
     maxLength: 1000,
     rateLimitMs: 30000
   };
@@ -24,12 +23,19 @@
     lastSubmitTime: 0
   };
 
+  function getI18nText(key, fallback) {
+    if (typeof I18n !== 'undefined' && I18n.get) {
+      return I18n.get(key) || fallback;
+    }
+    return fallback;
+  }
+
   function init() {
     var container = document.getElementById('comments-container');
     if (!container) return;
 
     if (typeof cloudbase === 'undefined') {
-      container.innerHTML = '<p class="comments-error">评论系统加载失败，请刷新页面重试</p>';
+      container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '评论系统加载失败，请刷新页面重试')) + '</p>';
       return;
     }
 
@@ -56,7 +62,7 @@
     var container = document.getElementById('comments-list');
     if (!container) return;
 
-    container.innerHTML = '<p class="comments-loading">加载中...</p>';
+    container.innerHTML = '<p class="comments-loading">' + escapeHtml(getI18nText('comments.loading', '加载中...')) + '</p>';
 
     state.db.collection(CONFIG.collection)
       .where({ pageId: CONFIG.pageId, parentId: null })
@@ -71,7 +77,7 @@
       })
       .catch(function(err) {
         console.error('[Comments] Load failed:', err);
-        container.innerHTML = '<p class="comments-error">加载失败，请稍后重试</p>';
+        container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '加载失败，请稍后重试')) + '</p>';
       });
   }
 
@@ -95,7 +101,7 @@
 
   function renderComments(container) {
     if (!state.comments.length) {
-      container.innerHTML = '<p class="comments-empty">暂无留言，来写第一条吧！</p>';
+      container.innerHTML = '<p class="comments-empty">' + escapeHtml(getI18nText('comments.empty', '暂无留言，来写第一条吧！')) + '</p>';
       return;
     }
 
@@ -109,9 +115,9 @@
   function renderCommentItem(comment, isReply) {
     isReply = isReply || false;
     var date = formatDate(comment.createdAt);
-    var authorName = escapeHtml(comment.author?.name || '访客');
+    var authorName = escapeHtml(comment.author && comment.author.name ? comment.author.name : getI18nText('comments.guest', '访客'));
     var content = renderMarkdown(comment.content || '');
-    var replyBtn = isReply ? '' : '<button class="comment-reply-btn" data-id="' + comment._id + '">回复</button>';
+    var replyBtn = isReply ? '' : '<button class="comment-reply-btn" data-id="' + comment._id + '">' + escapeHtml(getI18nText('comments.reply', '回复')) + '</button>';
     var repliesHtml = '';
 
     if (!isReply && comment.replies && comment.replies.length) {
@@ -141,10 +147,10 @@
     wrapper.className = 'comments-form-wrapper';
     wrapper.innerHTML =
       '<div class="comments-form">' +
-        '<textarea class="comments-input" placeholder="写下你的留言..." maxlength="' + CONFIG.maxLength + '"></textarea>' +
+        '<textarea class="comments-input" placeholder="' + escapeHtml(getI18nText('comments.placeholder', '写下你的留言...')) + '" maxlength="' + CONFIG.maxLength + '"></textarea>' +
         '<div class="comments-form-footer">' +
-          '<span class="comments-hint">支持 Markdown 语法</span>' +
-          '<button class="comments-submit btn btn-primary">提交留言</button>' +
+          '<span class="comments-hint">' + escapeHtml(getI18nText('comments.hint.markdown', '支持 Markdown 语法')) + '</span>' +
+          '<button class="comments-submit btn btn-primary">' + escapeHtml(getI18nText('comments.submit', '提交留言')) + '</button>' +
         '</div>' +
       '</div>';
 
@@ -175,7 +181,7 @@
 
     if (!content) return;
     if (!checkRateLimit()) {
-      alert('提交太频繁，请稍后再试');
+      alert(getI18nText('comments.error.rateLimit', '提交太频繁，请稍后再试'));
       return;
     }
 
@@ -186,7 +192,7 @@
       loadComments();
     }, function(err) {
       state.submitting = false;
-      alert('提交失败: ' + (err.message || '未知错误'));
+      alert(getI18nText('comments.error.submit', '提交失败') + ': ' + (err.message || ''));
     });
   }
 
@@ -202,8 +208,8 @@
     form.className = 'reply-form';
     form.dataset.parent = id;
     form.innerHTML =
-      '<textarea class="reply-input" placeholder="回复..." maxlength="' + CONFIG.maxLength + '"></textarea>' +
-      '<button class="comment-reply-submit btn btn-sm btn-primary" data-parent="' + id + '">提交回复</button>';
+      '<textarea class="reply-input" placeholder="' + escapeHtml(getI18nText('comments.reply.placeholder', '回复...')) + '" maxlength="' + CONFIG.maxLength + '"></textarea>' +
+      '<button class="comment-reply-submit btn btn-sm btn-primary" data-parent="' + id + '">' + escapeHtml(getI18nText('comments.reply.submit', '提交回复')) + '</button>';
 
     btn.parentNode.appendChild(form);
     form.querySelector('.reply-input').focus();
@@ -217,7 +223,7 @@
 
     if (!content) return;
     if (!checkRateLimit()) {
-      alert('提交太频繁，请稍后再试');
+      alert(getI18nText('comments.error.rateLimit', '提交太频繁，请稍后再试'));
       return;
     }
 
@@ -225,13 +231,13 @@
       form.remove();
       loadComments();
     }, function(err) {
-      alert('提交失败: ' + (err.message || '未知错误'));
+      alert(getI18nText('comments.error.submit', '提交失败') + ': ' + (err.message || ''));
     });
   }
 
   function submitComment(content, parentId, onSuccess, onError) {
     if (!state.user) {
-      onError(new Error('未登录'));
+      onError(new Error(getI18nText('comments.error.notLoggedIn', '未登录')));
       return;
     }
 
@@ -241,7 +247,7 @@
       content: content,
       author: {
         uid: state.user.uid || 'anonymous',
-        name: '访客',
+        name: getI18nText('comments.guest', '访客'),
         loginType: 'anonymous'
       },
       status: 'approved',
@@ -287,7 +293,13 @@
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(_, linkText, url) {
+        var safeUrl = url.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+        if (/^https?:\/\//.test(safeUrl) || safeUrl.startsWith('/') || safeUrl.startsWith('#') || safeUrl.startsWith('mailto:')) {
+          return '<a href="' + escapeHtml(safeUrl) + '" target="_blank" rel="noopener noreferrer">' + linkText + '</a>';
+        }
+        return linkText + ' (' + url + ')';
+      });
 
     return html.replace(/\n/g, '<br>');
   }
