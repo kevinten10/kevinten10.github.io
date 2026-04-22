@@ -189,6 +189,8 @@
     var fab = document.getElementById('ai-fab');
     drawer.classList.remove('open');
     fab.setAttribute('aria-expanded', 'false');
+    fab.focus();
+    hideTyping();
   }
 
   function sendMessage(text) {
