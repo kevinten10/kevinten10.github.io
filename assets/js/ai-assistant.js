@@ -87,7 +87,7 @@
 
     var welcomeText = getI18nText('ai.welcome', "Hi! I'm KevinTen's AI assistant. Ask me about his projects, tech stack, or experience.");
 
-    var html = '<div class="ai-message ai-message-bot">' +
+    var html = '<div class="ai-message ai-message-bot" id="ai-welcome">' +
       '<div class="ai-message-content">' + escapeHtml(welcomeText) + '</div>' +
       '</div>';
 
@@ -143,7 +143,7 @@
       var title = document.getElementById('ai-title');
       if (title) title.textContent = getI18nText('ai.title', 'AI Assistant');
       if (input) input.placeholder = getI18nText('ai.placeholder', 'Type your question...');
-      var welcome = document.querySelector('.ai-message-bot .ai-message-content');
+      var welcome = document.querySelector('#ai-welcome .ai-message-content');
       if (welcome) welcome.textContent = getI18nText('ai.welcome', "Hi! I'm KevinTen's AI assistant. Ask me about his projects, tech stack, or experience.");
       var chips = document.querySelectorAll('.ai-suggested-chip');
       for (var i = 0; i < chips.length; i++) {
