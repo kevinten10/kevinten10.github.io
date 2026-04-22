@@ -302,6 +302,15 @@
     'contact.interest3': '🏗️ Distributed Systems Architecture / Cloud Native Platform',
     'contact.interest4': '🌟 Open Source Community / One-Person Company / AI Startup',
 
+    // AI Assistant
+    'ai.title': 'AI Assistant',
+    'ai.placeholder': 'Type your question...',
+    'ai.welcome': "Hi! I'm KevinTen's AI assistant. Ask me about his projects, tech stack, or experience.",
+    'ai.suggested1': 'What is OpenOctopus?',
+    'ai.suggested2': "Tell me about KevinTen's tech stack",
+    'ai.suggested3': 'What is multi-runtime architecture?',
+    'ai.error': 'Sorry, I encountered an error. Please try again.',
+
     // Comments Section
     'comments.title': 'Comments',
     'comments.desc': 'Share your thoughts and suggestions',
@@ -311,7 +320,16 @@
   };
 
   // Store original Chinese text for restoration
-  var originalTexts = {};
+  // Pre-populate dynamic widget keys so language toggle works for rendered content
+  var originalTexts = {
+    'ai.title': 'AI 助手',
+    'ai.placeholder': '输入你的问题...',
+    'ai.welcome': '你好！我是 KevinTen 的 AI 助手。可以问我关于他的项目、技术栈或经验的问题。',
+    'ai.suggested1': '什么是 OpenOctopus？',
+    'ai.suggested2': '告诉我 KevinTen 的技术栈',
+    'ai.suggested3': '什么是多运行时架构？',
+    'ai.error': '抱歉，我遇到了错误。请稍后再试。'
+  };
 
   function saveChinese() {
     var els = document.querySelectorAll('[data-i18n]');
@@ -323,6 +341,17 @@
     }
   }
 
+  function getText(key, fallback) {
+    var current = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+    if (current === 'en' && EN[key]) {
+      return EN[key];
+    }
+    if (current === 'zh' && originalTexts[key]) {
+      return originalTexts[key];
+    }
+    return fallback !== undefined ? fallback : key;
+  }
+
   function applyLang(lang) {
     var els = document.querySelectorAll('[data-i18n]');
     for (var i = 0; i < els.length; i++) {
@@ -331,6 +360,17 @@
         els[i].textContent = EN[key];
       } else if (lang === 'zh' && originalTexts[key]) {
         els[i].textContent = originalTexts[key];
+      }
+    }
+
+    // Handle placeholders
+    var placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var p = 0; p < placeholders.length; p++) {
+      var pKey = placeholders[p].getAttribute('data-i18n-placeholder');
+      if (lang === 'en' && EN[pKey]) {
+        placeholders[p].placeholder = EN[pKey];
+      } else if (lang === 'zh' && originalTexts[pKey]) {
+        placeholders[p].placeholder = originalTexts[pKey];
       }
     }
 
@@ -365,5 +405,5 @@
     init();
   }
 
-  window.I18n = { toggle: toggle };
+  window.I18n = { toggle: toggle, get: getText };
 })();
