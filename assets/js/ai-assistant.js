@@ -258,6 +258,9 @@
 
   function addMessage(role, content) {
     state.messages.push({ role: role, content: content });
+    if (state.messages.length > CONFIG.maxHistory * 2) {
+      state.messages = state.messages.slice(-CONFIG.maxHistory * 2);
+    }
     var container = document.getElementById('ai-messages');
     var div = document.createElement('div');
     div.className = 'ai-message ai-message-' + (role === 'user' ? 'user' : 'bot');
