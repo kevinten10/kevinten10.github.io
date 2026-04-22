@@ -56,6 +56,12 @@
 
     renderForm(container);
     bindEvents(container);
+
+    document.addEventListener('langchange', function() {
+      renderForm(container);
+      var list = document.getElementById('comments-list');
+      if (list) renderComments(list);
+    });
   }
 
   function signInAnonymous() {
@@ -146,7 +152,15 @@
 
   function renderForm(container) {
     var existing = container.querySelector('.comments-form-wrapper');
-    if (existing) return;
+    if (existing) {
+      var input = existing.querySelector('.comments-input');
+      var hint = existing.querySelector('.comments-hint');
+      var btn = existing.querySelector('.comments-submit');
+      if (input) input.placeholder = getI18nText('comments.placeholder', '写下你的留言...');
+      if (hint) hint.textContent = getI18nText('comments.hint.markdown', '支持 Markdown 语法');
+      if (btn) btn.textContent = getI18nText('comments.submit', '提交留言');
+      return;
+    }
 
     var wrapper = document.createElement('div');
     wrapper.className = 'comments-form-wrapper';

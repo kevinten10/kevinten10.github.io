@@ -408,6 +408,12 @@
     for (var j = 0; j < toggles.length; j++) {
       toggles[j].textContent = lang === 'en' ? '中文' : 'EN';
     }
+
+    // Notify other modules
+    try {
+      var event = new CustomEvent('langchange', { detail: { lang: lang } });
+      document.dispatchEvent(event);
+    } catch (e) {}
   }
 
   function toggle() {

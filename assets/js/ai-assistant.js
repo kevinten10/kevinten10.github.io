@@ -139,6 +139,23 @@
     fab.addEventListener('click', toggle);
     closeBtn.addEventListener('click', close);
 
+    document.addEventListener('langchange', function() {
+      var title = document.getElementById('ai-title');
+      if (title) title.textContent = getI18nText('ai.title', 'AI Assistant');
+      if (input) input.placeholder = getI18nText('ai.placeholder', 'Type your question...');
+      var welcome = document.querySelector('.ai-message-bot .ai-message-content');
+      if (welcome) welcome.textContent = getI18nText('ai.welcome', "Hi! I'm KevinTen's AI assistant. Ask me about his projects, tech stack, or experience.");
+      var chips = document.querySelectorAll('.ai-suggested-chip');
+      for (var i = 0; i < chips.length; i++) {
+        var q = CONFIG.suggestedQuestions[i];
+        if (q) {
+          var text = getI18nText(q.key, q.text);
+          chips[i].textContent = text;
+          chips[i].dataset.text = text;
+        }
+      }
+    });
+
     drawer.addEventListener('click', function(e) {
       if (e.target.classList.contains('ai-suggested-chip')) {
         var text = e.target.dataset.text;
