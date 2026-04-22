@@ -9,7 +9,7 @@
   var CONFIG = {
     envId: 'ai-native-2gknzsob14f42138',
     collection: 'comments',
-    pageId: '/',
+    pageId: window.location.pathname || '/',
     maxLength: 1000,
     rateLimitMs: 30000
   };
@@ -39,8 +39,9 @@
       return;
     }
 
-    state.auth = cloudbase.auth({ env: CONFIG.envId });
-    state.db = cloudbase.database({ env: CONFIG.envId });
+    cloudbase.init({ env: CONFIG.envId });
+    state.auth = cloudbase.auth();
+    state.db = cloudbase.database();
 
     signInAnonymous().then(function() {
       loadComments();
