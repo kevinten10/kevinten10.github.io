@@ -212,6 +212,17 @@
   }
 }
 
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .comment-reply-btn,
+  .comment-reply-submit,
+  .comments-submit,
+  .comments-input,
+  .reply-input {
+    transition: none;
+  }
+}
+
 /* Light theme adjustments */
 [data-theme="light"] .comment-body code,
 [data-theme="light"] .comment-body pre {

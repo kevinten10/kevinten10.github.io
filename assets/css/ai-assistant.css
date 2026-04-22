@@ -255,6 +255,22 @@
   }
 }
 
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .ai-fab,
+  .ai-drawer,
+  .ai-close,
+  .ai-suggested-chip,
+  .ai-send {
+    transition: none;
+  }
+
+  .ai-typing-indicator span {
+    animation: none;
+    transform: scale(1);
+  }
+}
+
 /* Light theme adjustments */
 [data-theme="light"] .ai-message-bot .ai-message-content {
   background: var(--color-bg-secondary, #F1F5F9);
