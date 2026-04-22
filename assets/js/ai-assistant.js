@@ -8,7 +8,8 @@
   'use strict';
 
   var CONFIG = {
-    endpoint: 'https://kevinten.com/aiChat',
+    envId: 'ai-native-2gknzsob14f42138',
+    functionName: 'aiChat',
     sessionKey: 'kevinten-ai-session',
     maxHistory: 10,
     suggestedQuestions: [
@@ -27,6 +28,13 @@
 
   function init() {
     state.sessionId = getSessionId();
+    if (typeof cloudbase !== 'undefined') {
+      try {
+        cloudbase.init({ env: CONFIG.envId });
+      } catch (e) {
+        // SDK may already be initialized
+      }
+    }
     renderWidget();
     bindEvents();
   }
@@ -233,25 +241,28 @@
     });
     messages.push({ role: 'user', content: text });
 
-    fetch(CONFIG.endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: messages, sessionId: state.sessionId, uid: 'anonymous' })
-    })
-    .then(function(res) { return res.json(); })
-    .then(function(data) {
+    if (typeof cloudbase === 'undefined') {
       hideTyping();
       state.loading = false;
+      addMessage('assistant', getI18nText('ai.error', 'Sorry, I encountered an error. Please try again.'));
+      return;
+    }
+
+    cloudbase.callFunction({
+      name: CONFIG.functionName,
+      data: { messages: messages, sessionId: state.sessionId, uid: 'anonymous' }
+    }).then(function(res) {
+      hideTyping();
+      state.loading = false;
+      var data = res.result || {};
       if (data.success && data.data && data.data.content) {
         addMessage('assistant', data.data.content);
       } else {
         addMessage('assistant', getI18nText('ai.error', 'Sorry, I encountered an error. Please try again.'));
       }
-    })
-    .catch(function(err) {
+    }).catch(function() {
       hideTyping();
       state.loading = false;
-      console.error('[AI Assistant] API error:', err);
       addMessage('assistant', getI18nText('ai.error', 'Sorry, I encountered an error. Please try again.'));
     });
   }

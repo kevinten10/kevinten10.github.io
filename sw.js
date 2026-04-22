@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 30
+ * @version 34
  */
 
-const SW_VERSION = '33';
+const SW_VERSION = '34';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -28,8 +28,8 @@ const PRECACHE_ASSETS = [
   '/assets/js/gallery.js?v=31',
   '/assets/js/i18n.js?v=31',
   '/assets/js/comments.js?v=1',
-  '/assets/js/analytics.js?v=1',
-  '/assets/js/ai-assistant.js?v=1',
+  '/assets/js/analytics.js?v=2',
+  '/assets/js/ai-assistant.js?v=2',
   '/img/avatar.jpg'
 ];
 
@@ -41,7 +41,6 @@ const CACHE_EXTENSIONS = [
 
 // Install event - cache assets
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker v' + SW_VERSION);
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
@@ -54,7 +53,6 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker v' + SW_VERSION);
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -63,7 +61,6 @@ self.addEventListener('activate', (event) => {
           if (cacheName !== CACHE_NAME &&
               cacheName !== RUNTIME_CACHE &&
               cacheName !== STATIC_CACHE) {
-            console.log('[SW] Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -258,12 +255,11 @@ async function cleanupCache() {
           const cacheDate = new Date(date).getTime();
           if (now - cacheDate > maxAge) {
             await cache.delete(request);
-            console.log('[SW] Cleaned up stale cache entry:', request.url);
           }
         }
       }
     }
   } catch (error) {
-    console.error('[SW] Cache cleanup failed:', error);
+    // Cache cleanup error ignored
   }
 }

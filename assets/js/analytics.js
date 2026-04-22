@@ -8,13 +8,24 @@
   'use strict';
 
   var CONFIG = {
-    endpoint: 'https://kevinten.com/trackView',
+    envId: 'ai-native-2gknzsob14f42138',
+    functionName: 'trackView',
     sessionKey: 'kevinten-session',
     deferMs: 2000
   };
 
   function init() {
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1') {
+      return;
+    }
+
+    if (typeof cloudbase === 'undefined') {
+      return;
+    }
+
+    try {
+      cloudbase.init({ env: CONFIG.envId });
+    } catch (e) {
       return;
     }
 
@@ -55,19 +66,10 @@
 
   function send(data) {
     try {
-      if (typeof fetch !== 'undefined') {
-        fetch(CONFIG.endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-          keepalive: true
-        }).catch(function() {});
-      } else {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', CONFIG.endpoint, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(data));
-      }
+      cloudbase.callFunction({
+        name: CONFIG.functionName,
+        data: data
+      }).catch(function() {});
     } catch (e) {
       // Analytics must never break the site
     }
