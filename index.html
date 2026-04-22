@@ -43,6 +43,7 @@
     <link rel="preload" href="/assets/css/main.css?v=33" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
     <link rel="stylesheet" href="/assets/css/main.css?v=33">
+    <link rel="stylesheet" href="/assets/css/comments.css?v=1">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
@@ -2185,6 +2186,20 @@
         </div>
     </section>
 
+    <!-- Comments Section -->
+    <section class="section comments-section section-alt" id="comments" data-section-idx="12">
+        <div class="container">
+            <header class="section-header">
+                <span class="section-index">12</span>
+                <h2 class="section-title" data-i18n="comments.title">留言</h2>
+                <p class="section-description" data-i18n="comments.desc">欢迎留下你的想法和建议</p>
+            </header>
+            <div id="comments-container" class="comments-container">
+                <div id="comments-list" class="comments-list"></div>
+            </div>
+        </div>
+    </section>
+
     </main>
 
     <!-- Footer -->
@@ -2267,6 +2282,9 @@
     })();
     </script>
 
+    <!-- Cloudbase SDK -->
+    <script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js"></script>
+
     <!-- Scripts -->
     <script src="/assets/js/i18n.js?v=31"></script>
     <script src="/assets/js/observer-manager.js?v=31" defer></script>
@@ -2281,6 +2299,7 @@
     <script src="/assets/js/gallery.js?v=31" defer></script>
     <script src="/assets/js/hero-effects.js?v=31" defer></script>
     <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
+    <script src="/assets/js/comments.js?v=1" defer></script>
     <script>
     function openAllEcoProjects() {
       var items = document.querySelectorAll('.eco-item[href]');

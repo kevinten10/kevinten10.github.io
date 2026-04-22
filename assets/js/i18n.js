@@ -302,6 +302,10 @@
     'contact.interest3': '🏗️ Distributed Systems Architecture / Cloud Native Platform',
     'contact.interest4': '🌟 Open Source Community / One-Person Company / AI Startup',
 
+    // Comments Section
+    'comments.title': 'Comments',
+    'comments.desc': 'Share your thoughts and suggestions',
+
     // Footer
     'footer.built': 'Built with vanilla JS, too much ☕, and a mass of curiosity.'
   };
