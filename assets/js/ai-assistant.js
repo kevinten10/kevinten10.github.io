@@ -173,6 +173,7 @@
     if (state.open) {
       drawer.classList.add('open');
       fab.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
       setTimeout(function() {
         var input = document.getElementById('ai-input');
         if (input) input.focus();
@@ -180,6 +181,7 @@
     } else {
       drawer.classList.remove('open');
       fab.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
   }
 
@@ -189,6 +191,7 @@
     var fab = document.getElementById('ai-fab');
     drawer.classList.remove('open');
     fab.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
     fab.focus();
     hideTyping();
   }
