@@ -13,7 +13,7 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=31',
+  '/assets/css/main.css?v=33',
   '/assets/css/theme.css?v=31',
   '/assets/css/comments.css?v=1',
   '/assets/css/ai-assistant.css?v=1',
