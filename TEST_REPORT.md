@@ -178,6 +178,29 @@
 
 ---
 
+## Security Domain Fix
+
+### Issue
+AI Assistant returning error on production site (`kevinten10.github.io`).
+
+### Root Cause
+`kevinten10.github.io` was not in the Cloudbase security domain whitelist.
+
+### Fix
+Added `kevinten10.github.io` and `localhost:8000` to Cloudbase security domains via `envDomainManagement`.
+- Status: Success (RequestId: 64d88211-cfaa-4035-a657-3202dae60006)
+- Effect delay: ~10 minutes
+
+### Previous Whitelist
+- `kevinten.com`
+- `localhost:5173`
+
+### Updated Whitelist
+- `kevinten.com`
+- `localhost:5173`
+- `kevinten10.github.io`
+- `localhost:8000`
+
 ## Conclusion
 
-All checklist items verified. Backend functions pass edge-case testing. Frontend static analysis passes. Integration validation passes. Performance within budget. Security hardening complete.
+All checklist items verified. Backend functions pass edge-case testing. Frontend static analysis passes. Integration validation passes. Performance within budget. Security hardening complete. Security domain issue resolved.
