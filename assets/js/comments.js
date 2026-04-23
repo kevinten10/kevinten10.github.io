@@ -126,7 +126,8 @@
   function renderCommentItem(comment, isReply) {
     isReply = isReply || false;
     var date = formatDate(comment.createdAt);
-    var authorName = escapeHtml(comment.author && comment.author.name ? comment.author.name : getI18nText('comments.guest', '访客'));
+    var rawName = comment.author && comment.author.name ? comment.author.name : '';
+    var authorName = rawName && rawName !== 'Guest' ? escapeHtml(rawName) : escapeHtml(getI18nText('comments.guest', '访客'));
     var content = renderMarkdown(comment.content || '');
     var replyBtn = isReply ? '' : '<button class="comment-reply-btn" data-id="' + comment._id + '">' + escapeHtml(getI18nText('comments.reply', '回复')) + '</button>';
     var repliesHtml = '';
@@ -211,7 +212,7 @@
       loadComments();
     }, function(err) {
       state.submitting = false;
-      alert(getI18nText('comments.error.submit', '提交失败') + ': ' + (err.message || ''));
+      alert(getI18nText('comments.error.submit', '提交失败'));
     });
   }
 
@@ -250,7 +251,7 @@
       form.remove();
       loadComments();
     }, function(err) {
-      alert(getI18nText('comments.error.submit', '提交失败') + ': ' + (err.message || ''));
+      alert(getI18nText('comments.error.submit', '提交失败'));
     });
   }
 
@@ -260,23 +261,23 @@
       return;
     }
 
-    var doc = {
-      pageId: CONFIG.pageId,
-      parentId: parentId || null,
-      content: content,
-      author: {
-        uid: state.user.uid || 'anonymous',
-        name: getI18nText('comments.guest', '访客'),
-        loginType: 'anonymous'
-      },
-      status: 'approved',
-      createdAt: new Date(),
-      likes: 0
-    };
-
-    state.db.collection(CONFIG.collection).add(doc)
-      .then(onSuccess)
-      .catch(onError);
+    cloudbase.callFunction({
+      name: 'addComment',
+      data: {
+        content: content,
+        pageId: CONFIG.pageId,
+        parentId: parentId || null,
+        sessionId: state.user.uid || 'anonymous',
+        uid: state.user.uid || 'anonymous'
+      }
+    }).then(function(res) {
+      var result = res.result || {};
+      if (result.success) {
+        onSuccess();
+      } else {
+        onError(new Error(result.error || getI18nText('comments.error.submit', '提交失败')));
+      }
+    }).catch(onError);
   }
 
   function checkRateLimit() {
