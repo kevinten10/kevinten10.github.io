@@ -26,7 +26,7 @@ async function requestWithFetch(url, options = {}) {
 }
 
 async function requestWithCurl(url, options = {}) {
-  const args = ['-sS', '-L', '-w', '\n%{http_code}'];
+  const args = ['-sS', '-L', '--retry', '3', '--retry-delay', '1', '--retry-all-errors', '-w', '\n%{http_code}'];
   const headers = options.body
     ? { 'content-type': 'application/json', ...(options.headers || {}) }
     : options.headers || {};
@@ -105,6 +105,13 @@ await assertJson('worker health', `${apiBaseUrl}/health`, (_response, body) => b
 
 await assertJson('anonymous auth state', `${apiBaseUrl}/api/auth/me`, (_response, body) => {
   return body?.success === true && body?.data?.authenticated === false;
+});
+
+await assertJson('public site config', `${apiBaseUrl}/api/config`, (_response, body) => {
+  return body?.success === true
+    && body?.data?.commentsEnabled === true
+    && body?.data?.rewardsEnabled === true
+    && body?.data?.publicStatsEnabled === true;
 });
 
 await assertJson('unauthenticated profile protection', `${apiBaseUrl}/api/users/profile`, (response, body) => {

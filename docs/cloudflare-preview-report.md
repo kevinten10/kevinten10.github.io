@@ -18,7 +18,7 @@
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
 - Queue: `kevintenpreviewevents`
-- Current Worker version after Queue binding: `e29072ae-a883-4d42-8354-21d74d246e94`
+- Current Worker version after site config routes: `8733c542-3d1b-4093-a1fa-4fdd6f7da78e`
 
 ## Implemented
 
@@ -27,7 +27,7 @@
 - Added Worker API routes for auth, users, comments, replies, reactions, rewards, stats, admin moderation, and Stripe webhook.
 - Added Auth0 JWT verification code with JWKS caching through KV.
 - Added anonymous fallback for comments and rewards.
-- Added KV rate limiting and public stats caching.
+- Added KV rate limiting, JWKS caching, public stats caching, and public site config storage.
 - Added R2 binding for future QR/avatar/attachment storage.
 - Added Queues support for asynchronous stats/comment/reward events, with direct D1 stats fallback for view counts.
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
@@ -57,7 +57,7 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 10 files, 34 tests passed.
+- Vitest: 11 files, 36 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
@@ -66,6 +66,7 @@ Results:
 - Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
 - Cloudflare provisioning script: uses the local Wrangler package when available, defaults to `kevintenpreviewevents`, and no longer executes commands when imported by tests.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
+- Public site config endpoint: returned default KV-backed config from `/api/config`.
 - Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
 - Anonymous comment POST: succeeded and wrote an approved smoke-test comment.
 - Anonymous comments GET: returned the smoke-test comment.

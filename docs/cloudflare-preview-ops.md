@@ -59,6 +59,12 @@ Deploy Worker:
 npm run deploy:worker
 ```
 
+Check public site config after deploy:
+
+```powershell
+curl.exe https://kevinten-api-preview.wshten.workers.dev/api/config
+```
+
 Deploy Pages preview:
 
 ```powershell

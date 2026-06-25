@@ -3,6 +3,7 @@ import type { Env, Variables } from '../types';
 import { fail, ok } from '../lib/http';
 import { cleanText, newId, nowIso } from '../lib/ids';
 import { requireAdmin } from '../lib/auth';
+import { setPublicSiteConfig } from '../lib/site-config';
 
 export const adminRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 
@@ -62,4 +63,13 @@ adminRoutes.patch('/rewards/:id', async (c) => {
     .bind(newId('evt'), c.get('authUser')?.userId || null, c.get('authUser')?.email || c.req.header('cf-access-authenticated-user-email') || null, 'reward', id, status, cleanText(body.reason, 200) || null)
     .run();
   return ok(c, { id, status });
+});
+
+adminRoutes.patch('/config', async (c) => {
+  const body = await c.req.json<Record<string, unknown>>();
+  const config = await setPublicSiteConfig(c.env, body);
+  await c.env.DB?.prepare('insert into admin_events (id, actor_user_id, actor_email, target_type, target_id, action, reason) values (?, ?, ?, ?, ?, ?, ?)')
+    .bind(newId('evt'), c.get('authUser')?.userId || null, c.get('authUser')?.email || c.req.header('cf-access-authenticated-user-email') || null, 'site_config', 'public', 'updated', null)
+    .run();
+  return ok(c, config);
 });

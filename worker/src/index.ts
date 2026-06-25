@@ -10,6 +10,7 @@ import { rewardRoutes } from './routes/rewards';
 import { statsRoutes } from './routes/stats';
 import { adminRoutes } from './routes/admin';
 import { webhookRoutes } from './routes/webhooks';
+import { configRoutes } from './routes/config';
 import { handleQueue } from './queue';
 
 const app = new Hono<{ Bindings: Env; Variables: Variables }>();
@@ -30,6 +31,7 @@ app.route('/api/comments', commentRoutes);
 app.route('/api/reactions', reactionRoutes);
 app.route('/api/rewards', rewardRoutes);
 app.route('/api/stats', statsRoutes);
+app.route('/api/config', configRoutes);
 app.route('/api/admin', adminRoutes);
 app.route('/api/webhooks', webhookRoutes);
 
