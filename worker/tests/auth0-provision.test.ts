@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  buildAuth0Config,
   buildCloudflareRuntimeEnv,
   buildMachineLoginArgs,
   extractAuth0ClientId,
@@ -9,6 +10,15 @@ import {
 } from '../../scripts/auth0-provision.mjs';
 
 describe('Auth0 provisioning helpers', () => {
+  it('defaults Auth0 callbacks to the Cloudflare preview URL', () => {
+    expect(buildAuth0Config({})).toEqual({
+      audience: 'https://kevinten-preview/api',
+      callback: 'https://cf85b187.kevinten-interactive-preview.pages.dev/',
+      logout: 'https://cf85b187.kevinten-interactive-preview.pages.dev/',
+      origin: 'https://cf85b187.kevinten-interactive-preview.pages.dev'
+    });
+  });
+
   it('prefers an explicit Auth0 CLI path from the environment', () => {
     expect(resolveAuth0Command({
       AUTH0_CLI: 'D:/tools/auth0.exe'

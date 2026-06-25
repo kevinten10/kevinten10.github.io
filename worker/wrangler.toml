@@ -6,7 +6,7 @@ workers_dev = true
 [vars]
 AUTH0_DOMAIN = ""
 AUTH0_AUDIENCE = "https://kevinten-preview/api"
-ADMIN_EMAILS = ""
+ADMIN_EMAILS = "wshten@gmail.com"
 SITE_ORIGIN = "http://localhost:8788"
 
 [[d1_databases]]

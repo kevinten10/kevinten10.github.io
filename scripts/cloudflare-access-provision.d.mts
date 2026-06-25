@@ -1,5 +1,9 @@
+export type CloudflareAuth =
+  | { source: 'api-token' | 'wrangler-oauth'; token: string }
+  | { source: 'global-key'; email: string; key: string };
+
 export type CloudflareAccessConfig = {
-  token: string;
+  cloudflareAuth: CloudflareAuth;
   accountId: string;
   adminDomain: string;
   adminPath: string;
@@ -9,7 +13,16 @@ export type CloudflareAccessConfig = {
   adminEmails: string[];
 };
 
-export function readAccessConfig(env?: Record<string, string | undefined>): CloudflareAccessConfig;
+export function readWranglerOAuthToken(env?: Record<string, string | undefined>): string;
+
+export function readAccessConfig(
+  env?: Record<string, string | undefined>,
+  options?: {
+    readWranglerOAuthToken?: (env?: Record<string, string | undefined>) => string;
+  }
+): CloudflareAccessConfig;
+
+export function buildCloudflareHeaders(cloudflareAuth: CloudflareAuth): Record<string, string>;
 
 export function buildAccessApplicationPayload(config: CloudflareAccessConfig): {
   name: string;

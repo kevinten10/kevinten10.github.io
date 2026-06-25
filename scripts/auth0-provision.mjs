@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 
 const appName = 'KevinTen Cloudflare Preview';
 const apiName = 'KevinTen Preview API';
+const defaultPreviewOrigin = 'https://cf85b187.kevinten-interactive-preview.pages.dev';
 
 const knownWindowsCli = 'C:\\Users\\PC\\AppData\\Local\\Programs\\Auth0CLI\\auth0.exe';
 
@@ -51,7 +52,7 @@ function run(command, args, allowFail = true, capture = false) {
 
 export function buildAuth0Config(env = process.env) {
   const audience = env.AUTH0_AUDIENCE || 'https://kevinten-preview/api';
-  const callback = env.AUTH0_CALLBACK_URL || 'http://localhost:8788/';
+  const callback = env.AUTH0_CALLBACK_URL || `${defaultPreviewOrigin}/`;
   const logout = env.AUTH0_LOGOUT_URL || callback;
   const origin = env.AUTH0_ALLOWED_ORIGIN || new URL(callback).origin;
   return { audience, callback, logout, origin };
@@ -138,5 +139,6 @@ export async function provisionAuth0(env = process.env) {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  await provisionAuth0();
+  const ok = await provisionAuth0();
+  if (!ok) process.exitCode = 1;
 }

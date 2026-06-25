@@ -18,7 +18,7 @@
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
 - Queue: `kevintenpreviewevents`
-- Current Worker version after queue audit routes: `117ae377-7a33-495a-b328-7cab4c600a04`
+- Current Worker version after admin email config: `2599bcf9-8882-4431-a2b5-6635e2e01730`
 
 ## Implemented
 
@@ -33,6 +33,8 @@
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
 - Added Auth0 login controls, public stats, rewards section, and admin preview page.
 - Added Cloudflare/Auth0/Stripe automation scripts.
+- Added preview defaults for Auth0 callback/logout/origin URLs and Cloudflare Access provisioning.
+- Set preview Worker `ADMIN_EMAILS` to `wshten@gmail.com` so authenticated admin tokens can be recognized after Auth0 is connected.
 - Added Cloudflare ops documentation and Cloudflare-specific spec/plan.
 - Deployed Worker and Pages preview without modifying `CNAME` or the GitHub Pages production site.
 
@@ -57,7 +59,7 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 12 files, 40 tests passed.
+- Vitest: 12 files, 44 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
@@ -76,11 +78,11 @@ Results:
 - Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
 - Admin shell check: `https://cf85b187.kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
 - Legacy page check: `https://cf85b187.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
-- Cloudflare Access automation script: added `npm run provision:access`; dry run without `CLOUDFLARE_API_TOKEN` fails fast with a clear missing-token error.
+- Cloudflare Access automation script: `npm run provision:access` now has preview defaults and supports API Token, Global API Key, and best-effort Wrangler OAuth. The local Wrangler OAuth token reaches the API but Cloudflare returns `Authentication error`, so an Access-scoped API token is still required.
 
 ## Automation Blockers
 
-- Auth0 CLI is installed but not logged in. `npm run provision:auth0` now resolves the local `auth0.exe` path automatically, then reports `config.json file is missing`; `auth0 login --no-input` previously timed out without tenant/client credentials.
+- Auth0 CLI is installed but not logged in. `npm run provision:auth0` now resolves the local `auth0.exe` path automatically, then exits non-zero and reports `config.json file is missing`; `auth0 login --no-input` previously timed out without tenant/client credentials.
   - Fully automated recovery requires Auth0 machine credentials:
     ```powershell
     $env:AUTH0_DOMAIN="your-tenant.auth0.com"
@@ -89,13 +91,14 @@ Results:
     npm run provision:auth0
     ```
   - With all three credentials present, the script performs machine login before creating the SPA application and API resource server.
+  - The Auth0 provisioning defaults now target the Cloudflare preview URL instead of localhost for callback/logout/origin values.
   - After a successful run, the script writes non-secret runtime values to `dist/auth0-preview.env`; it does not write `AUTH0_CLIENT_SECRET`.
   - Browser/device `auth0 login` remains available, but it is not fully unattended.
   - After that, set `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, and `AUTH0_AUDIENCE` for the preview runtime config and Worker variables.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
-- Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command.
+- Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command, and the local Wrangler OAuth token is not accepted by the Access API.
   - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
-  - `npm run provision:access` is now available for API-token-based automation once a suitably scoped token is provided.
+  - `npm run provision:access` is now available for API-token-based or Global-API-key automation once a suitably scoped credential is provided.
   - Cloudflare's API permission reference lists Access application/policy write permissions and Zero Trust edit permissions for managing Access resources; the current Wrangler OAuth token did not include those Access scopes.
   - Access policy should be added through Zero Trust dashboard or Cloudflare API with a suitably scoped token before exposing admin broadly.
 

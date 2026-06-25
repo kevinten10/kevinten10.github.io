@@ -14,7 +14,7 @@ Create `.dev.vars` for local Worker development:
 ```dotenv
 AUTH0_DOMAIN=
 AUTH0_AUDIENCE=https://kevinten-preview/api
-ADMIN_EMAILS=you@example.com
+ADMIN_EMAILS=wshten@gmail.com
 STRIPE_WEBHOOK_SECRET=whsec_test
 SITE_ORIGIN=http://localhost:8788
 ```
@@ -36,16 +36,22 @@ After D1/KV/Queue creation, copy generated IDs and queue names into `worker/wran
 
 Cloudflare Access admin protection requires an API token with Access application/policy write permissions or Zero Trust edit permissions. The current Wrangler CLI can deploy Workers/Pages resources but does not expose an Access application creation command.
 
-Provision Cloudflare Access for the preview admin path when a suitably scoped API token is available:
+Provision Cloudflare Access for the preview admin path when a suitably scoped API token is available. The script now has project defaults for account ID, preview admin domain, path, app name, policy name, and admin email, so only the API credential is required in the normal case:
 
 ```powershell
 $env:CLOUDFLARE_API_TOKEN="token-with-access-apps-policies-write"
-$env:CLOUDFLARE_ACCOUNT_ID="f53190ff9de65971510ed96e5bd89bee"
-$env:CLOUDFLARE_ACCESS_ADMIN_DOMAIN="cf85b187.kevinten-interactive-preview.pages.dev"
-$env:CLOUDFLARE_ACCESS_ADMIN_PATH="/admin/*"
-$env:ADMIN_EMAILS="you@example.com"
 npm run provision:access
 ```
+
+Alternative legacy credential form:
+
+```powershell
+$env:CF_API_EMAIL="wshten@gmail.com"
+$env:CF_API_KEY="global-api-key"
+npm run provision:access
+```
+
+If neither form is set, the script tries the local Wrangler OAuth token as a best-effort fallback. In the current local environment Cloudflare returns `Authentication error` for Access API calls with that token, so an Access-scoped API token is still needed for unattended Access provisioning.
 
 Apply D1 schema:
 
@@ -88,7 +94,7 @@ $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
 npm run provision:auth0
 ```
 
-`npm run provision:auth0` will use `AUTH0_CLI` when set, then the known local Windows install path, then `auth0` from `PATH`. When all three machine credentials above are present, it performs `auth0 login --domain ... --client-id ... --client-secret ...` before provisioning. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
+`npm run provision:auth0` will use `AUTH0_CLI` when set, then the known local Windows install path, then `auth0` from `PATH`. When all three machine credentials above are present, it performs `auth0 login --domain ... --client-id ... --client-secret ...` before provisioning. Without an existing Auth0 CLI login or machine credentials, the command exits non-zero and reports the missing Auth0 CLI config.
 
 After a successful Auth0 provisioning run, the script writes non-secret runtime values to `dist/auth0-preview.env`:
 
@@ -96,9 +102,9 @@ After a successful Auth0 provisioning run, the script writes non-secret runtime 
 AUTH0_DOMAIN=...
 AUTH0_CLIENT_ID=...
 AUTH0_AUDIENCE=https://kevinten-preview/api
-AUTH0_CALLBACK_URL=...
-AUTH0_LOGOUT_URL=...
-AUTH0_ALLOWED_ORIGIN=...
+AUTH0_CALLBACK_URL=https://cf85b187.kevinten-interactive-preview.pages.dev/
+AUTH0_LOGOUT_URL=https://cf85b187.kevinten-interactive-preview.pages.dev/
+AUTH0_ALLOWED_ORIGIN=https://cf85b187.kevinten-interactive-preview.pages.dev
 ```
 
 Use those values when rebuilding/deploying the Pages preview so `/assets/js/cloudflare-runtime.js` contains the visitor login configuration.
