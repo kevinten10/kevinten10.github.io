@@ -4,7 +4,7 @@ import { pathToFileURL } from 'node:url';
 
 const API_BASE = 'https://api.cloudflare.com/client/v4';
 const DEFAULT_ACCOUNT_ID = 'f53190ff9de65971510ed96e5bd89bee';
-const DEFAULT_ADMIN_DOMAIN = 'cf85b187.kevinten-interactive-preview.pages.dev';
+const DEFAULT_ADMIN_DOMAIN = 'kevinten-interactive-preview.pages.dev';
 const DEFAULT_ADMIN_EMAILS = 'wshten@gmail.com';
 
 function splitEmails(value) {

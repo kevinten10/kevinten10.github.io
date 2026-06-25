@@ -3,7 +3,7 @@ import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
 const apiBaseUrl = (process.env.API_BASE_URL || 'https://kevinten-api-preview.wshten.workers.dev').replace(/\/$/, '');
-const pagesUrl = (process.env.PAGES_URL || 'https://cf85b187.kevinten-interactive-preview.pages.dev').replace(/\/$/, '');
+const pagesUrl = (process.env.PAGES_URL || 'https://kevinten-interactive-preview.pages.dev').replace(/\/$/, '');
 const preferCurl = process.env.PREVIEW_VERIFY_TRANSPORT === 'curl'
   || process.platform === 'win32'
   || Boolean(process.env.HTTPS_PROXY || process.env.HTTP_PROXY || process.env.ALL_PROXY);

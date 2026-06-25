@@ -53,6 +53,13 @@ npm run provision:access
 
 If neither form is set, the script tries the local Wrangler OAuth token as a best-effort fallback. In the current local environment Cloudflare returns `Authentication error` for Access API calls with that token, so an Access-scoped API token is still needed for unattended Access provisioning.
 
+If Cloudflare returns `access.api.error.not_enabled`, the API credential is valid but the account has not activated Cloudflare Access / Zero Trust yet. The Zero Trust Free checkout may still ask the account owner to authorize charges for usage that exceeds free limits; confirm that billing risk explicitly before clicking `Activate`, then rerun:
+
+```powershell
+$env:CLOUDFLARE_API_TOKEN=[Environment]::GetEnvironmentVariable("CLOUDFLARE_API_TOKEN","User")
+npm run provision:access
+```
+
 Apply D1 schema:
 
 ```powershell
@@ -102,9 +109,9 @@ After a successful Auth0 provisioning run, the script writes non-secret runtime 
 AUTH0_DOMAIN=...
 AUTH0_CLIENT_ID=...
 AUTH0_AUDIENCE=https://kevinten-preview/api
-AUTH0_CALLBACK_URL=https://cf85b187.kevinten-interactive-preview.pages.dev/
-AUTH0_LOGOUT_URL=https://cf85b187.kevinten-interactive-preview.pages.dev/
-AUTH0_ALLOWED_ORIGIN=https://cf85b187.kevinten-interactive-preview.pages.dev
+AUTH0_CALLBACK_URL=https://kevinten-interactive-preview.pages.dev/
+AUTH0_LOGOUT_URL=https://kevinten-interactive-preview.pages.dev/
+AUTH0_ALLOWED_ORIGIN=https://kevinten-interactive-preview.pages.dev
 ```
 
 Use those values when rebuilding/deploying the Pages preview so `/assets/js/cloudflare-runtime.js` contains the visitor login configuration.

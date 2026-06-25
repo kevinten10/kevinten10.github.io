@@ -4,7 +4,7 @@ compatibility_date = "2024-06-20"
 workers_dev = true
 
 [vars]
-AUTH0_DOMAIN = ""
+AUTH0_DOMAIN = "dev-8abkwbejxgjbcz1l.us.auth0.com"
 AUTH0_AUDIENCE = "https://kevinten-preview/api"
 ADMIN_EMAILS = "wshten@gmail.com"
 SITE_ORIGIN = "http://localhost:8788"

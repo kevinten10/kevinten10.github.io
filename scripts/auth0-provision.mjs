@@ -6,7 +6,7 @@ import { pathToFileURL } from 'node:url';
 
 const appName = 'KevinTen Cloudflare Preview';
 const apiName = 'KevinTen Preview API';
-const defaultPreviewOrigin = 'https://cf85b187.kevinten-interactive-preview.pages.dev';
+const defaultPreviewOrigin = 'https://kevinten-interactive-preview.pages.dev';
 
 const knownWindowsCli = 'C:\\Users\\PC\\AppData\\Local\\Programs\\Auth0CLI\\auth0.exe';
 

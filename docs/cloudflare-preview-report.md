@@ -2,7 +2,8 @@
 
 ## Preview URLs
 
-- Cloudflare Pages preview: https://cf85b187.kevinten-interactive-preview.pages.dev
+- Cloudflare Pages stable preview: https://kevinten-interactive-preview.pages.dev
+- Latest Cloudflare Pages deployment: https://4ed96ee4.kevinten-interactive-preview.pages.dev
 - Worker API preview: https://kevinten-api-preview.wshten.workers.dev
 
 ## Cloudflare Resources
@@ -18,7 +19,7 @@
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
 - Queue: `kevintenpreviewevents`
-- Current Worker version after admin email config: `2599bcf9-8882-4431-a2b5-6635e2e01730`
+- Current Worker version after Auth0 domain config: `fe29a1fa-c0ae-44c8-80ce-9bc65b76d141`
 
 ## Implemented
 
@@ -52,7 +53,7 @@ npm run provision:auth0
 $env:WORKER_API_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run provision:stripe
 stripe trigger checkout.session.completed
 stripe events list --limit 1 --type checkout.session.completed
-$env:PAGES_URL='https://cf85b187.kevinten-interactive-preview.pages.dev'; npm run verify:preview
+$env:PAGES_URL='https://kevinten-interactive-preview.pages.dev'; npm run verify:preview
 npm run provision:access
 ```
 
@@ -63,7 +64,7 @@ Results:
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
-- Pages preview deploy: succeeded at `https://cf85b187.kevinten-interactive-preview.pages.dev`.
+- Pages preview deploy: succeeded at `https://4ed96ee4.kevinten-interactive-preview.pages.dev`; stable preview is `https://kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
 - Queue processing records pending comment/reward moderation tasks and approved/verified notification tasks in `admin_events`.
 - Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
@@ -76,31 +77,19 @@ Results:
 - Stripe webhook signature verification: direct signed test payload returned success.
 - Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
 - Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
-- Admin shell check: `https://cf85b187.kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
-- Legacy page check: `https://cf85b187.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
-- Cloudflare Access automation script: `npm run provision:access` now has preview defaults and supports API Token, Global API Key, and best-effort Wrangler OAuth. The local Wrangler OAuth token reaches the API but Cloudflare returns `Authentication error`, so an Access-scoped API token is still required.
+- Admin shell check: `https://kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
+- Legacy page check: `https://kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
+- Auth0 SPA/API provisioning is complete for tenant `dev-8abkwbejxgjbcz1l.us.auth0.com`. The SPA client `t2qbmY5FWebHzNuLWaKziycuRJygqGkP` allows the stable preview URL and the known hash deployment URLs for callback, logout, and web origins.
+- Cloudflare Access API token was created through the Cloudflare dashboard and stored in the Windows user environment variable `CLOUDFLARE_API_TOKEN`. The token authenticates to the Access API, but Cloudflare returns `access.api.error.not_enabled` until the account's Zero Trust Free plan is activated.
 
 ## Automation Blockers
 
-- Auth0 CLI is installed but not logged in. `npm run provision:auth0` now resolves the local `auth0.exe` path automatically, then exits non-zero and reports `config.json file is missing`; `auth0 login --no-input` previously timed out without tenant/client credentials.
-  - Fully automated recovery requires Auth0 machine credentials:
-    ```powershell
-    $env:AUTH0_DOMAIN="your-tenant.auth0.com"
-    $env:AUTH0_CLIENT_ID="your-machine-client-id"
-    $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
-    npm run provision:auth0
-    ```
-  - With all three credentials present, the script performs machine login before creating the SPA application and API resource server.
-  - The Auth0 provisioning defaults now target the Cloudflare preview URL instead of localhost for callback/logout/origin values.
-  - After a successful run, the script writes non-secret runtime values to `dist/auth0-preview.env`; it does not write `AUTH0_CLIENT_SECRET`.
-  - Browser/device `auth0 login` remains available, but it is not fully unattended.
-  - After that, set `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, and `AUTH0_AUDIENCE` for the preview runtime config and Worker variables.
+- Auth0 browser login and provisioning are complete. Runtime config now uses `https://kevinten-interactive-preview.pages.dev/` as the default redirect URL, and the latest preview deploy includes Auth0 login settings.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
-- Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command, and the local Wrangler OAuth token is not accepted by the Access API.
+- Cloudflare Access could not be fully activated unattended because Cloudflare's Zero Trust Free checkout page requires confirming that card ending in `2822` may be charged for usage that exceeds free limits.
   - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
-  - `npm run provision:access` is now available for API-token-based or Global-API-key automation once a suitably scoped credential is provided.
-  - Cloudflare's API permission reference lists Access application/policy write permissions and Zero Trust edit permissions for managing Access resources; the current Wrangler OAuth token did not include those Access scopes.
-  - Access policy should be added through Zero Trust dashboard or Cloudflare API with a suitably scoped token before exposing admin broadly.
+  - `npm run provision:access` is ready and now fails only with `Access is not enabled`; after explicit billing-risk confirmation and Zero Trust activation, rerun it to create `KevinTen Admin Preview` for `kevinten-interactive-preview.pages.dev/admin/*`.
+  - The created token has Access read/edit permissions and should be kept local; do not commit or print it.
 
 ## Stripe
 

@@ -60,7 +60,7 @@ describe('Cloudflare Access provisioning helpers', () => {
     });
 
     expect(config.accountId).toBe('f53190ff9de65971510ed96e5bd89bee');
-    expect(config.adminDomain).toBe('cf85b187.kevinten-interactive-preview.pages.dev');
+    expect(config.adminDomain).toBe('kevinten-interactive-preview.pages.dev');
     expect(config.adminEmails).toEqual(['wshten@gmail.com']);
     expect(config.cloudflareAuth).toEqual({
       source: 'wrangler-oauth',

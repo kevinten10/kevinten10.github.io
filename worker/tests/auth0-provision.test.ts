@@ -13,9 +13,9 @@ describe('Auth0 provisioning helpers', () => {
   it('defaults Auth0 callbacks to the Cloudflare preview URL', () => {
     expect(buildAuth0Config({})).toEqual({
       audience: 'https://kevinten-preview/api',
-      callback: 'https://cf85b187.kevinten-interactive-preview.pages.dev/',
-      logout: 'https://cf85b187.kevinten-interactive-preview.pages.dev/',
-      origin: 'https://cf85b187.kevinten-interactive-preview.pages.dev'
+      callback: 'https://kevinten-interactive-preview.pages.dev/',
+      logout: 'https://kevinten-interactive-preview.pages.dev/',
+      origin: 'https://kevinten-interactive-preview.pages.dev'
     });
   });
 
