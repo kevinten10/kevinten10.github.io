@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import fs from 'node:fs/promises';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
@@ -37,14 +38,15 @@ function redactArgs(args) {
   });
 }
 
-function run(command, args, allowFail = true) {
+function run(command, args, allowFail = true, capture = false) {
   console.log(`\n$ ${path.basename(command)} ${redactArgs(args).join(' ')}`);
   const result = spawnSync(command, args, {
-    stdio: 'inherit',
+    stdio: capture ? ['ignore', 'pipe', 'inherit'] : 'inherit',
+    encoding: 'utf8',
     shell: process.platform === 'win32' && command === 'auth0'
   });
   if (result.status !== 0 && !allowFail) process.exit(result.status || 1);
-  return result.status === 0;
+  return capture ? { ok: result.status === 0, stdout: result.stdout || '' } : { ok: result.status === 0, stdout: '' };
 }
 
 export function buildAuth0Config(env = process.env) {
@@ -55,7 +57,39 @@ export function buildAuth0Config(env = process.env) {
   return { audience, callback, logout, origin };
 }
 
-export function provisionAuth0(env = process.env) {
+export function extractAuth0ClientId(stdout) {
+  try {
+    const parsed = JSON.parse(stdout);
+    if (Array.isArray(parsed)) return String(parsed.find((item) => item?.client_id)?.client_id || '');
+    return String(parsed?.client_id || parsed?.clientId || '');
+  } catch {
+    return '';
+  }
+}
+
+export function buildCloudflareRuntimeEnv(env = process.env, clientId = '') {
+  const config = buildAuth0Config(env);
+  return {
+    AUTH0_DOMAIN: env.AUTH0_DOMAIN || '',
+    AUTH0_CLIENT_ID: clientId || env.AUTH0_CLIENT_ID || '',
+    AUTH0_AUDIENCE: config.audience,
+    AUTH0_CALLBACK_URL: config.callback,
+    AUTH0_LOGOUT_URL: config.logout,
+    AUTH0_ALLOWED_ORIGIN: config.origin
+  };
+}
+
+export function formatEnvFile(values) {
+  return `${Object.entries(values).map(([key, value]) => `${key}=${value || ''}`).join('\n')}\n`;
+}
+
+async function writeGeneratedEnv(values, outPath = path.join(process.cwd(), 'dist', 'auth0-preview.env')) {
+  await fs.mkdir(path.dirname(outPath), { recursive: true });
+  await fs.writeFile(outPath, formatEnvFile(values));
+  return outPath;
+}
+
+export async function provisionAuth0(env = process.env) {
   const command = resolveAuth0Command(env);
   const config = buildAuth0Config(env);
 
@@ -63,12 +97,12 @@ export function provisionAuth0(env = process.env) {
     run(command, buildMachineLoginArgs(env));
   }
 
-  if (!run(command, ['tenants', 'list'])) {
+  if (!run(command, ['tenants', 'list']).ok) {
     console.log(`Auth0 CLI is not logged in. Run: ${path.basename(command)} login, then rerun npm run provision:auth0`);
     return false;
   }
 
-  run(command, [
+  const appResult = run(command, [
     'apps',
     'create',
     '--name',
@@ -82,7 +116,7 @@ export function provisionAuth0(env = process.env) {
     '--origins',
     config.origin,
     '--json'
-  ]);
+  ], true, true);
   run(command, [
     'apis',
     'create',
@@ -96,10 +130,13 @@ export function provisionAuth0(env = process.env) {
     'RS256',
     '--json'
   ]);
-  console.log('\nAuth0 provisioning attempted. Put the SPA client id and tenant domain into Cloudflare Pages env vars.');
+  const clientId = extractAuth0ClientId(appResult.stdout);
+  const generatedEnv = buildCloudflareRuntimeEnv(env, clientId);
+  const outPath = await writeGeneratedEnv(generatedEnv);
+  console.log(`\nAuth0 provisioning attempted. Non-secret runtime env written to ${outPath}.`);
   return true;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  provisionAuth0();
+  await provisionAuth0();
 }

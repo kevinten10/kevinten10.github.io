@@ -57,7 +57,7 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 10 files, 31 tests passed.
+- Vitest: 10 files, 34 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
@@ -87,6 +87,7 @@ Results:
     npm run provision:auth0
     ```
   - With all three credentials present, the script performs machine login before creating the SPA application and API resource server.
+  - After a successful run, the script writes non-secret runtime values to `dist/auth0-preview.env`; it does not write `AUTH0_CLIENT_SECRET`.
   - Browser/device `auth0 login` remains available, but it is not fully unattended.
   - After that, set `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, and `AUTH0_AUDIENCE` for the preview runtime config and Worker variables.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.

@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+  buildCloudflareRuntimeEnv,
   buildMachineLoginArgs,
+  extractAuth0ClientId,
+  formatEnvFile,
   resolveAuth0Command,
   shouldAttemptMachineLogin
 } from '../../scripts/auth0-provision.mjs';
@@ -42,5 +45,40 @@ describe('Auth0 provisioning helpers', () => {
       '--client-secret',
       'client-secret'
     ]);
+  });
+
+  it('extracts a SPA client id from Auth0 CLI JSON output', () => {
+    expect(extractAuth0ClientId('{"client_id":"abc123","name":"KevinTen"}')).toBe('abc123');
+    expect(extractAuth0ClientId('[{"client_id":"first"},{"client_id":"second"}]')).toBe('first');
+    expect(extractAuth0ClientId('not json')).toBe('');
+  });
+
+  it('builds non-secret Cloudflare runtime env values after Auth0 provisioning', () => {
+    expect(buildCloudflareRuntimeEnv({
+      AUTH0_DOMAIN: 'tenant.auth0.com',
+      AUTH0_AUDIENCE: 'https://kevinten-preview/api',
+      AUTH0_CALLBACK_URL: 'https://preview.pages.dev/',
+      AUTH0_LOGOUT_URL: 'https://preview.pages.dev/',
+      AUTH0_ALLOWED_ORIGIN: 'https://preview.pages.dev'
+    }, 'client-id')).toEqual({
+      AUTH0_DOMAIN: 'tenant.auth0.com',
+      AUTH0_CLIENT_ID: 'client-id',
+      AUTH0_AUDIENCE: 'https://kevinten-preview/api',
+      AUTH0_CALLBACK_URL: 'https://preview.pages.dev/',
+      AUTH0_LOGOUT_URL: 'https://preview.pages.dev/',
+      AUTH0_ALLOWED_ORIGIN: 'https://preview.pages.dev'
+    });
+  });
+
+  it('formats generated env files without secret values', () => {
+    const text = formatEnvFile({
+      AUTH0_DOMAIN: 'tenant.auth0.com',
+      AUTH0_CLIENT_ID: 'client-id',
+      AUTH0_AUDIENCE: 'https://kevinten-preview/api'
+    });
+
+    expect(text).toContain('AUTH0_DOMAIN=tenant.auth0.com');
+    expect(text).toContain('AUTH0_CLIENT_ID=client-id');
+    expect(text).not.toContain('AUTH0_CLIENT_SECRET');
   });
 });

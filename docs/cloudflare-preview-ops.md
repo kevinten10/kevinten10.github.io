@@ -82,7 +82,20 @@ $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
 npm run provision:auth0
 ```
 
-`npm run provision:auth0` will use `AUTH0_CLI` when set, then the known local Windows install path, then `auth0` from `PATH`. When all three machine credentials above are present, it performs `auth0 login --domain ... --client-id ... --client-secret ...` before provisioning. Use the generated SPA Client ID and tenant domain as `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` for the preview runtime config. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
+`npm run provision:auth0` will use `AUTH0_CLI` when set, then the known local Windows install path, then `auth0` from `PATH`. When all three machine credentials above are present, it performs `auth0 login --domain ... --client-id ... --client-secret ...` before provisioning. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
+
+After a successful Auth0 provisioning run, the script writes non-secret runtime values to `dist/auth0-preview.env`:
+
+```dotenv
+AUTH0_DOMAIN=...
+AUTH0_CLIENT_ID=...
+AUTH0_AUDIENCE=https://kevinten-preview/api
+AUTH0_CALLBACK_URL=...
+AUTH0_LOGOUT_URL=...
+AUTH0_ALLOWED_ORIGIN=...
+```
+
+Use those values when rebuilding/deploying the Pages preview so `/assets/js/cloudflare-runtime.js` contains the visitor login configuration.
 
 ## Stripe Automation
 
