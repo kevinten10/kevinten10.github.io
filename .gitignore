@@ -1,2 +1,9 @@
 jd.superpowers/
 .superpowers/
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+.env
+.env.local
+assets/js/cloudflare-runtime.js

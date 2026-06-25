@@ -1,334 +1,164 @@
 /**
- * Comments Module - Cloudbase NoSQL based commenting system
- * Supports anonymous login, markdown rendering, replies, theme sync
- * @version 1.0.0
+ * Comments Module - Cloudflare Worker backed comments.
+ * Supports Auth0 users and anonymous nickname fallback.
+ * @version 2.0.0
  */
 (function() {
   'use strict';
 
-  var CONFIG = {
-    envId: 'ai-native-2gknzsob14f42138',
-    collection: 'comments',
-    pageId: window.location.pathname || '/',
-    maxLength: 1000,
-    rateLimitMs: 30000
-  };
+  var state = { comments: [], submitting: false };
+  var pagePath = window.location.pathname || '/';
 
-  var state = {
-    auth: null,
-    db: null,
-    user: null,
-    comments: [],
-    submitting: false,
-    lastSubmitTime: 0
-  };
-
-  function getI18nText(key, fallback) {
-    if (typeof I18n !== 'undefined' && I18n.get) {
-      return I18n.get(key) || fallback;
-    }
+  function t(key, fallback) {
+    if (typeof I18n !== 'undefined' && I18n.get) return I18n.get(key) || fallback;
     return fallback;
+  }
+
+  function api(path) {
+    return (window.KevinAuth ? window.KevinAuth.apiBase() : '') + path;
+  }
+
+  function escapeHtml(value) {
+    var div = document.createElement('div');
+    div.textContent = value || '';
+    return div.innerHTML;
+  }
+
+  function markdown(value) {
+    return escapeHtml(value)
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function profile() {
+    var key = 'kevinten-comment-profile';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch (err) {}
+    return {
+      key: key,
+      nickname: saved.nickname || '',
+      website: saved.website || ''
+    };
+  }
+
+  function saveProfile(data) {
+    try {
+      localStorage.setItem(data.key, JSON.stringify({
+        nickname: data.nickname,
+        website: data.website
+      }));
+    } catch (err) {}
+  }
+
+  function renderForm(container) {
+    var saved = profile();
+    var wrapper = document.createElement('div');
+    wrapper.className = 'comments-form-wrapper';
+    wrapper.innerHTML =
+      '<div class="comments-form">' +
+        '<div class="comments-auth-row">' +
+          '<span>' + escapeHtml(t('comments.auth.label', '身份')) + ': <strong data-auth-name>Anonymous</strong></span>' +
+          '<button type="button" class="comment-auth-button" data-auth-login>' + escapeHtml(t('auth.login', '登录')) + '</button>' +
+          '<button type="button" class="comment-auth-button" data-auth-logout hidden>' + escapeHtml(t('auth.logout', '退出')) + '</button>' +
+        '</div>' +
+        '<div class="comments-identity-row">' +
+          '<input class="comments-name" maxlength="40" placeholder="' + escapeHtml(t('comments.name.placeholder', '昵称')) + '" value="' + escapeHtml(saved.nickname) + '">' +
+          '<input class="comments-website" maxlength="200" placeholder="' + escapeHtml(t('comments.website.placeholder', '网站（可选）')) + '" value="' + escapeHtml(saved.website) + '">' +
+        '</div>' +
+        '<textarea class="comments-input" maxlength="1000" placeholder="' + escapeHtml(t('comments.placeholder', '写下你的留言...')) + '"></textarea>' +
+        '<div class="comments-form-footer">' +
+          '<span class="comments-hint">' + escapeHtml(t('comments.hint.markdown', '支持 Markdown 语法')) + '</span>' +
+          '<button class="comments-submit btn btn-primary">' + escapeHtml(t('comments.submit', '提交留言')) + '</button>' +
+        '</div>' +
+        '<p class="comments-status" aria-live="polite"></p>' +
+      '</div>';
+    container.insertBefore(wrapper, container.firstChild);
+  }
+
+  function status(container, message) {
+    var node = container.querySelector('.comments-status');
+    if (node) node.textContent = message || '';
+  }
+
+  function bind(container) {
+    container.addEventListener('click', function(event) {
+      if (event.target.classList.contains('comments-submit')) submit(container);
+    });
+  }
+
+  function submit(container) {
+    if (state.submitting) return;
+    var name = container.querySelector('.comments-name').value.trim();
+    var website = container.querySelector('.comments-website').value.trim();
+    var content = container.querySelector('.comments-input').value.trim();
+    var visitor = window.KevinAuth ? window.KevinAuth.visitor() : { visitorId: '' };
+    if (!name && !visitor.name) return status(container, t('comments.error.name', '请先填写昵称或登录'));
+    if (!content) return status(container, t('comments.error.empty', '请先写点内容'));
+
+    saveProfile({ key: 'kevinten-comment-profile', nickname: name, website: website });
+    state.submitting = true;
+    fetch(api('/api/comments'), {
+      method: 'POST',
+      headers: window.KevinAuth ? window.KevinAuth.headers() : { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pagePath: pagePath,
+        visitorId: visitor.visitorId,
+        nickname: name || visitor.name,
+        website: website,
+        content: content
+      })
+    }).then(function(res) {
+      return res.json();
+    }).then(function(result) {
+      if (!result.success) throw new Error(result.error || 'failed');
+      container.querySelector('.comments-input').value = '';
+      status(container, result.data.status === 'approved' ? t('comments.status.approved', '已发布') : t('comments.status.pending', '已提交，待审核'));
+      loadComments();
+    }).catch(function() {
+      status(container, t('comments.error.submit', '提交失败'));
+    }).finally(function() {
+      state.submitting = false;
+    });
+  }
+
+  function loadComments() {
+    var list = document.getElementById('comments-list');
+    if (!list) return Promise.resolve();
+    list.innerHTML = '<p class="comments-loading">' + escapeHtml(t('comments.loading', '加载中...')) + '</p>';
+    return fetch(api('/api/comments?page=' + encodeURIComponent(pagePath)))
+      .then(function(res) { return res.json(); })
+      .then(function(result) {
+        state.comments = result.data || [];
+        renderComments(list);
+      }).catch(function() {
+        list.innerHTML = '<p class="comments-error">' + escapeHtml(t('comments.error.load', '加载失败，请稍后重试')) + '</p>';
+      });
+  }
+
+  function renderComments(list) {
+    if (!state.comments.length) {
+      list.innerHTML = '<p class="comments-empty">' + escapeHtml(t('comments.empty', '暂无留言，来写第一条吧！')) + '</p>';
+      return;
+    }
+    list.innerHTML = state.comments.map(function(comment) {
+      return '<article class="comment-item" id="comment-' + escapeHtml(comment.id) + '">' +
+        '<div class="comment-header"><span class="comment-author">' + escapeHtml(comment.author_name) + '</span><span class="comment-date">' + escapeHtml(new Date(comment.created_at).toLocaleString()) + '</span></div>' +
+        '<div class="comment-body">' + markdown(comment.content || '') + '</div>' +
+      '</article>';
+    }).join('');
   }
 
   function init() {
     var container = document.getElementById('comments-container');
     if (!container) return;
-
-    if (typeof cloudbase === 'undefined') {
-      container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '评论系统加载失败，请刷新页面重试')) + '</p>';
-      return;
-    }
-
-    try {
-      cloudbase.init({ env: CONFIG.envId });
-      state.auth = cloudbase.auth();
-      state.db = cloudbase.database();
-    } catch (err) {
-      container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '评论系统加载失败，请刷新页面重试')) + '</p>';
-      return;
-    }
-
-    signInAnonymous().then(function() {
-      loadComments();
-    }).catch(function() {
-      // Anonymous login failed; form will show error on submit
-    });
-
     renderForm(container);
-    bindEvents(container);
-
-    document.addEventListener('langchange', function() {
-      renderForm(container);
-      var list = document.getElementById('comments-list');
-      if (list) renderComments(list);
-    });
+    bind(container);
+    loadComments();
   }
 
-  function signInAnonymous() {
-    return state.auth.signInAnonymously().then(function(res) {
-      state.user = res;
-    });
-  }
-
-  function loadComments() {
-    var container = document.getElementById('comments-list');
-    if (!container) return;
-
-    container.innerHTML = '<p class="comments-loading">' + escapeHtml(getI18nText('comments.loading', '加载中...')) + '</p>';
-
-    state.db.collection(CONFIG.collection)
-      .where({ pageId: CONFIG.pageId, parentId: null })
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(function(res) {
-        state.comments = res.data || [];
-        return loadReplies();
-      })
-      .then(function() {
-        renderComments(container);
-      })
-      .catch(function() {
-        container.innerHTML = '<p class="comments-error">' + escapeHtml(getI18nText('comments.error.load', '加载失败，请稍后重试')) + '</p>';
-      });
-  }
-
-  function loadReplies() {
-    if (!state.comments.length) return Promise.resolve();
-
-    var parentIds = state.comments.map(function(c) { return c._id; });
-    return state.db.collection(CONFIG.collection)
-      .where({ parentId: state.db.command.in(parentIds) })
-      .orderBy('createdAt', 'asc')
-      .get()
-      .then(function(res) {
-        var replies = res.data || [];
-        state.comments.forEach(function(comment) {
-          comment.replies = replies.filter(function(r) {
-            return r.parentId === comment._id;
-          });
-        });
-      });
-  }
-
-  function renderComments(container) {
-    if (!state.comments.length) {
-      container.innerHTML = '<p class="comments-empty">' + escapeHtml(getI18nText('comments.empty', '暂无留言，来写第一条吧！')) + '</p>';
-      return;
-    }
-
-    var html = state.comments.map(function(comment) {
-      return renderCommentItem(comment);
-    }).join('');
-
-    container.innerHTML = html;
-  }
-
-  function renderCommentItem(comment, isReply) {
-    isReply = isReply || false;
-    var date = formatDate(comment.createdAt);
-    var rawName = comment.author && comment.author.name ? comment.author.name : '';
-    var authorName = rawName && rawName !== 'Guest' ? escapeHtml(rawName) : escapeHtml(getI18nText('comments.guest', '访客'));
-    var content = renderMarkdown(comment.content || '');
-    var replyBtn = isReply ? '' : '<button class="comment-reply-btn" data-id="' + comment._id + '">' + escapeHtml(getI18nText('comments.reply', '回复')) + '</button>';
-    var repliesHtml = '';
-
-    if (!isReply && comment.replies && comment.replies.length) {
-      repliesHtml = '<div class="comment-replies">' +
-        comment.replies.map(function(r) {
-          return renderCommentItem(r, true);
-        }).join('') +
-        '</div>';
-    }
-
-    return '<div class="comment-item ' + (isReply ? 'comment-reply' : '') + '" id="comment-' + comment._id + '">' +
-      '<div class="comment-header">' +
-        '<span class="comment-author">' + authorName + '</span>' +
-        '<span class="comment-date">' + date + '</span>' +
-      '</div>' +
-      '<div class="comment-body">' + content + '</div>' +
-      '<div class="comment-actions">' + replyBtn + '</div>' +
-      repliesHtml +
-      '</div>';
-  }
-
-  function renderForm(container) {
-    var existing = container.querySelector('.comments-form-wrapper');
-    if (existing) {
-      var input = existing.querySelector('.comments-input');
-      var hint = existing.querySelector('.comments-hint');
-      var btn = existing.querySelector('.comments-submit');
-      if (input) input.placeholder = getI18nText('comments.placeholder', '写下你的留言...');
-      if (hint) hint.textContent = getI18nText('comments.hint.markdown', '支持 Markdown 语法');
-      if (btn) btn.textContent = getI18nText('comments.submit', '提交留言');
-      return;
-    }
-
-    var wrapper = document.createElement('div');
-    wrapper.className = 'comments-form-wrapper';
-    wrapper.innerHTML =
-      '<div class="comments-form">' +
-        '<textarea class="comments-input" placeholder="' + escapeHtml(getI18nText('comments.placeholder', '写下你的留言...')) + '" maxlength="' + CONFIG.maxLength + '"></textarea>' +
-        '<div class="comments-form-footer">' +
-          '<span class="comments-hint">' + escapeHtml(getI18nText('comments.hint.markdown', '支持 Markdown 语法')) + '</span>' +
-          '<button class="comments-submit btn btn-primary">' + escapeHtml(getI18nText('comments.submit', '提交留言')) + '</button>' +
-        '</div>' +
-      '</div>';
-
-    container.insertBefore(wrapper, container.firstChild);
-  }
-
-  function bindEvents(container) {
-    container.addEventListener('click', function(e) {
-      if (e.target.classList.contains('comments-submit')) {
-        handleSubmit(container);
-      } else if (e.target.classList.contains('comment-reply-btn')) {
-        handleReplyClick(e.target, container);
-      } else if (e.target.classList.contains('comment-reply-submit')) {
-        handleReplySubmit(e.target, container);
-      }
-    });
-
-    container.addEventListener('keydown', function(e) {
-      if (e.target.classList.contains('comments-input') && e.key === 'Enter' && e.metaKey) {
-        handleSubmit(container);
-      }
-    });
-  }
-
-  function handleSubmit(container) {
-    var input = container.querySelector('.comments-input');
-    var content = input.value.trim();
-
-    if (!content) return;
-    if (!checkRateLimit()) {
-      alert(getI18nText('comments.error.rateLimit', '提交太频繁，请稍后再试'));
-      return;
-    }
-
-    state.submitting = true;
-    submitComment(content, null, function() {
-      state.submitting = false;
-      input.value = '';
-      loadComments();
-    }, function(err) {
-      state.submitting = false;
-      alert(getI18nText('comments.error.submit', '提交失败'));
-    });
-  }
-
-  function handleReplyClick(btn, container) {
-    var id = btn.dataset.id;
-    var existing = container.querySelector('.reply-form[data-parent="' + id + '"]');
-    if (existing) {
-      existing.remove();
-      return;
-    }
-
-    var form = document.createElement('div');
-    form.className = 'reply-form';
-    form.dataset.parent = id;
-    form.innerHTML =
-      '<textarea class="reply-input" placeholder="' + escapeHtml(getI18nText('comments.reply.placeholder', '回复...')) + '" maxlength="' + CONFIG.maxLength + '"></textarea>' +
-      '<button class="comment-reply-submit btn btn-sm btn-primary" data-parent="' + id + '">' + escapeHtml(getI18nText('comments.reply.submit', '提交回复')) + '</button>';
-
-    btn.parentNode.appendChild(form);
-    form.querySelector('.reply-input').focus();
-  }
-
-  function handleReplySubmit(btn, container) {
-    var parentId = btn.dataset.parent;
-    var form = container.querySelector('.reply-form[data-parent="' + parentId + '"]');
-    var input = form.querySelector('.reply-input');
-    var content = input.value.trim();
-
-    if (!content) return;
-    if (!checkRateLimit()) {
-      alert(getI18nText('comments.error.rateLimit', '提交太频繁，请稍后再试'));
-      return;
-    }
-
-    submitComment(content, parentId, function() {
-      form.remove();
-      loadComments();
-    }, function(err) {
-      alert(getI18nText('comments.error.submit', '提交失败'));
-    });
-  }
-
-  function submitComment(content, parentId, onSuccess, onError) {
-    if (!state.user) {
-      onError(new Error(getI18nText('comments.error.notLoggedIn', '未登录')));
-      return;
-    }
-
-    cloudbase.callFunction({
-      name: 'addComment',
-      data: {
-        content: content,
-        pageId: CONFIG.pageId,
-        parentId: parentId || null,
-        sessionId: state.user.uid || 'anonymous',
-        uid: state.user.uid || 'anonymous'
-      }
-    }).then(function(res) {
-      var result = res.result || {};
-      if (result.success) {
-        onSuccess();
-      } else {
-        onError(new Error(result.error || getI18nText('comments.error.submit', '提交失败')));
-      }
-    }).catch(onError);
-  }
-
-  function checkRateLimit() {
-    var now = Date.now();
-    if (now - state.lastSubmitTime < CONFIG.rateLimitMs) {
-      return false;
-    }
-    state.lastSubmitTime = now;
-    return true;
-  }
-
-  function formatDate(dateValue) {
-    var d = dateValue ? new Date(dateValue) : new Date();
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
-    var h = String(d.getHours()).padStart(2, '0');
-    var min = String(d.getMinutes()).padStart(2, '0');
-    return y + '-' + m + '-' + day + ' ' + h + ':' + min;
-  }
-
-  function escapeHtml(text) {
-    var div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  function renderMarkdown(text) {
-    var html = escapeHtml(text);
-
-    html = html
-      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-      .replace(/`([^`]+)`/g, '<code>$1</code>')
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, function(_, linkText, url) {
-        var safeUrl = url.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
-        if (/^https?:\/\//.test(safeUrl) || safeUrl.startsWith('/') || safeUrl.startsWith('#') || safeUrl.startsWith('mailto:')) {
-          return '<a href="' + escapeHtml(safeUrl) + '" target="_blank" rel="noopener noreferrer">' + linkText + '</a>';
-        }
-        return linkText + ' (' + url + ')';
-      });
-
-    return html.replace(/\n/g, '<br>');
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 
   window.Comments = { init: init, loadComments: loadComments };
 })();

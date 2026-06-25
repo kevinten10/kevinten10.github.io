@@ -1,0 +1,29 @@
+export type Env = {
+  DB: D1Database;
+  SITE_KV: KVNamespace;
+  ASSETS: R2Bucket;
+  EVENTS_QUEUE?: Queue<QueueEvent>;
+  AUTH0_DOMAIN: string;
+  AUTH0_AUDIENCE: string;
+  ADMIN_EMAILS: string;
+  STRIPE_WEBHOOK_SECRET?: string;
+  SITE_ORIGIN?: string;
+};
+
+export type QueueEvent =
+  | { type: 'page_view'; pagePath: string; sessionId: string; visitorKey?: string; createdAt: string }
+  | { type: 'comment_created'; pagePath: string; commentId: string; status: string; createdAt: string }
+  | { type: 'reward_created'; rewardId: string; status: string; createdAt: string };
+
+export type AuthUser = {
+  sub: string;
+  email?: string;
+  name?: string;
+  picture?: string;
+  role: 'visitor' | 'admin' | 'moderator';
+  userId?: string;
+};
+
+export type Variables = {
+  authUser?: AuthUser;
+};

@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
     <link rel="stylesheet" href="/assets/css/main.css?v=33">
     <link rel="stylesheet" href="/assets/css/comments.css?v=1">
+    <link rel="stylesheet" href="/assets/css/rewards.css?v=1">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=1">
     
     <!-- Preload critical resources -->
@@ -2187,11 +2188,46 @@
         </div>
     </section>
 
-    <!-- Comments Section -->
-    <section class="section comments-section section-alt" id="comments" data-section-idx="12">
+    <!-- Rewards Section -->
+    <section class="section rewards-section" id="rewards" data-section-idx="12">
         <div class="container">
             <header class="section-header">
                 <span class="section-index">12</span>
+                <h2 class="section-title" data-i18n="rewards.title">支持与鸣谢</h2>
+                <p class="section-description" data-i18n="rewards.desc">如果内容对你有帮助，欢迎留下支持和一句话。</p>
+            </header>
+            <div class="rewards-grid">
+                <div class="reward-qr-grid" aria-label="Reward QR codes">
+                    <figure class="reward-qr">
+                        <img src="/images/rewards/wechat-qr.svg" alt="WeChat reward QR code" loading="lazy">
+                        <figcaption>WeChat</figcaption>
+                    </figure>
+                    <figure class="reward-qr">
+                        <img src="/images/rewards/alipay-qr.svg" alt="Alipay reward QR code" loading="lazy">
+                        <figcaption>Alipay</figcaption>
+                    </figure>
+                </div>
+                <div class="rewards-form">
+                    <input class="rewards-name" maxlength="40" placeholder="昵称">
+                    <input class="rewards-amount" type="number" min="0" step="0.01" placeholder="金额（可选）">
+                    <select class="rewards-currency" aria-label="Currency">
+                        <option value="CNY">CNY</option>
+                        <option value="USD">USD</option>
+                    </select>
+                    <textarea class="rewards-message" maxlength="300" placeholder="留言（可选）"></textarea>
+                    <button class="rewards-submit btn btn-primary">提交鸣谢</button>
+                    <p class="rewards-status" aria-live="polite"></p>
+                </div>
+            </div>
+            <div class="rewards-list" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="section comments-section section-alt" id="comments" data-section-idx="13">
+        <div class="container">
+            <header class="section-header">
+                <span class="section-index">13</span>
                 <h2 class="section-title" data-i18n="comments.title">留言</h2>
                 <p class="section-description" data-i18n="comments.desc">欢迎留下你的想法和建议</p>
             </header>
@@ -2207,6 +2243,13 @@
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <p class="footer-quote">"Building systems where humans design, agents execute, and runtimes collaborate."</p>
+            <div class="footer-public-stats" aria-label="Site stats">
+                <span><strong data-public-stat="pageViews">-</strong> page views</span>
+                <span><strong data-public-stat="comments">-</strong> comments</span>
+                <span><strong data-public-stat="supporters">-</strong> supporters</span>
+                <button type="button" class="footer-auth-button" data-auth-login>Log in</button>
+                <button type="button" class="footer-auth-button" data-auth-logout hidden>Log out</button>
+            </div>
             <div class="footer-links">
                 <a href="https://github.com/kevinten10" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://x.com/kevinten1024" target="_blank" rel="noopener noreferrer">X / Twitter</a>
@@ -2283,10 +2326,9 @@
     })();
     </script>
 
-    <!-- Cloudbase SDK -->
-    <script src="https://imgcache.qq.com/qcloud/cloudbase-js-sdk/1.7.1/cloudbase.full.js"></script>
-
     <!-- Scripts -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script src="/assets/js/cloudflare-runtime.js"></script>
     <script src="/assets/js/i18n.js?v=31"></script>
     <script src="/assets/js/observer-manager.js?v=31" defer></script>
     <script src="/assets/js/theme.js?v=31" defer></script>
@@ -2300,8 +2342,10 @@
     <script src="/assets/js/gallery.js?v=31" defer></script>
     <script src="/assets/js/hero-effects.js?v=31" defer></script>
     <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
-    <script src="/assets/js/comments.js?v=1" defer></script>
-    <script src="/assets/js/analytics.js?v=2" defer></script>
+    <script src="/assets/js/auth-client.js?v=1" defer></script>
+    <script src="/assets/js/rewards.js?v=1" defer></script>
+    <script src="/assets/js/comments.js?v=2" defer></script>
+    <script src="/assets/js/analytics.js?v=3" defer></script>
     <script src="/assets/js/ai-assistant.js?v=2" defer></script>
     <script>
     function openAllEcoProjects() {

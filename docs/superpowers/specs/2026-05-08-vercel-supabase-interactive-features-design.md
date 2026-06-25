@@ -1,5 +1,7 @@
 # Vercel + Supabase Interactive Features Design
 
+> Superseded for current implementation: the active target architecture is documented in `docs/superpowers/specs/2026-06-25-cloudflare-interactive-preview-design.md`. Keep this file as historical context only.
+
 ## Context
 
 The site is currently a static personal website with no build step. The maintained entry points are `index.html`, `articles.html`, `assets/css/`, and `assets/js/`; historical blog pages under dated folders should remain intact unless a change is intentionally site-wide.

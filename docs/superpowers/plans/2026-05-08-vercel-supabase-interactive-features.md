@@ -1,5 +1,7 @@
 # Vercel Supabase Interactive Features Implementation Plan
 
+> Superseded for current implementation: execute `docs/superpowers/plans/2026-06-25-cloudflare-interactive-preview.md` for the Cloudflare Pages/Workers/D1/R2/KV/Queues/Auth0/Stripe preview architecture. Keep this file as historical context only.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Migrate the static site interactive layer from Cloudbase to Vercel Functions plus Supabase, adding visitor comments, analytics, recorded rewards, owner admin, and Stripe-ready payment closure.
