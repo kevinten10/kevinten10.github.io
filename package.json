@@ -13,7 +13,8 @@
     "provision:stripe": "node scripts/stripe-provision.mjs",
     "test": "vitest run worker/tests",
     "typecheck": "tsc --noEmit -p worker/tsconfig.json",
-    "verify": "npm run typecheck && npm test && npm run build:pages"
+    "verify": "npm run typecheck && npm test && npm run build:pages",
+    "verify:preview": "node scripts/verify-preview.mjs"
   },
   "dependencies": {
     "hono": "^4.5.0",

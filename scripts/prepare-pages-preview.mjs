@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const out = path.join(root, 'dist', 'pages');
-const includeDirs = ['2018', '2019', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags', 'video'];
+const includeDirs = ['2018', '2019', 'admin', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags', 'video'];
 const includeFiles = ['.nojekyll', 'articles.html', 'index.html', 'robots.txt', 'sitemap.xml', 'sw.js'];
 
 async function copyRecursive(src, dest) {

@@ -53,6 +53,13 @@ $env:API_BASE_URL="https://kevinten-api-preview.<subdomain>.workers.dev"
 npm run deploy:pages
 ```
 
+Verify the deployed preview:
+
+```powershell
+$env:PAGES_URL="https://<deployment-id>.kevinten-interactive-preview.pages.dev"
+npm run verify:preview
+```
+
 ## Auth0 Automation
 
 ```powershell

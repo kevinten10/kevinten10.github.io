@@ -2,7 +2,7 @@
 
 ## Preview URLs
 
-- Cloudflare Pages preview: https://3eb03886.kevinten-interactive-preview.pages.dev
+- Cloudflare Pages preview: https://cf85b187.kevinten-interactive-preview.pages.dev
 - Worker API preview: https://kevinten-api-preview.wshten.workers.dev
 
 ## Cloudflare Resources
@@ -50,16 +50,17 @@ npm run provision:auth0
 $env:WORKER_API_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run provision:stripe
 stripe trigger checkout.session.completed
 stripe events list --limit 1 --type checkout.session.completed
+$env:PAGES_URL='https://cf85b187.kevinten-interactive-preview.pages.dev'; npm run verify:preview
 ```
 
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 4 files, 15 tests passed.
+- Vitest: 7 files, 22 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
-- Pages preview deploy: succeeded.
+- Pages preview deploy: succeeded at `https://cf85b187.kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
 - Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
@@ -67,7 +68,9 @@ Results:
 - Anonymous comments GET: returned the smoke-test comment.
 - Stripe webhook signature verification: direct signed test payload returned success.
 - Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
-- Legacy page check: `https://3eb03886.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
+- Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
+- Admin shell check: `https://cf85b187.kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
+- Legacy page check: `https://cf85b187.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
 
 ## Automation Blockers
 
