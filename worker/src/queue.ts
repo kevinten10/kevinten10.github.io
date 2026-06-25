@@ -1,5 +1,5 @@
 import type { Env, QueueEvent } from './types';
-import { todayUtc, nowIso } from './lib/ids';
+import { newId, todayUtc, nowIso } from './lib/ids';
 
 export async function handleQueue(batch: MessageBatch<QueueEvent>, env: Env): Promise<void> {
   for (const message of batch.messages) {
@@ -10,8 +10,22 @@ export async function handleQueue(batch: MessageBatch<QueueEvent>, env: Env): Pr
     if (event.type === 'comment_created' && event.status === 'approved') {
       await incrementStats(env, event.pagePath, 'comments_count');
     }
+    if (event.type === 'comment_created') {
+      if (event.status === 'approved') {
+        await recordQueueWork(env, 'comment', event.commentId, 'notification_queued');
+      } else {
+        await recordQueueWork(env, 'comment', event.commentId, 'moderation_queued', `comment_status:${event.status}`);
+      }
+    }
     if (event.type === 'reward_created' && (event.status === 'approved' || event.status === 'verified')) {
       await incrementStats(env, '/', 'rewards_count');
+    }
+    if (event.type === 'reward_created') {
+      if (event.status === 'approved' || event.status === 'verified') {
+        await recordQueueWork(env, 'reward', event.rewardId, 'notification_queued');
+      } else {
+        await recordQueueWork(env, 'reward', event.rewardId, 'moderation_queued', `reward_status:${event.status}`);
+      }
     }
     message.ack();
   }
@@ -25,5 +39,11 @@ async function incrementStats(env: Env, pagePath: string, field: 'pv' | 'comment
     .run();
   await env.DB.prepare(`insert into daily_stats (stat_date, page_path, ${field}, updated_at) values (?, ?, 1, ?) on conflict(stat_date, page_path) do update set ${field} = ${field} + 1, updated_at = ?`)
     .bind(date, pagePath, now, now)
+    .run();
+}
+
+async function recordQueueWork(env: Env, targetType: string, targetId: string, action: string, reason = ''): Promise<void> {
+  await env.DB.prepare('insert into admin_events (id, actor_user_id, actor_email, target_type, target_id, action, reason) values (?, null, null, ?, ?, ?, ?)')
+    .bind(newId('evt'), targetType, targetId, action, reason)
     .run();
 }

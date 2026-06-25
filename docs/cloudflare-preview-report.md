@@ -18,7 +18,7 @@
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
 - Queue: `kevintenpreviewevents`
-- Current Worker version after site config routes: `8733c542-3d1b-4093-a1fa-4fdd6f7da78e`
+- Current Worker version after queue audit routes: `117ae377-7a33-495a-b328-7cab4c600a04`
 
 ## Implemented
 
@@ -29,7 +29,7 @@
 - Added anonymous fallback for comments and rewards.
 - Added KV rate limiting, JWKS caching, public stats caching, and public site config storage.
 - Added R2 binding for future QR/avatar/attachment storage.
-- Added Queues support for asynchronous stats/comment/reward events, with direct D1 stats fallback for view counts.
+- Added Queues support for asynchronous stats/comment/reward events, with direct D1 stats fallback for view counts and admin audit records for moderation/notification jobs.
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
 - Added Auth0 login controls, public stats, rewards section, and admin preview page.
 - Added Cloudflare/Auth0/Stripe automation scripts.
@@ -57,12 +57,13 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 11 files, 36 tests passed.
+- Vitest: 12 files, 40 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
 - Pages preview deploy: succeeded at `https://cf85b187.kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
+- Queue processing records pending comment/reward moderation tasks and approved/verified notification tasks in `admin_events`.
 - Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
 - Cloudflare provisioning script: uses the local Wrangler package when available, defaults to `kevintenpreviewevents`, and no longer executes commands when imported by tests.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
