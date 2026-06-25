@@ -36,6 +36,17 @@ After D1/KV/Queue creation, copy generated IDs and queue names into `worker/wran
 
 Cloudflare Access admin protection requires an API token with Access application/policy write permissions or Zero Trust edit permissions. The current Wrangler CLI can deploy Workers/Pages resources but does not expose an Access application creation command.
 
+Provision Cloudflare Access for the preview admin path when a suitably scoped API token is available:
+
+```powershell
+$env:CLOUDFLARE_API_TOKEN="token-with-access-apps-policies-write"
+$env:CLOUDFLARE_ACCOUNT_ID="f53190ff9de65971510ed96e5bd89bee"
+$env:CLOUDFLARE_ACCESS_ADMIN_DOMAIN="cf85b187.kevinten-interactive-preview.pages.dev"
+$env:CLOUDFLARE_ACCESS_ADMIN_PATH="/admin/*"
+$env:ADMIN_EMAILS="you@example.com"
+npm run provision:access
+```
+
 Apply D1 schema:
 
 ```powershell

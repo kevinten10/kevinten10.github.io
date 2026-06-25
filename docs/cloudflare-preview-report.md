@@ -51,12 +51,13 @@ $env:WORKER_API_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run p
 stripe trigger checkout.session.completed
 stripe events list --limit 1 --type checkout.session.completed
 $env:PAGES_URL='https://cf85b187.kevinten-interactive-preview.pages.dev'; npm run verify:preview
+npm run provision:access
 ```
 
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 7 files, 22 tests passed.
+- Vitest: 8 files, 25 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
@@ -71,6 +72,7 @@ Results:
 - Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
 - Admin shell check: `https://cf85b187.kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
 - Legacy page check: `https://cf85b187.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
+- Cloudflare Access automation script: added `npm run provision:access`; dry run without `CLOUDFLARE_API_TOKEN` fails fast with a clear missing-token error.
 
 ## Automation Blockers
 
@@ -88,6 +90,7 @@ Results:
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
 - Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command.
   - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
+  - `npm run provision:access` is now available for API-token-based automation once a suitably scoped token is provided.
   - Cloudflare's API permission reference lists Access application/policy write permissions and Zero Trust edit permissions for managing Access resources; the current Wrangler OAuth token did not include those Access scopes.
   - Access policy should be added through Zero Trust dashboard or Cloudflare API with a suitably scoped token before exposing admin broadly.
 

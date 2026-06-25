@@ -11,6 +11,7 @@
     "provision:cloudflare": "node scripts/cloudflare-provision.mjs",
     "provision:auth0": "node scripts/auth0-provision.mjs",
     "provision:stripe": "node scripts/stripe-provision.mjs",
+    "provision:access": "node scripts/cloudflare-access-provision.mjs",
     "test": "vitest run worker/tests",
     "typecheck": "tsc --noEmit -p worker/tsconfig.json",
     "verify": "npm run typecheck && npm test && npm run build:pages",
