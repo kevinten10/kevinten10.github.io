@@ -57,12 +57,14 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 9 files, 28 tests passed.
+- Vitest: 10 files, 31 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
 - Pages preview deploy: succeeded at `https://cf85b187.kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
+- Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
+- Cloudflare provisioning script: uses the local Wrangler package when available, defaults to `kevintenpreviewevents`, and no longer executes commands when imported by tests.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
 - Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
 - Anonymous comment POST: succeeded and wrote an approved smoke-test comment.
