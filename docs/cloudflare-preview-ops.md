@@ -34,6 +34,8 @@ npm run provision:cloudflare
 
 After D1/KV/Queue creation, copy generated IDs and queue names into `worker/wrangler.toml`.
 
+Cloudflare Access admin protection requires an API token with Access application/policy write permissions or Zero Trust edit permissions. The current Wrangler CLI can deploy Workers/Pages resources but does not expose an Access application creation command.
+
 Apply D1 schema:
 
 ```powershell

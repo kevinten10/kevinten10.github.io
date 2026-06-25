@@ -88,7 +88,8 @@ Results:
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
 - Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command.
   - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
-  - Access policy should be added through Zero Trust dashboard or Cloudflare API before exposing admin broadly.
+  - Cloudflare's API permission reference lists Access application/policy write permissions and Zero Trust edit permissions for managing Access resources; the current Wrangler OAuth token did not include those Access scopes.
+  - Access policy should be added through Zero Trust dashboard or Cloudflare API with a suitably scoped token before exposing admin broadly.
 
 ## Stripe
 
