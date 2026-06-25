@@ -22,3 +22,12 @@ preview_id = "ed35ac6db9ea45d4a50b4e6bd1b48fec"
 [[r2_buckets]]
 binding = "ASSETS"
 bucket_name = "kevinten-site-preview-assets"
+
+[[queues.producers]]
+binding = "EVENTS_QUEUE"
+queue = "kevintenpreviewevents"
+
+[[queues.consumers]]
+queue = "kevintenpreviewevents"
+max_batch_size = 10
+max_batch_timeout = 5

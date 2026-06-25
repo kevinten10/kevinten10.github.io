@@ -17,7 +17,8 @@
 - KV namespace ID: `35e9b55b48ce4e5ab3e024e9ee45652e`
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
-- Queue target name: `kevinten-site-preview-events`
+- Queue: `kevintenpreviewevents`
+- Current Worker version after Queue binding: `e29072ae-a883-4d42-8354-21d74d246e94`
 
 ## Implemented
 
@@ -28,7 +29,7 @@
 - Added anonymous fallback for comments and rewards.
 - Added KV rate limiting and public stats caching.
 - Added R2 binding for future QR/avatar/attachment storage.
-- Added optional Queues support in code, with direct D1 stats fallback while the queue resource is blocked.
+- Added Queues support for asynchronous stats/comment/reward events, with direct D1 stats fallback for view counts.
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
 - Added Auth0 login controls, public stats, rewards section, and admin preview page.
 - Added Cloudflare/Auth0/Stripe automation scripts.
@@ -47,6 +48,8 @@ npm run deploy:worker
 $env:API_BASE_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run deploy:pages
 npm run provision:auth0
 $env:WORKER_API_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run provision:stripe
+stripe trigger checkout.session.completed
+stripe events list --limit 1 --type checkout.session.completed
 ```
 
 Results:
@@ -55,31 +58,31 @@ Results:
 - Vitest: 4 files, 15 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
-- Worker deploy: succeeded.
+- Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
 - Pages preview deploy: succeeded.
+- Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
-- Public stats endpoint: returned success.
+- Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
 - Anonymous comment POST: succeeded and wrote an approved smoke-test comment.
 - Anonymous comments GET: returned the smoke-test comment.
 - Stripe webhook signature verification: direct signed test payload returned success.
+- Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
 - Legacy page check: `https://3eb03886.kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
 
 ## Automation Blockers
 
-- Auth0 CLI is installed but not logged in. `npm run provision:auth0` reported `config.json file is missing`.
-  - Recovery:
+- Auth0 CLI is installed but not logged in. `npm run provision:auth0` reported `config.json file is missing`, and `auth0 login --no-input` timed out without tenant/client credentials.
+  - Fully automated recovery requires Auth0 machine credentials:
     ```powershell
-    auth0 login
+    $env:AUTH0_DOMAIN="your-tenant.auth0.com"
+    $env:AUTH0_CLIENT_ID="your-machine-client-id"
+    $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
+    auth0 login --domain $env:AUTH0_DOMAIN --client-id $env:AUTH0_CLIENT_ID --client-secret $env:AUTH0_CLIENT_SECRET
     npm run provision:auth0
     ```
+  - Browser/device `auth0 login` remains available, but it is not fully unattended.
   - After that, set `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, and `AUTH0_AUDIENCE` for the preview runtime config and Worker variables.
-- Cloudflare Queues creation failed with `The specified queue settings are invalid`, both on Wrangler 3 and Wrangler 4.
-  - Attempted:
-    ```powershell
-    npx wrangler queues create kevinten-site-preview-events
-    npx wrangler queues create kevinten-site-preview-events --delivery-delay-secs 0 --message-retention-period-secs 345600
-    ```
-  - Current Worker deploy omits the Queue binding so the preview API is live. Code keeps optional Queue support and writes stats directly to D1 as a fallback.
+- Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
 - Cloudflare Access could not be configured through Wrangler because Wrangler exposes no `access` command.
   - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
   - Access policy should be added through Zero Trust dashboard or Cloudflare API before exposing admin broadly.

@@ -32,7 +32,7 @@ npx wrangler login
 npm run provision:cloudflare
 ```
 
-After D1/KV creation, copy generated IDs into `worker/wrangler.toml`.
+After D1/KV/Queue creation, copy generated IDs and queue names into `worker/wrangler.toml`.
 
 Apply D1 schema:
 
@@ -56,11 +56,14 @@ npm run deploy:pages
 ## Auth0 Automation
 
 ```powershell
-auth0 login
+$env:AUTH0_DOMAIN="your-tenant.auth0.com"
+$env:AUTH0_CLIENT_ID="your-machine-client-id"
+$env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
+auth0 login --domain $env:AUTH0_DOMAIN --client-id $env:AUTH0_CLIENT_ID --client-secret $env:AUTH0_CLIENT_SECRET
 npm run provision:auth0
 ```
 
-Use the generated SPA Client ID and tenant domain as `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` for the preview runtime config.
+Use the generated SPA Client ID and tenant domain as `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` for the preview runtime config. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
 
 ## Stripe Automation
 
