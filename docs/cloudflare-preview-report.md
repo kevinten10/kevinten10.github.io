@@ -57,7 +57,7 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 8 files, 25 tests passed.
+- Vitest: 9 files, 28 tests passed.
 - Pages preview build: passed.
 - D1 migration: applied `0001_initial.sql` successfully.
 - Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
@@ -76,15 +76,15 @@ Results:
 
 ## Automation Blockers
 
-- Auth0 CLI is installed but not logged in. `npm run provision:auth0` reported `config.json file is missing`, and `auth0 login --no-input` timed out without tenant/client credentials.
+- Auth0 CLI is installed but not logged in. `npm run provision:auth0` now resolves the local `auth0.exe` path automatically, then reports `config.json file is missing`; `auth0 login --no-input` previously timed out without tenant/client credentials.
   - Fully automated recovery requires Auth0 machine credentials:
     ```powershell
     $env:AUTH0_DOMAIN="your-tenant.auth0.com"
     $env:AUTH0_CLIENT_ID="your-machine-client-id"
     $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
-    auth0 login --domain $env:AUTH0_DOMAIN --client-id $env:AUTH0_CLIENT_ID --client-secret $env:AUTH0_CLIENT_SECRET
     npm run provision:auth0
     ```
+  - With all three credentials present, the script performs machine login before creating the SPA application and API resource server.
   - Browser/device `auth0 login` remains available, but it is not fully unattended.
   - After that, set `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, and `AUTH0_AUDIENCE` for the preview runtime config and Worker variables.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.

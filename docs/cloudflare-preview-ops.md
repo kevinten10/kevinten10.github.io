@@ -79,11 +79,10 @@ npm run verify:preview
 $env:AUTH0_DOMAIN="your-tenant.auth0.com"
 $env:AUTH0_CLIENT_ID="your-machine-client-id"
 $env:AUTH0_CLIENT_SECRET="your-machine-client-secret"
-auth0 login --domain $env:AUTH0_DOMAIN --client-id $env:AUTH0_CLIENT_ID --client-secret $env:AUTH0_CLIENT_SECRET
 npm run provision:auth0
 ```
 
-Use the generated SPA Client ID and tenant domain as `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` for the preview runtime config. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
+`npm run provision:auth0` will use `AUTH0_CLI` when set, then the known local Windows install path, then `auth0` from `PATH`. When all three machine credentials above are present, it performs `auth0 login --domain ... --client-id ... --client-secret ...` before provisioning. Use the generated SPA Client ID and tenant domain as `AUTH0_CLIENT_ID` and `AUTH0_DOMAIN` for the preview runtime config. If machine credentials are not available, `auth0 login` falls back to a browser/device authorization flow.
 
 ## Stripe Automation
 

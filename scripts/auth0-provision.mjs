@@ -1,24 +1,105 @@
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
 
 const appName = 'KevinTen Cloudflare Preview';
 const apiName = 'KevinTen Preview API';
-const audience = process.env.AUTH0_AUDIENCE || 'https://kevinten-preview/api';
-const callback = process.env.AUTH0_CALLBACK_URL || 'http://localhost:8788/';
-const logout = process.env.AUTH0_LOGOUT_URL || callback;
-const origin = process.env.AUTH0_ALLOWED_ORIGIN || new URL(callback).origin;
 
-function run(args, allowFail = true) {
-  console.log(`\n$ auth0 ${args.join(' ')}`);
-  const result = spawnSync('auth0', args, { stdio: 'inherit', shell: true });
+const knownWindowsCli = 'C:\\Users\\PC\\AppData\\Local\\Programs\\Auth0CLI\\auth0.exe';
+
+export function resolveAuth0Command(env = process.env, exists = existsSync) {
+  if (env.AUTH0_CLI?.trim()) return env.AUTH0_CLI.trim();
+  if (process.platform === 'win32' && exists(knownWindowsCli)) return knownWindowsCli;
+  return 'auth0';
+}
+
+export function shouldAttemptMachineLogin(env = process.env) {
+  return Boolean(env.AUTH0_DOMAIN?.trim() && env.AUTH0_CLIENT_ID?.trim() && env.AUTH0_CLIENT_SECRET?.trim());
+}
+
+export function buildMachineLoginArgs(env = process.env) {
+  return [
+    'login',
+    '--domain',
+    env.AUTH0_DOMAIN.trim(),
+    '--client-id',
+    env.AUTH0_CLIENT_ID.trim(),
+    '--client-secret',
+    env.AUTH0_CLIENT_SECRET.trim()
+  ];
+}
+
+function redactArgs(args) {
+  return args.map((arg, index) => {
+    if (args[index - 1] === '--client-secret') return '<redacted>';
+    return arg;
+  });
+}
+
+function run(command, args, allowFail = true) {
+  console.log(`\n$ ${path.basename(command)} ${redactArgs(args).join(' ')}`);
+  const result = spawnSync(command, args, {
+    stdio: 'inherit',
+    shell: process.platform === 'win32' && command === 'auth0'
+  });
   if (result.status !== 0 && !allowFail) process.exit(result.status || 1);
   return result.status === 0;
 }
 
-if (!run(['tenants', 'list'])) {
-  console.log('Auth0 CLI is not logged in. Run: auth0 login, then rerun npm run provision:auth0');
-  process.exit(0);
+export function buildAuth0Config(env = process.env) {
+  const audience = env.AUTH0_AUDIENCE || 'https://kevinten-preview/api';
+  const callback = env.AUTH0_CALLBACK_URL || 'http://localhost:8788/';
+  const logout = env.AUTH0_LOGOUT_URL || callback;
+  const origin = env.AUTH0_ALLOWED_ORIGIN || new URL(callback).origin;
+  return { audience, callback, logout, origin };
 }
 
-run(['apps', 'create', '--name', appName, '--type', 'spa', '--callbacks', callback, '--logout-urls', logout, '--origins', origin, '--json']);
-run(['apis', 'create', '--name', apiName, '--identifier', audience, '--scopes', 'admin:read,admin:write', '--signing-alg', 'RS256', '--json']);
-console.log('\nAuth0 provisioning attempted. Put the SPA client id and tenant domain into Cloudflare Pages env vars.');
+export function provisionAuth0(env = process.env) {
+  const command = resolveAuth0Command(env);
+  const config = buildAuth0Config(env);
+
+  if (shouldAttemptMachineLogin(env)) {
+    run(command, buildMachineLoginArgs(env));
+  }
+
+  if (!run(command, ['tenants', 'list'])) {
+    console.log(`Auth0 CLI is not logged in. Run: ${path.basename(command)} login, then rerun npm run provision:auth0`);
+    return false;
+  }
+
+  run(command, [
+    'apps',
+    'create',
+    '--name',
+    appName,
+    '--type',
+    'spa',
+    '--callbacks',
+    config.callback,
+    '--logout-urls',
+    config.logout,
+    '--origins',
+    config.origin,
+    '--json'
+  ]);
+  run(command, [
+    'apis',
+    'create',
+    '--name',
+    apiName,
+    '--identifier',
+    config.audience,
+    '--scopes',
+    'admin:read,admin:write',
+    '--signing-alg',
+    'RS256',
+    '--json'
+  ]);
+  console.log('\nAuth0 provisioning attempted. Put the SPA client id and tenant domain into Cloudflare Pages env vars.');
+  return true;
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  provisionAuth0();
+}
