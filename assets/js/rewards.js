@@ -15,6 +15,10 @@
     return (window.KevinAuth ? window.KevinAuth.apiBase() : '') + path;
   }
 
+  function apiBase() {
+    return window.KevinAuth ? window.KevinAuth.apiBase() : '';
+  }
+
   function init() {
     var section = document.getElementById('rewards');
     if (!section) return;
@@ -44,6 +48,7 @@
   }
 
   function submit(section, payload) {
+    if (!apiBase()) return status(section, '鸣谢功能暂未启用');
     fetch(api('/api/rewards'), {
       method: 'POST',
       headers: window.KevinAuth ? window.KevinAuth.headers() : { 'Content-Type': 'application/json' },
@@ -63,6 +68,10 @@
   function load(section) {
     var list = section.querySelector('.rewards-list');
     if (!list) return;
+    if (!apiBase()) {
+      list.innerHTML = '<p class="rewards-empty">鸣谢墙暂未启用。</p>';
+      return;
+    }
     fetch(api('/api/rewards')).then(function(res) {
       return res.json();
     }).then(function(result) {

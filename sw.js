@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 35
+ * @version 37
  */
 
-const SW_VERSION = '35';
+const SW_VERSION = '37';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -33,7 +33,7 @@ const PRECACHE_ASSETS = [
   '/assets/js/comments.js?v=2',
   '/assets/js/analytics.js?v=3',
   '/assets/js/rewards.js?v=1',
-  '/assets/js/admin.js?v=1',
+  '/assets/js/admin.js?v=2',
   '/assets/js/ai-assistant.js?v=2',
   '/img/avatar.jpg'
 ];
@@ -96,7 +96,17 @@ self.addEventListener('fetch', (event) => {
 
   // Handle API requests - network first
   if (url.pathname.startsWith('/api/')) {
+    if (shouldBypassApiCache(request, url)) {
+      event.respondWith(fetch(request));
+      return;
+    }
     event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // Runtime config is environment-specific; always fetch the latest copy.
+  if (isRuntimeConfig(url)) {
+    event.respondWith(fetch(request));
     return;
   }
 
@@ -173,6 +183,17 @@ function staleWhileRevalidate(request) {
 // Check if request is for a static asset
 function isStaticAsset(url) {
   return CACHE_EXTENSIONS.some(ext => url.pathname.endsWith(ext));
+}
+
+function isRuntimeConfig(url) {
+  return url.pathname === '/assets/js/cloudflare-runtime.js';
+}
+
+function shouldBypassApiCache(request, url) {
+  return request.headers.has('Authorization') ||
+    url.pathname.startsWith('/api/admin/') ||
+    url.pathname.startsWith('/api/auth/') ||
+    url.pathname.startsWith('/api/users/');
 }
 
 // Message handling from main thread

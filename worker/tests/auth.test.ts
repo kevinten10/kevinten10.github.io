@@ -8,13 +8,16 @@ async function buildEnvAndToken(options: {
   audience?: string;
   email?: string;
   adminEmails?: string;
+  emailVerified?: boolean;
+  jwkAlg?: string;
+  issuer?: string;
 }) {
-  const issuer = 'https://kevinten-test.auth0.com/';
+  const issuer = options.issuer || 'https://kevinten-test.auth0.com/';
   const audience = options.audience || 'https://kevinten-preview/api';
   const { publicKey, privateKey } = await generateKeyPair('RS256');
   const publicJwk = await exportJWK(publicKey);
   publicJwk.kid = 'test-key';
-  publicJwk.alg = 'RS256';
+  publicJwk.alg = options.jwkAlg || 'RS256';
   publicJwk.use = 'sig';
 
   const kv = new MemoryKV();
@@ -30,6 +33,7 @@ async function buildEnvAndToken(options: {
   const token = await new SignJWT({
     sub: 'auth0|visitor-1',
     email: options.email,
+    email_verified: options.emailVerified ?? true,
     name: 'Visitor One',
     picture: 'https://example.com/avatar.png'
   })
@@ -67,5 +71,33 @@ describe('Auth0 token verification', () => {
     });
 
     await expect(verifyAuth0Token(token, env)).rejects.toThrow();
+  });
+
+  it('does not grant admin role to an unverified matching email claim', async () => {
+    const { env, token } = await buildEnvAndToken({
+      email: 'admin@example.com',
+      adminEmails: 'admin@example.com',
+      emailVerified: false
+    });
+
+    const user = await verifyAuth0Token(token, env);
+
+    expect(user.role).toBe('visitor');
+  });
+
+  it('rejects tokens from the wrong issuer', async () => {
+    const { env, token } = await buildEnvAndToken({
+      issuer: 'https://wrong-tenant.auth0.com/'
+    });
+
+    await expect(verifyAuth0Token(token, env)).rejects.toThrow();
+  });
+
+  it('rejects cached JWKS keys that are not RS256 signing keys', async () => {
+    const { env, token } = await buildEnvAndToken({
+      jwkAlg: 'HS256'
+    });
+
+    await expect(verifyAuth0Token(token, env)).rejects.toThrow('JWT signing key not found');
   });
 });

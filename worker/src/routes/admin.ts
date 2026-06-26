@@ -32,6 +32,7 @@ adminRoutes.get('/comments', async (c) => {
 
 adminRoutes.patch('/comments/:id', async (c) => {
   const body = await c.req.json<Record<string, unknown>>();
+  const authUser = c.get('authUser');
   const status = cleanText(body.status, 20);
   if (!['approved', 'hidden', 'spam'].includes(status)) return fail(c, 400, 'Invalid comment status');
   const id = c.req.param('id');
@@ -39,7 +40,7 @@ adminRoutes.patch('/comments/:id', async (c) => {
     .bind(status, cleanText(body.reason, 200) || null, nowIso(), id)
     .run();
   await c.env.DB.prepare('insert into admin_events (id, actor_user_id, actor_email, target_type, target_id, action, reason) values (?, ?, ?, ?, ?, ?, ?)')
-    .bind(newId('evt'), c.get('authUser')?.userId || null, c.get('authUser')?.email || c.req.header('cf-access-authenticated-user-email') || null, 'comment', id, status, cleanText(body.reason, 200) || null)
+    .bind(newId('evt'), authUser?.userId || null, authUser?.email || null, 'comment', id, status, cleanText(body.reason, 200) || null)
     .run();
   return ok(c, { id, status });
 });
@@ -52,6 +53,7 @@ adminRoutes.get('/rewards', async (c) => {
 
 adminRoutes.patch('/rewards/:id', async (c) => {
   const body = await c.req.json<Record<string, unknown>>();
+  const authUser = c.get('authUser');
   const status = cleanText(body.status, 20);
   if (!['approved', 'verified', 'hidden'].includes(status)) return fail(c, 400, 'Invalid reward status');
   const id = c.req.param('id');
@@ -60,16 +62,17 @@ adminRoutes.patch('/rewards/:id', async (c) => {
     .bind(status, verifiedAt, nowIso(), id)
     .run();
   await c.env.DB.prepare('insert into admin_events (id, actor_user_id, actor_email, target_type, target_id, action, reason) values (?, ?, ?, ?, ?, ?, ?)')
-    .bind(newId('evt'), c.get('authUser')?.userId || null, c.get('authUser')?.email || c.req.header('cf-access-authenticated-user-email') || null, 'reward', id, status, cleanText(body.reason, 200) || null)
+    .bind(newId('evt'), authUser?.userId || null, authUser?.email || null, 'reward', id, status, cleanText(body.reason, 200) || null)
     .run();
   return ok(c, { id, status });
 });
 
 adminRoutes.patch('/config', async (c) => {
   const body = await c.req.json<Record<string, unknown>>();
+  const authUser = c.get('authUser');
   const config = await setPublicSiteConfig(c.env, body);
   await c.env.DB?.prepare('insert into admin_events (id, actor_user_id, actor_email, target_type, target_id, action, reason) values (?, ?, ?, ?, ?, ?, ?)')
-    .bind(newId('evt'), c.get('authUser')?.userId || null, c.get('authUser')?.email || c.req.header('cf-access-authenticated-user-email') || null, 'site_config', 'public', 'updated', null)
+    .bind(newId('evt'), authUser?.userId || null, authUser?.email || null, 'site_config', 'public', 'updated', null)
     .run();
   return ok(c, config);
 });

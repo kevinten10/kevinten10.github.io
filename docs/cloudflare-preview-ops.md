@@ -2,6 +2,8 @@
 
 This project keeps the existing GitHub Pages production site untouched. Cloudflare resources use preview names only.
 
+Cloudflare Access protects the static `/admin/` shell. Worker `/api/admin/*` routes still require a valid Auth0 bearer token whose verified email maps to `ADMIN_EMAILS`; do not rely on raw `cf-access-authenticated-user-email` headers for API authorization.
+
 ## Local Setup
 
 ```powershell
@@ -17,6 +19,7 @@ AUTH0_AUDIENCE=https://kevinten-preview/api
 ADMIN_EMAILS=wshten@gmail.com
 STRIPE_WEBHOOK_SECRET=whsec_test
 SITE_ORIGIN=http://localhost:8788
+ALLOWED_ORIGINS=https://kevinten-interactive-preview.pages.dev
 ```
 
 ## Cloudflare Automation
@@ -82,8 +85,18 @@ Deploy Pages preview:
 
 ```powershell
 $env:API_BASE_URL="https://kevinten-api-preview.<subdomain>.workers.dev"
+$env:PAGES_URL="https://kevinten-interactive-preview.pages.dev"
+$env:AUTH0_DOMAIN="your-tenant.auth0.com"
+$env:AUTH0_CLIENT_ID="your-auth0-spa-client-id"
+$env:AUTH0_AUDIENCE="https://kevinten-preview/api"
+$env:AUTH0_CALLBACK_URL="https://kevinten-interactive-preview.pages.dev/"
+$env:AUTH0_LOGOUT_URL="https://kevinten-interactive-preview.pages.dev/"
 npm run deploy:pages
 ```
+
+`npm run verify` rebuilds `dist/pages` with safe blank defaults for local/static hosting. Always set the preview runtime environment variables again before `npm run deploy:pages`.
+
+The runtime config is intentionally loaded as `/assets/js/cloudflare-runtime.js?v=2` and bypasses Service Worker caching because it differs between preview and future production deployments.
 
 Verify the deployed preview:
 
@@ -91,6 +104,8 @@ Verify the deployed preview:
 $env:PAGES_URL="https://<deployment-id>.kevinten-interactive-preview.pages.dev"
 npm run verify:preview
 ```
+
+`npm run verify:preview` is a smoke test and intentionally writes preview-only page views, comments, reactions, and reward records.
 
 ## Auth0 Automation
 
@@ -133,3 +148,5 @@ npx wrangler secret put STRIPE_WEBHOOK_SECRET --config worker/wrangler.toml
 ## Production Cutover
 
 Do not change `CNAME` or `kevinten.com` until the preview is verified. When ready, create a production Cloudflare Pages project or promote the preview project, bind the custom domain, then update DNS deliberately.
+
+Before production cutover, set `ALLOWED_ORIGINS=https://kevinten.com,https://www.kevinten.com`, update Auth0 callback/logout/origin URLs for the production domain, and re-run the full local plus remote verification suite.

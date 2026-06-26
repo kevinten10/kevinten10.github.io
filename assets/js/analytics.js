@@ -7,8 +7,12 @@
 
   var SESSION_KEY = 'kevinten-session';
 
+  function apiBase() {
+    return window.KevinAuth ? window.KevinAuth.apiBase() : '';
+  }
+
   function api(path) {
-    return (window.KevinAuth ? window.KevinAuth.apiBase() : '') + path;
+    return apiBase() + path;
   }
 
   function sessionId() {
@@ -24,6 +28,7 @@
   }
 
   function track() {
+    if (!apiBase()) return;
     if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
     var visitor = window.KevinAuth ? window.KevinAuth.visitor() : {};
     fetch(api('/api/stats/view'), {
@@ -42,6 +47,10 @@
   function stats() {
     var nodes = document.querySelectorAll('[data-public-stat]');
     if (!nodes.length) return;
+    if (!apiBase()) {
+      nodes.forEach(function(node) { node.textContent = '0'; });
+      return;
+    }
     fetch(api('/api/stats/public?page=' + encodeURIComponent(window.location.pathname || '/')))
       .then(function(res) { return res.json(); })
       .then(function(result) {
@@ -52,7 +61,9 @@
           if (key === 'comments') node.textContent = result.data.totalComments || 0;
           if (key === 'supporters') node.textContent = result.data.supporterCount || 0;
         });
-      }).catch(function() {});
+      }).catch(function() {
+        nodes.forEach(function(node) { node.textContent = '0'; });
+      });
   }
 
   function init() {

@@ -18,6 +18,10 @@
     return (window.KevinAuth ? window.KevinAuth.apiBase() : '') + path;
   }
 
+  function apiBase() {
+    return window.KevinAuth ? window.KevinAuth.apiBase() : '';
+  }
+
   function escapeHtml(value) {
     var div = document.createElement('div');
     div.textContent = value || '';
@@ -88,6 +92,7 @@
   }
 
   function submit(container) {
+    if (!apiBase()) return status(container, t('comments.disabled', '留言功能暂未启用'));
     if (state.submitting) return;
     var name = container.querySelector('.comments-name').value.trim();
     var website = container.querySelector('.comments-website').value.trim();
@@ -125,6 +130,10 @@
   function loadComments() {
     var list = document.getElementById('comments-list');
     if (!list) return Promise.resolve();
+    if (!apiBase()) {
+      list.innerHTML = '<p class="comments-empty">' + escapeHtml(t('comments.disabled', '留言功能暂未启用')) + '</p>';
+      return Promise.resolve();
+    }
     list.innerHTML = '<p class="comments-loading">' + escapeHtml(t('comments.loading', '加载中...')) + '</p>';
     return fetch(api('/api/comments?page=' + encodeURIComponent(pagePath)))
       .then(function(res) { return res.json(); })

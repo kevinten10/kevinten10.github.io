@@ -8,6 +8,7 @@ export type Env = {
   ADMIN_EMAILS: string;
   STRIPE_WEBHOOK_SECRET?: string;
   SITE_ORIGIN?: string;
+  ALLOWED_ORIGINS?: string;
 };
 
 export type QueueEvent =

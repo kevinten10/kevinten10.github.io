@@ -32,22 +32,31 @@
       updateUi();
       return;
     }
-    state.client = await window.auth0.createAuth0Client({
-      domain: auth.domain,
-      clientId: auth.clientId,
-      authorizationParams: {
-        audience: auth.audience,
-        redirect_uri: auth.redirectUri || window.location.origin + window.location.pathname
-      },
-      cacheLocation: 'localstorage'
-    });
-    if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
-      await state.client.handleRedirectCallback();
-      history.replaceState({}, document.title, window.location.pathname + window.location.hash);
-    }
-    if (await state.client.isAuthenticated()) {
-      state.user = await state.client.getUser();
-      state.token = await state.client.getTokenSilently();
+    try {
+      state.client = await window.auth0.createAuth0Client({
+        domain: auth.domain,
+        clientId: auth.clientId,
+        authorizationParams: {
+          audience: auth.audience,
+          redirect_uri: auth.redirectUri || window.location.origin + window.location.pathname
+        },
+        cacheLocation: 'localstorage'
+      });
+      if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+        await state.client.handleRedirectCallback();
+        history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+      }
+      if (await state.client.isAuthenticated()) {
+        state.user = await state.client.getUser();
+        state.token = await state.client.getTokenSilently();
+      }
+    } catch (err) {
+      state.client = null;
+      state.user = null;
+      state.token = '';
+      if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+        history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+      }
     }
     state.ready = true;
     updateUi();
@@ -72,7 +81,8 @@
 
   async function logout() {
     if (!state.client) return;
-    await state.client.logout({ logoutParams: { returnTo: window.location.origin + window.location.pathname } });
+    var auth = config().auth0 || {};
+    await state.client.logout({ logoutParams: { returnTo: auth.logoutUri || window.location.origin + '/' } });
   }
 
   function headers(extra) {

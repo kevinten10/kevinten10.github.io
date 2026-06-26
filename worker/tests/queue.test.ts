@@ -33,6 +33,20 @@ function batch(events: QueueEvent[]) {
 }
 
 describe('queue processing', () => {
+  it('increments both page views and visitors for page view events', async () => {
+    const db = new RecordingD1();
+
+    await handleQueue(batch([
+      { type: 'page_view', pagePath: '/queued-page', sessionId: 'session_1', visitorKey: 'visitor_1', createdAt: '2026-06-25T00:00:00.000Z' }
+    ]), { DB: db } as unknown as Env);
+
+    expect(db.executions).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        sql: expect.stringContaining('pv, uv')
+      })
+    ]));
+  });
+
   it('records moderation work for pending comments', async () => {
     const db = new RecordingD1();
 

@@ -38,7 +38,8 @@ const runtime = {
     domain: process.env.AUTH0_DOMAIN || '',
     clientId: process.env.AUTH0_CLIENT_ID || '',
     audience: process.env.AUTH0_AUDIENCE || '',
-    redirectUri: process.env.AUTH0_CALLBACK_URL || ''
+    redirectUri: process.env.AUTH0_CALLBACK_URL || '',
+    logoutUri: process.env.AUTH0_LOGOUT_URL || ''
   }
 };
 await fs.writeFile(

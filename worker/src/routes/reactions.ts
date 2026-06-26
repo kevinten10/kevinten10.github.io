@@ -19,8 +19,9 @@ reactionRoutes.post('/', async (c) => {
   if (!['comment', 'page', 'reward'].includes(targetType) || !targetId) return fail(c, 400, 'Invalid reaction target');
 
   const id = newId('rct');
-  await c.env.DB.prepare('insert or ignore into reactions (id, target_type, target_id, reaction_type, user_id, visitor_key) values (?, ?, ?, ?, ?, ?)')
-    .bind(id, targetType, targetId, reactionType, authUser?.userId || null, visitorKey)
+  const actorKey = authUser?.userId ? `user:${authUser.userId}` : `visitor:${visitorKey}`;
+  await c.env.DB.prepare('insert or ignore into reactions (id, target_type, target_id, reaction_type, user_id, visitor_key, actor_key) values (?, ?, ?, ?, ?, ?, ?)')
+    .bind(id, targetType, targetId, reactionType, authUser?.userId || null, visitorKey, actorKey)
     .run();
   return ok(c, { id, targetType, targetId, reactionType }, 201);
 });

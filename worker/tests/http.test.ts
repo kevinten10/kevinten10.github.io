@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Hono } from 'hono';
 import { corsHeaders, fail, ok } from '../src/lib/http';
+import type { Env } from '../src/types';
 
 describe('API response helpers', () => {
   it('wraps success responses in the shared envelope', async () => {
@@ -30,11 +31,15 @@ describe('API response helpers', () => {
   });
 
   it('sets CORS headers for API clients and Stripe webhooks', () => {
-    expect(corsHeaders('https://example.com')).toMatchObject({
-      'Access-Control-Allow-Origin': 'https://example.com',
+    expect(corsHeaders('https://kevinten-interactive-preview.pages.dev', {} as Env)).toMatchObject({
+      'Access-Control-Allow-Origin': 'https://kevinten-interactive-preview.pages.dev',
       'Access-Control-Allow-Headers': 'Authorization, Content-Type, Stripe-Signature',
       'Access-Control-Allow-Methods': 'GET, POST, PATCH, OPTIONS',
       Vary: 'Origin'
     });
+  });
+
+  it('does not reflect arbitrary CORS origins', () => {
+    expect(corsHeaders('https://evil.example', {} as Env)['Access-Control-Allow-Origin']).toBeUndefined();
   });
 });

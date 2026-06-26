@@ -13,8 +13,40 @@
     return window.KevinAuth ? window.KevinAuth.headers() : { 'Content-Type': 'application/json' };
   }
 
-  function content(html) {
-    document.getElementById('admin-content').innerHTML = html;
+  var commentActions = [
+    { status: 'approved', label: 'Approve' },
+    { status: 'hidden', label: 'Hide' },
+    { status: 'spam', label: 'Spam' }
+  ];
+
+  var rewardActions = [
+    { status: 'approved', label: 'Approve' },
+    { status: 'verified', label: 'Verify' },
+    { status: 'hidden', label: 'Hide' }
+  ];
+
+  function clearContent() {
+    var root = document.getElementById('admin-content');
+    root.replaceChildren();
+    return root;
+  }
+
+  function card(title, bodyText) {
+    var node = document.createElement('div');
+    node.className = 'admin-card';
+    if (title) {
+      var strong = document.createElement('strong');
+      strong.textContent = title;
+      node.appendChild(strong);
+    }
+    var body = document.createElement('p');
+    body.textContent = bodyText || '';
+    node.appendChild(body);
+    return node;
+  }
+
+  function showMessage(message) {
+    clearContent().appendChild(card('', message));
   }
 
   function fetchJson(path, options) {
@@ -27,24 +59,50 @@
     fetchJson('/api/admin/summary').then(function(result) {
       if (!result.success) throw new Error(result.error || 'failed');
       var data = result.data;
-      content('<div class="admin-card"><strong>Pending comments</strong><p>' + data.pendingComments + '</p></div>' +
-        '<div class="admin-card"><strong>Pending rewards</strong><p>' + data.pendingRewards + '</p></div>' +
-        '<div class="admin-card"><strong>Approved comments</strong><p>' + data.approvedComments + '</p></div>' +
-        '<div class="admin-card"><strong>Supporters</strong><p>' + data.supporters + '</p></div>');
+      var root = clearContent();
+      root.appendChild(card('Pending comments', String(data.pendingComments || 0)));
+      root.appendChild(card('Pending rewards', String(data.pendingRewards || 0)));
+      root.appendChild(card('Approved comments', String(data.approvedComments || 0)));
+      root.appendChild(card('Supporters', String(data.supporters || 0)));
     }).catch(function(err) {
-      content('<div class="admin-card">' + err.message + '</div>');
+      showMessage(err.message);
     });
   }
 
   function loadList(type) {
     fetchJson('/api/admin/' + type).then(function(result) {
       var rows = result.data || [];
-      content(rows.map(function(row) {
-        return '<article class="admin-card"><strong>' + (row.author_name || row.display_name || row.id) + '</strong><p>' +
-          (row.content || row.message || '') + '</p><button class="admin-action" data-approve="' + type + '" data-id="' + row.id + '">Approve</button></article>';
-      }).join('') || '<div class="admin-card">No pending items.</div>');
+      var root = clearContent();
+      if (!rows.length) {
+        root.appendChild(card('', 'No pending items.'));
+        return;
+      }
+      rows.forEach(function(row) {
+        var article = document.createElement('article');
+        article.className = 'admin-card';
+        var title = document.createElement('strong');
+        title.textContent = row.author_name || row.display_name || row.id;
+        var body = document.createElement('p');
+        body.textContent = row.content || row.message || '';
+        var actions = document.createElement('div');
+        actions.className = 'admin-actions';
+        (type === 'rewards' ? rewardActions : commentActions).forEach(function(action) {
+          var button = document.createElement('button');
+          button.className = 'admin-action';
+          button.type = 'button';
+          button.setAttribute('data-approve', type);
+          button.setAttribute('data-id', row.id);
+          button.setAttribute('data-status', action.status);
+          button.textContent = action.label;
+          actions.appendChild(button);
+        });
+        article.appendChild(title);
+        article.appendChild(body);
+        article.appendChild(actions);
+        root.appendChild(article);
+      });
     }).catch(function(err) {
-      content('<div class="admin-card">' + err.message + '</div>');
+      showMessage(err.message);
     });
   }
 
@@ -62,11 +120,17 @@
       var target = event.target;
       if (!target.matches('[data-approve]')) return;
       var type = target.getAttribute('data-approve');
-      var status = type === 'rewards' ? 'approved' : 'approved';
+      var status = target.getAttribute('data-status') || 'approved';
+      target.disabled = true;
       fetchJson('/api/admin/' + type + '/' + target.getAttribute('data-id'), {
         method: 'PATCH',
         body: JSON.stringify({ status: status })
-      }).then(function() { loadList(type); });
+      }).then(function(result) {
+        if (!result.success) throw new Error(result.error || 'failed');
+        loadList(type);
+      }).catch(function(err) {
+        showMessage(err.message);
+      });
     });
   }
 

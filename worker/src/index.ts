@@ -17,9 +17,9 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 app.use('*', async (c, next) => {
   const origin = c.req.header('Origin') || null;
-  if (c.req.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders(origin) });
+  if (c.req.method === 'OPTIONS') return new Response(null, { status: 204, headers: corsHeaders(origin, c.env) });
   await next();
-  Object.entries(corsHeaders(origin)).forEach(([key, value]) => c.res.headers.set(key, value));
+  Object.entries(corsHeaders(origin, c.env)).forEach(([key, value]) => c.res.headers.set(key, value));
 });
 
 app.use('/api/*', optionalAuth);

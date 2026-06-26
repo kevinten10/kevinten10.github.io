@@ -3,7 +3,7 @@
 ## Preview URLs
 
 - Cloudflare Pages stable preview: https://kevinten-interactive-preview.pages.dev
-- Latest Cloudflare Pages deployment: https://4ed96ee4.kevinten-interactive-preview.pages.dev
+- Latest Cloudflare Pages deployment: https://b13a0730.kevinten-interactive-preview.pages.dev
 - Worker API preview: https://kevinten-api-preview.wshten.workers.dev
 
 ## Cloudflare Resources
@@ -22,7 +22,7 @@
 - Zero Trust team name: `long-haze-d0eb`
 - Cloudflare Access app: `KevinTen Admin Preview` (`73acba4b-bbc9-445a-8d09-28ef4db5de60`)
 - Cloudflare Access policy: `KevinTen Admin Allow` (`e91be843-1b5f-448d-a438-12f4d1aac7f8`)
-- Current Worker version after Auth0 domain config: `fe29a1fa-c0ae-44c8-80ce-9bc65b76d141`
+- Current Worker version after agent-team hardening: `290a0cca-5e73-4c64-9fa7-f273c664ebca`
 
 ## Implemented
 
@@ -30,12 +30,18 @@
 - Added D1 schema for users, visitor profiles, comments, reactions, rewards, page views, daily stats, page stats, and admin events.
 - Added Worker API routes for auth, users, comments, replies, reactions, rewards, stats, admin moderation, and Stripe webhook.
 - Added Auth0 JWT verification code with JWKS caching through KV.
+- Hardened Auth0 admin mapping to require a verified email claim and RS256 signing keys.
 - Added anonymous fallback for comments and rewards.
-- Added KV rate limiting, JWKS caching, public stats caching, and public site config storage.
+- Added KV rate limiting, JWKS caching, public stats caching, least-privilege CORS, and public site config storage.
 - Added R2 binding for future QR/avatar/attachment storage.
 - Added Queues support for asynchronous stats/comment/reward events, with direct D1 stats fallback for view counts and admin audit records for moderation/notification jobs.
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
 - Added Auth0 login controls, public stats, rewards section, and admin preview page.
+- Hardened the admin UI to render moderation content with DOM text APIs, expanded moderation actions, and prevented service-worker caching of protected API responses.
+- Kept the environment-specific runtime config out of Service Worker caches, bumped the Service Worker to v37, and versioned the runtime script reference as `/assets/js/cloudflare-runtime.js?v=2`.
+- Added public stats fallback reads from raw `page_views` when asynchronous Queue aggregation lags behind, and fixed direct/queued visitor count increments to update `uv`.
+- Restricted CORS to configured preview origins instead of reflecting arbitrary request origins.
+- Hardened Stripe webhook processing to require paid Checkout sessions and match existing reward amount/currency before marking rewards verified.
 - Added Cloudflare/Auth0/Stripe automation scripts.
 - Added preview defaults for Auth0 callback/logout/origin URLs and Cloudflare Access provisioning.
 - Set preview Worker `ADMIN_EMAILS` to `wshten@gmail.com` so authenticated admin tokens can be recognized after Auth0 is connected.
@@ -63,11 +69,11 @@ npm run provision:access
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 12 files, 44 tests passed.
+- Vitest: 16 files, 63 tests passed after the agent-team security hardening pass.
 - Pages preview build: passed.
-- D1 migration: applied `0001_initial.sql` successfully.
-- Worker deploy: succeeded with D1, KV, R2, and Queue bindings.
-- Pages preview deploy: succeeded at `https://4ed96ee4.kevinten-interactive-preview.pages.dev`; stable preview is `https://kevinten-interactive-preview.pages.dev`.
+- D1 migrations: applied `0001_initial.sql` and `0002_reaction_actor_keys.sql` successfully.
+- Worker deploy: succeeded with D1, KV, R2, Queue producer, and Queue consumer bindings; current version is `290a0cca-5e73-4c64-9fa7-f273c664ebca`.
+- Pages preview deploy: succeeded at `https://b13a0730.kevinten-interactive-preview.pages.dev`; stable preview is `https://kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
 - Queue processing records pending comment/reward moderation tasks and approved/verified notification tasks in `admin_events`.
 - Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
@@ -75,17 +81,22 @@ Results:
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
 - Public site config endpoint: returned default KV-backed config from `/api/config`.
 - Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
+- Public stats endpoint now falls back to raw `page_views` if Queue aggregation has not caught up yet.
 - Anonymous comment POST: succeeded and wrote an approved smoke-test comment.
 - Anonymous comments GET: returned the smoke-test comment.
-- Stripe webhook signature verification: direct signed test payload returned success.
+- Stripe webhook signature verification: direct signed test payload returned success; local tests now reject stale signatures and unpaid Checkout sessions.
 - Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
 - Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
+- CORS check: an arbitrary origin did not receive `Access-Control-Allow-Origin`; the stable preview origin did.
+- Browser smoke check: the in-app browser loaded the preview homepage, rendered public stats and comment data from the Worker-backed modules, and reported no site console errors. Browser-plugin telemetry timeouts were ignored as unrelated to the site.
+- `npm run verify:preview` writes preview-only smoke records; do not run it against production data without adjusting the script.
 - Admin shell check: `https://kevinten-interactive-preview.pages.dev/admin/` now redirects unauthenticated visitors to Cloudflare Access.
 - Legacy page check: `https://kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
 - Auth0 SPA/API provisioning is complete for tenant `dev-8abkwbejxgjbcz1l.us.auth0.com`. The SPA client `t2qbmY5FWebHzNuLWaKziycuRJygqGkP` allows the stable preview URL and the known hash deployment URLs for callback, logout, and web origins.
 - Cloudflare Zero Trust Free was activated after explicit confirmation of the overage billing terms.
 - Cloudflare Access API token was created through the Cloudflare dashboard and stored in the Windows user environment variable `CLOUDFLARE_API_TOKEN`.
 - Cloudflare Access application and allow policy were created for `kevinten-interactive-preview.pages.dev/admin/*`; unauthenticated requests now redirect to `long-haze-d0eb.cloudflareaccess.com`.
+- Cloudflare Access gates the static admin shell. Worker `/api/admin/*` authorization is enforced by Auth0 admin JWTs, not raw Access email headers.
 
 ## Automation Blockers
 
@@ -100,6 +111,7 @@ Results:
 - Stripe test trigger succeeded.
 - The Worker `STRIPE_WEBHOOK_SECRET` secret was set through Wrangler.
 - The report intentionally does not include the webhook signing secret.
+- The current Worker only verifies Stripe events that reference an existing reward ID through metadata or `client_reference_id`; a first-class Stripe Checkout creation route remains a production enhancement before a full payment UI launch.
 
 ## Production Cutover Guidance
 

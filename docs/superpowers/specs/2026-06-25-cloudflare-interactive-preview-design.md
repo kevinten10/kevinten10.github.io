@@ -12,7 +12,7 @@ Build a Cloudflare-hosted preview of the personal site interactive system withou
 - Object storage: Cloudflare R2.
 - Cache and rate limiting: Cloudflare KV.
 - Async jobs: Cloudflare Queues.
-- Admin page protection: Cloudflare Access plus Worker-side admin authorization.
+- Admin page protection: Cloudflare Access gates `/admin/`; Worker `/api/admin/*` requires an Auth0 admin JWT mapped from a verified admin email.
 - Visitor login: Auth0, with anonymous fallback for low-friction commenting.
 - Payments: Stripe webhook to Worker, persisted in D1.
 

@@ -91,6 +91,19 @@ async function assertJson(name, url, predicate, options = {}) {
   return body;
 }
 
+async function assertJsonEventually(name, url, predicate, options = {}) {
+  let last;
+  for (let attempt = 1; attempt <= 8; attempt += 1) {
+    last = await requestJson(url, options);
+    if (predicate(last.response, last.body)) {
+      console.log(`ok ${name}`);
+      return last.body;
+    }
+    await delay(attempt * 750);
+  }
+  throw new Error(`${name} failed: ${last?.response?.status || 0} ${JSON.stringify(last?.body)}`);
+}
+
 async function assertText(name, url, predicate) {
   const response = await request(url);
   const text = await response.text();
@@ -174,7 +187,7 @@ await assertJson('reward record create', `${apiBaseUrl}/api/rewards`, (_response
   })
 });
 
-await assertJson('public stats read', `${apiBaseUrl}/api/stats/public?page=${encodeURIComponent(smokePage)}`, (_response, body) => {
+await assertJsonEventually('public stats read', `${apiBaseUrl}/api/stats/public?page=${encodeURIComponent(smokePage)}`, (_response, body) => {
   return body?.success === true && Number(body?.data?.page?.pv || 0) >= 1 && Number(body?.data?.page?.uv || 0) >= 1;
 });
 

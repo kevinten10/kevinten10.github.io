@@ -30,17 +30,21 @@ async function loadJwks(env: Env): Promise<Jwks> {
 export async function verifyAuth0Token(token: string, env: Env): Promise<AuthUser> {
   if (!env.AUTH0_DOMAIN || !env.AUTH0_AUDIENCE) throw new Error('Auth0 environment is not configured');
   const header = decodeProtectedHeader(token);
+  if (header.alg !== 'RS256') throw new Error('Unsupported JWT algorithm');
   const jwks = await loadJwks(env);
   const jwk = jwks.keys.find((key) => key.kid === header.kid);
-  if (!jwk) throw new Error('JWT signing key not found');
-  const key = await importJWK(jwk, String(header.alg || 'RS256'));
+  if (!jwk || jwk.kty !== 'RSA' || (jwk.use && jwk.use !== 'sig') || (jwk.alg && jwk.alg !== 'RS256')) {
+    throw new Error('JWT signing key not found');
+  }
+  const key = await importJWK(jwk, 'RS256');
   const verified = await jwtVerify(token, key, {
     issuer: issuer(env),
-    audience: env.AUTH0_AUDIENCE
+    audience: env.AUTH0_AUDIENCE,
+    algorithms: ['RS256']
   });
-  const payload = verified.payload as JWTPayload & { email?: string; name?: string; picture?: string };
+  const payload = verified.payload as JWTPayload & { email?: string; email_verified?: boolean; name?: string; picture?: string };
   const email = payload.email?.toLowerCase();
-  const role = email && adminEmails(env).includes(email) ? 'admin' : 'visitor';
+  const role = email && payload.email_verified === true && adminEmails(env).includes(email) ? 'admin' : 'visitor';
   return {
     sub: String(payload.sub || ''),
     email,
@@ -86,10 +90,8 @@ export async function requireAuth(c: Context<{ Bindings: Env; Variables: Variabl
 }
 
 export async function requireAdmin(c: Context<{ Bindings: Env; Variables: Variables }>, next: Next): Promise<void | Response> {
-  const accessEmail = c.req.header('cf-access-authenticated-user-email')?.toLowerCase();
   const authUser = c.get('authUser');
-  const allowed = adminEmails(c.env);
-  if ((authUser?.role === 'admin') || (accessEmail && allowed.includes(accessEmail))) {
+  if (authUser?.role === 'admin') {
     await next();
     return;
   }
