@@ -12,14 +12,14 @@
 
 ## Tasks
 
-- [ ] Create `codex/cloudflare-interactive-preview` branch.
-- [ ] Add Worker/Hono/TypeScript project files and D1 schema.
-- [ ] Implement Auth0 JWT verification, KV JWKS cache, user upsert, admin checks.
-- [ ] Implement comments, replies, reactions, rewards, stats, admin, and Stripe webhook routes.
-- [ ] Add queue consumer for stats aggregation.
-- [ ] Replace Cloudbase frontend comments/analytics with Worker-backed modules.
-- [ ] Add Auth0 login entry, rewards section, public stats, and admin page.
-- [ ] Add Cloudflare/Auth0/Stripe automation scripts and ops docs.
-- [ ] Run typecheck/tests/static preview build.
-- [ ] Attempt Wrangler/Auth0/Stripe CLI provisioning and preview deploys.
-- [ ] Produce final report with preview URLs or precise blockers.
+- [x] Create `codex/cloudflare-interactive-preview` branch.
+- [x] Add Worker/Hono/TypeScript project files and D1 schema.
+- [x] Implement Auth0 JWT verification, KV JWKS cache, user upsert, admin checks.
+- [x] Implement comments, replies, reactions, rewards, stats, admin, and Stripe webhook routes.
+- [x] Add queue consumer for stats aggregation.
+- [x] Replace Cloudbase frontend comments/analytics with Worker-backed modules.
+- [x] Add Auth0 login entry, rewards section, public stats, and admin page.
+- [x] Add Cloudflare/Auth0/Stripe automation scripts and ops docs.
+- [x] Run typecheck/tests/static preview build.
+- [x] Attempt Wrangler/Auth0/Stripe CLI provisioning and preview deploys.
+- [x] Produce final report with preview URLs or precise blockers.

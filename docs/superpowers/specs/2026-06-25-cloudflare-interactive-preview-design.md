@@ -18,7 +18,7 @@ Build a Cloudflare-hosted preview of the personal site interactive system withou
 
 ## Safety
 
-The implementation must not modify `CNAME`, GitHub Pages settings, or the production domain. Preview deployments use names such as `kevinten-interactive-preview`, `kevinten-api-preview`, `kevinten_site_preview`, `kevinten-site-preview-assets`, and `kevinten-site-preview-events`.
+The implementation must not modify `CNAME`, GitHub Pages settings, or the production domain. Preview deployments use names such as `kevinten-interactive-preview`, `kevinten-api-preview`, `kevinten_site_preview`, `kevinten-site-preview-assets`, and `kevintenpreviewevents`.
 
 ## Data Model
 
