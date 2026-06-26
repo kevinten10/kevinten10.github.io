@@ -19,6 +19,9 @@
 - KV preview namespace ID: `ed35ac6db9ea45d4a50b4e6bd1b48fec`
 - R2 bucket: `kevinten-site-preview-assets`
 - Queue: `kevintenpreviewevents`
+- Zero Trust team name: `long-haze-d0eb`
+- Cloudflare Access app: `KevinTen Admin Preview` (`73acba4b-bbc9-445a-8d09-28ef4db5de60`)
+- Cloudflare Access policy: `KevinTen Admin Allow` (`e91be843-1b5f-448d-a438-12f4d1aac7f8`)
 - Current Worker version after Auth0 domain config: `fe29a1fa-c0ae-44c8-80ce-9bc65b76d141`
 
 ## Implemented
@@ -77,19 +80,18 @@ Results:
 - Stripe webhook signature verification: direct signed test payload returned success.
 - Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
 - Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
-- Admin shell check: `https://kevinten-interactive-preview.pages.dev/admin/` returned the admin HTML and scripts.
+- Admin shell check: `https://kevinten-interactive-preview.pages.dev/admin/` now redirects unauthenticated visitors to Cloudflare Access.
 - Legacy page check: `https://kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
 - Auth0 SPA/API provisioning is complete for tenant `dev-8abkwbejxgjbcz1l.us.auth0.com`. The SPA client `t2qbmY5FWebHzNuLWaKziycuRJygqGkP` allows the stable preview URL and the known hash deployment URLs for callback, logout, and web origins.
-- Cloudflare Access API token was created through the Cloudflare dashboard and stored in the Windows user environment variable `CLOUDFLARE_API_TOKEN`. The token authenticates to the Access API, but Cloudflare returns `access.api.error.not_enabled` until the account's Zero Trust Free plan is activated.
+- Cloudflare Zero Trust Free was activated after explicit confirmation of the overage billing terms.
+- Cloudflare Access API token was created through the Cloudflare dashboard and stored in the Windows user environment variable `CLOUDFLARE_API_TOKEN`.
+- Cloudflare Access application and allow policy were created for `kevinten-interactive-preview.pages.dev/admin/*`; unauthenticated requests now redirect to `long-haze-d0eb.cloudflareaccess.com`.
 
 ## Automation Blockers
 
 - Auth0 browser login and provisioning are complete. Runtime config now uses `https://kevinten-interactive-preview.pages.dev/` as the default redirect URL, and the latest preview deploy includes Auth0 login settings.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
-- Cloudflare Access could not be fully activated unattended because Cloudflare's Zero Trust Free checkout page requires confirming that card ending in `2822` may be charged for usage that exceeds free limits.
-  - Current admin page exists at `/admin/`, and admin API routes still enforce admin checks.
-  - `npm run provision:access` is ready and now fails only with `Access is not enabled`; after explicit billing-risk confirmation and Zero Trust activation, rerun it to create `KevinTen Admin Preview` for `kevinten-interactive-preview.pages.dev/admin/*`.
-  - The created token has Access read/edit permissions and should be kept local; do not commit or print it.
+- Cloudflare Access is active for the preview admin path. The created token has Access read/edit permissions and should be kept local; do not commit or print it.
 
 ## Stripe
 

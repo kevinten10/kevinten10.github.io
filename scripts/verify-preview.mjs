@@ -187,7 +187,10 @@ await assertText('pages runtime config', `${pagesUrl}/assets/js/cloudflare-runti
 });
 
 await assertText('pages admin shell', `${pagesUrl}/admin/`, (text) => {
-  return text.includes('/assets/js/admin.js') && text.includes('/assets/js/cloudflare-runtime.js');
+  return (text.includes('/assets/js/admin.js') && text.includes('/assets/js/cloudflare-runtime.js'))
+    || text.includes('Cloudflare Access')
+    || text.includes('cloudflareaccess.com')
+    || text.includes('/cdn-cgi/access/login');
 });
 
 await assertText('legacy article preserved', `${pagesUrl}/2018/08/03/hello-world/`, (text) => text.length > 100);
