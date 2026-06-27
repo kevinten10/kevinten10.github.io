@@ -166,7 +166,7 @@
     'eco.spa.desc': 'SPA Knowledge + AI Consultant',
     'eco.maichong.desc': 'AI Intimate Circle Coordination',
     'eco.health.desc': 'AI Pregnancy Checkup Guide',
-    'eco.name.desc': 'GLM-4 AI Name Generator',
+    'eco.name.desc': 'Ark AI Name Generator',
     'eco.spring.name': 'Spring Festival AI',
     'eco.spring.desc': 'Awesome Spring Festival',
     'eco.english.desc': 'Immersive AI English Learning',
