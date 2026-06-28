@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-28T15:29:20Z",
+  "checkedAt": "2026-06-28T16:08:03Z",
   "status": "not_complete",
   "goalFile": "docs/goals/comprehensive-explore-optimize.md",
   "totalRequirements": 12,
@@ -31,7 +31,7 @@
       "requirement": "npm run verify passes, or any failure is documented with root cause and blocker evidence.",
       "status": "satisfied",
       "evidence": [
-        "npm run verify passed with 22 test files and 108 tests.",
+        "npm run verify passed with 22 test files and 111 tests.",
         "npm run verify now includes npm run verify:audits.",
         "npm audit --json passed with 0 vulnerabilities after upgrading the dev Vitest/Vite chain."
       ]
@@ -41,7 +41,7 @@
       "requirement": "npm run verify:preview passes against the active preview URL.",
       "status": "satisfied",
       "evidence": [
-        "PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview passed against https://kevinten-interactive-preview.pages.dev at 2026-06-28T15:32:14Z.",
+        "PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview passed against https://kevinten-interactive-preview.pages.dev at 2026-06-28T16:11:12Z.",
         "docs/maintenance/2026-06-28-preview-smoke.json records 15 checks, 15 passed, 0 failed."
       ]
     },
@@ -60,7 +60,7 @@
       "status": "blocked",
       "classification": "external blocker",
       "evidence": [
-        "docs/maintenance/2026-06-28-cutover-readiness.json was refreshed at 2026-06-28T15:29:20Z and records 24 checks, 10 passed, 14 not ready.",
+        "docs/maintenance/2026-06-28-cutover-readiness.json was refreshed at 2026-06-28T16:08:03Z and records 24 checks, 10 passed, 14 not ready.",
         "Cloudflare zone is initializing and Pages custom-domain/DNS API reads still report authentication errors.",
         "Cloudflare authoritative nameservers return NOERROR with zero answers for kevinten.com and www.kevinten.com.",
         "Production HTTP and production /admin/ currently fail TLS handshakes instead of serving Cloudflare Pages and Cloudflare Access."
@@ -112,10 +112,10 @@
       "classification": "external blocker",
       "evidence": [
         "verify:cutover now requires AUTH0_CLIENT_ID from local environment or generated provisioning output instead of committing the real SPA client ID.",
-        "The latest cutover audit reports AUTH0_CLIENT_ID is required when run from committed source alone.",
-        "A no-file follow-up run using the public preview runtime client ID reached the Auth0 CLI and reported Config.json file is missing, so automated production callback verification is still not proven."
+        "The latest cutover audit can use the public preview runtime client ID without committing it.",
+        "A direct verifier run using the public preview runtime client ID reached the Auth0 CLI and reported that the refresh token is expired, so automated production callback verification is still not proven."
       ],
-      "nextAction": "Restore Auth0 CLI login/config or provide machine credentials, set AUTH0_CLIENT_ID locally from Auth0 provisioning output or preview runtime, then rerun verify:cutover."
+      "nextAction": "Run auth0 login or provide machine credentials, set AUTH0_CLIENT_ID locally from Auth0 provisioning output or preview runtime, then rerun verify:cutover."
     },
     {
       "id": "cloudflare-api-permissions",

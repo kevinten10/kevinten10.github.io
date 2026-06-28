@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-06-28T15:27:26.017Z",
+  "startedAt": "2026-06-28T16:06:12.263Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
   "productionOrigins": [
@@ -29,7 +29,7 @@
     {
       "name": "Auth0 production callbacks/origins",
       "status": "not_ready",
-      "detail": "AUTH0_CLIENT_ID is required"
+      "detail": "Auth0 CLI failed: ▸    Failed to renew access token: cannot get a new access token from the refresh token: {\"error\":\"access_denied\",\"error_description\":\"A post-login action returned invalid data: Is not possible to revoke a nonexistent session.\"}\n ▸    Please log in to re-authorize the CLI.\n\n\n=== dev-8abkwbejxgjbcz1l.us.auth0.com error\n\n ▸    Auth token expired and --no-input is set; run 'auth0 login' to re-authenticate."
     },
     {
       "name": "WeChat reward QR",
@@ -127,7 +127,7 @@
       "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
     }
   ],
-  "completedAt": "2026-06-28T15:29:20.064Z",
+  "completedAt": "2026-06-28T16:08:03.457Z",
   "ready": false,
   "totalChecks": 24,
   "passedChecks": 10,

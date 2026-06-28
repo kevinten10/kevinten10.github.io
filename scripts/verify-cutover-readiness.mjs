@@ -1,7 +1,8 @@
 import { execFile } from 'node:child_process';
 import { resolve4, resolveCname, resolveNs } from 'node:dns/promises';
+import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { dirname, resolve as resolvePath } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 import { readWranglerOAuthToken } from './cloudflare-access-provision.mjs';
@@ -385,10 +386,12 @@ async function auth0App(clientId, env = process.env) {
   if (!clientId) throw new Error('AUTH0_CLIENT_ID is required');
   const timeoutMs = Number(envValue('AUTH0_CLI_TIMEOUT_MS', '30000', env)) || 30000;
   try {
-    const { stdout } = await execFileAsync('auth0', ['apps', 'show', clientId, '--json'], {
+    const { stdout } = await execFileAsync(auth0Executable(env), auth0AppShowArgs(clientId), {
       maxBuffer: 1024 * 1024,
       timeout: timeoutMs,
-      killSignal: 'SIGTERM'
+      killSignal: 'SIGTERM',
+      cwd: process.cwd(),
+      env: auth0ChildEnv(env)
     });
     return JSON.parse(stdout);
   } catch (err) {
@@ -398,6 +401,29 @@ async function auth0App(clientId, env = process.env) {
     const detail = err.stderr?.trim() || err.stdout?.trim() || err.message;
     throw new Error(`Auth0 CLI failed: ${detail}`);
   }
+}
+
+export function auth0AppShowArgs(clientId) {
+  return ['apps', 'show', clientId, '--json', '--no-input', '--no-color'];
+}
+
+export function auth0Executable(env = process.env) {
+  const configured = envValue('AUTH0_CLI_PATH', '', env);
+  if (configured) return configured;
+  const localAppData = envValue('LOCALAPPDATA', '', env);
+  const windowsInstall = localAppData ? `${localAppData}\\Programs\\Auth0CLI\\auth0.exe` : '';
+  if (process.platform === 'win32' && windowsInstall && existsSync(windowsInstall)) return windowsInstall;
+  return 'auth0';
+}
+
+export function auth0ChildEnv(env = process.env) {
+  const childEnv = { ...process.env, ...env };
+  const localConfigDir = resolvePath(process.cwd(), '.config', 'auth0');
+  const localAuth0Config = resolvePath(localConfigDir, 'config.json');
+  if (!childEnv.XDG_CONFIG_HOME && existsSync(localAuth0Config)) {
+    childEnv.XDG_CONFIG_HOME = localConfigDir;
+  }
+  return childEnv;
 }
 
 async function dnsSummary(host) {

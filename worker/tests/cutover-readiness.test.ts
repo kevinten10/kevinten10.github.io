@@ -13,6 +13,9 @@ import {
   isAuthoritativeDnsReady,
   isCloudflareAccessProtected,
   isProductionHttpReady,
+  auth0ChildEnv,
+  auth0Executable,
+  auth0AppShowArgs,
   normalizeHostname,
   normalizeNameservers,
   parseDigResponse,
@@ -251,5 +254,26 @@ describe('production cutover readiness helpers', () => {
       'https://kevinten.com/',
       'https://www.kevinten.com/'
     ])).toBe(false);
+  });
+
+  it('runs Auth0 app inspection without interactive prompts', () => {
+    expect(auth0AppShowArgs('client_123')).toEqual([
+      'apps',
+      'show',
+      'client_123',
+      '--json',
+      '--no-input',
+      '--no-color'
+    ]);
+  });
+
+  it('allows an explicit Auth0 CLI executable path for automation', () => {
+    expect(auth0Executable({ AUTH0_CLI_PATH: 'C:\\Tools\\Auth0CLI\\auth0.exe' }))
+      .toBe('C:\\Tools\\Auth0CLI\\auth0.exe');
+  });
+
+  it('preserves an explicit Auth0 config directory for child processes', () => {
+    expect(auth0ChildEnv({ XDG_CONFIG_HOME: 'C:\\Auth0Config' }).XDG_CONFIG_HOME)
+      .toBe('C:\\Auth0Config');
   });
 });

@@ -125,6 +125,12 @@ export function parseNslookupResponse(stdout: string): {
   cnames: string[];
 };
 
+export function auth0AppShowArgs(clientId: string): string[];
+
+export function auth0Executable(env?: Record<string, string | undefined>): string;
+
+export function auth0ChildEnv(env?: Record<string, string | undefined>): Record<string, string | undefined>;
+
 export function isAuthoritativeDnsReady(summary?: {
   status?: string;
   addresses?: string[];
