@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process';
 import { resolve4, resolveCname, resolveNs } from 'node:dns/promises';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 import { readWranglerOAuthToken } from './cloudflare-access-provision.mjs';
 import { verifyRewardQrs } from './verify-reward-qrs.mjs';
@@ -107,6 +108,35 @@ export function parseDigResponse(stdout) {
     answers,
     addresses: answers.filter((item) => item.type === 'A').map((item) => item.value),
     cnames: answers.filter((item) => item.type === 'CNAME').map((item) => normalizeHostname(item.value))
+  };
+}
+
+export function parseNslookupResponse(stdout) {
+  const text = String(stdout || '');
+  const status = /query refused/i.test(text)
+    ? 'REFUSED'
+    : /server failed|servfail/i.test(text)
+      ? 'SERVFAIL'
+      : /can't find|non-existent domain|nxdomain/i.test(text)
+        ? 'NXDOMAIN'
+        : 'NOERROR';
+  const nameservers = [...text.matchAll(/nameserver\s*=\s*(\S+)/ig)]
+    .map((match) => normalizeHostname(match[1]));
+  const cnames = [...text.matchAll(/canonical name\s*=\s*(\S+)/ig)]
+    .map((match) => normalizeHostname(match[1]));
+  const addresses = [];
+  let answerSection = false;
+  for (const line of text.split(/\r?\n/)) {
+    if (/^\s*Name:\s+/i.test(line)) answerSection = true;
+    const address = line.match(/^\s*Address(?:es)?:\s*([0-9.]+)\s*$/i)?.[1];
+    if (answerSection && address) addresses.push(address);
+  }
+  return {
+    status,
+    nameservers: [...new Set(nameservers)],
+    answers: addresses.length + cnames.length,
+    addresses: [...new Set(addresses)],
+    cnames: [...new Set(cnames)]
   };
 }
 
@@ -392,7 +422,17 @@ async function registryNameservers(host) {
     });
     return normalizeNameservers(nameservers);
   } catch {
-    return [];
+    try {
+      const { stdout } = await execFileAsync('nslookup', ['-type=NS', host, 'a.gtld-servers.net'], {
+        maxBuffer: 1024 * 1024,
+        timeout: 10000,
+        killSignal: 'SIGTERM'
+      });
+      return parseNslookupResponse(stdout).nameservers
+        .filter((nameserver) => !nameserver.endsWith('.root-servers.net'));
+    } catch {
+      return [];
+    }
   }
 }
 
@@ -414,6 +454,30 @@ async function authoritativeDnsReadiness(host, nameserver) {
       })
     };
   } catch (err) {
+    if (err.code === 'ENOENT') {
+      try {
+        const { stdout } = await execFileAsync('nslookup', ['-type=A', host, nameserver], {
+          maxBuffer: 1024 * 1024,
+          timeout: 10000,
+          killSignal: 'SIGTERM'
+        });
+        const summary = parseNslookupResponse(stdout);
+        return {
+          ok: isAuthoritativeDnsReady(summary),
+          detail: JSON.stringify({
+            status: summary.status,
+            answers: summary.answers,
+            addresses: summary.addresses,
+            cnames: summary.cnames
+          })
+        };
+      } catch (fallbackErr) {
+        return {
+          ok: false,
+          detail: fallbackErr.message
+        };
+      }
+    }
     return {
       ok: false,
       detail: err.message
@@ -621,7 +685,7 @@ export async function verifyCutoverReadiness(env = process.env) {
   return ready;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const ready = await verifyCutoverReadiness();
     if (!ready) process.exitCode = 1;

@@ -17,6 +17,7 @@ import {
   normalizeNameservers,
   parseDigResponse,
   parseCurlResponseOutput,
+  parseNslookupResponse,
   recordCutoverCheck
 } from '../../scripts/verify-cutover-readiness.mjs';
 
@@ -137,6 +138,39 @@ describe('production cutover readiness helpers', () => {
     ].join('\n'));
     expect(pages.cnames).toEqual(['kevinten-interactive-preview.pages.dev']);
     expect(isAuthoritativeDnsReady(pages)).toBe(true);
+  });
+
+  it('parses nslookup output for Windows cutover diagnostics', () => {
+    const registry = parseNslookupResponse([
+      'Server:  UnKnown',
+      'Address:  192.5.6.30',
+      '',
+      'kevinten.com nameserver = chip.ns.cloudflare.com',
+      'kevinten.com nameserver = faye.ns.cloudflare.com',
+      'chip.ns.cloudflare.com internet address = 173.245.59.84'
+    ].join('\n'));
+    expect(registry.nameservers).toEqual([
+      'chip.ns.cloudflare.com',
+      'faye.ns.cloudflare.com'
+    ]);
+
+    const refused = parseNslookupResponse([
+      'Server:  chip.ns.cloudflare.com',
+      'Address:  173.245.59.84',
+      '',
+      "*** chip.ns.cloudflare.com can't find kevinten.com: Query refused"
+    ].join('\n'));
+    expect(refused.status).toBe('REFUSED');
+    expect(isAuthoritativeDnsReady(refused)).toBe(false);
+
+    const cloudflare = parseNslookupResponse([
+      'Server:  chip.ns.cloudflare.com',
+      'Address:  173.245.59.84',
+      '',
+      'Name:    kevinten.com',
+      'Address: 104.21.1.1'
+    ].join('\n'));
+    expect(isAuthoritativeDnsReady(cloudflare)).toBe(true);
   });
 
   it('requires production HTTP responses to come from Cloudflare Pages, not GitHub Pages', () => {

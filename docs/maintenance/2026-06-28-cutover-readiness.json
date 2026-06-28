@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-06-28T12:55:40.755Z",
+  "startedAt": "2026-06-28T15:27:26.017Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
   "productionOrigins": [
@@ -42,9 +42,9 @@
       "detail": "decoded as an Alipay QR; scan once on phone to confirm it opens the collect-money flow"
     },
     {
-      "name": "Cloudflare Pages custom domains active",
+      "name": "Cloudflare Pages custom domains readable",
       "status": "not_ready",
-      "detail": "kevinten.com:pending, www.kevinten.com:pending"
+      "detail": "Authentication error"
     },
     {
       "name": "Cloudflare zone exists for kevinten.com",
@@ -69,22 +69,22 @@
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com www.kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com www.kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "DNS kevinten.com not on GitHub Pages",
@@ -94,42 +94,42 @@
     {
       "name": "recursive DNS kevinten.com uses Cloudflare nameservers",
       "status": "not_ready",
-      "detail": "dns13.hichina.com, dns14.hichina.com"
+      "detail": "none"
     },
     {
       "name": "DNS www.kevinten.com not on GitHub Pages",
-      "status": "not_ready",
-      "detail": "{\"addresses\":[\"185.199.108.153\",\"185.199.111.153\",\"185.199.110.153\",\"185.199.109.153\"],\"cnames\":[\"kevinten10.github.io\"]}"
+      "status": "ok",
+      "detail": "{\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "production HTTP https://kevinten.com serves Cloudflare Pages",
       "status": "not_ready",
-      "detail": "{\"status\":200,\"server\":\"GitHub.com\",\"cfRay\":false,\"github\":true,\"hasRuntime\":false}"
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://kevinten.com/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
     },
     {
       "name": "production HTTP https://www.kevinten.com serves Cloudflare Pages",
       "status": "not_ready",
-      "detail": "{\"status\":200,\"server\":\"GitHub.com\",\"cfRay\":false,\"github\":true,\"hasRuntime\":false}"
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://www.kevinten.com/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
     },
     {
       "name": "production admin https://kevinten.com/admin/ protected by Cloudflare Access",
       "status": "not_ready",
-      "detail": "{\"status\":404,\"server\":\"GitHub.com\",\"cfRay\":false,\"finalHost\":\"kevinten.com\",\"accessMarker\":false}"
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://kevinten.com/admin/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
     },
     {
       "name": "production admin https://www.kevinten.com/admin/ protected by Cloudflare Access",
       "status": "not_ready",
-      "detail": "{\"status\":404,\"server\":\"GitHub.com\",\"cfRay\":false,\"finalHost\":\"kevinten.com\",\"accessMarker\":false}"
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://www.kevinten.com/admin/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
     },
     {
-      "name": "Cloudflare Access API readable",
-      "status": "not_ready",
-      "detail": "Authentication error"
+      "name": "Cloudflare Access protects production admin paths",
+      "status": "ok",
+      "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
     }
   ],
-  "completedAt": "2026-06-28T12:56:44.957Z",
+  "completedAt": "2026-06-28T15:29:20.064Z",
   "ready": false,
   "totalChecks": 24,
-  "passedChecks": 8,
-  "failedChecks": 16
+  "passedChecks": 10,
+  "failedChecks": 14
 }

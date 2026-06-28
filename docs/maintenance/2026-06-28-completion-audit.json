@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-06-28T12:56:44Z",
+  "checkedAt": "2026-06-28T15:29:20Z",
   "status": "not_complete",
   "goalFile": "docs/goals/comprehensive-explore-optimize.md",
   "totalRequirements": 12,
@@ -31,8 +31,9 @@
       "requirement": "npm run verify passes, or any failure is documented with root cause and blocker evidence.",
       "status": "satisfied",
       "evidence": [
-        "npm run verify passed with 22 test files and 107 tests.",
-        "npm run verify now includes npm run verify:audits."
+        "npm run verify passed with 22 test files and 108 tests.",
+        "npm run verify now includes npm run verify:audits.",
+        "npm audit --json passed with 0 vulnerabilities after upgrading the dev Vitest/Vite chain."
       ]
     },
     {
@@ -40,7 +41,7 @@
       "requirement": "npm run verify:preview passes against the active preview URL.",
       "status": "satisfied",
       "evidence": [
-        "PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview passed against https://kevinten-interactive-preview.pages.dev at 2026-06-28T09:24:37Z.",
+        "PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview passed against https://kevinten-interactive-preview.pages.dev at 2026-06-28T15:32:14Z.",
         "docs/maintenance/2026-06-28-preview-smoke.json records 15 checks, 15 passed, 0 failed."
       ]
     },
@@ -59,12 +60,12 @@
       "status": "blocked",
       "classification": "external blocker",
       "evidence": [
-        "docs/maintenance/2026-06-28-cutover-readiness.json was refreshed at 2026-06-28T12:56:44Z and records 24 checks, 8 passed, 16 not ready.",
-        "Cloudflare zone is initializing and Pages custom domains are pending.",
-        "Cloudflare authoritative nameservers return REFUSED for kevinten.com and www.kevinten.com.",
-        "Production HTTP still returns GitHub.com and production /admin/ returns GitHub 404."
+        "docs/maintenance/2026-06-28-cutover-readiness.json was refreshed at 2026-06-28T15:29:20Z and records 24 checks, 10 passed, 14 not ready.",
+        "Cloudflare zone is initializing and Pages custom-domain/DNS API reads still report authentication errors.",
+        "Cloudflare authoritative nameservers return NOERROR with zero answers for kevinten.com and www.kevinten.com.",
+        "Production HTTP and production /admin/ currently fail TLS handshakes instead of serving Cloudflare Pages and Cloudflare Access."
       ],
-      "nextAction": "Wait for Cloudflare zone and Pages custom-domain activation, then rerun AUTH0_CLI_TIMEOUT_MS=5000 CUTOVER_AUDIT_OUT=docs/maintenance/2026-06-28-cutover-readiness.json npm run verify:cutover."
+      "nextAction": "Wait for Cloudflare zone and Pages custom-domain activation, provide a Cloudflare token that can read zone DNS records, then rerun AUTH0_CLI_TIMEOUT_MS=5000 CUTOVER_AUDIT_OUT=docs/maintenance/2026-06-28-cutover-readiness.json npm run verify:cutover."
     },
     {
       "id": "stripe-sandbox",
@@ -117,14 +118,14 @@
     },
     {
       "id": "cloudflare-api-permissions",
-      "requirement": "Cloudflare DNS records and Access apps are readable through automation.",
+      "requirement": "Cloudflare DNS records are readable through automation.",
       "status": "blocked",
       "classification": "external blocker",
       "evidence": [
         "verify:cutover reports Authentication error when reading /zones/:id/dns_records.",
-        "verify:cutover reports Authentication error when reading /accounts/:id/access/apps."
+        "verify:cutover now confirms production Access app coverage for www.kevinten.com/admin/*, kevinten.com/admin/*, and kevinten-interactive-preview.pages.dev/admin/*."
       ],
-      "nextAction": "Use a Cloudflare API token with zone DNS read and Access app read scopes, then rerun verify:cutover."
+      "nextAction": "Use a Cloudflare API token with zone DNS read scope, then rerun verify:cutover."
     }
   ]
 }

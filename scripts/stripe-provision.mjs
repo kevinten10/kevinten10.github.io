@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 
 const requiredEvent = 'checkout.session.completed';
 
@@ -145,7 +146,7 @@ export function provisionStripe(env = process.env) {
   return true;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     provisionStripe();
   } catch (err) {

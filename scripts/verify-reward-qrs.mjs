@@ -1,5 +1,6 @@
 import jsQR from 'jsqr';
 import { Jimp } from 'jimp';
+import { pathToFileURL } from 'node:url';
 
 const rewardQrs = [
   {
@@ -69,7 +70,7 @@ export function printRewardQrResults(results) {
   }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const results = await verifyRewardQrs();
   printRewardQrResults(results);
   if (results.some((result) => !result.ok)) process.exitCode = 1;

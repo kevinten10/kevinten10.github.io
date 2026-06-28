@@ -117,6 +117,14 @@ export function parseDigResponse(stdout: string): {
   cnames: string[];
 };
 
+export function parseNslookupResponse(stdout: string): {
+  status: string;
+  nameservers: string[];
+  answers: number;
+  addresses: string[];
+  cnames: string[];
+};
+
 export function isAuthoritativeDnsReady(summary?: {
   status?: string;
   addresses?: string[];
