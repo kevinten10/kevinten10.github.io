@@ -112,9 +112,10 @@
       "classification": "external blocker",
       "evidence": [
         "verify:cutover now requires AUTH0_CLIENT_ID from local environment or generated provisioning output instead of committing the real SPA client ID.",
-        "The latest cutover audit reports AUTH0_CLIENT_ID is required, so automated production callback verification is intentionally not proven from committed source alone."
+        "The latest cutover audit reports AUTH0_CLIENT_ID is required when run from committed source alone.",
+        "A no-file follow-up run using the public preview runtime client ID reached the Auth0 CLI and reported Config.json file is missing, so automated production callback verification is still not proven."
       ],
-      "nextAction": "Set AUTH0_CLIENT_ID locally from Auth0 provisioning output, refresh Auth0 CLI login or provide machine credentials, then rerun verify:cutover."
+      "nextAction": "Restore Auth0 CLI login/config or provide machine credentials, set AUTH0_CLIENT_ID locally from Auth0 provisioning output or preview runtime, then rerun verify:cutover."
     },
     {
       "id": "cloudflare-api-permissions",
