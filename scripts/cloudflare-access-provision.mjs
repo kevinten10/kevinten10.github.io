@@ -24,14 +24,19 @@ function envValue(env, key) {
 export function wranglerConfigCandidates(env = process.env) {
   const candidates = [];
   if (env.WRANGLER_CONFIG_PATH?.trim()) candidates.push(env.WRANGLER_CONFIG_PATH.trim());
-  if (env.HOME) candidates.push(path.join(env.HOME, 'Library', 'Preferences', '.wrangler', 'config', 'default.toml'));
-  if (env.XDG_CONFIG_HOME) candidates.push(path.join(env.XDG_CONFIG_HOME, '.wrangler', 'config', 'default.toml'));
-  if (env.HOME) candidates.push(path.join(env.HOME, '.config', '.wrangler', 'config', 'default.toml'));
-  if (env.HOME) candidates.push(path.join(env.HOME, '.wrangler', 'config', 'default.toml'));
+  if (env.HOME) candidates.push(joinConfigPath(env.HOME, 'Library', 'Preferences', '.wrangler', 'config', 'default.toml'));
+  if (env.XDG_CONFIG_HOME) candidates.push(joinConfigPath(env.XDG_CONFIG_HOME, '.wrangler', 'config', 'default.toml'));
+  if (env.HOME) candidates.push(joinConfigPath(env.HOME, '.config', '.wrangler', 'config', 'default.toml'));
+  if (env.HOME) candidates.push(joinConfigPath(env.HOME, '.wrangler', 'config', 'default.toml'));
   if (env.APPDATA) candidates.push(path.join(env.APPDATA, 'xdg.config', '.wrangler', 'config', 'default.toml'));
   if (env.USERPROFILE) candidates.push(path.join(env.USERPROFILE, '.wrangler', 'config', 'default.toml'));
   if (env.USERPROFILE) candidates.push(path.join(env.USERPROFILE, '.config', '.wrangler', 'config', 'default.toml'));
   return candidates;
+}
+
+function joinConfigPath(base, ...segments) {
+  if (base.includes('/') && !base.includes('\\')) return path.posix.join(base, ...segments);
+  return path.join(base, ...segments);
 }
 
 export function readWranglerOAuthToken(env = process.env) {
