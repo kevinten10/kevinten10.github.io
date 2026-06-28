@@ -3,7 +3,8 @@ import {
   buildAccessApplicationPayload,
   buildAccessPolicyPayload,
   buildCloudflareHeaders,
-  readAccessConfig
+  readAccessConfig,
+  wranglerConfigCandidates
 } from '../../scripts/cloudflare-access-provision.mjs';
 
 describe('Cloudflare Access provisioning helpers', () => {
@@ -66,6 +67,12 @@ describe('Cloudflare Access provisioning helpers', () => {
       source: 'wrangler-oauth',
       token: 'oauth-token'
     });
+  });
+
+  it('checks the macOS Wrangler OAuth config path', () => {
+    expect(wranglerConfigCandidates({
+      HOME: '/Users/tester'
+    })).toContain('/Users/tester/Library/Preferences/.wrangler/config/default.toml');
   });
 
   it('accepts Cloudflare Access specific admin emails', () => {

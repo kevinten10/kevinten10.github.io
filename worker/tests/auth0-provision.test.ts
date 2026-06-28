@@ -14,8 +14,37 @@ describe('Auth0 provisioning helpers', () => {
     expect(buildAuth0Config({})).toEqual({
       audience: 'https://kevinten-preview/api',
       callback: 'https://kevinten-interactive-preview.pages.dev/',
+      callbacks: ['https://kevinten-interactive-preview.pages.dev/'],
       logout: 'https://kevinten-interactive-preview.pages.dev/',
-      origin: 'https://kevinten-interactive-preview.pages.dev'
+      logouts: ['https://kevinten-interactive-preview.pages.dev/'],
+      origin: 'https://kevinten-interactive-preview.pages.dev',
+      origins: ['https://kevinten-interactive-preview.pages.dev']
+    });
+  });
+
+  it('builds Auth0 callback and origin lists for preview plus production domains', () => {
+    expect(buildAuth0Config({
+      AUTH0_CALLBACK_URLS: 'https://kevinten-interactive-preview.pages.dev/,https://kevinten.com/,https://www.kevinten.com/',
+      AUTH0_LOGOUT_URLS: 'https://kevinten-interactive-preview.pages.dev/,https://kevinten.com/',
+      AUTH0_ALLOWED_ORIGINS: 'https://kevinten-interactive-preview.pages.dev,https://kevinten.com,https://www.kevinten.com'
+    })).toMatchObject({
+      callback: 'https://kevinten-interactive-preview.pages.dev/',
+      callbacks: [
+        'https://kevinten-interactive-preview.pages.dev/',
+        'https://kevinten.com/',
+        'https://www.kevinten.com/'
+      ],
+      logout: 'https://kevinten-interactive-preview.pages.dev/',
+      logouts: [
+        'https://kevinten-interactive-preview.pages.dev/',
+        'https://kevinten.com/'
+      ],
+      origin: 'https://kevinten-interactive-preview.pages.dev',
+      origins: [
+        'https://kevinten-interactive-preview.pages.dev',
+        'https://kevinten.com',
+        'https://www.kevinten.com'
+      ]
     });
   });
 
@@ -76,7 +105,8 @@ describe('Auth0 provisioning helpers', () => {
       AUTH0_AUDIENCE: 'https://kevinten-preview/api',
       AUTH0_CALLBACK_URL: 'https://preview.pages.dev/',
       AUTH0_LOGOUT_URL: 'https://preview.pages.dev/',
-      AUTH0_ALLOWED_ORIGIN: 'https://preview.pages.dev'
+      AUTH0_ALLOWED_ORIGIN: 'https://preview.pages.dev',
+      AUTH0_ALLOWED_ORIGINS: 'https://preview.pages.dev'
     });
   });
 

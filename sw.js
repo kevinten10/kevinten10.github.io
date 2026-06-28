@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 37
+ * @version 45
  */
 
-const SW_VERSION = '37';
+const SW_VERSION = '45';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,29 +13,31 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=33',
+  '/assets/css/main.css?v=34',
   '/assets/css/theme.css?v=31',
-  '/assets/css/comments.css?v=1',
-  '/assets/css/rewards.css?v=1',
-  '/assets/css/admin.css?v=1',
-  '/assets/css/ai-assistant.css?v=1',
+  '/assets/css/comments.css?v=2',
+  '/assets/css/rewards.css?v=2',
+  '/assets/css/admin.css?v=2',
+  '/assets/css/ai-assistant.css?v=3',
   '/assets/js/observer-manager.js?v=31',
   '/assets/js/app.js?v=31',
   '/assets/js/theme.js?v=31',
   '/assets/js/animations.js?v=31',
   '/assets/js/bento-interactions.js?v=31',
   '/assets/js/mobile-nav.js?v=31',
-  '/assets/js/github-stats.js?v=31',
+  '/assets/js/github-stats.js?v=32',
   '/assets/js/project-modal.js?v=31',
   '/assets/js/gallery.js?v=31',
-  '/assets/js/i18n.js?v=31',
-  '/assets/js/auth-client.js?v=1',
-  '/assets/js/comments.js?v=2',
-  '/assets/js/analytics.js?v=3',
-  '/assets/js/rewards.js?v=1',
-  '/assets/js/admin.js?v=2',
+  '/assets/js/i18n.js?v=34',
+  '/assets/js/auth-client.js?v=2',
+  '/assets/js/comments.js?v=5',
+  '/assets/js/analytics.js?v=4',
+  '/assets/js/rewards.js?v=3',
+  '/assets/js/admin.js?v=4',
   '/assets/js/ai-assistant.js?v=2',
-  '/img/avatar.jpg'
+  '/img/avatar.jpg',
+  '/img/weixin.jpg',
+  '/img/alipay.jpg'
 ];
 
 // Assets to cache on demand

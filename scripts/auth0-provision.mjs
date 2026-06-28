@@ -12,7 +12,7 @@ const knownWindowsCli = 'C:\\Users\\PC\\AppData\\Local\\Programs\\Auth0CLI\\auth
 
 export function resolveAuth0Command(env = process.env, exists = existsSync) {
   if (env.AUTH0_CLI?.trim()) return env.AUTH0_CLI.trim();
-  if (process.platform === 'win32' && exists(knownWindowsCli)) return knownWindowsCli;
+  if (exists(knownWindowsCli)) return knownWindowsCli;
   return 'auth0';
 }
 
@@ -50,12 +50,41 @@ function run(command, args, allowFail = true, capture = false) {
   return capture ? { ok: result.status === 0, stdout: result.stdout || '' } : { ok: result.status === 0, stdout: '' };
 }
 
+function splitList(value) {
+  return String(value || '').split(',').map((item) => item.trim()).filter(Boolean);
+}
+
+function uniq(values) {
+  return Array.from(new Set(values.filter(Boolean)));
+}
+
+function originFromUrl(value) {
+  try {
+    return new URL(value).origin;
+  } catch {
+    return '';
+  }
+}
+
 export function buildAuth0Config(env = process.env) {
   const audience = env.AUTH0_AUDIENCE || 'https://kevinten-preview/api';
-  const callback = env.AUTH0_CALLBACK_URL || `${defaultPreviewOrigin}/`;
-  const logout = env.AUTH0_LOGOUT_URL || callback;
-  const origin = env.AUTH0_ALLOWED_ORIGIN || new URL(callback).origin;
-  return { audience, callback, logout, origin };
+  const callbacks = uniq(splitList(env.AUTH0_CALLBACK_URLS || env.AUTH0_CALLBACK_URL || `${defaultPreviewOrigin}/`));
+  const logouts = uniq(splitList(env.AUTH0_LOGOUT_URLS || env.AUTH0_LOGOUT_URL || callbacks[0]));
+  const origins = uniq([
+    ...splitList(env.AUTH0_ALLOWED_ORIGINS),
+    env.AUTH0_ALLOWED_ORIGIN || '',
+    ...callbacks.map(originFromUrl),
+    ...logouts.map(originFromUrl)
+  ]);
+  return {
+    audience,
+    callback: callbacks[0],
+    callbacks,
+    logout: logouts[0],
+    logouts,
+    origin: origins[0],
+    origins
+  };
 }
 
 export function extractAuth0ClientId(stdout) {
@@ -76,7 +105,8 @@ export function buildCloudflareRuntimeEnv(env = process.env, clientId = '') {
     AUTH0_AUDIENCE: config.audience,
     AUTH0_CALLBACK_URL: config.callback,
     AUTH0_LOGOUT_URL: config.logout,
-    AUTH0_ALLOWED_ORIGIN: config.origin
+    AUTH0_ALLOWED_ORIGIN: config.origin,
+    AUTH0_ALLOWED_ORIGINS: config.origins.join(',')
   };
 }
 
@@ -111,11 +141,13 @@ export async function provisionAuth0(env = process.env) {
     '--type',
     'spa',
     '--callbacks',
-    config.callback,
+    config.callbacks.join(','),
     '--logout-urls',
-    config.logout,
+    config.logouts.join(','),
     '--origins',
-    config.origin,
+    config.origins.join(','),
+    '--web-origins',
+    config.origins.join(','),
     '--json'
   ], true, true);
   run(command, [

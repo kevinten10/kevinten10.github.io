@@ -29,7 +29,6 @@
     init() {
       this.statsContainer = document.getElementById('github-stats');
       if (!this.statsContainer) {
-        console.warn('GitHub stats container not found');
         return;
       }
 

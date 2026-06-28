@@ -6,6 +6,8 @@ import { checkRateLimit } from '../lib/rate-limit';
 
 export const statsRoutes = new Hono<{ Bindings: Env; Variables: Variables }>();
 
+const uniqueVisitorSql = 'count(distinct coalesce(user_id, visitor_key, session_id, id))';
+
 statsRoutes.post('/view', async (c) => {
   const body = await c.req.json<Record<string, unknown>>();
   const sessionId = cleanText(body.sessionId, 120);
@@ -43,18 +45,23 @@ statsRoutes.get('/public', async (c) => {
     comments_count: number;
     rewards_count: number;
   }>();
-  const rawStats = await c.env.DB.prepare('select count(*) as pv, count(distinct coalesce(visitor_key, session_id, user_id, id)) as uv from page_views where page_path = ?').bind(pagePath).first<{ pv: number; uv: number }>();
+  const rawStats = await c.env.DB.prepare(`select count(*) as pv, ${uniqueVisitorSql} as uv from page_views where page_path = ?`).bind(pagePath).first<{ pv: number; uv: number }>();
+  const siteStats = await c.env.DB.prepare(`select count(*) as pv, ${uniqueVisitorSql} as uv from page_views`).first<{ pv: number; uv: number }>();
   const comments = await c.env.DB.prepare("select count(*) as count from comments where status = 'approved'").first<{ count: number }>();
   const rewards = await c.env.DB.prepare("select count(*) as count from rewards where status in ('approved', 'verified')").first<{ count: number }>();
   const page = {
     page_path: pagePath,
     pv: Math.max(Number(pageStats?.pv || 0), Number(rawStats?.pv || 0)),
-    uv: Math.max(Number(pageStats?.uv || 0), Number(rawStats?.uv || 0)),
+    uv: Number(rawStats?.uv || pageStats?.uv || 0),
     comments_count: Number(pageStats?.comments_count || 0),
     rewards_count: Number(pageStats?.rewards_count || 0)
   };
   const data = {
     page,
+    site: {
+      pv: Number(siteStats?.pv || page.pv || 0),
+      uv: Number(siteStats?.uv || page.uv || 0)
+    },
     totalComments: Number(comments?.count || 0),
     supporterCount: Number(rewards?.count || 0)
   };

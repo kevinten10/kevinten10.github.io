@@ -3,7 +3,7 @@
 ## Preview URLs
 
 - Cloudflare Pages stable preview: https://kevinten-interactive-preview.pages.dev
-- Latest Cloudflare Pages deployment: https://b13a0730.kevinten-interactive-preview.pages.dev
+- Latest Cloudflare Pages deployment: https://9c8adc61.kevinten-interactive-preview.pages.dev
 - Worker API preview: https://kevinten-api-preview.wshten.workers.dev
 
 ## Cloudflare Resources
@@ -22,7 +22,10 @@
 - Zero Trust team name: `long-haze-d0eb`
 - Cloudflare Access app: `KevinTen Admin Preview` (`73acba4b-bbc9-445a-8d09-28ef4db5de60`)
 - Cloudflare Access policy: `KevinTen Admin Allow` (`e91be843-1b5f-448d-a438-12f4d1aac7f8`)
-- Current Worker version after agent-team hardening: `290a0cca-5e73-4c64-9fa7-f273c664ebca`
+- Production Cloudflare zone: `kevinten.com` (`014623dcba379877a65c37c5b823cd40`, currently `initializing`)
+- Production Cloudflare nameservers: `chip.ns.cloudflare.com`, `faye.ns.cloudflare.com`
+- Production Cloudflare Access apps: `KevinTen Admin Production`, `KevinTen Admin Production (www.kevinten.com)`
+- Current Worker version after stats/cutover hardening: `03da8776-fbc9-4430-a76a-71453ea942a2`
 
 ## Implemented
 
@@ -38,12 +41,14 @@
 - Replaced Cloudbase homepage comments/analytics scripts with Worker-backed modules.
 - Added Auth0 login controls, public stats, rewards section, and admin preview page.
 - Hardened the admin UI to render moderation content with DOM text APIs, expanded moderation actions, and prevented service-worker caching of protected API responses.
-- Kept the environment-specific runtime config out of Service Worker caches, bumped the Service Worker to v37, and versioned the runtime script reference as `/assets/js/cloudflare-runtime.js?v=2`.
+- Kept the environment-specific runtime config out of Service Worker caches, bumped the Service Worker to v45, and versioned the runtime script reference as `/assets/js/cloudflare-runtime.js?v=2`.
 - Added public stats fallback reads from raw `page_views` when asynchronous Queue aggregation lags behind, and fixed direct/queued visitor count increments to update `uv`.
 - Restricted CORS to configured preview origins instead of reflecting arbitrary request origins.
 - Hardened Stripe webhook processing to require paid Checkout sessions and match existing reward amount/currency before marking rewards verified.
 - Added Cloudflare/Auth0/Stripe automation scripts.
 - Added preview defaults for Auth0 callback/logout/origin URLs and Cloudflare Access provisioning.
+- Added default Cloudflare Pages preview runtime values for the Worker URL and Auth0 SPA client so `npm run deploy:pages` is safe for the current preview project without exporting environment variables.
+- Added production cutover provisioning and readiness gates for Pages custom domains, Cloudflare zone status, Cloudflare DNS records, Access production admin paths through both HTTP and API evidence, reward QR codes, Auth0 production origins, Worker production CORS, and production HTTP responses.
 - Set preview Worker `ADMIN_EMAILS` to `wshten@gmail.com` so authenticated admin tokens can be recognized after Auth0 is connected.
 - Added Cloudflare ops documentation and Cloudflare-specific spec/plan.
 - Deployed Worker and Pages preview without modifying `CNAME` or the GitHub Pages production site.
@@ -58,26 +63,34 @@ npm run provision:cloudflare
 npx wrangler d1 migrations apply kevinten_site_preview --config worker/wrangler.toml --remote
 npm run deploy:worker
 $env:API_BASE_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run deploy:pages
+npm run deploy:pages
 npm run provision:auth0
 $env:WORKER_API_URL='https://kevinten-api-preview.wshten.workers.dev'; npm run provision:stripe
 stripe trigger checkout.session.completed
 stripe events list --limit 1 --type checkout.session.completed
-$env:PAGES_URL='https://kevinten-interactive-preview.pages.dev'; npm run verify:preview
+$env:PAGES_URL='https://9c8adc61.kevinten-interactive-preview.pages.dev'; $env:PREVIEW_AUDIT_OUT='docs/maintenance/2026-06-28-preview-smoke.json'; npm run verify:preview
 npm run provision:access
+npm run provision:cutover
+npm run verify:qrs
+npm run verify:cutover
 ```
 
 Results:
 
 - TypeScript typecheck: passed.
-- Vitest: 16 files, 63 tests passed after the agent-team security hardening pass.
+- Vitest: 22 files, 107 tests passed after the stats, payments, QR, DNS, authoritative DNS, cutover audit, preview audit, maintenance audit verification, production HTTP, Access HTTP, and cutover hardening pass.
 - Pages preview build: passed.
+- Maintenance audit verification: `npm run verify:audits` passed for 4 JSON artifacts: completion audit, cutover readiness, preview smoke, and Worker startup.
 - D1 migrations: applied `0001_initial.sql` and `0002_reaction_actor_keys.sql` successfully.
-- Worker deploy: succeeded with D1, KV, R2, Queue producer, and Queue consumer bindings; current version is `290a0cca-5e73-4c64-9fa7-f273c664ebca`.
-- Pages preview deploy: succeeded at `https://b13a0730.kevinten-interactive-preview.pages.dev`; stable preview is `https://kevinten-interactive-preview.pages.dev`.
+- Worker deploy: succeeded with D1, KV, R2, Queue producer, and Queue consumer bindings; current version is `03da8776-fbc9-4430-a76a-71453ea942a2`.
+- Worker dry-run bundle check passed with Wrangler `4.104.0`: upload size `131.05 KiB`, gzip size `30.12 KiB`, bundle saved to `output/wrangler/kevinten-api-preview.bundle.mjs`.
+- Worker startup profile passed from the dry-run bundle: `output/wrangler/worker-startup.cpuprofile` recorded 3 nodes, 3 samples, and about `11.85ms` local startup duration. `wrangler check startup --config worker/wrangler.toml` did not read the TOML entry point in this environment, so the repeatable path is dry-run bundle first, then `--workerBundle`.
+- Pages preview deploy: succeeded at `https://9c8adc61.kevinten-interactive-preview.pages.dev`; stable preview is `https://kevinten-interactive-preview.pages.dev`.
 - Queue list: `kevintenpreviewevents` shows 1 producer and 1 consumer.
 - Queue processing records pending comment/reward moderation tasks and approved/verified notification tasks in `admin_events`.
 - Removed the stray empty preview queue `kevinten-site-preview-events` after the old provision script import side effect created it during a failing test.
 - Cloudflare provisioning script: uses the local Wrangler package when available, defaults to `kevintenpreviewevents`, and no longer executes commands when imported by tests.
+- Worker compatibility date is still `2024-06-20`; keep this as a deliberate future compatibility task rather than changing it incidentally during production cutover.
 - Worker health endpoint: returned `{ success: true, data: { status: "ok" } }`.
 - Public site config endpoint: returned default KV-backed config from `/api/config`.
 - Public stats endpoint: returned success with smoke page `pv: 1` and `uv: 1`.
@@ -86,23 +99,33 @@ Results:
 - Anonymous comments GET: returned the smoke-test comment.
 - Stripe webhook signature verification: direct signed test payload returned success; local tests now reject stale signatures and unpaid Checkout sessions.
 - Stripe CLI trigger: `checkout.session.completed` succeeded; latest event had `pending_webhooks: 0`.
-- Preview smoke script: `npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
+- Preview smoke script: `PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview` passed for worker health, anonymous auth state, profile/admin protection, stats, comments, reactions, reward records, runtime config, admin shell, and legacy article preservation.
+- Preview smoke script passed against `https://9c8adc61.kevinten-interactive-preview.pages.dev`; the generated runtime used `https://kevinten-api-preview.wshten.workers.dev`, a redacted Auth0 SPA client ID from the local provisioning output, and production-ready allowed origins.
+- Preview smoke script passed again on June 28, 2026 against `https://kevinten-interactive-preview.pages.dev` at 2026-06-28T09:24:37Z with latest smoke page `/preview-smoke-1782638659459`; the JSON audit recorded 15 checks, 15 passed, 0 failed, and `homeIncludesAuth0: true`.
 - CORS check: an arbitrary origin did not receive `Access-Control-Allow-Origin`; the stable preview origin did.
 - Browser smoke check: the in-app browser loaded the preview homepage, rendered public stats and comment data from the Worker-backed modules, and reported no site console errors. Browser-plugin telemetry timeouts were ignored as unrelated to the site.
+- Browser QA on June 28, 2026 captured desktop and mobile screenshots under `output/playwright/`, confirmed zero console errors/warnings, found no mobile horizontal overflow, and confirmed login, rewards, comments, public stats, and admin shell elements render in the preview.
 - `npm run verify:preview` writes preview-only smoke records; do not run it against production data without adjusting the script.
 - Admin shell check: `https://kevinten-interactive-preview.pages.dev/admin/` now redirects unauthenticated visitors to Cloudflare Access.
 - Legacy page check: `https://kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/` returned 200.
-- Auth0 SPA/API provisioning is complete for tenant `dev-8abkwbejxgjbcz1l.us.auth0.com`. The SPA client `t2qbmY5FWebHzNuLWaKziycuRJygqGkP` allows the stable preview URL and the known hash deployment URLs for callback, logout, and web origins.
+- Auth0 SPA/API provisioning is complete for tenant `dev-8abkwbejxgjbcz1l.us.auth0.com`. The SPA client ID is intentionally not copied into this report; it allows the stable preview URL and the known hash deployment URLs for callback, logout, and web origins.
 - Cloudflare Zero Trust Free was activated after explicit confirmation of the overage billing terms.
 - Cloudflare Access API token was created through the Cloudflare dashboard and stored in the Windows user environment variable `CLOUDFLARE_API_TOKEN`.
 - Cloudflare Access application and allow policy were created for `kevinten-interactive-preview.pages.dev/admin/*`; unauthenticated requests now redirect to `long-haze-d0eb.cloudflareaccess.com`.
 - Cloudflare Access gates the static admin shell. Worker `/api/admin/*` authorization is enforced by Auth0 admin JWTs, not raw Access email headers.
+- Aliyun registrar nameservers for `kevinten.com` were changed on June 28, 2026 from `dns13.hichina.com` / `dns14.hichina.com` to `chip.ns.cloudflare.com` / `faye.ns.cloudflare.com`.
+- The `.com` registry authoritative servers return the Cloudflare nameservers, while local recursive DNS may continue returning the old HiChina nameservers until cache expiry.
+- Cloudflare Dashboard DNS records for the production zone were previously created: `kevinten.com` and `www.kevinten.com` both CNAME to `kevinten-interactive-preview.pages.dev` with proxy enabled. The current automation credential cannot re-read `/zones/:id/dns_records`, so this remains a dashboard-observed state until a zone DNS read-scoped token is available.
+- Cloudflare zone activation is still pending (`initializing`), so Cloudflare authoritative nameservers currently return `REFUSED` for both `kevinten.com` and `www.kevinten.com`; Pages custom domains may remain `pending` until Cloudflare completes activation.
+- `npm run verify:cutover` now times out Auth0 CLI checks via `AUTH0_CLI_TIMEOUT_MS` instead of hanging, then continues through QR, Pages custom domains, Cloudflare zone status, Cloudflare DNS records, registry delegation, Cloudflare authoritative DNS, recursive DNS, production HTTP, production admin HTTP Access protection, and Access API checks. Pages custom-domain API read failures are reported as not ready without preventing later DNS/HTTP diagnostics. The verifier checks `.com` registry delegation separately from recursive DNS and direct Cloudflare nameserver answers so registrar state, Cloudflare zone activation, and resolver-cache state are not conflated, rejects production HTTP that is still served by GitHub Pages instead of Cloudflare Pages, rejects production admin paths that are not protected by Cloudflare Access, and preserves final response headers when falling back from `fetch` to `curl`. Set `CUTOVER_AUDIT_OUT=docs/maintenance/2026-06-28-cutover-readiness.json` to also write a machine-readable readiness snapshot.
 
 ## Automation Blockers
 
 - Auth0 browser login and provisioning are complete. Runtime config now uses `https://kevinten-interactive-preview.pages.dev/` as the default redirect URL, and the latest preview deploy includes Auth0 login settings.
 - Cloudflare Queue creation succeeded with the shorter queue name `kevintenpreviewevents`. The originally requested `kevinten-site-preview-events` name failed Cloudflare validation with `The specified queue settings are invalid`.
 - Cloudflare Access is active for the preview admin path. The created token has Access read/edit permissions and should be kept local; do not commit or print it.
+- `AUTH0_CLI_TIMEOUT_MS=5000 CUTOVER_AUDIT_OUT=docs/maintenance/2026-06-28-cutover-readiness.json npm run verify:cutover` was rerun at 2026-06-28T12:56:44Z and still reports production not ready with 24 checks: 8 passed and 16 not ready. Auth0 verification now requires `AUTH0_CLIENT_ID` from local config instead of a committed SPA client ID, the WeChat QR is not a collect-money QR, Pages custom domains are pending, Cloudflare zone status is `initializing`, the active Cloudflare API credential cannot read zone DNS records, `.com` registry delegation is correct, Cloudflare authoritative nameservers return `REFUSED`, recursive DNS still resolves HiChina nameservers, `www.kevinten.com` still resolves GitHub Pages, `https://kevinten.com/` and `https://www.kevinten.com/` still return `server: GitHub.com` without the Cloudflare runtime marker, production `/admin/` returns GitHub 404 instead of Cloudflare Access protection, and the active Cloudflare API credential cannot read Access apps.
+- `npm run verify:qrs` currently fails the WeChat QR gate because `img/weixin.jpg` decodes to `https://u.wechat.com/ELhLlxAvOByQm1K65g7b72U`, a contact/follow QR rather than a collect-money QR. `img/alipay.jpg` decodes to an Alipay QR and still needs one real phone scan before cutover.
 
 ## Stripe
 
@@ -115,9 +138,11 @@ Results:
 
 ## Production Cutover Guidance
 
-Do not change `CNAME` or the production domain yet. After Auth0 and Access are configured and the preview is verified:
+Do not change the repository `CNAME` yet. As of June 28, 2026:
 
-1. Promote or recreate the Cloudflare Pages project for production.
-2. Set production runtime config with the production Worker API URL.
-3. Bind `kevinten.com` only after checking comments, rewards, stats, admin, Stripe webhook, and legacy article pages.
-4. Keep GitHub Pages intact until DNS cutover is confirmed reversible.
+1. `kevinten.com` has been delegated at the registrar to Cloudflare nameservers, and the `.com` registry reflects that delegation.
+2. Recursive DNS can still return the old GitHub Pages/HiChina state until cache expiry.
+3. Cloudflare zone status is still `initializing`; Pages custom domains remain pending until zone activation and HTTP validation complete.
+4. Production Cloudflare Access apps exist for both apex and `www` admin paths.
+5. Replace the WeChat image with a real WeChat collect-money QR before relying on public support payments.
+6. Keep GitHub Pages intact until Cloudflare serves `https://kevinten.com/` and `https://www.kevinten.com/` successfully with Cloudflare response headers and the generated runtime marker, and rollback has been verified.

@@ -62,3 +62,15 @@ body {
   display: grid;
   gap: 12px;
 }
+
+.admin-row-meta {
+  margin-top: 8px;
+  color: var(--color-text-muted, #71717A);
+  font-size: 13px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.admin-card p {
+  line-height: 1.6;
+}

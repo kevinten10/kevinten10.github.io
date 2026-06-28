@@ -1,6 +1,6 @@
 /**
  * Auth Client - Auth0 SPA integration with anonymous fallback.
- * @version 1.0.0
+ * @version 2.0.0
  */
 (function() {
   'use strict';
@@ -13,6 +13,25 @@
 
   function apiBase() {
     return (config().apiBaseUrl || '').replace(/\/$/, '');
+  }
+
+  function t(key, fallback) {
+    if (window.I18n && window.I18n.get) return window.I18n.get(key) || fallback;
+    return fallback;
+  }
+
+  function displayName() {
+    return state.user ? (state.user.name || state.user.email || 'Signed in') : 'Anonymous';
+  }
+
+  function initials(value) {
+    var clean = String(value || '').trim();
+    if (!clean) return 'A';
+    var parts = clean.split(/\s+/).filter(Boolean);
+    if (parts.length > 1) {
+      return (Array.from(parts[0])[0] + Array.from(parts[parts.length - 1])[0]).toUpperCase();
+    }
+    return Array.from(clean).slice(0, 2).join('').toUpperCase();
   }
 
   function anonymousId() {
@@ -63,14 +82,32 @@
   }
 
   function updateUi() {
+    var authenticated = Boolean(state.user);
+    var available = Boolean(state.client);
+    var name = displayName();
+    var statusText = authenticated
+      ? t('auth.status.signedIn', '已登录，留言会带上身份')
+      : (available ? t('auth.status.guest', '匿名浏览，可直接留言') : t('auth.status.unavailable', '登录暂不可用，仍可匿名留言'));
+
+    document.querySelectorAll('[data-auth-shell]').forEach(function(shell) {
+      shell.classList.toggle('is-authenticated', authenticated);
+      shell.classList.toggle('is-unavailable', !available);
+      shell.setAttribute('data-authenticated', authenticated ? 'true' : 'false');
+    });
     document.querySelectorAll('[data-auth-login]').forEach(function(btn) {
-      btn.hidden = Boolean(state.user) || !state.client;
+      btn.hidden = authenticated || !available;
     });
     document.querySelectorAll('[data-auth-logout]').forEach(function(btn) {
-      btn.hidden = !state.user;
+      btn.hidden = !authenticated;
     });
     document.querySelectorAll('[data-auth-name]').forEach(function(node) {
-      node.textContent = state.user ? (state.user.name || state.user.email || 'Signed in') : 'Anonymous';
+      node.textContent = name;
+    });
+    document.querySelectorAll('[data-auth-initial]').forEach(function(node) {
+      node.textContent = initials(name);
+    });
+    document.querySelectorAll('[data-auth-status]').forEach(function(node) {
+      node.textContent = statusText;
     });
   }
 

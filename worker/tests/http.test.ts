@@ -39,6 +39,15 @@ describe('API response helpers', () => {
     });
   });
 
+  it('allows configured production custom domains for API clients', () => {
+    const env = {
+      ALLOWED_ORIGINS: 'https://kevinten.com,https://www.kevinten.com'
+    } as Env;
+
+    expect(corsHeaders('https://kevinten.com', env)['Access-Control-Allow-Origin']).toBe('https://kevinten.com');
+    expect(corsHeaders('https://www.kevinten.com', env)['Access-Control-Allow-Origin']).toBe('https://www.kevinten.com');
+  });
+
   it('does not reflect arbitrary CORS origins', () => {
     expect(corsHeaders('https://evil.example', {} as Env)['Access-Control-Allow-Origin']).toBeUndefined();
   });

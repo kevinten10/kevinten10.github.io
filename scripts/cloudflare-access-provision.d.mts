@@ -13,6 +13,8 @@ export type CloudflareAccessConfig = {
   adminEmails: string[];
 };
 
+export function wranglerConfigCandidates(env?: Record<string, string | undefined>): string[];
+
 export function readWranglerOAuthToken(env?: Record<string, string | undefined>): string;
 
 export function readAccessConfig(

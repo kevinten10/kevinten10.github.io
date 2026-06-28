@@ -5,6 +5,7 @@ window.CloudflareSiteConfig = {
     clientId: '',
     audience: '',
     redirectUri: '',
-    logoutUri: ''
+    logoutUri: '',
+    allowedOrigins: []
   }
 };

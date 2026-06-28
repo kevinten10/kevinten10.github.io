@@ -94,6 +94,7 @@ describe('stats routes', () => {
     const db = new RecordingD1([
       { page_path: '/lagging', pv: 0, uv: 0, comments_count: 0, rewards_count: 0 },
       { pv: 1, uv: 1 },
+      { pv: 10, uv: 5 },
       { count: 0 },
       { count: 0 }
     ]);
@@ -103,10 +104,33 @@ describe('stats routes', () => {
     });
 
     const response = await app.request('/api/stats/public?page=%2Flagging');
-    const body = await response.json() as { data: { page: { pv: number; uv: number } } };
+    const body = await response.json() as { data: { page: { pv: number; uv: number }; site: { pv: number; uv: number } } };
 
     expect(response.status).toBe(200);
     expect(body.data.page.pv).toBe(1);
     expect(body.data.page.uv).toBe(1);
+    expect(body.data.site).toEqual({ pv: 10, uv: 5 });
+  });
+
+  it('does not inflate public unique visitors from queue aggregate counters', async () => {
+    const db = new RecordingD1([
+      { page_path: '/repeat', pv: 25, uv: 25, comments_count: 0, rewards_count: 0 },
+      { pv: 25, uv: 3 },
+      { pv: 100, uv: 12 },
+      { count: 0 },
+      { count: 0 }
+    ]);
+    const app = buildApp({
+      DB: db as unknown as D1Database,
+      SITE_KV: new MemoryKV() as unknown as KVNamespace
+    });
+
+    const response = await app.request('/api/stats/public?page=%2Frepeat');
+    const body = await response.json() as { data: { page: { pv: number; uv: number }; site: { pv: number; uv: number } } };
+
+    expect(response.status).toBe(200);
+    expect(body.data.page.pv).toBe(25);
+    expect(body.data.page.uv).toBe(3);
+    expect(body.data.site.uv).toBe(12);
   });
 });

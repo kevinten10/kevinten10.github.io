@@ -1,9 +1,28 @@
 jd.superpowers/
 .superpowers/
+
+# Dependencies and build output
 node_modules/
 dist/
+.next/
+next-portfolio/.next/
+video/node_modules/
+
+# Local environment files
 .wrangler/
 .dev.vars
 .env
 .env.local
+.env.*.local
+next-portfolio/.env.local
+
+# Generated Cloudflare runtime config
 assets/js/cloudflare-runtime.js
+
+# Local QA / browser automation output
+.playwright-mcp/
+.playwright-cli/
+.playwright-persistent/
+playwright-report/
+test-results/
+output/

@@ -1,4 +1,6 @@
 import { execFile } from 'node:child_process';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname } from 'node:path';
 import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
@@ -11,9 +13,51 @@ const preferCurl = process.env.PREVIEW_VERIFY_TRANSPORT === 'curl'
 const stamp = Date.now();
 const smokePage = `/preview-smoke-${stamp}`;
 const visitorId = `preview-smoke-${stamp}`;
+const previewAuditPath = process.env.PREVIEW_AUDIT_OUT?.trim() || '';
+const audit = createPreviewAudit({ apiBaseUrl, pagesUrl, smokePage });
 
 function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function createPreviewAudit({ startedAt = new Date().toISOString(), apiBaseUrl = '', pagesUrl = '', smokePage = '' } = {}) {
+  return {
+    schemaVersion: 1,
+    startedAt,
+    apiBaseUrl,
+    pagesUrl,
+    smokePage,
+    checks: []
+  };
+}
+
+function recordPreviewCheck(name, ok, detail = '') {
+  const entry = {
+    name,
+    status: ok ? 'ok' : 'not_ready'
+  };
+  if (detail) entry.detail = String(detail);
+  audit.checks.push(entry);
+}
+
+function finalizePreviewAudit(ready, errorMessage = '', completedAt = new Date().toISOString()) {
+  const checks = audit.checks || [];
+  return {
+    ...audit,
+    completedAt,
+    ready: Boolean(ready),
+    error: errorMessage || undefined,
+    totalChecks: checks.length,
+    passedChecks: checks.filter((item) => item.status === 'ok').length,
+    failedChecks: checks.filter((item) => item.status !== 'ok').length
+  };
+}
+
+async function writePreviewAuditFile(ready, errorMessage = '') {
+  if (!previewAuditPath) return;
+  await mkdir(dirname(previewAuditPath), { recursive: true });
+  const report = finalizePreviewAudit(ready, errorMessage);
+  await writeFile(previewAuditPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
 }
 
 async function requestWithFetch(url, options = {}) {
@@ -85,8 +129,10 @@ async function requestJson(url, options = {}) {
 async function assertJson(name, url, predicate, options = {}) {
   const { response, body } = await requestJson(url, options);
   if (!predicate(response, body)) {
+    recordPreviewCheck(name, false, `${response.status} ${url}`);
     throw new Error(`${name} failed: ${response.status} ${JSON.stringify(body)}`);
   }
+  recordPreviewCheck(name, true, `${response.status} ${url}`);
   console.log(`ok ${name}`);
   return body;
 }
@@ -96,11 +142,13 @@ async function assertJsonEventually(name, url, predicate, options = {}) {
   for (let attempt = 1; attempt <= 8; attempt += 1) {
     last = await requestJson(url, options);
     if (predicate(last.response, last.body)) {
+      recordPreviewCheck(name, true, `${last.response.status} ${url}`);
       console.log(`ok ${name}`);
       return last.body;
     }
     await delay(attempt * 750);
   }
+  recordPreviewCheck(name, false, `${last?.response?.status || 0} ${url}`);
   throw new Error(`${name} failed: ${last?.response?.status || 0} ${JSON.stringify(last?.body)}`);
 }
 
@@ -108,12 +156,15 @@ async function assertText(name, url, predicate) {
   const response = await request(url);
   const text = await response.text();
   if (!response.ok || !predicate(text, response)) {
+    recordPreviewCheck(name, false, `${response.status} ${url}`);
     throw new Error(`${name} failed: ${response.status}`);
   }
+  recordPreviewCheck(name, true, `${response.status} ${url}`);
   console.log(`ok ${name}`);
   return text;
 }
 
+async function main() {
 await assertJson('worker health', `${apiBaseUrl}/health`, (_response, body) => body?.success === true && body?.data?.status === 'ok');
 
 await assertJson('anonymous auth state', `${apiBaseUrl}/api/auth/me`, (_response, body) => {
@@ -188,11 +239,18 @@ await assertJson('reward record create', `${apiBaseUrl}/api/rewards`, (_response
 });
 
 await assertJsonEventually('public stats read', `${apiBaseUrl}/api/stats/public?page=${encodeURIComponent(smokePage)}`, (_response, body) => {
-  return body?.success === true && Number(body?.data?.page?.pv || 0) >= 1 && Number(body?.data?.page?.uv || 0) >= 1;
+  return body?.success === true
+    && Number(body?.data?.page?.pv || 0) >= 1
+    && Number(body?.data?.page?.uv || 0) >= 1
+    && Number(body?.data?.site?.pv || 0) >= 1
+    && Number(body?.data?.site?.uv || 0) >= 1;
 });
 
 const homeHtml = await assertText('pages home', `${pagesUrl}/`, (text) => {
-  return text.includes('/assets/js/cloudflare-runtime.js') && text.includes('/assets/js/comments.js') && text.includes('/assets/js/rewards.js');
+  return text.includes('/assets/js/cloudflare-runtime.js')
+    && text.includes('/assets/js/comments.js')
+    && text.includes('/assets/js/rewards.js')
+    && text.includes('data-public-stat="visitors"');
 });
 
 await assertText('pages runtime config', `${pagesUrl}/assets/js/cloudflare-runtime.js`, (text) => {
@@ -208,9 +266,24 @@ await assertText('pages admin shell', `${pagesUrl}/admin/`, (text) => {
 
 await assertText('legacy article preserved', `${pagesUrl}/2018/08/03/hello-world/`, (text) => text.length > 100);
 
+audit.homeIncludesAuth0 = homeHtml.includes('cdn.auth0.com');
+
 console.log(JSON.stringify({
   apiBaseUrl,
   pagesUrl,
   smokePage,
-  homeIncludesAuth0: homeHtml.includes('cdn.auth0.com')
+  homeIncludesAuth0: audit.homeIncludesAuth0
 }, null, 2));
+}
+
+let ready = false;
+let errorMessage = '';
+try {
+  await main();
+  ready = true;
+} catch (err) {
+  errorMessage = err.message;
+  throw err;
+} finally {
+  await writePreviewAuditFile(ready, errorMessage);
+}

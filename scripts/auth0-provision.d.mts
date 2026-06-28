@@ -10,8 +10,11 @@ export function buildMachineLoginArgs(env?: Record<string, string | undefined>):
 export function buildAuth0Config(env?: Record<string, string | undefined>): {
   audience: string;
   callback: string;
+  callbacks: string[];
   logout: string;
+  logouts: string[];
   origin: string;
+  origins: string[];
 };
 
 export function extractAuth0ClientId(stdout: string): string;
@@ -26,6 +29,7 @@ export function buildCloudflareRuntimeEnv(
   AUTH0_CALLBACK_URL: string;
   AUTH0_LOGOUT_URL: string;
   AUTH0_ALLOWED_ORIGIN: string;
+  AUTH0_ALLOWED_ORIGINS: string;
 };
 
 export function formatEnvFile(values: Record<string, string | undefined>): string;

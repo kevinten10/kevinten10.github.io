@@ -25,6 +25,14 @@
     { status: 'hidden', label: 'Hide' }
   ];
 
+  var providerLabels = {
+    wechat_qr: 'WeChat QR',
+    alipay_qr: 'Alipay QR',
+    manual_qr: 'Manual QR',
+    stripe: 'Stripe Sandbox',
+    stripe_sandbox: 'Stripe Sandbox'
+  };
+
   function clearContent() {
     var root = document.getElementById('admin-content');
     root.replaceChildren();
@@ -82,6 +90,19 @@
         article.className = 'admin-card';
         var title = document.createElement('strong');
         title.textContent = row.author_name || row.display_name || row.id;
+        var meta = document.createElement('div');
+        meta.className = 'admin-row-meta';
+        if (type === 'rewards') {
+          var amount = row.amount === null || row.amount === undefined ? 'amount not provided' : String(row.amount) + ' ' + (row.currency || '');
+          meta.textContent = [
+            providerLabels[row.provider] || row.provider || 'unknown provider',
+            amount,
+            row.status || 'pending',
+            row.id
+          ].join(' · ');
+        } else {
+          meta.textContent = [row.status || 'pending', row.id].join(' · ');
+        }
         var body = document.createElement('p');
         body.textContent = row.content || row.message || '';
         var actions = document.createElement('div');
@@ -97,6 +118,7 @@
           actions.appendChild(button);
         });
         article.appendChild(title);
+        article.appendChild(meta);
         article.appendChild(body);
         article.appendChild(actions);
         root.appendChild(article);

@@ -6,6 +6,7 @@ import type { Env, Variables } from '../src/types';
 
 class RewardD1 {
   updates = 0;
+  params: unknown[] = [];
 
   prepare(sql: string) {
     return {
@@ -18,6 +19,7 @@ class RewardD1 {
         },
         run: async () => {
           if (sql.includes('update rewards set')) this.updates += 1;
+          this.params = params;
           return { meta: { changes: 1 } };
         }
       })
@@ -96,5 +98,92 @@ describe('stripe webhook route', () => {
 
     expect(response.status).toBe(200);
     expect(db.updates).toBe(1);
+    expect(db.params).toEqual(expect.arrayContaining(['stripe_sandbox', 'cs_paid', 25, 'USD', 'verified']));
+  });
+
+  it('rejects signed live-mode Stripe events', async () => {
+    const db = new RewardD1();
+    const app = buildApp({
+      DB: db as unknown as D1Database,
+      STRIPE_WEBHOOK_SECRET: 'whsec_test'
+    });
+
+    const response = await stripeRequest(app, {
+      id: 'evt_live',
+      livemode: true,
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          id: 'cs_live',
+          payment_status: 'paid',
+          client_reference_id: 'rwd_test',
+          amount_total: 2500,
+          currency: 'usd'
+        }
+      }
+    });
+
+    expect(response.status).toBe(400);
+    expect(await response.json()).toMatchObject({
+      success: false,
+      error: 'Live Stripe events are disabled'
+    });
+    expect(db.updates).toBe(0);
+  });
+
+  it('does not verify rewards when Stripe omits the paid amount', async () => {
+    const db = new RewardD1();
+    const app = buildApp({
+      DB: db as unknown as D1Database,
+      STRIPE_WEBHOOK_SECRET: 'whsec_test'
+    });
+
+    const response = await stripeRequest(app, {
+      id: 'evt_missing_amount',
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          id: 'cs_missing_amount',
+          payment_status: 'paid',
+          client_reference_id: 'rwd_test',
+          currency: 'usd'
+        }
+      }
+    });
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      success: true,
+      data: { received: true, ignored: 'amount_missing' }
+    });
+    expect(db.updates).toBe(0);
+  });
+
+  it('does not verify rewards when Stripe omits the paid currency', async () => {
+    const db = new RewardD1();
+    const app = buildApp({
+      DB: db as unknown as D1Database,
+      STRIPE_WEBHOOK_SECRET: 'whsec_test'
+    });
+
+    const response = await stripeRequest(app, {
+      id: 'evt_missing_currency',
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          id: 'cs_missing_currency',
+          payment_status: 'paid',
+          client_reference_id: 'rwd_test',
+          amount_total: 2500
+        }
+      }
+    });
+
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      success: true,
+      data: { received: true, ignored: 'currency_missing' }
+    });
+    expect(db.updates).toBe(0);
   });
 });

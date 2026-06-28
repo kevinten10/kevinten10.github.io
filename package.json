@@ -12,10 +12,14 @@
     "provision:auth0": "node scripts/auth0-provision.mjs",
     "provision:stripe": "node scripts/stripe-provision.mjs",
     "provision:access": "node scripts/cloudflare-access-provision.mjs",
+    "provision:cutover": "node scripts/cloudflare-cutover-provision.mjs",
     "test": "vitest run worker/tests",
     "typecheck": "tsc --noEmit -p worker/tsconfig.json",
-    "verify": "npm run typecheck && npm test && npm run build:pages",
-    "verify:preview": "node scripts/verify-preview.mjs"
+    "verify": "npm run typecheck && npm test && npm run build:pages && npm run verify:audits",
+    "verify:preview": "node scripts/verify-preview.mjs",
+    "verify:cutover": "node scripts/verify-cutover-readiness.mjs",
+    "verify:qrs": "node scripts/verify-reward-qrs.mjs",
+    "verify:audits": "node scripts/verify-maintenance-audits.mjs"
   },
   "dependencies": {
     "hono": "^4.5.0",
@@ -24,6 +28,8 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240620.0",
     "@types/node": "^22.10.2",
+    "jimp": "^1.6.1",
+    "jsqr": "^1.4.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5",
     "wrangler": "^4.104.0"

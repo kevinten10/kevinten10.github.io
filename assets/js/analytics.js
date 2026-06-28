@@ -1,6 +1,6 @@
 /**
  * Analytics Module - Cloudflare Worker backed public stats.
- * @version 3.0.0
+ * @version 4.0.0
  */
 (function() {
   'use strict';
@@ -55,15 +55,25 @@
       .then(function(res) { return res.json(); })
       .then(function(result) {
         if (!result.success) return;
+        var data = result.data || {};
+        var page = data.page || {};
+        var site = data.site || page;
         nodes.forEach(function(node) {
           var key = node.getAttribute('data-public-stat');
-          if (key === 'pageViews') node.textContent = result.data.page.pv || 0;
-          if (key === 'comments') node.textContent = result.data.totalComments || 0;
-          if (key === 'supporters') node.textContent = result.data.supporterCount || 0;
+          if (key === 'pageViews') node.textContent = formatCount(site.pv || page.pv || 0);
+          if (key === 'visitors') node.textContent = formatCount(site.uv || page.uv || 0);
+          if (key === 'comments') node.textContent = formatCount(data.totalComments || 0);
+          if (key === 'supporters') node.textContent = formatCount(data.supporterCount || 0);
         });
       }).catch(function() {
         nodes.forEach(function(node) { node.textContent = '0'; });
       });
+  }
+
+  function formatCount(value) {
+    var number = Number(value || 0);
+    if (!Number.isFinite(number)) return '0';
+    return number.toLocaleString();
   }
 
   function init() {

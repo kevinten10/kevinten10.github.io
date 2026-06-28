@@ -21,9 +21,13 @@ function envValue(env, key) {
   return env[key]?.trim() || '';
 }
 
-function wranglerConfigCandidates(env = process.env) {
+export function wranglerConfigCandidates(env = process.env) {
   const candidates = [];
   if (env.WRANGLER_CONFIG_PATH?.trim()) candidates.push(env.WRANGLER_CONFIG_PATH.trim());
+  if (env.HOME) candidates.push(path.join(env.HOME, 'Library', 'Preferences', '.wrangler', 'config', 'default.toml'));
+  if (env.XDG_CONFIG_HOME) candidates.push(path.join(env.XDG_CONFIG_HOME, '.wrangler', 'config', 'default.toml'));
+  if (env.HOME) candidates.push(path.join(env.HOME, '.config', '.wrangler', 'config', 'default.toml'));
+  if (env.HOME) candidates.push(path.join(env.HOME, '.wrangler', 'config', 'default.toml'));
   if (env.APPDATA) candidates.push(path.join(env.APPDATA, 'xdg.config', '.wrangler', 'config', 'default.toml'));
   if (env.USERPROFILE) candidates.push(path.join(env.USERPROFILE, '.wrangler', 'config', 'default.toml'));
   if (env.USERPROFILE) candidates.push(path.join(env.USERPROFILE, '.config', '.wrangler', 'config', 'default.toml'));

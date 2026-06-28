@@ -250,8 +250,17 @@
   }
 
   .ai-fab {
-    bottom: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
     right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+
+  body.comments-in-view .ai-fab,
+  body.rewards-in-view .ai-fab {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(16px) scale(0.92);
   }
 }
 
