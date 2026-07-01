@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-07-01T15:34:22.545Z",
+  "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
+  "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
+  "productionOrigins": [
+    "https://kevinten.com",
+    "https://www.kevinten.com"
+  ],
+  "checks": [
+    {
+      "name": "worker health",
+      "status": "ok",
+      "detail": "https://kevinten-api-preview.wshten.workers.dev"
+    },
+    {
+      "name": "CORS https://kevinten.com",
+      "status": "ok"
+    },
+    {
+      "name": "CORS https://www.kevinten.com",
+      "status": "ok"
+    },
+    {
+      "name": "Pages runtime supports preview plus production origins",
+      "status": "ok",
+      "detail": "https://kevinten-interactive-preview.pages.dev"
+    },
+    {
+      "name": "Auth0 production callbacks/origins",
+      "status": "not_ready",
+      "detail": "Auth0 CLI failed: ▸    Failed to renew access token: cannot get a new access token from the refresh token: {\"error\":\"access_denied\",\"error_description\":\"A post-login action returned invalid data: Is not possible to revoke a nonexistent session.\"}\n ▸    Please log in to re-authorize the CLI.\n\n\n=== dev-8abkwbejxgjbcz1l.us.auth0.com error\n\n ▸    Auth token expired and --no-input is set; run 'auth0 login' to re-authenticate."
+    },
+    {
+      "name": "WeChat reward QR",
+      "status": "not_ready",
+      "detail": "decoded as a WeChat contact/follow QR, not a payment QR"
+    },
+    {
+      "name": "Alipay reward QR",
+      "status": "ok",
+      "detail": "decoded as an Alipay QR; scan once on phone to confirm it opens the collect-money flow"
+    },
+    {
+      "name": "Cloudflare Pages custom domains readable",
+      "status": "not_ready",
+      "detail": "Authentication error"
+    },
+    {
+      "name": "Cloudflare zone exists for kevinten.com",
+      "status": "ok",
+      "detail": "014623dcba379877a65c37c5b823cd40 (initializing)"
+    },
+    {
+      "name": "Cloudflare zone status active",
+      "status": "not_ready",
+      "detail": "initializing"
+    },
+    {
+      "name": "Cloudflare zone/DNS readable",
+      "status": "not_ready",
+      "detail": "Authentication error"
+    },
+    {
+      "name": "registry delegation uses Cloudflare nameservers",
+      "status": "ok",
+      "detail": "chip.ns.cloudflare.com, faye.ns.cloudflare.com"
+    },
+    {
+      "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com kevinten.com active",
+      "status": "not_ready",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com www.kevinten.com active",
+      "status": "not_ready",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com kevinten.com active",
+      "status": "not_ready",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com www.kevinten.com active",
+      "status": "not_ready",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "DNS kevinten.com not on GitHub Pages",
+      "status": "ok",
+      "detail": "{\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "recursive DNS kevinten.com uses Cloudflare nameservers",
+      "status": "not_ready",
+      "detail": "none"
+    },
+    {
+      "name": "DNS www.kevinten.com not on GitHub Pages",
+      "status": "ok",
+      "detail": "{\"addresses\":[],\"cnames\":[]}"
+    },
+    {
+      "name": "production HTTP https://kevinten.com serves Cloudflare Pages",
+      "status": "not_ready",
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://kevinten.com/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
+    },
+    {
+      "name": "production HTTP https://www.kevinten.com serves Cloudflare Pages",
+      "status": "not_ready",
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://www.kevinten.com/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
+    },
+    {
+      "name": "production admin https://kevinten.com/admin/ protected by Cloudflare Access",
+      "status": "not_ready",
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://kevinten.com/admin/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
+    },
+    {
+      "name": "production admin https://www.kevinten.com/admin/ protected by Cloudflare Access",
+      "status": "not_ready",
+      "detail": "Command failed: curl.exe -sS -L -i --retry 3 --retry-delay 1 --retry-all-errors -w \n__STATUS__:%{http_code} https://www.kevinten.com/admin/\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\ncurl: (35) schannel: failed to receive handshake, SSL/TLS connection failed\r\n"
+    },
+    {
+      "name": "Cloudflare Access protects production admin paths",
+      "status": "ok",
+      "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
+    }
+  ],
+  "completedAt": "2026-07-01T15:37:08.743Z",
+  "ready": false,
+  "totalChecks": 24,
+  "passedChecks": 10,
+  "failedChecks": 14
+}
