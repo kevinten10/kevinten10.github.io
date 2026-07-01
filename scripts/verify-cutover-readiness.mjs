@@ -449,12 +449,12 @@ async function registryNameservers(host) {
     return normalizeNameservers(nameservers);
   } catch {
     try {
-      const { stdout } = await execFileAsync('nslookup', ['-type=NS', host, 'a.gtld-servers.net'], {
+      const { stdout, stderr } = await execFileAsync('nslookup', ['-type=NS', host, 'a.gtld-servers.net'], {
         maxBuffer: 1024 * 1024,
         timeout: 10000,
         killSignal: 'SIGTERM'
       });
-      return parseNslookupResponse(stdout).nameservers
+      return parseNslookupResponse(`${stdout || ''}\n${stderr || ''}`).nameservers
         .filter((nameserver) => !nameserver.endsWith('.root-servers.net'));
     } catch {
       return [];
@@ -482,12 +482,12 @@ async function authoritativeDnsReadiness(host, nameserver) {
   } catch (err) {
     if (err.code === 'ENOENT') {
       try {
-        const { stdout } = await execFileAsync('nslookup', ['-type=A', host, nameserver], {
+        const { stdout, stderr } = await execFileAsync('nslookup', ['-type=A', host, nameserver], {
           maxBuffer: 1024 * 1024,
           timeout: 10000,
           killSignal: 'SIGTERM'
         });
-        const summary = parseNslookupResponse(stdout);
+        const summary = parseNslookupResponse(`${stdout || ''}\n${stderr || ''}`);
         return {
           ok: isAuthoritativeDnsReady(summary),
           detail: JSON.stringify({

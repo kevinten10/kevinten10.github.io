@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-07-01T15:34:22.703Z",
+  "startedAt": "2026-07-01T15:44:38.783Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
-  "smokePage": "/preview-smoke-1782920062702",
+  "smokePage": "/preview-smoke-1782920678783",
   "checks": [
     {
       "name": "worker health",
@@ -43,7 +43,7 @@
     {
       "name": "anonymous comments read",
       "status": "ok",
-      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/comments?page=%2Fpreview-smoke-1782920062702"
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/comments?page=%2Fpreview-smoke-1782920678783"
     },
     {
       "name": "page reaction create",
@@ -58,7 +58,7 @@
     {
       "name": "public stats read",
       "status": "ok",
-      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/stats/public?page=%2Fpreview-smoke-1782920062702"
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/stats/public?page=%2Fpreview-smoke-1782920678783"
     },
     {
       "name": "pages home",
@@ -82,7 +82,7 @@
     }
   ],
   "homeIncludesAuth0": true,
-  "completedAt": "2026-07-01T15:34:47.996Z",
+  "completedAt": "2026-07-01T15:44:58.025Z",
   "ready": true,
   "totalChecks": 15,
   "passedChecks": 15,

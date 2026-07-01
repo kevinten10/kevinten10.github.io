@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-07-01T15:34:22.545Z",
+  "startedAt": "2026-07-01T15:42:26.500Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
   "productionOrigins": [
@@ -69,22 +69,22 @@
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com www.kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com www.kevinten.com active",
       "status": "not_ready",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
+      "detail": "{\"status\":\"REFUSED\",\"answers\":0,\"addresses\":[],\"cnames\":[]}"
     },
     {
       "name": "DNS kevinten.com not on GitHub Pages",
@@ -127,7 +127,7 @@
       "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
     }
   ],
-  "completedAt": "2026-07-01T15:37:08.743Z",
+  "completedAt": "2026-07-01T15:43:46.669Z",
   "ready": false,
   "totalChecks": 24,
   "passedChecks": 10,

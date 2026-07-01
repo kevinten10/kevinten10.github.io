@@ -166,6 +166,15 @@ describe('production cutover readiness helpers', () => {
     expect(refused.status).toBe('REFUSED');
     expect(isAuthoritativeDnsReady(refused)).toBe(false);
 
+    const refusedFromStderr = parseNslookupResponse([
+      'Server:  chip.ns.cloudflare.com',
+      'Address:  173.245.59.84',
+      '',
+      '',
+      "*** chip.ns.cloudflare.com can't find www.kevinten.com: Query refused"
+    ].join('\n'));
+    expect(refusedFromStderr.status).toBe('REFUSED');
+
     const cloudflare = parseNslookupResponse([
       'Server:  chip.ns.cloudflare.com',
       'Address:  173.245.59.84',
