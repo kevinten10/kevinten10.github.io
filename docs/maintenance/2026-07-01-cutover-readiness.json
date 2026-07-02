@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-07-01T16:03:42.505Z",
+  "startedAt": "2026-07-02T01:39:50.093Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
   "productionOrigins": [
@@ -42,9 +42,9 @@
       "detail": "decoded as an Alipay QR; scan once on phone to confirm it opens the collect-money flow"
     },
     {
-      "name": "Cloudflare Pages custom domains readable",
+      "name": "Cloudflare Pages custom domains active",
       "status": "not_ready",
-      "detail": "Authentication error"
+      "detail": "kevinten.com:pending, www.kevinten.com:pending"
     },
     {
       "name": "Cloudflare zone exists for kevinten.com",
@@ -57,9 +57,9 @@
       "detail": "initializing"
     },
     {
-      "name": "Cloudflare zone/DNS readable",
-      "status": "not_ready",
-      "detail": "Authentication error"
+      "name": "Cloudflare DNS records point to Pages",
+      "status": "ok",
+      "detail": "kevinten.com:CNAME->kevinten-interactive-preview.pages.dev:proxied:target-ok, www.kevinten.com:CNAME->kevinten-interactive-preview.pages.dev:proxied:target-ok"
     },
     {
       "name": "registry delegation uses Cloudflare nameservers",
@@ -127,9 +127,9 @@
       "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
     }
   ],
-  "completedAt": "2026-07-01T16:05:10.705Z",
+  "completedAt": "2026-07-02T01:41:19.013Z",
   "ready": false,
   "totalChecks": 24,
-  "passedChecks": 11,
-  "failedChecks": 13
+  "passedChecks": 12,
+  "failedChecks": 12
 }
