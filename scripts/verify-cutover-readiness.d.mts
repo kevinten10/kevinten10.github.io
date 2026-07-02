@@ -127,9 +127,56 @@ export function parseNslookupResponse(stdout: string): {
 
 export function auth0AppShowArgs(clientId: string): string[];
 
+export function isAuth0PublicRouteAllowed(summary?: {
+  status?: number;
+  location?: string;
+  finalUrl?: string;
+  bodyText?: string;
+}): boolean;
+
+export function auth0PublicProductionCheckWithRequester(options: {
+  clientId: string;
+  domain: string;
+  productionOrigins: string[];
+  request?: (
+    url: string,
+    options?: Record<string, unknown>
+  ) => Promise<{
+    response: {
+      status?: number;
+      url?: string;
+      headers: {
+        get(name: string): string | null;
+      };
+    };
+    text: string;
+  }>;
+}): Promise<{
+  ok: boolean;
+  detail: string;
+}>;
+
 export function auth0Executable(env?: Record<string, string | undefined>): string;
 
 export function auth0ChildEnv(env?: Record<string, string | undefined>): Record<string, string | undefined>;
+
+export function dnsSummaryFromResolvers(
+  host: string,
+  primary: {
+    resolve4(host: string): Promise<string[]>;
+    resolveCname(host: string): Promise<string[]>;
+    resolveNs(host: string): Promise<string[]>;
+  },
+  fallback?: {
+    resolve4(host: string): Promise<string[]>;
+    resolveCname(host: string): Promise<string[]>;
+    resolveNs(host: string): Promise<string[]>;
+  } | null
+): Promise<{
+  addresses: string[];
+  cnames: string[];
+  nameservers: string[];
+}>;
 
 export function isAuthoritativeDnsReady(summary?: {
   status?: string;

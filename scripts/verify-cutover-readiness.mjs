@@ -1,5 +1,5 @@
 import { execFile } from 'node:child_process';
-import { resolve4, resolveCname, resolveNs } from 'node:dns/promises';
+import { Resolver, resolve4, resolveCname, resolveNs } from 'node:dns/promises';
 import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve as resolvePath } from 'node:path';
@@ -14,6 +14,7 @@ const cloudflareApi = 'https://api.cloudflare.com/client/v4';
 const githubPagesIps = new Set(['185.199.108.153', '185.199.109.153', '185.199.110.153', '185.199.111.153']);
 const expectedCloudflareNameservers = ['chip.ns.cloudflare.com', 'faye.ns.cloudflare.com'];
 const expectedPagesTarget = 'kevinten-interactive-preview.pages.dev';
+const fallbackDnsServers = ['1.1.1.1', '8.8.8.8'];
 
 function envValue(key, fallback = '', env = process.env) {
   return env?.[key]?.trim() || fallback;
@@ -302,7 +303,9 @@ async function requestText(url, options = {}) {
 }
 
 async function requestTextWithCurl(url, options = {}) {
-  const args = ['-sS', '-L', '-i', '--retry', '3', '--retry-delay', '1', '--retry-all-errors'];
+  const args = ['-sS'];
+  if (options.redirect !== 'manual') args.push('-L');
+  args.push('-i', '--retry', '3', '--retry-delay', '1', '--retry-all-errors');
   const headers = options.headers || {};
   for (const [key, value] of Object.entries(headers)) {
     args.push('-H', `${key}: ${value}`);
@@ -403,6 +406,91 @@ async function auth0App(clientId, env = process.env) {
   }
 }
 
+function auth0Domain(env = process.env) {
+  return envValue('AUTH0_DOMAIN', 'dev-8abkwbejxgjbcz1l.us.auth0.com', env).replace(/^https?:\/\//, '').replace(/\/$/, '');
+}
+
+function auth0PublicAuthorizeUrl({ domain, clientId, origin }) {
+  const url = new URL(`https://${domain}/authorize`);
+  url.searchParams.set('client_id', clientId);
+  url.searchParams.set('response_type', 'code');
+  url.searchParams.set('redirect_uri', `${origin.replace(/\/$/, '')}/`);
+  url.searchParams.set('scope', 'openid profile email');
+  url.searchParams.set('state', 'cutover-readiness');
+  url.searchParams.set('code_challenge', 'cutoverReadinessChallenge000000000000000000000');
+  url.searchParams.set('code_challenge_method', 'S256');
+  return url;
+}
+
+function auth0PublicLogoutUrl({ domain, clientId, origin }) {
+  const url = new URL(`https://${domain}/v2/logout`);
+  url.searchParams.set('client_id', clientId);
+  url.searchParams.set('returnTo', `${origin.replace(/\/$/, '')}/`);
+  return url;
+}
+
+export function isAuth0PublicRouteAllowed({ status = 0, location = '', finalUrl = '', bodyText = '' } = {}) {
+  const haystack = [location, finalUrl, bodyText].map((item) => String(item || '').toLowerCase()).join('\n');
+  if (status < 200 || status >= 400) return false;
+  return ![
+    'callback url mismatch',
+    'returnto url is not in the list',
+    'unauthorized_client',
+    'invalid_request',
+    'not in the list of allowed'
+  ].some((marker) => haystack.includes(marker));
+}
+
+export async function auth0PublicProductionCheckWithRequester({
+  clientId,
+  domain,
+  productionOrigins,
+  request = requestText
+}) {
+  if (!clientId) throw new Error('AUTH0_CLIENT_ID is required');
+  const results = [];
+  for (const origin of productionOrigins) {
+    const authorize = await request(auth0PublicAuthorizeUrl({ domain, clientId, origin }).href, { redirect: 'manual' });
+    results.push({
+      origin,
+      route: 'authorize',
+      ok: isAuth0PublicRouteAllowed({
+        status: authorize.response.status || 0,
+        location: authorize.response.headers.get('location') || '',
+        finalUrl: authorize.response.url || '',
+        bodyText: authorize.text
+      })
+    });
+
+    const logout = await request(auth0PublicLogoutUrl({ domain, clientId, origin }).href, { redirect: 'manual' });
+    results.push({
+      origin,
+      route: 'logout',
+      ok: isAuth0PublicRouteAllowed({
+        status: logout.response.status || 0,
+        location: logout.response.headers.get('location') || '',
+        finalUrl: logout.response.url || '',
+        bodyText: logout.text
+      })
+    });
+  }
+  const failures = results.filter((item) => !item.ok);
+  return {
+    ok: failures.length === 0,
+    detail: failures.length
+      ? failures.map((item) => `${item.origin}:${item.route}`).join(', ')
+      : results.map((item) => `${item.origin}:${item.route}`).join(', ')
+  };
+}
+
+async function auth0PublicProductionCheck(clientId, productionOrigins, env = process.env) {
+  return auth0PublicProductionCheckWithRequester({
+    clientId,
+    domain: auth0Domain(env),
+    productionOrigins
+  });
+}
+
 export function auth0AppShowArgs(clientId) {
   return ['apps', 'show', clientId, '--json', '--no-input', '--no-color'];
 }
@@ -426,12 +514,48 @@ export function auth0ChildEnv(env = process.env) {
   return childEnv;
 }
 
+async function safeResolve(resolveFn, host) {
+  try {
+    return await resolveFn(host);
+  } catch {
+    return [];
+  }
+}
+
+function hasDnsSummaryData(summary) {
+  return Boolean(summary.addresses.length || summary.cnames.length || summary.nameservers.length);
+}
+
+export async function dnsSummaryFromResolvers(host, primary, fallback = null) {
+  const summary = {
+    addresses: await safeResolve(primary.resolve4, host),
+    cnames: await safeResolve(primary.resolveCname, host),
+    nameservers: await safeResolve(primary.resolveNs, host)
+  };
+  if (hasDnsSummaryData(summary) || !fallback) return summary;
+  return {
+    addresses: await safeResolve(fallback.resolve4, host),
+    cnames: await safeResolve(fallback.resolveCname, host),
+    nameservers: await safeResolve(fallback.resolveNs, host)
+  };
+}
+
+function publicDnsResolverFns() {
+  const resolver = new Resolver();
+  resolver.setServers(fallbackDnsServers);
+  return {
+    resolve4: resolver.resolve4.bind(resolver),
+    resolveCname: resolver.resolveCname.bind(resolver),
+    resolveNs: resolver.resolveNs.bind(resolver)
+  };
+}
+
 async function dnsSummary(host) {
-  const [addresses, cnames, nameservers] = await Promise.all([
-    resolve4(host).catch(() => []),
-    resolveCname(host).catch(() => []),
-    resolveNs(host).catch(() => [])
-  ]);
+  const { addresses, cnames, nameservers } = await dnsSummaryFromResolvers(host, {
+    resolve4,
+    resolveCname,
+    resolveNs
+  }, publicDnsResolverFns());
   return { addresses, cnames, nameservers };
 }
 
@@ -608,8 +732,18 @@ export async function verifyCutoverReadiness(env = process.env) {
     record('Auth0 production callbacks/origins', auth0Ok, auth0ClientId);
     ready &&= auth0Ok;
   } catch (err) {
-    record('Auth0 production callbacks/origins', false, err.message);
-    ready = false;
+    try {
+      const publicCheck = await auth0PublicProductionCheck(auth0ClientId, productionOrigins, env);
+      record(
+        'Auth0 production callbacks/origins',
+        publicCheck.ok,
+        `${publicCheck.ok ? 'public authorize/logout checks passed' : `public authorize/logout failed: ${publicCheck.detail}`}; CLI unavailable: ${err.message}`
+      );
+      ready &&= publicCheck.ok;
+    } catch (fallbackErr) {
+      record('Auth0 production callbacks/origins', false, `${err.message}; public fallback failed: ${fallbackErr.message}`);
+      ready = false;
+    }
   }
 
   const qrResults = await verifyRewardQrs();

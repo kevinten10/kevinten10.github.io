@@ -16,6 +16,9 @@ import {
   auth0ChildEnv,
   auth0Executable,
   auth0AppShowArgs,
+  auth0PublicProductionCheckWithRequester,
+  dnsSummaryFromResolvers,
+  isAuth0PublicRouteAllowed,
   normalizeHostname,
   normalizeNameservers,
   parseDigResponse,
@@ -274,6 +277,75 @@ describe('production cutover readiness helpers', () => {
       '--no-input',
       '--no-color'
     ]);
+  });
+
+  it('falls back to a secondary DNS resolver when the local resolver refuses queries', async () => {
+    const refused = async () => {
+      const error = new Error('query refused') as Error & { code: string };
+      error.code = 'ECONNREFUSED';
+      throw error;
+    };
+    const summary = await dnsSummaryFromResolvers('kevinten.com', {
+      resolve4: refused,
+      resolveCname: refused,
+      resolveNs: refused
+    }, {
+      resolve4: async () => ['104.21.61.72'],
+      resolveCname: async () => [],
+      resolveNs: async () => ['chip.ns.cloudflare.com', 'faye.ns.cloudflare.com']
+    });
+
+    expect(summary).toEqual({
+      addresses: ['104.21.61.72'],
+      cnames: [],
+      nameservers: ['chip.ns.cloudflare.com', 'faye.ns.cloudflare.com']
+    });
+  });
+
+  it('accepts Auth0 public auth pages but rejects callback mismatch errors', () => {
+    expect(isAuth0PublicRouteAllowed({
+      status: 200,
+      finalUrl: 'https://dev-tenant.us.auth0.com/u/login',
+      bodyText: '<title>Log in</title>'
+    })).toBe(true);
+
+    expect(isAuth0PublicRouteAllowed({
+      status: 302,
+      location: '/u/login?state=abc'
+    })).toBe(true);
+
+    expect(isAuth0PublicRouteAllowed({
+      status: 400,
+      bodyText: 'Callback URL mismatch. The provided redirect_uri is not in the list of allowed callback URLs.'
+    })).toBe(false);
+  });
+
+  it('checks Auth0 public authorize and logout routes without following redirects', async () => {
+    const calls: Array<{ url: string; redirect?: string }> = [];
+    const result = await auth0PublicProductionCheckWithRequester({
+      clientId: 'client_123',
+      domain: 'tenant.example.com',
+      productionOrigins: ['https://kevinten.com'],
+      request: async (url: string, options?: Record<string, unknown>) => {
+        calls.push({ url: String(url), redirect: String(options?.redirect || '') });
+        return {
+          response: {
+            status: 302,
+            url: String(url),
+            headers: {
+              get: (name: string) => name.toLowerCase() === 'location' ? '/u/login?state=abc' : null
+            }
+          },
+          text: ''
+        };
+      }
+    });
+
+    expect(result.ok).toBe(true);
+    expect(calls).toHaveLength(2);
+    expect(calls.every((call) => call.redirect === 'manual')).toBe(true);
+    expect(calls.some((call) => call.url.includes('/authorize?'))).toBe(true);
+    expect(calls.some((call) => call.url.includes('/v2/logout?'))).toBe(true);
   });
 
   it('allows an explicit Auth0 CLI executable path for automation', () => {
