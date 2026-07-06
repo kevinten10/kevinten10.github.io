@@ -44,7 +44,7 @@
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
     <link rel="stylesheet" href="/assets/css/main.css?v=34">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
-    <link rel="stylesheet" href="/assets/css/rewards.css?v=2">
+    <link rel="stylesheet" href="/assets/css/rewards.css?v=3">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=3">
     
     <!-- Preload critical resources -->
@@ -2193,18 +2193,18 @@
             <header class="section-header">
                 <span class="section-index">12</span>
                 <h2 class="section-title" data-i18n="rewards.title">支持与鸣谢</h2>
-                <p class="section-description" data-i18n="rewards.desc">真实收款仅使用微信/支付宝扫码；Stripe 只保留沙箱测试，不作为正式付款入口。</p>
+                <p class="section-description" data-i18n="rewards.desc">真实收款当前仅启用支付宝扫码；微信收款码待替换为真实收款码后再开放，Stripe 只保留沙箱测试。</p>
             </header>
             <div class="rewards-grid">
                 <div class="reward-qr-panel" aria-label="Reward QR codes">
-                    <figure class="reward-qr" data-reward-method="wechat_qr">
-                        <img src="/img/weixin.jpg" alt="WeChat reward QR code" loading="lazy">
+                    <figure class="reward-qr is-disabled" data-reward-method="wechat_qr" aria-disabled="true">
+                        <img src="/img/weixin.jpg" alt="WeChat reward temporarily unavailable" loading="lazy">
                         <figcaption>
                             <strong>WeChat</strong>
-                            <span>微信扫码支持</span>
+                            <span>暂未启用，待真实收款码</span>
                         </figcaption>
                     </figure>
-                    <figure class="reward-qr" data-reward-method="alipay_qr">
+                    <figure class="reward-qr is-active" data-reward-method="alipay_qr">
                         <img src="/img/alipay.jpg" alt="Alipay reward QR code" loading="lazy">
                         <figcaption>
                             <strong>Alipay</strong>
@@ -2220,12 +2220,12 @@
                         <p>用于人工核对微信/支付宝到账，不会自动扣款。</p>
                     </div>
                     <div class="rewards-methods" role="radiogroup" aria-label="Payment method">
-                        <label class="rewards-method is-active">
-                            <input type="radio" name="reward-provider" value="wechat_qr" checked>
-                            <span>WeChat</span>
+                        <label class="rewards-method is-disabled" aria-disabled="true">
+                            <input type="radio" name="reward-provider" value="wechat_qr" disabled>
+                            <span>WeChat unavailable</span>
                         </label>
-                        <label class="rewards-method">
-                            <input type="radio" name="reward-provider" value="alipay_qr">
+                        <label class="rewards-method is-active">
+                            <input type="radio" name="reward-provider" value="alipay_qr" checked>
                             <span>Alipay</span>
                         </label>
                     </div>
@@ -2383,7 +2383,7 @@
     <script src="/assets/js/hero-effects.js?v=31" defer></script>
     <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
     <script src="/assets/js/auth-client.js?v=2" defer></script>
-    <script src="/assets/js/rewards.js?v=3" defer></script>
+    <script src="/assets/js/rewards.js?v=4" defer></script>
     <script src="/assets/js/comments.js?v=5" defer></script>
     <script src="/assets/js/analytics.js?v=4" defer></script>
     <script src="/assets/js/ai-assistant.js?v=2" defer></script>

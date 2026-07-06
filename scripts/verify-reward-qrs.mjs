@@ -6,12 +6,15 @@ const rewardQrs = [
   {
     name: 'WeChat',
     file: 'img/weixin.jpg',
-    provider: 'wechat'
+    provider: 'wechat',
+    enabled: false,
+    disabledReason: 'WeChat collect-money QR is not configured; the public reward UI uses Alipay only for now'
   },
   {
     name: 'Alipay',
     file: 'img/alipay.jpg',
-    provider: 'alipay'
+    provider: 'alipay',
+    enabled: true
   }
 ];
 
@@ -51,6 +54,16 @@ export async function verifyRewardQrs(items = rewardQrs) {
   for (const item of items) {
     let decoded = '';
     let classification;
+    if (item.enabled === false) {
+      results.push({
+        ...item,
+        decoded,
+        disabled: true,
+        ok: true,
+        reason: item.disabledReason || `${item.name} reward method is disabled`
+      });
+      continue;
+    }
     try {
       decoded = await decodeQrFile(item.file);
       classification = classifyRewardQr(item.provider, decoded);

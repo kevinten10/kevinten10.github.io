@@ -42,14 +42,16 @@
 
   function bind(section) {
     section.querySelectorAll('.rewards-method input').forEach(function(input) {
+      if (input.disabled) return;
       input.addEventListener('change', function() {
         syncMethod(section);
       });
     });
     section.querySelectorAll('[data-reward-method]').forEach(function(card) {
       card.addEventListener('click', function() {
+        if (card.getAttribute('aria-disabled') === 'true') return;
         var input = section.querySelector('.rewards-method input[value="' + card.dataset.rewardMethod + '"]');
-        if (input) {
+        if (input && !input.disabled) {
           input.checked = true;
           syncMethod(section);
         }
@@ -74,7 +76,7 @@
 
   function selectedProvider(section) {
     var checked = section.querySelector('.rewards-method input:checked');
-    return checked ? checked.value : 'wechat_qr';
+    return checked ? checked.value : 'alipay_qr';
   }
 
   function syncMethod(section) {

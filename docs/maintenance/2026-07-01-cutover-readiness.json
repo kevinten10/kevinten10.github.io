@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "startedAt": "2026-07-02T02:08:38.765Z",
+  "startedAt": "2026-07-06T16:27:59.963Z",
   "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
   "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
   "productionOrigins": [
@@ -33,8 +33,8 @@
     },
     {
       "name": "WeChat reward QR",
-      "status": "not_ready",
-      "detail": "decoded as a WeChat contact/follow QR, not a payment QR"
+      "status": "ok",
+      "detail": "WeChat collect-money QR is not configured; the public reward UI uses Alipay only for now"
     },
     {
       "name": "Alipay reward QR",
@@ -69,7 +69,7 @@
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com kevinten.com active",
       "status": "ok",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"104.21.61.72\"],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"172.67.207.55\"],\"cnames\":[]}"
     },
     {
       "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com www.kevinten.com active",
@@ -84,12 +84,12 @@
     {
       "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com www.kevinten.com active",
       "status": "ok",
-      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"104.21.61.72\"],\"cnames\":[]}"
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"172.67.207.55\"],\"cnames\":[]}"
     },
     {
       "name": "DNS kevinten.com not on GitHub Pages",
       "status": "ok",
-      "detail": "{\"addresses\":[\"172.67.207.55\",\"104.21.61.72\"],\"cnames\":[]}"
+      "detail": "{\"addresses\":[\"104.21.61.72\",\"172.67.207.55\"],\"cnames\":[]}"
     },
     {
       "name": "recursive DNS kevinten.com uses Cloudflare nameservers",
@@ -99,7 +99,7 @@
     {
       "name": "DNS www.kevinten.com not on GitHub Pages",
       "status": "ok",
-      "detail": "{\"addresses\":[\"104.21.61.72\",\"172.67.207.55\"],\"cnames\":[]}"
+      "detail": "{\"addresses\":[\"172.67.207.55\",\"104.21.61.72\"],\"cnames\":[]}"
     },
     {
       "name": "production HTTP https://kevinten.com serves Cloudflare Pages",
@@ -127,9 +127,9 @@
       "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
     }
   ],
-  "completedAt": "2026-07-02T02:09:23.512Z",
-  "ready": false,
+  "completedAt": "2026-07-06T16:28:48.281Z",
+  "ready": true,
   "totalChecks": 24,
-  "passedChecks": 23,
-  "failedChecks": 1
+  "passedChecks": 24,
+  "failedChecks": 0
 }

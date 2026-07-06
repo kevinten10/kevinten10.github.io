@@ -67,7 +67,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '45'");
+    expect(serviceWorker).toContain("const SW_VERSION = '46'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -87,7 +87,7 @@ describe('frontend security guards', () => {
     expect(serviceWorker).toContain('/assets/js/analytics.js?v=4');
   });
 
-  it('ships manual WeChat and Alipay support records without fake automation', () => {
+  it('ships manual support records with unavailable WeChat and active Alipay flows', () => {
     const html = readFileSync('index.html', 'utf8');
     const rewards = readFileSync('assets/js/rewards.js', 'utf8');
     const css = readFileSync('assets/css/rewards.css', 'utf8');
@@ -100,17 +100,22 @@ describe('frontend security guards', () => {
     expect(html).toContain('data-i18n="rewards.note"');
     expect(html).toContain('value="wechat_qr"');
     expect(html).toContain('value="alipay_qr"');
-    expect(html).toContain('/assets/css/rewards.css?v=2');
-    expect(html).toContain('/assets/js/rewards.js?v=3');
+    expect(html).toContain('WeChat unavailable');
+    expect(html).toContain('value="wechat_qr" disabled');
+    expect(html).toContain('/assets/css/rewards.css?v=3');
+    expect(html).toContain('/assets/js/rewards.js?v=4');
     expect(rewards).toContain('selectedProvider');
     expect(rewards).toContain('provider: selectedProvider(section)');
+    expect(rewards).toContain('if (input.disabled) return');
+    expect(rewards).toContain('if (input && !input.disabled)');
     expect(rewards).toContain('stripe_sandbox');
     expect(rewards).toContain('rewards-in-view');
     expect(css).toContain('.reward-qr-panel');
+    expect(css).toContain('.reward-qr.is-disabled');
     expect(route).toContain("new Set(['manual_qr', 'wechat_qr', 'alipay_qr'])");
     expect(route).not.toContain('personal_listener');
-    expect(serviceWorker).toContain('/assets/css/rewards.css?v=2');
-    expect(serviceWorker).toContain('/assets/js/rewards.js?v=3');
+    expect(serviceWorker).toContain('/assets/css/rewards.css?v=3');
+    expect(serviceWorker).toContain('/assets/js/rewards.js?v=4');
     expect(serviceWorker).toContain('/assets/js/i18n.js?v=34');
     expect(serviceWorker).toContain('/img/weixin.jpg');
     expect(serviceWorker).toContain('/img/alipay.jpg');

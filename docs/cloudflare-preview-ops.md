@@ -172,7 +172,7 @@ Run the QR gate before cutover:
 npm run verify:qrs
 ```
 
-As of June 28, 2026, `img/weixin.jpg` decodes to a `u.wechat.com` contact/follow URL, not a WeChat collect-money QR. Replace it with a QR saved from WeChat > Services > Money > Receive Money before production cutover. `img/alipay.jpg` decodes as `https://qr.alipay.com/...`; still scan it once on a phone to confirm it opens the Alipay collect-money flow.
+As of July 7, 2026, WeChat rewards are disabled in the public UI because no verified WeChat collect-money QR is available. `img/weixin.jpg` is a non-QR placeholder so legacy article reward widgets do not expose a contact/follow QR as a payment target. Replace it with a QR saved from WeChat > Services > Money > Receive Money, set the WeChat QR item to `enabled: true` in `scripts/verify-reward-qrs.mjs`, and rerun `npm run verify:qrs` before reopening WeChat rewards. `img/alipay.jpg` decodes as `https://qr.alipay.com/...`; still scan it once on a phone to confirm it opens the Alipay collect-money flow.
 
 ## Production Cutover
 
@@ -181,7 +181,7 @@ Do not change DNS for `kevinten.com` again unless current evidence proves the ex
 - Worker CORS should include `https://kevinten.com` and `https://www.kevinten.com` in `ALLOWED_ORIGINS`.
 - Auth0 callback/logout/origin lists should include `https://kevinten.com/`, `https://www.kevinten.com/`, and the preview Pages origin.
 - Pages runtime should be deployed with `AUTH0_ALLOWED_ORIGINS` containing preview plus production origins so login works before and after the domain is bound.
-- Real support payments stay on WeChat/Alipay QR codes. Stripe remains sandbox-only.
+- Real support payments currently use Alipay QR only. WeChat remains disabled until a verified collect-money QR is provided. Stripe remains sandbox-only.
 
 Final cutover steps:
 

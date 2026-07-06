@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { classifyRewardQr } from '../../scripts/verify-reward-qrs.mjs';
+import { classifyRewardQr, verifyRewardQrs } from '../../scripts/verify-reward-qrs.mjs';
 
 describe('reward QR verification helpers', () => {
   it('rejects WeChat contact or follow QR links as payment codes', () => {
@@ -20,5 +20,25 @@ describe('reward QR verification helpers', () => {
     expect(classifyRewardQr('alipay', 'https://qr.alipay.com/a7x04699n9ctixmtv1tudfb')).toMatchObject({
       ok: true
     });
+  });
+
+  it('treats disabled reward methods as unavailable instead of requiring a QR image', async () => {
+    await expect(verifyRewardQrs([
+      {
+        name: 'WeChat',
+        file: 'missing-wechat-pay-code.jpg',
+        provider: 'wechat',
+        enabled: false,
+        disabledReason: 'WeChat collect-money QR is not configured'
+      }
+    ])).resolves.toEqual([
+      expect.objectContaining({
+        name: 'WeChat',
+        ok: true,
+        disabled: true,
+        decoded: '',
+        reason: 'WeChat collect-money QR is not configured'
+      })
+    ]);
   });
 });
