@@ -67,7 +67,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '47'");
+    expect(serviceWorker).toContain("const SW_VERSION = '48'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -97,16 +97,37 @@ describe('frontend security guards', () => {
     expect(html).toContain('href="#comments"');
     expect(html).toContain('data-hero-density="editorial"');
     expect(html).toContain('hero-compact-actions');
-    expect(html).toContain('/assets/css/main.css?v=35');
+    expect(html).toContain('/assets/css/main.css?v=36');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
     expect(mainCss).toContain('[data-hero-density="editorial"]');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '47'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=35');
+    expect(serviceWorker).toContain("const SW_VERSION = '48'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=36');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
+  });
+
+  it('keeps payment and comments reachable through a right floating rail', () => {
+    const html = readFileSync('index.html', 'utf8');
+    const mainCss = readFileSync('assets/css/main.css', 'utf8');
+    const serviceWorker = readFileSync('sw.js', 'utf8');
+
+    expect(html).toContain('quick-action-rail');
+    expect(html).toContain('data-quick-action="rewards"');
+    expect(html).toContain('data-quick-action="comments"');
+    expect(html).toContain('aria-label="打开支持与鸣谢"');
+    expect(html).toContain('aria-label="打开留言区"');
+    expect(html).toContain('/assets/css/main.css?v=36');
+    expect(mainCss).toContain('.quick-action-rail');
+    expect(mainCss).toContain('position: fixed');
+    expect(mainCss).toContain('.quick-action-link');
+    expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
+    expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
+    expect(mainCss).toContain('@media (max-width: 760px)');
+    expect(serviceWorker).toContain("const SW_VERSION = '48'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=36');
   });
 
   it('ships manual support records with unavailable WeChat and active Alipay flows', () => {

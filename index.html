@@ -40,9 +40,9 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=35" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=36" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=35">
+    <link rel="stylesheet" href="/assets/css/main.css?v=36">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
     <link rel="stylesheet" href="/assets/css/rewards.css?v=3">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=3">
@@ -168,6 +168,33 @@
             </div>
         </div>
     </header>
+
+    <aside class="quick-action-rail" aria-label="快速支付和留言入口">
+        <a href="#rewards" class="quick-action-link" data-quick-action="rewards" aria-label="打开支持与鸣谢" title="支付与鸣谢">
+            <span class="quick-action-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/>
+                    <path d="M2 7h20v5H2z"/>
+                    <path d="M12 22V7"/>
+                    <path d="M12 7H7.5a2.5 2.5 0 1 1 2-4c.9 1.2 2.5 4 2.5 4Z"/>
+                    <path d="M12 7h4.5a2.5 2.5 0 1 0-2-4c-.9 1.2-2.5 4-2.5 4Z"/>
+                </svg>
+            </span>
+            <span class="quick-action-label">支付</span>
+            <span class="quick-action-kicker">支持</span>
+        </a>
+        <a href="#comments" class="quick-action-link" data-quick-action="comments" aria-label="打开留言区" title="留言">
+            <span class="quick-action-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/>
+                    <path d="M8 9h8"/>
+                    <path d="M8 13h5"/>
+                </svg>
+            </span>
+            <span class="quick-action-label">留言</span>
+            <span class="quick-action-kicker">反馈</span>
+        </a>
+    </aside>
 
     <!-- Main Content -->
     <main id="main-content">
