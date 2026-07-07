@@ -44,7 +44,7 @@
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
     <link rel="stylesheet" href="/assets/css/main.css?v=36">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
-    <link rel="stylesheet" href="/assets/css/rewards.css?v=3">
+    <link rel="stylesheet" href="/assets/css/rewards.css?v=4">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=3">
     
     <!-- Preload critical resources -->
@@ -2236,15 +2236,17 @@
             <header class="section-header">
                 <span class="section-index">12</span>
                 <h2 class="section-title" data-i18n="rewards.title">支持与鸣谢</h2>
-                <p class="section-description" data-i18n="rewards.desc">真实收款当前仅启用支付宝扫码；微信收款码待替换为真实收款码后再开放，Stripe 只保留沙箱测试。</p>
+                <p class="section-description" data-i18n="rewards.desc">真实收款当前启用支付宝扫码；微信收款码未配置；Stripe 内嵌沙箱测试完成后由 webhook 验证入库。</p>
             </header>
             <div class="rewards-grid">
                 <div class="reward-qr-panel" aria-label="Reward QR codes">
                     <figure class="reward-qr is-disabled" data-reward-method="wechat_qr" aria-disabled="true">
-                        <img src="/img/weixin.jpg" alt="WeChat reward temporarily unavailable" loading="lazy">
+                        <div class="reward-qr-placeholder" aria-hidden="true">
+                            <span>WeChat</span>
+                        </div>
                         <figcaption>
                             <strong>WeChat</strong>
-                            <span>暂未启用，待真实收款码</span>
+                            <span>微信收款码未配置</span>
                         </figcaption>
                     </figure>
                     <figure class="reward-qr is-active" data-reward-method="alipay_qr">
@@ -2254,13 +2256,13 @@
                             <span>支付宝扫码支持</span>
                         </figcaption>
                     </figure>
-                    <p class="reward-qr-note" data-i18n="rewards.note">扫码完成后填写右侧信息，记录会进入待确认列表；核对到账后展示在鸣谢墙。</p>
+                    <p class="reward-qr-note" data-i18n="rewards.note">支付宝扫码完成后填写右侧信息；Stripe 沙箱会打开内嵌支付页，验证到账后展示在鸣谢墙。</p>
                 </div>
                 <div class="rewards-form">
                     <div class="rewards-form-head">
                         <span>Support record</span>
                         <h3>提交待确认记录</h3>
-                        <p>用于人工核对微信/支付宝到账，不会自动扣款。</p>
+                        <p>支付宝用于人工核对到账；Stripe 沙箱会创建内嵌 Checkout，不接触你的卡信息。</p>
                     </div>
                     <div class="rewards-methods" role="radiogroup" aria-label="Payment method">
                         <label class="rewards-method is-disabled" aria-disabled="true">
@@ -2270,6 +2272,10 @@
                         <label class="rewards-method is-active">
                             <input type="radio" name="reward-provider" value="alipay_qr" checked>
                             <span>Alipay</span>
+                        </label>
+                        <label class="rewards-method">
+                            <input type="radio" name="reward-provider" value="stripe_sandbox">
+                            <span>Stripe sandbox</span>
                         </label>
                     </div>
                     <label class="rewards-field">
@@ -2284,12 +2290,23 @@
                         <span>币种</span>
                         <select class="rewards-currency" aria-label="Currency">
                             <option value="CNY">CNY</option>
+                            <option value="USD">USD</option>
                         </select>
                     </label>
                     <label class="rewards-field">
                         <span>留言</span>
                         <textarea class="rewards-message" maxlength="300" placeholder="留言（可选）"></textarea>
                     </label>
+                    <div class="stripe-embedded-shell" data-stripe-embedded-shell hidden>
+                        <div class="stripe-embedded-head">
+                            <div>
+                                <span>Embedded Checkout</span>
+                                <strong>Stripe 沙箱内嵌支付</strong>
+                            </div>
+                            <button class="stripe-checkout-start btn btn-secondary" type="button">打开 Stripe 内嵌支付</button>
+                        </div>
+                        <div id="stripe-embedded-checkout" class="stripe-embedded-checkout" aria-live="polite"></div>
+                    </div>
                     <button class="rewards-submit btn btn-primary" type="button">提交待确认</button>
                     <p class="rewards-status" aria-live="polite"></p>
                 </div>
@@ -2411,8 +2428,8 @@
 
     <!-- Scripts -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
-    <script src="/assets/js/cloudflare-runtime.js?v=2"></script>
-    <script src="/assets/js/i18n.js?v=34"></script>
+    <script src="/assets/js/cloudflare-runtime.js?v=3"></script>
+    <script src="/assets/js/i18n.js?v=35"></script>
     <script src="/assets/js/observer-manager.js?v=31" defer></script>
     <script src="/assets/js/theme.js?v=31" defer></script>
     <script src="/assets/js/animations.js?v=31" defer></script>
@@ -2426,7 +2443,8 @@
     <script src="/assets/js/hero-effects.js?v=31" defer></script>
     <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
     <script src="/assets/js/auth-client.js?v=2" defer></script>
-    <script src="/assets/js/rewards.js?v=4" defer></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/js/rewards.js?v=5" defer></script>
     <script src="/assets/js/comments.js?v=5" defer></script>
     <script src="/assets/js/analytics.js?v=4" defer></script>
     <script src="/assets/js/ai-assistant.js?v=2" defer></script>

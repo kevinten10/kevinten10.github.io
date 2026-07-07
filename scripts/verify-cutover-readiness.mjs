@@ -718,7 +718,7 @@ export async function verifyCutoverReadiness(env = process.env) {
     ready &&= allowed;
   }
 
-  const runtime = (await requestText(`${pagesUrl}/assets/js/cloudflare-runtime.js?v=2`)).text;
+  const runtime = (await requestText(`${pagesUrl}/assets/js/cloudflare-runtime.js?v=3`)).text;
   const runtimeOk = productionOrigins.every((origin) => runtime.includes(origin)) && runtime.includes('window.location.origin');
   record('Pages runtime supports preview plus production origins', runtimeOk, pagesUrl);
   ready &&= runtimeOk;

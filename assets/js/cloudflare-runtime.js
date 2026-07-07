@@ -7,5 +7,8 @@ window.CloudflareSiteConfig = {
     redirectUri: '',
     logoutUri: '',
     allowedOrigins: []
+  },
+  stripe: {
+    publishableKey: ''
   }
 };

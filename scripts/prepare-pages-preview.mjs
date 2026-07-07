@@ -83,6 +83,9 @@ const runtime = {
       originFromUrl(runtimeValue('AUTH0_CALLBACK_URL')),
       originFromUrl(runtimeValue('AUTH0_LOGOUT_URL'))
     ].filter(Boolean)))
+  },
+  stripe: {
+    publishableKey: runtimeValue('STRIPE_PUBLISHABLE_KEY')
   }
 };
 await fs.writeFile(

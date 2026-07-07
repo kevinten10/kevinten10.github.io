@@ -6,7 +6,9 @@ export type Env = {
   AUTH0_DOMAIN: string;
   AUTH0_AUDIENCE: string;
   ADMIN_EMAILS: string;
+  STRIPE_SECRET_KEY?: string;
   STRIPE_WEBHOOK_SECRET?: string;
+  STRIPE_API_VERSION?: string;
   SITE_ORIGIN?: string;
   ALLOWED_ORIGINS?: string;
 };
