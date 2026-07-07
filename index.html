@@ -40,9 +40,9 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=34" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=35" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=34">
+    <link rel="stylesheet" href="/assets/css/main.css?v=35">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
     <link rel="stylesheet" href="/assets/css/rewards.css?v=3">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=3">
@@ -113,6 +113,8 @@
                 <a href="#writing" class="mobile-nav-link" data-i18n="nav.writing">写作</a>
                 <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">相册</a>
                 <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">联系</a>
+                <a href="#rewards" class="mobile-nav-link">支持</a>
+                <a href="#comments" class="mobile-nav-link">留言</a>
             </nav>
         </div>
     </div>
@@ -135,6 +137,8 @@
                 <a href="#writing" class="nav-link" data-i18n="nav.writing">写作</a>
                 <a href="#gallery" class="nav-link" data-i18n="nav.gallery">相册</a>
                 <a href="#contact" class="nav-link" data-i18n="nav.contact">联系</a>
+                <a href="#rewards" class="nav-link nav-link-secondary">支持</a>
+                <a href="#comments" class="nav-link nav-link-secondary">留言</a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -169,7 +173,7 @@
     <main id="main-content">
     
     <!-- Hero Section - Optimized Design -->
-    <section class="hero section-spacious" id="about" aria-label="个人简介">
+    <section class="hero section-spacious" id="about" aria-label="个人简介" data-hero-density="editorial">
         <!-- Background Effects -->
         <div class="hero-background"></div>
         <div class="hero-glow-cyan" aria-hidden="true"></div>
@@ -227,11 +231,13 @@
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
-                <a href="#contact" class="btn btn-secondary" data-i18n="hero.btn.contact">联系我</a>
-                <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <span data-i18n="hero.btn.video">观看视频</span>
-                </button>
+                <div class="hero-compact-actions" aria-label="Secondary actions">
+                    <a href="#contact" class="btn btn-secondary" data-i18n="hero.btn.contact">联系我</a>
+                    <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <span data-i18n="hero.btn.video">观看视频</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Bio Card -->
@@ -2160,6 +2166,16 @@
                                 GitHub Profile
                             </a>
                         </div>
+                        <div class="contact-next-actions" aria-label="Community actions">
+                            <a href="#rewards" class="contact-next-link">
+                                <span>Support wall</span>
+                                <strong>扫码支持与鸣谢</strong>
+                            </a>
+                            <a href="#comments" class="contact-next-link">
+                                <span>Discussion</span>
+                                <strong>登录或匿名留言</strong>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2375,7 +2391,7 @@
     <script src="/assets/js/animations.js?v=31" defer></script>
     <script src="/assets/js/bento-interactions.js?v=31" defer></script>
     <script src="/assets/js/data-viz.js?v=31" defer></script>
-    <script src="/assets/js/app.js?v=31" defer></script>
+    <script src="/assets/js/app.js?v=32" defer></script>
     <script src="/assets/js/mobile-nav.js?v=31" defer></script>
     <script src="/assets/js/github-stats.js?v=32" defer></script>
     <script src="/assets/js/project-modal.js?v=31" defer></script>

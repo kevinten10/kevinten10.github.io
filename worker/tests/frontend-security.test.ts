@@ -67,7 +67,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '46'");
+    expect(serviceWorker).toContain("const SW_VERSION = '47'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -85,6 +85,28 @@ describe('frontend security guards', () => {
     expect(route).toContain('uniqueVisitorSql');
     expect(route).toContain('site: {');
     expect(serviceWorker).toContain('/assets/js/analytics.js?v=4');
+  });
+
+  it('ships the optimized homepage journey and anchor behavior', () => {
+    const html = readFileSync('index.html', 'utf8');
+    const mainCss = readFileSync('assets/css/main.css', 'utf8');
+    const app = readFileSync('assets/js/app.js', 'utf8');
+    const serviceWorker = readFileSync('sw.js', 'utf8');
+
+    expect(html).toContain('href="#rewards"');
+    expect(html).toContain('href="#comments"');
+    expect(html).toContain('data-hero-density="editorial"');
+    expect(html).toContain('hero-compact-actions');
+    expect(html).toContain('/assets/css/main.css?v=35');
+    expect(html).toContain('/assets/js/app.js?v=32');
+    expect(mainCss).toContain('scroll-margin-top');
+    expect(mainCss).toContain('.hero-compact-actions');
+    expect(mainCss).toContain('[data-hero-density="editorial"]');
+    expect(app).toContain('findActiveSection');
+    expect(app).toContain('linkedSectionIds');
+    expect(serviceWorker).toContain("const SW_VERSION = '47'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=35');
+    expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
   it('ships manual support records with unavailable WeChat and active Alipay flows', () => {
