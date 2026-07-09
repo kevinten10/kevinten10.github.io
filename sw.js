@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 49
+ * @version 50
  */
 
-const SW_VERSION = '49';
+const SW_VERSION = '50';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -18,7 +18,7 @@ const PRECACHE_ASSETS = [
   '/assets/css/comments.css?v=2',
   '/assets/css/rewards.css?v=4',
   '/assets/css/admin.css?v=2',
-  '/assets/css/ai-assistant.css?v=3',
+  '/assets/css/ai-assistant.css?v=4',
   '/assets/js/observer-manager.js?v=31',
   '/assets/js/app.js?v=32',
   '/assets/js/theme.js?v=31',
@@ -28,13 +28,13 @@ const PRECACHE_ASSETS = [
   '/assets/js/github-stats.js?v=32',
   '/assets/js/project-modal.js?v=31',
   '/assets/js/gallery.js?v=31',
-  '/assets/js/i18n.js?v=35',
+  '/assets/js/i18n.js?v=36',
   '/assets/js/auth-client.js?v=2',
   '/assets/js/comments.js?v=5',
   '/assets/js/analytics.js?v=4',
   '/assets/js/rewards.js?v=5',
   '/assets/js/admin.js?v=4',
-  '/assets/js/ai-assistant.js?v=2',
+  '/assets/js/ai-assistant.js?v=3',
   '/img/avatar.jpg',
   '/img/alipay.jpg'
 ];
