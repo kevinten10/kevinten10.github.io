@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 50
+ * @version 51
  */
 
-const SW_VERSION = '50';
+const SW_VERSION = '51';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,7 +13,7 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=36',
+  '/assets/css/main.css?v=37',
   '/assets/css/theme.css?v=31',
   '/assets/css/comments.css?v=2',
   '/assets/css/rewards.css?v=4',
@@ -36,7 +36,10 @@ const PRECACHE_ASSETS = [
   '/assets/js/admin.js?v=4',
   '/assets/js/ai-assistant.js?v=3',
   '/img/avatar.jpg',
-  '/img/alipay.jpg'
+  '/img/alipay.jpg',
+  '/images/anycap/ai-native-system-map-1600.webp',
+  '/images/anycap/openoctopus-realm-map-1600.webp',
+  '/video/kevinten-ai-native-promo-poster.jpg'
 ];
 
 // Assets to cache on demand

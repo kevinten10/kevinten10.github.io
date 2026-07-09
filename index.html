@@ -19,13 +19,13 @@
     <meta property="og:url" content="https://kevinten.com/">
     <meta property="og:title" content="KevinTen - AI-Native Builder &middot; Software Architect &middot; Open Source Contributor">
     <meta property="og:description" content="Dapr/Layotto/Dubbo 贡献者，专注云原生分布式系统、多运行时架构与 AI 应用工程。">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta property="og:image" content="https://kevinten.com/video/kevinten-ai-native-promo-poster.jpg">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="KevinTen - AI-Native Builder &middot; Software Architect &middot; Open Source Contributor">
     <meta name="twitter:description" content="Dapr/Layotto/Dubbo 贡献者，专注云原生分布式系统、多运行时架构与 AI 应用工程。">
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta name="twitter:image" content="https://kevinten.com/video/kevinten-ai-native-promo-poster.jpg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="https://avatars.githubusercontent.com/u/22876610?v=4">
@@ -40,15 +40,16 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=36" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=37" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=36">
+    <link rel="stylesheet" href="/assets/css/main.css?v=37">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
     <link rel="stylesheet" href="/assets/css/rewards.css?v=4">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=4">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
+    <link rel="preload" href="/video/kevinten-ai-native-promo-poster.jpg" as="image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -365,6 +366,47 @@
             <span class="scroll-text">Scroll to explore</span>
             <div class="scroll-line">
                 <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AnyCap Media Showcase -->
+    <section class="anycap-media-section section" aria-label="AnyCap generated media">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-idx">AI-NATIVE MEDIA</span>
+                <h2 class="section-title">Visual System Story</h2>
+                <p class="section-description">Generated with AnyCap CLI to make the architecture, agent ecosystem, and personal builder story easier to scan.</p>
+            </div>
+            <div class="anycap-media-grid">
+                <article class="anycap-media-card anycap-media-card--wide animate-on-scroll">
+                    <img src="/images/anycap/ai-native-system-map-1600.webp" width="1600" height="894" alt="AI Native system architecture map generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>System Map</span>
+                        <h3>Edge-first personal site backend</h3>
+                        <p>Cloudflare Workers, identity, payments, D1, R2, analytics, queues, and AI agents are presented as one connected operating map.</p>
+                    </div>
+                </article>
+                <article class="anycap-media-card animate-on-scroll stagger-1">
+                    <img src="/video/kevinten-ai-native-promo-poster.jpg" width="2048" height="1152" alt="KevinTen AI Native promotional film still generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>Promo Film</span>
+                        <h3>AI Native builder intro</h3>
+                        <p>A short cinematic loop for the hero video modal, generated from the poster as image-to-video.</p>
+                        <button class="anycap-media-play" type="button" data-video-trigger aria-label="Play AnyCap generated promotional video">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                            <span>Play video</span>
+                        </button>
+                    </div>
+                </article>
+                <article class="anycap-media-card animate-on-scroll stagger-2">
+                    <img src="/images/anycap/openoctopus-realm-map-1600.webp" width="1600" height="894" alt="OpenOctopus realm map generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>OpenOctopus</span>
+                        <h3>Realm-native agent map</h3>
+                        <p>Six life realms become a visual network around the personal AI agent system.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -1001,7 +1043,7 @@
                 <!-- OpenOctopus - Featured -->
                 <article class="project-card featured">
                     <div class="project-cover">
-                        <img src="images/projects/openoctopus-concept.png" alt="OpenOctopus concept illustration" loading="lazy">
+                        <img src="/images/anycap/openoctopus-realm-map-1600.webp" alt="OpenOctopus realm illustration generated with AnyCap CLI" loading="lazy">
                     </div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -2405,8 +2447,8 @@
             <button class="video-modal-close" aria-label="关闭视频">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
-            <video id="promo-video" controls preload="none" poster="/video/poster.jpg">
-                <source src="/video/final_v3.mp4" type="video/mp4">
+            <video id="promo-video" controls muted playsinline preload="metadata" poster="/video/kevinten-ai-native-promo-poster.jpg">
+                <source src="/video/kevinten-ai-native-promo.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -2414,12 +2456,17 @@
     (function() {
         var modal = document.getElementById('video-modal');
         var video = document.getElementById('promo-video');
-        var btn = document.getElementById('video-play-btn');
+        var triggers = document.querySelectorAll('#video-play-btn, [data-video-trigger]');
         var close = modal.querySelector('.video-modal-close');
         var backdrop = modal.querySelector('.video-modal-backdrop');
-        function open() { modal.classList.add('active'); video.play(); document.body.style.overflow = 'hidden'; }
+        function open() {
+            modal.classList.add('active');
+            var playback = video.play();
+            if (playback && playback.catch) playback.catch(function() {});
+            document.body.style.overflow = 'hidden';
+        }
         function shut() { modal.classList.remove('active'); video.pause(); document.body.style.overflow = ''; }
-        btn.addEventListener('click', open);
+        triggers.forEach(function(trigger) { trigger.addEventListener('click', open); });
         close.addEventListener('click', shut);
         backdrop.addEventListener('click', shut);
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('active')) shut(); });
