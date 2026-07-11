@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050508;
+    --bg2: #18181B;
+    --text: #FAFAFA;
+    --text2: #A1A1AA;
+    --text3: #52525B;
+    --blue: #3B82F6;
+    --cyan: #22D3EE;
+    --purple: #8B5CF6;
+    --green: #10B981;
+    --amber: #F59E0B;
+    --pink: #EC4899;
+    --red: #EF4444;
+    --indigo: #6366F1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', 'Noto Sans SC', sans-serif;
+    overflow: hidden;
+  }
+
+  .frame {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: none;
+    background: var(--bg);
+  }
+  .frame.active { display: flex; }
+
+  /* ========== Shared Elements ========== */
+  .frame-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+  }
+
+  .watermark {
+    position: absolute;
+    bottom: 40px;
+    right: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--text3);
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+  }
+
+  .frame-number {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text3);
+    opacity: 0.3;
+    letter-spacing: 0.15em;
+  }
+
+  /* ========== Frame 1: Title Card ========== */
+  #f1 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  #f1 .glow-orb.a { width: 600px; height: 600px; background: var(--blue); top: -200px; left: -100px; }
+  #f1 .glow-orb.b { width: 500px; height: 500px; background: var(--purple); bottom: -200px; right: -100px; }
+
+  .title-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 60px rgba(59, 130, 246, 0.3);
+  }
+
+  .title-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 96px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .title-sub {
+    font-size: 28px;
+    color: var(--text2);
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .title-sub .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+
+  .title-line {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    border-radius: 1px;
+    margin-top: 8px;
+  }
+
+  /* ========== Frame 2: Philosophy ========== */
+  #f2 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0 200px;
+  }
+
+  #f2 .glow-orb.a { width: 700px; height: 700px; background: var(--cyan); top: -300px; right: -200px; opacity: 0.1; }
+
+  .philo-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 48px;
+  }
+
+  .philo-quote {
+    font-family: 'Sora', sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    color: var(--text2);
+    max-width: 1200px;
+  }
+
+  .philo-quote em {
+    font-style: normal;
+    font-weight: 700;
+    color: transparent;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* ========== Frame 3: Career Timeline ========== */
+  #f3 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  #f3 .glow-orb.a { width: 500px; height: 500px; background: var(--green); top: -200px; left: 200px; opacity: 0.08; }
+  #f3 .glow-orb.b { width: 400px; height: 400px; background: var(--amber); bottom: -150px; right: 300px; opacity: 0.08; }
+
+  .career-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .career-strip {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    width: 1200px;
+  }
+
+  .career-track {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    right: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--blue), var(--purple), var(--amber));
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+
+  .career-node {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .career-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .career-dot::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--c);
+  }
+
+  .career-dot.active {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--c) 50%, transparent);
+  }
+
+  .career-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--c);
+  }
+
+  .career-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .career-desc {
+    font-size: 15px;
+    color: var(--text2);
+    text-align: center;
+    max-width: 200px;
+    line-height: 1.5;
+  }
+
+  /* ========== Frame 4: Impact Numbers ========== */
+  #f4 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+  }
+
+  #f4 .glow-orb.a { width: 500px; height: 500px; background: var(--indigo); top: -200px; left: 50%; opacity: 0.1; }
+
+  .impact-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    width: 1300px;
+  }
+
+  .impact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 32px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+  }
+
+  .impact-emoji { font-size: 40px; }
+
+  .impact-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--c, var(--text));
+  }
+
+  .impact-desc {
+    font-size: 16px;
+    color: var(--text2);
+    text-align: center;
+  }
+
+  /* ========== Frame 5: Open Source ========== */
+  #f5 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+  }
+
+  #f5 .glow-orb.a { width: 600px; height: 600px; background: var(--green); top: -250px; right: -100px; opacity: 0.08; }
+
+  .oss-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .oss-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-align: center;
+  }
+
+  .oss-cards {
+    display: flex;
+    gap: 32px;
+  }
+
+  .oss-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 40px;
+    width: 340px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid color-mix(in srgb, var(--c) 20%, transparent);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .oss-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--c);
+  }
+
+  .oss-card-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .oss-card-stars {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--c);
+    font-weight: 600;
+  }
+
+  .oss-card-role {
+    font-size: 14px;
+    color: var(--text2);
+    padding: 4px 16px;
+    background: color-mix(in srgb, var(--c) 10%, transparent);
+    border-radius: 999px;
+  }
+
+  .oss-card-desc {
+    font-size: 14px;
+    color: var(--text3);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ========== Frame 6: AI Agent Ecosystem ========== */
+  #f6 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+  }
+
+  #f6 .glow-orb.a { width: 600px; height: 600px; background: var(--purple); bottom: -300px; left: -200px; opacity: 0.08; }
+  #f6 .glow-orb.b { width: 400px; height: 400px; background: var(--cyan); top: -200px; right: -100px; opacity: 0.06; }
+
+  .eco-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .eco-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .eco-subtitle {
+    font-size: 20px;
+    color: var(--text2);
+    margin-top: -20px;
+  }
+
+  .eco-bubbles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 1400px;
+  }
+
+  .eco-bubble {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: color-mix(in srgb, var(--c) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--c) 18%, transparent);
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .eco-bubble .b-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--c);
+  }
+
+  .eco-categories {
+    display: flex;
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .eco-cat {
+    font-size: 18px;
+    color: var(--text2);
+    padding: 8px 20px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* ========== Frame 7: OpenOctopus ========== */
+  #f7 {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    padding: 0 180px;
+  }
+
+  #f7 .glow-orb.a { width: 500px; height: 500px; background: var(--cyan); top: -200px; left: -100px; opacity: 0.1; }
+  #f7 .glow-orb.b { width: 400px; height: 400px; background: var(--indigo); bottom: -150px; right: -50px; opacity: 0.08; }
+
+  .octo-visual svg { width: 380px; height: 380px; }
+
+  .octo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .octo-badge-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: rgba(34, 211, 238, 0.1);
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    width: fit-content;
+  }
+
+  .octo-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .octo-tagline {
+    font-size: 22px;
+    color: var(--cyan);
+    font-weight: 500;
+  }
+
+  .octo-desc {
+    font-size: 18px;
+    color: var(--text2);
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  .octo-realms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .octo-realm {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--c) 12%, transparent);
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 20%, transparent);
+  }
+
+  /* ========== Frame 8: CTA / Closing ========== */
+  #f8 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  #f8 .glow-orb.a { width: 800px; height: 800px; background: var(--blue); top: -300px; left: -200px; opacity: 0.12; }
+  #f8 .glow-orb.b { width: 600px; height: 600px; background: var(--purple); bottom: -250px; right: -150px; opacity: 0.1; }
+
+  .cta-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 72px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .cta-title em {
+    font-style: normal;
+    color: transparent;
+    background: linear-gradient(135deg, var(--blue), var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  .cta-contacts {
+    display: flex;
+    gap: 40px;
+    margin-top: 16px;
+  }
+
+  .cta-contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    color: var(--text2);
+  }
+
+  .cta-contact svg { width: 20px; height: 20px; }
+
+  .cta-url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    color: var(--text3);
+    margin-top: 24px;
+    letter-spacing: 0.05em;
+    padding: 10px 28px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Frame 1: Title Card -->
+<div class="frame active" id="f1">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">01 / 08</span>
+  <img class="title-avatar" src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="">
+  <div class="title-name">KevinTen</div>
+  <div class="title-sub">
+    <span>AI-Native Builder</span>
+    <span class="dot"></span>
+    <span>Software Architect</span>
+    <span class="dot"></span>
+    <span>Open Source Contributor</span>
+  </div>
+  <div class="title-line"></div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 2: Philosophy -->
+<div class="frame" id="f2">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">02 / 08</span>
+  <div class="philo-label">Architecture Philosophy</div>
+  <blockquote class="philo-quote">
+    I believe <em>software should be written once and run anywhere</em> — middleware should be invisible, runtimes should collaborate, and <em>agents should think for themselves</em>.
+  </blockquote>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 3: Career Evolution -->
+<div class="frame" id="f3">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">03 / 08</span>
+  <div class="career-label">Career Evolution</div>
+  <div class="career-strip">
+    <div class="career-track"></div>
+    <div class="career-node">
+      <div class="career-dot" style="--c: var(--green);"></div>
+      <span class="career-year" style="--c: var(--green);">2018</span>
+      <span class="career-name">IoT</span>
+      <span class="career-desc">物联网系统开发<br>嵌入式 + 后端</span>
+    </div>
+    <div class="career-node">
+      <div class="career-dot" style="--c: var(--blue);"></div>
+      <span class="career-year" style="--c: var(--blue);">2021</span>
+      <span class="career-name">Cloud Native</span>
+      <span class="career-desc">混合云中间件<br>Dapr / Layotto 贡献</span>
+    </div>
+    <div class="career-node">
+      <div class="career-dot" style="--c: var(--purple);"></div>
+      <span class="career-year" style="--c: var(--purple);">2023</span>
+      <span class="career-name">Distributed</span>
+      <span class="career-desc">集团消息中台<br>多 Region 架构</span>
+    </div>
+    <div class="career-node">
+      <div class="career-dot active" style="--c: var(--amber);"></div>
+      <span class="career-year" style="--c: var(--amber);">2025</span>
+      <span class="career-name">AI Native</span>
+      <span class="career-desc">20+ AI Agent<br>MCP 工具矩阵</span>
+    </div>
+  </div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 4: Impact Numbers -->
+<div class="frame" id="f4">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">04 / 08</span>
+  <div class="impact-label">Impact & Achievements</div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <span class="impact-emoji">💼</span>
+      <span class="impact-num" style="--c: var(--blue);">7+</span>
+      <span class="impact-desc">年架构经验</span>
+    </div>
+    <div class="impact-card">
+      <span class="impact-emoji">🏗️</span>
+      <span class="impact-num" style="--c: var(--green);">2B+</span>
+      <span class="impact-desc">亿级流量系统</span>
+    </div>
+    <div class="impact-card">
+      <span class="impact-emoji">⭐</span>
+      <span class="impact-num" style="--c: var(--amber);">1.4k+</span>
+      <span class="impact-desc">GitHub Stars</span>
+    </div>
+    <div class="impact-card">
+      <span class="impact-emoji">🤖</span>
+      <span class="impact-num" style="--c: var(--purple);">20+</span>
+      <span class="impact-desc">AI Agent 应用</span>
+    </div>
+  </div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 5: Open Source -->
+<div class="frame" id="f5">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">05 / 08</span>
+  <div class="oss-label">Open Source Contributions</div>
+  <div class="oss-title">Dubbo · Dapr · Layotto</div>
+  <div class="oss-cards">
+    <div class="oss-card" style="--c: #F97316;">
+      <span class="oss-card-name">Apache Dubbo</span>
+      <span class="oss-card-stars">⭐ 41.7k Stars</span>
+      <span class="oss-card-role">Contributor</span>
+      <span class="oss-card-desc">优化 Invoker 链路<br>提升框架面向对象设计</span>
+    </div>
+    <div class="oss-card" style="--c: #22C55E;">
+      <span class="oss-card-name">Dapr</span>
+      <span class="oss-card-stars">⭐ 25.6k Stars</span>
+      <span class="oss-card-role">api-sig Co-Chair</span>
+      <span class="oss-card-desc">推动 Multi-Runtime 生态<br>CNCF 项目贡献</span>
+    </div>
+    <div class="oss-card" style="--c: #8B5CF6;">
+      <span class="oss-card-name">Layotto</span>
+      <span class="oss-card-stars">⭐ 852 Stars</span>
+      <span class="oss-card-role">Member</span>
+      <span class="oss-card-desc">Reactive Java-SDK<br>5+ API 提案</span>
+    </div>
+  </div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 6: AI Agent Ecosystem -->
+<div class="frame" id="f6">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">06 / 08</span>
+  <div class="eco-label">AI Agent Ecosystem</div>
+  <div class="eco-title">🐙 20+ AI Applications</div>
+  <div class="eco-subtitle">覆盖旅行、生活、学习、工具、创作等领域</div>
+  <div class="eco-bubbles">
+    <span class="eco-bubble" style="--c: var(--green);"><span class="b-dot"></span>Trip Agent</span>
+    <span class="eco-bubble" style="--c: var(--amber);"><span class="b-dot"></span>Trip Meta</span>
+    <span class="eco-bubble" style="--c: var(--cyan);"><span class="b-dot"></span>ADV Agent</span>
+    <span class="eco-bubble" style="--c: var(--purple);"><span class="b-dot"></span>Meeting Agent</span>
+    <span class="eco-bubble" style="--c: var(--pink);"><span class="b-dot"></span>PawPal</span>
+    <span class="eco-bubble" style="--c: var(--blue);"><span class="b-dot"></span>English Agent</span>
+    <span class="eco-bubble" style="--c: var(--amber);"><span class="b-dot"></span>ClawX</span>
+    <span class="eco-bubble" style="--c: var(--indigo);"><span class="b-dot"></span>Law Agent</span>
+    <span class="eco-bubble" style="--c: var(--red);"><span class="b-dot"></span>Argue Agent</span>
+    <span class="eco-bubble" style="--c: var(--cyan);"><span class="b-dot"></span>Smart Brain</span>
+    <span class="eco-bubble" style="--c: var(--pink);"><span class="b-dot"></span>Video Agent</span>
+    <span class="eco-bubble" style="--c: var(--cyan);"><span class="b-dot"></span>3D Agent</span>
+    <span class="eco-bubble" style="--c: var(--green);"><span class="b-dot"></span>MCP Video Gen</span>
+    <span class="eco-bubble" style="--c: var(--purple);"><span class="b-dot"></span>MCP 3D Gen</span>
+    <span class="eco-bubble" style="--c: var(--amber);"><span class="b-dot"></span>MCP Image Gen</span>
+    <span class="eco-bubble" style="--c: var(--indigo);"><span class="b-dot"></span>ccuse CLI</span>
+    <span class="eco-bubble" style="--c: var(--cyan);"><span class="b-dot"></span>Fish Game</span>
+    <span class="eco-bubble" style="--c: var(--red);"><span class="b-dot"></span>春节 AI 助手</span>
+    <span class="eco-bubble" style="--c: var(--green);"><span class="b-dot"></span>SPA Agent</span>
+    <span class="eco-bubble" style="--c: var(--pink);"><span class="b-dot"></span>脉冲</span>
+    <span class="eco-bubble" style="--c: var(--purple);"><span class="b-dot"></span>Name Agent</span>
+  </div>
+  <div class="eco-categories">
+    <span class="eco-cat">🌏 旅行</span>
+    <span class="eco-cat">🏥 健康</span>
+    <span class="eco-cat">📚 学习</span>
+    <span class="eco-cat">🔧 工具</span>
+    <span class="eco-cat">🎮 创作</span>
+    <span class="eco-cat">⚖️ 实用</span>
+  </div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 7: OpenOctopus -->
+<div class="frame" id="f7">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">07 / 08</span>
+  <div class="octo-visual">
+    <svg viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="75" r="32" fill="url(#og1)" opacity="0.9"/>
+      <circle cx="100" cy="75" r="22" fill="url(#og2)" opacity="0.6"/>
+      <circle cx="91" cy="70" r="5" fill="#050508"/><circle cx="109" cy="70" r="5" fill="#050508"/>
+      <circle cx="92" cy="69" r="2" fill="white"/><circle cx="110" cy="69" r="2" fill="white"/>
+      <path d="M72 92 Q55 118 38 142" stroke="url(#tg1)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M80 98 Q68 130 50 158" stroke="url(#tg2)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M90 103 Q86 140 76 168" stroke="url(#tg3)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M110 103 Q114 140 124 168" stroke="url(#tg4)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M120 98 Q132 130 150 158" stroke="url(#tg5)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <path d="M128 92 Q145 118 162 142" stroke="url(#tg6)" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <circle cx="38" cy="142" r="6" fill="#10B981" opacity="0.9"/>
+      <circle cx="50" cy="158" r="6" fill="#EC4899" opacity="0.9"/>
+      <circle cx="76" cy="168" r="6" fill="#F59E0B" opacity="0.9"/>
+      <circle cx="124" cy="168" r="6" fill="#8B5CF6" opacity="0.9"/>
+      <circle cx="150" cy="158" r="6" fill="#06B6D4" opacity="0.9"/>
+      <circle cx="162" cy="142" r="6" fill="#3B82F6" opacity="0.9"/>
+      <text x="38" y="157" text-anchor="middle" fill="#10B981" font-size="9" font-family="'Noto Sans SC'" font-weight="500">旅行</text>
+      <text x="50" y="173" text-anchor="middle" fill="#EC4899" font-size="9" font-family="'Noto Sans SC'" font-weight="500">健康</text>
+      <text x="76" y="183" text-anchor="middle" fill="#F59E0B" font-size="9" font-family="'Noto Sans SC'" font-weight="500">财务</text>
+      <text x="124" y="183" text-anchor="middle" fill="#8B5CF6" font-size="9" font-family="'Noto Sans SC'" font-weight="500">工具</text>
+      <text x="150" y="173" text-anchor="middle" fill="#06B6D4" font-size="9" font-family="'Noto Sans SC'" font-weight="500">创作</text>
+      <text x="162" y="157" text-anchor="middle" fill="#3B82F6" font-size="9" font-family="'Noto Sans SC'" font-weight="500">学习</text>
+      <defs>
+        <radialGradient id="og1"><stop offset="0%" stop-color="#22D3EE"/><stop offset="100%" stop-color="#6366F1"/></radialGradient>
+        <radialGradient id="og2"><stop offset="0%" stop-color="#A5F3FC"/><stop offset="100%" stop-color="#818CF8"/></radialGradient>
+        <linearGradient id="tg1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22D3EE"/><stop offset="1" stop-color="#10B981"/></linearGradient>
+        <linearGradient id="tg2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC4899"/></linearGradient>
+        <linearGradient id="tg3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#F59E0B"/></linearGradient>
+        <linearGradient id="tg4" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+        <linearGradient id="tg5" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22D3EE"/><stop offset="1" stop-color="#06B6D4"/></linearGradient>
+        <linearGradient id="tg6" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+      </defs>
+    </svg>
+  </div>
+  <div class="octo-info">
+    <span class="octo-badge-tag">Flagship Project</span>
+    <div class="octo-name">OpenOctopus</div>
+    <div class="octo-tagline">Realm-native 生活智能体系统</div>
+    <div class="octo-desc">如章鱼般，每条触手拥有独立神经中枢 — 按领域组织生活，将万物召唤为具有记忆与个性的 AI Agent。</div>
+    <div class="octo-realms">
+      <span class="octo-realm" style="--c: #10B981;">旅行</span>
+      <span class="octo-realm" style="--c: #EC4899;">健康</span>
+      <span class="octo-realm" style="--c: #F59E0B;">财务</span>
+      <span class="octo-realm" style="--c: #8B5CF6;">工具</span>
+      <span class="octo-realm" style="--c: #06B6D4;">创作</span>
+      <span class="octo-realm" style="--c: #3B82F6;">学习</span>
+    </div>
+  </div>
+  <span class="watermark">kevinten10.github.io</span>
+</div>
+
+<!-- Frame 8: CTA / Closing -->
+<div class="frame" id="f8">
+  <div class="frame-bg">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="grain"></div>
+  </div>
+  <span class="frame-number">08 / 08</span>
+  <img class="title-avatar" src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="" style="width:100px;height:100px;">
+  <div class="cta-title">Let's <em>Build the Future</em><br>Together</div>
+  <div class="cta-contacts">
+    <span class="cta-contact">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      @kevinten10
+    </span>
+    <span class="cta-contact">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      @kevinten1024
+    </span>
+    <span class="cta-contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      wshten@gmail.com
+    </span>
+  </div>
+  <div class="cta-url">kevinten10.github.io</div>
+  <span class="watermark">AI Native · One-Person Company · Open Source</span>
+</div>
+
+<script>
+  // Frame switching for screenshot capture
+  window.showFrame = function(n) {
+    document.querySelectorAll('.frame').forEach(f => f.classList.remove('active'));
+    document.getElementById('f' + n).classList.add('active');
+  };
+  // Auto-show frame from URL param: ?frame=2
+  const params = new URLSearchParams(window.location.search);
+  const frameNum = params.get('frame');
+  if (frameNum) showFrame(parseInt(frameNum));
+</script>
+</body>
+</html>
