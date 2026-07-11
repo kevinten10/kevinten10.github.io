@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const out = path.join(root, 'dist', 'pages');
+const requireAuth0 = process.argv.includes('--require-auth0');
 const includeDirs = ['2018', '2019', 'admin', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags'];
 const includeFiles = [
   '.nojekyll',
@@ -97,6 +98,11 @@ const runtime = {
     publishableKey: runtimeValue('STRIPE_PUBLISHABLE_KEY')
   }
 };
+if (requireAuth0 && !runtime.auth0.clientId) {
+  throw new Error(
+    'AUTH0_CLIENT_ID is required for Pages deployment. Set it in the environment or dist/auth0-preview.env.'
+  );
+}
 await fs.writeFile(
   path.join(out, 'assets', 'js', 'cloudflare-runtime.js'),
   `(function() {

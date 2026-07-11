@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build:pages": "node scripts/prepare-pages-preview.mjs",
-    "deploy:pages": "npm run build:pages && wrangler pages deploy dist/pages --project-name kevinten-interactive-preview --branch preview",
+    "deploy:pages": "npm run build:pages -- --require-auth0 && wrangler pages deploy dist/pages --project-name kevinten-interactive-preview --branch preview",
     "deploy:worker": "wrangler deploy --config worker/wrangler.toml",
     "dev:worker": "wrangler dev --config worker/wrangler.toml --local",
     "next:dev": "npm --prefix next-portfolio run dev",

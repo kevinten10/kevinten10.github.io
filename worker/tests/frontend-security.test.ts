@@ -135,10 +135,14 @@ describe('frontend security guards', () => {
 
   it('publishes only the production promo assets from the video workspace', () => {
     const prepare = readFileSync('scripts/prepare-pages-preview.mjs', 'utf8');
+    const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
 
     expect(prepare).not.toMatch(/const includeDirs = \[[^\n]*'video'/);
     expect(prepare).toContain("'video/kevinten-ai-native-promo.mp4'");
     expect(prepare).toContain("'video/kevinten-ai-native-promo-poster.jpg'");
+    expect(prepare).toContain("process.argv.includes('--require-auth0')");
+    expect(prepare).toContain('AUTH0_CLIENT_ID is required for Pages deployment');
+    expect(packageJson.scripts['deploy:pages']).toContain('--require-auth0');
   });
 
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {
