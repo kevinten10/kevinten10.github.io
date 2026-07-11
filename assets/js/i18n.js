@@ -302,12 +302,162 @@
     'contact.interest3': '🏗️ Distributed Systems Architecture / Cloud Native Platform',
     'contact.interest4': '🌟 Open Source Community / One-Person Company / AI Startup',
 
+    // AI Assistant
+    'ai.title': 'KevinTen AI Guide',
+    'ai.status': 'Site guide',
+    'ai.subtitle': 'Ask about projects, architecture, AI Native work, or collaboration.',
+    'ai.placeholder': 'Ask about OpenOctopus, tech stack, or experience...',
+    'ai.welcome': "Hi, I'm KevinTen's AI guide. I can answer common site questions instantly and route deeper questions to the live model when it is available.",
+    'ai.suggested1': 'What is OpenOctopus?',
+    'ai.suggested2': "What is KevinTen's tech stack?",
+    'ai.suggested3': 'How does multi-runtime architecture work?',
+    'ai.suggested4': 'How does AI Native show up in his work?',
+    'ai.clear': 'Clear',
+    'ai.thinking': 'Thinking',
+    'ai.offline': 'The live model is not connected here, but I can answer the suggested site questions locally.',
+    'ai.error': 'The live model is temporarily unavailable. Try one of the suggested site questions.',
+    'ai.answer.openoctopus': "OpenOctopus is KevinTen's Realm-native personal agent system: a life operating layer where independent agents handle different domains, share context, and collaborate through runtime boundaries.",
+    'ai.answer.techstack': 'KevinTen works across Java, Go, TypeScript, cloud-native systems, Dapr, Layotto, Dubbo, MCP tools, AI agents, and full-stack AI application engineering.',
+    'ai.answer.multiruntime': 'Multi-runtime architecture separates capabilities into specialized runtimes, such as service invocation, state, workflow, agents, and tool execution, then connects them through clear contracts so systems can evolve independently.',
+    'ai.answer.ainative': 'His AI Native work focuses on turning agents into practical software teammates: MCP tools, coding automation, review and diagnostic systems, and personal-product workflows.',
+    'ai.answer.contact': 'For collaboration, the strongest fits are AI Agent architecture, cloud-native distributed systems, MCP tooling, open source, and one-person-company style product experiments.',
+
+    // Comments Section
+    'comments.title': 'Comments',
+    'comments.desc': 'Share your thoughts and suggestions',
+    'comments.loading': 'Loading...',
+    'comments.loading.detail': 'Syncing the latest public notes',
+    'comments.empty': 'No comments yet. Be the first!',
+    'comments.empty.detail': 'The first note will appear here. Questions, context, and collaboration leads all fit.',
+    'comments.disabled': 'Comments are not connected in this environment.',
+    'comments.disabled.title': 'Comments are offline',
+    'comments.error.load': 'Failed to load. Please try again later.',
+    'comments.error.load.detail': 'The network or API is temporarily unavailable.',
+    'comments.error.submit': 'Submission failed. Please try again.',
+    'comments.error.name': 'Add a nickname or sign in first.',
+    'comments.error.empty': 'Write a message first.',
+    'comments.error.rateLimit': 'Too frequent. Please wait a moment.',
+    'comments.error.notLoggedIn': 'Not logged in',
+    'comments.status.approved': 'Published',
+    'comments.status.pending': 'Submitted for review',
+    'comments.status.sending': 'Submitting, one moment',
+    'comments.submitting': 'Submitting...',
+    'comments.composer.kicker': 'Comment channel',
+    'comments.composer.title': 'Leave a concrete note',
+    'comments.composer.desc': 'Post anonymously, or sign in so your identity is attached. Notes are moderated before they appear.',
+    'comments.auth.label': 'Identity',
+    'comments.name.label': 'Name',
+    'comments.website.label': 'Link',
+    'comments.message.label': 'Message',
+    'comments.hint.markdown': 'Markdown supported: **bold** and `code`',
+    'comments.submit': 'Post Comment',
+    'comments.reply': 'Reply',
+    'comments.reply.submit': 'Post Reply',
+    'comments.placeholder': 'Ask a question, add feedback, or leave context...',
+    'comments.reply.placeholder': 'Reply...',
+    'comments.guest': 'Guest',
+    'comments.name.placeholder': 'Your name or handle',
+    'comments.website.placeholder': 'Website or profile, optional',
+    'auth.login': 'Log in',
+    'auth.logout': 'Log out',
+    'auth.status.guest': 'Browsing anonymously. You can still comment.',
+    'auth.status.signedIn': 'Signed in. Your note will include your identity.',
+    'auth.status.unavailable': 'Login unavailable. Anonymous comments still work.',
+
+    // Rewards Section
+    'rewards.title': 'Support & Thanks',
+    'rewards.desc': 'Real support payments use WeChat or Alipay QR codes. Stripe is kept in sandbox mode only and is not a live payment option.',
+    'rewards.note': 'After scanning and paying, submit the record here. It appears on the thanks wall after manual confirmation.',
+    'rewards.submit': 'Submit for Confirmation',
+    'rewards.submitting': 'Submitting...',
+    'rewards.disabled': 'Rewards are not connected in this environment.',
+    'rewards.empty': 'No public supporters yet.',
+    'rewards.verified': 'Verified',
+    'rewards.status.sending': 'Submitting support record',
+    'rewards.status.pending': 'Submitted for confirmation. It will appear after payment is checked.',
+    'rewards.error.name': 'Add a nickname first.',
+    'rewards.error.submit': 'Submission failed. Please try again.',
+    'rewards.error.load': 'Thanks wall is temporarily unavailable.',
+
     // Footer
     'footer.built': 'Built with vanilla JS, too much ☕, and a mass of curiosity.'
   };
 
   // Store original Chinese text for restoration
-  var originalTexts = {};
+  // Pre-populate dynamic widget keys so language toggle works for rendered content
+  var originalTexts = {
+    'ai.title': 'KevinTen AI 导览',
+    'ai.status': '站内导览',
+    'ai.subtitle': '可以问项目、架构、AI Native 实践或合作方向。',
+    'ai.placeholder': '输入你想了解的项目、技术或经历...',
+    'ai.welcome': '你好，我是 KevinTen 的 AI 导览。常见站内问题我会即时回答，更深入的问题会在模型可用时转给在线助手。',
+    'ai.suggested1': 'OpenOctopus 是什么？',
+    'ai.suggested2': 'KevinTen 的技术栈是什么？',
+    'ai.suggested3': '多运行时架构怎么理解？',
+    'ai.suggested4': 'KevinTen 的 AI Native 项目有哪些？',
+    'ai.clear': '清空',
+    'ai.thinking': '思考中',
+    'ai.offline': '在线模型当前未连接，但我可以先回答这些站内常见问题。',
+    'ai.error': '在线模型暂时不可用，可以先试试上面的站内问题。',
+    'ai.answer.openoctopus': 'OpenOctopus 是 KevinTen 正在构建的 Realm-native 个人智能体系统：把生活里的不同领域拆给独立智能体处理，通过共享上下文和清晰运行时边界协同工作。',
+    'ai.answer.techstack': 'KevinTen 的技术栈横跨 Java、Go、TypeScript、云原生分布式系统、Dapr、Layotto、Dubbo、MCP 工具、AI Agent 和 AI Native 全栈应用工程。',
+    'ai.answer.multiruntime': '多运行时架构强调把服务调用、状态、工作流、工具执行和智能体能力拆到专门运行时里，再通过清晰契约连接，让系统可以独立演进、组合和替换。',
+    'ai.answer.ainative': '他的 AI Native 实践重点是把智能体变成可落地的软件协作者：MCP 工具链、AI Coding 自动化、代码评审、问题诊断，以及个人产品工作流。',
+    'ai.answer.contact': '适合交流或合作的方向包括 AI Agent 架构、云原生分布式系统、MCP 工具链、开源项目，以及 One-Person Company 式 AI 产品实验。',
+    'comments.loading': '加载中...',
+    'comments.loading.detail': '正在同步最近的公开留言',
+    'comments.empty': '暂无留言，来写第一条吧',
+    'comments.empty.detail': '第一条留言会显示在这里，适合提问、补充资料或留下合作线索。',
+    'comments.disabled': '留言功能暂未启用',
+    'comments.disabled.title': '留言暂时离线',
+    'comments.error.load': '加载失败，请稍后重试',
+    'comments.error.load.detail': '网络或接口暂时不可用。',
+    'comments.error.submit': '提交失败',
+    'comments.error.name': '请先填写昵称或登录',
+    'comments.error.empty': '请先写点内容',
+    'comments.error.rateLimit': '提交太频繁，请稍后再试',
+    'comments.error.notLoggedIn': '未登录',
+    'comments.status.approved': '已发布',
+    'comments.status.pending': '已提交，待审核',
+    'comments.status.sending': '正在提交，稍等片刻',
+    'comments.submitting': '提交中...',
+    'comments.composer.kicker': '留言通道',
+    'comments.composer.title': '写下具体想法',
+    'comments.composer.desc': '可以匿名，也可以登录后留下可识别身份。内容会经过审核后展示。',
+    'comments.auth.label': '当前身份',
+    'comments.name.label': '昵称',
+    'comments.website.label': '链接',
+    'comments.message.label': '内容',
+    'comments.hint.markdown': '支持 Markdown：**加粗** 与 `代码`',
+    'comments.submit': '提交留言',
+    'comments.reply': '回复',
+    'comments.reply.submit': '提交回复',
+    'comments.placeholder': '写下一个问题、反馈或补充信息...',
+    'comments.reply.placeholder': '回复...',
+    'comments.guest': '访客',
+    'comments.name.placeholder': '你的名字或代号',
+    'comments.website.placeholder': '网站或主页，可选',
+    'auth.login': '登录',
+    'auth.logout': '退出',
+    'auth.status.guest': '匿名浏览，可直接留言',
+    'auth.status.signedIn': '已登录，留言会带上身份',
+    'auth.status.unavailable': '登录暂不可用，仍可匿名留言',
+    'rewards.title': '支持与鸣谢',
+    'rewards.desc': '真实收款当前启用支付宝扫码；微信收款码未配置；Stripe 内嵌沙箱测试完成后由 webhook 验证入库。',
+    'rewards.note': '支付宝扫码完成后填写右侧信息；Stripe 沙箱会打开内嵌支付页，验证到账后展示在鸣谢墙。',
+    'rewards.submit': '提交待确认',
+    'rewards.submitting': '提交中...',
+    'rewards.stripe.start': '创建 Stripe 内嵌支付',
+    'rewards.stripe.loading': '创建 Stripe 支付中...',
+    'rewards.disabled': '鸣谢功能暂未启用',
+    'rewards.empty': '还没有公开鸣谢。',
+    'rewards.verified': '已确认',
+    'rewards.status.sending': '正在提交待确认记录',
+    'rewards.status.pending': '已提交待确认，核对到账后会出现在鸣谢墙',
+    'rewards.error.name': '请先填写昵称',
+    'rewards.error.submit': '提交失败，请稍后再试',
+    'rewards.error.load': '鸣谢墙暂时不可用。'
+  };
 
   function saveChinese() {
     var els = document.querySelectorAll('[data-i18n]');
@@ -317,6 +467,17 @@
         originalTexts[key] = els[i].textContent;
       }
     }
+  }
+
+  function getText(key, fallback) {
+    var current = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+    if (current === 'en' && EN[key]) {
+      return EN[key];
+    }
+    if (current === 'zh' && originalTexts[key]) {
+      return originalTexts[key];
+    }
+    return fallback !== undefined ? fallback : key;
   }
 
   function applyLang(lang) {
@@ -330,6 +491,17 @@
       }
     }
 
+    // Handle placeholders
+    var placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+    for (var p = 0; p < placeholders.length; p++) {
+      var pKey = placeholders[p].getAttribute('data-i18n-placeholder');
+      if (lang === 'en' && EN[pKey]) {
+        placeholders[p].placeholder = EN[pKey];
+      } else if (lang === 'zh' && originalTexts[pKey]) {
+        placeholders[p].placeholder = originalTexts[pKey];
+      }
+    }
+
     // Update html lang attribute
     document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
 
@@ -338,6 +510,12 @@
     for (var j = 0; j < toggles.length; j++) {
       toggles[j].textContent = lang === 'en' ? '中文' : 'EN';
     }
+
+    // Notify other modules
+    try {
+      var event = new CustomEvent('langchange', { detail: { lang: lang } });
+      document.dispatchEvent(event);
+    } catch (e) {}
   }
 
   function toggle() {
@@ -361,5 +539,5 @@
     init();
   }
 
-  window.I18n = { toggle: toggle };
+  window.I18n = { toggle: toggle, get: getText };
 })();

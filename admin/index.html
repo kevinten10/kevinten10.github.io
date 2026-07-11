@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>KevinTen Admin Preview</title>
+  <link rel="stylesheet" href="/assets/css/theme.css?v=31">
+  <link rel="stylesheet" href="/assets/css/admin.css?v=2">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <div>
+        <p class="admin-kicker">Cloudflare Preview</p>
+        <h1>Site Admin</h1>
+      </div>
+      <div>
+        <span data-auth-name>Anonymous</span>
+        <button data-auth-login>Log in</button>
+        <button data-auth-logout hidden>Log out</button>
+      </div>
+    </header>
+    <nav class="admin-tabs" aria-label="Admin sections">
+      <button data-admin-tab="summary" class="active">Summary</button>
+      <button data-admin-tab="comments">Comments</button>
+      <button data-admin-tab="rewards">Rewards</button>
+    </nav>
+    <section id="admin-content" class="admin-content" aria-live="polite"></section>
+  </main>
+  <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+  <script src="/assets/js/cloudflare-runtime.js?v=2"></script>
+  <script src="/assets/js/auth-client.js?v=2"></script>
+  <script src="/assets/js/admin.js?v=4"></script>
+</body>
+</html>

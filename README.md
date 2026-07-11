@@ -1,93 +1,79 @@
 # KevinTen Personal Website
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://kevinten10.github.io/)
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-Live-f38020)](https://kevinten.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-KevinTen的个人技术主页 - 软件架构师、AI原生开发者、多运行时探索者。
+KevinTen 的个人技术主页与历史博客，同时包含 Cloudflare 交互服务、Next.js 重构候选和宣传视频制作流水线。
 
-## 🌐 在线访问
+## 在线地址
 
-**网站地址**: [https://kevinten10.github.io/](https://kevinten10.github.io/)
+- 主站：<https://kevinten.com/>
+- Cloudflare Pages：<https://kevinten-interactive-preview.pages.dev/>
+- GitHub Pages 回退站：<https://kevinten10.github.io/>
+- 部署与运维说明：`docs/cloudflare-preview-ops.md`。
+- 当前状态：`docs/maintenance/2026-07-11-current-status.md`。
 
-## 🎯 关于我
+## 仓库结构
 
-- **职位**: Software Architect · AI-Native Developer
-- **专长**: 云原生架构、微服务、AI Agents、多运行时
-- **贡献**: Apache Dubbo & Dapr 贡献者
+| 路径 | 用途 |
+| --- | --- |
+| `index.html`、`articles.html`、`assets/` | 当前维护的静态主站 |
+| `2018/`、`2019/`、`archives/`、`categories/`、`tags/` | 从 Hexo 保留的历史博客 |
+| `worker/`、`scripts/` | Cloudflare Worker、预览构建与配置脚本 |
+| `cloudfunctions/` | 早期 CloudBase 云函数 |
+| `next-portfolio/` | Next.js 16 重构候选，尚未取代现网静态站 |
+| `video/` | 个人宣传视频成片、分镜与制作工具 |
+| `docs/maintenance/screenshots/` | 审计、测试与迭代截图 |
 
-## 🛠 技术栈
+生成目录如 `dist/`、`node_modules/`、`.next/`、`output/` 和 Playwright 运行产物均由 `.gitignore` 管理。
 
-- **Languages**: Java, Go, Python, Node.js
-- **Cloud Native**: Kubernetes, Docker, Service Mesh, Istio
-- **Frameworks**: Apache Dubbo, Dapr, Spring, gRPC
-- **AI & Runtime**: AI Agents, MCP, Multi-Runtime, WebAssembly
+## 本地开发
 
-## 📁 项目结构
-
-```
-kevinten10.github.io/
-├── assets/
-│   ├── css/           # 样式文件
-│   │   ├── theme.css  # CSS变量和主题
-│   │   └── main.css   # 主样式
-│   └── js/            # JavaScript文件
-│       ├── app.js     # 主应用逻辑
-│       ├── particles.js # 粒子动画
-│       ├── search.js  # 搜索功能
-│       └── theme.js   # 主题管理
-├── index.html         # 首页
-├── sw.js             # Service Worker
-└── README.md         # 项目说明
-```
-
-## 🚀 本地开发
-
-### 启动本地服务器
+需要 Node.js 20+。
 
 ```bash
-# Python 3
-python -m http.server 8000
+npm install
 
-# Node.js
-npx http-server -p 8000
+# 静态站
+python3 -m http.server 8000
+
+# Cloudflare Worker
+npm run dev:worker
+
+# Next.js 候选版
+npm run next:dev
 ```
 
-访问 http://localhost:8000
+静态站访问 <http://localhost:8000>，Next.js 候选版默认访问 <http://localhost:3000>。
 
-### 项目特性
-
-- ✅ 现代化UI设计（深色主题、霓虹效果）
-- ✅ 响应式布局（移动端适配）
-- ✅ 粒子动画背景
-- ✅ 打字机效果
-- ✅ 玻璃态卡片设计
-- ✅ Service Worker缓存
-- ✅ SEO优化
-
-## 📦 部署
-
-本项目使用GitHub Pages自动部署。提交更改到main分支即可自动部署。
+## 验证
 
 ```bash
-git add .
-git commit -m "Update website"
-git push origin main
+# Worker 类型检查、测试、Pages 构建和审计文档校验
+npm run verify
+
+# Next.js lint + production build
+npm run verify:next
+
+# 全部验证
+npm run verify:all
 ```
 
-## 🤝 开源贡献
+## 环境配置
 
-- [Apache Dubbo](https://github.com/apache/dubbo) - 高性能RPC框架
-- [Dapr](https://github.com/dapr/dapr) - 分布式应用运行时
+- 根目录变量模板：`.env.example`。
+- Next.js 候选版模板：`next-portfolio/.env.example`。
+- 只提交占位模板；不要提交 `.env`、`.env.local`、`.dev.vars` 或真实密钥。
 
-## 📄 许可证
+## 部署
+
+- 当前主站：Cloudflare Pages 自定义域名 `kevinten.com`。
+- Cloudflare Pages：`npm run deploy:pages`。
+- Cloudflare Worker：`npm run deploy:worker`。
+- GitHub Pages 保留为 `master` 分支上的回退路径。
+
+运行部署或 provision 脚本前，先确认当前 Cloudflare/Auth0/Stripe 账号与环境变量，因为这些命令会修改外部资源。
+
+## 许可证
 
 [MIT](LICENSE)
-
-## 📧 联系方式
-
-- GitHub: [@kevinten10](https://github.com/kevinten10)
-- Email: wshten@gmail.com
-
----
-
-> Building systems where humans design, agents execute, and runtimes collaborate.

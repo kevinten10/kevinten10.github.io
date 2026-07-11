@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 30
+ * @version 51
  */
 
-const SW_VERSION = '32';
+const SW_VERSION = '51';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,19 +13,33 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=31',
+  '/assets/css/main.css?v=37',
   '/assets/css/theme.css?v=31',
+  '/assets/css/comments.css?v=2',
+  '/assets/css/rewards.css?v=4',
+  '/assets/css/admin.css?v=2',
+  '/assets/css/ai-assistant.css?v=4',
   '/assets/js/observer-manager.js?v=31',
-  '/assets/js/app.js?v=31',
+  '/assets/js/app.js?v=32',
   '/assets/js/theme.js?v=31',
   '/assets/js/animations.js?v=31',
   '/assets/js/bento-interactions.js?v=31',
   '/assets/js/mobile-nav.js?v=31',
-  '/assets/js/github-stats.js?v=31',
+  '/assets/js/github-stats.js?v=32',
   '/assets/js/project-modal.js?v=31',
   '/assets/js/gallery.js?v=31',
-  '/assets/js/i18n.js?v=31',
-  '/img/avatar.jpg'
+  '/assets/js/i18n.js?v=36',
+  '/assets/js/auth-client.js?v=2',
+  '/assets/js/comments.js?v=5',
+  '/assets/js/analytics.js?v=4',
+  '/assets/js/rewards.js?v=5',
+  '/assets/js/admin.js?v=4',
+  '/assets/js/ai-assistant.js?v=3',
+  '/img/avatar.jpg',
+  '/img/alipay.jpg',
+  '/images/anycap/ai-native-system-map-1600.webp',
+  '/images/anycap/openoctopus-realm-map-1600.webp',
+  '/video/kevinten-ai-native-promo-poster.jpg'
 ];
 
 // Assets to cache on demand
@@ -36,7 +50,6 @@ const CACHE_EXTENSIONS = [
 
 // Install event - cache assets
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing service worker v' + SW_VERSION);
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
@@ -49,7 +62,6 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating service worker v' + SW_VERSION);
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -58,7 +70,6 @@ self.addEventListener('activate', (event) => {
           if (cacheName !== CACHE_NAME &&
               cacheName !== RUNTIME_CACHE &&
               cacheName !== STATIC_CACHE) {
-            console.log('[SW] Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -89,7 +100,17 @@ self.addEventListener('fetch', (event) => {
 
   // Handle API requests - network first
   if (url.pathname.startsWith('/api/')) {
+    if (shouldBypassApiCache(request, url)) {
+      event.respondWith(fetch(request));
+      return;
+    }
     event.respondWith(networkFirst(request));
+    return;
+  }
+
+  // Runtime config is environment-specific; always fetch the latest copy.
+  if (isRuntimeConfig(url)) {
+    event.respondWith(fetch(request));
     return;
   }
 
@@ -166,6 +187,17 @@ function staleWhileRevalidate(request) {
 // Check if request is for a static asset
 function isStaticAsset(url) {
   return CACHE_EXTENSIONS.some(ext => url.pathname.endsWith(ext));
+}
+
+function isRuntimeConfig(url) {
+  return url.pathname === '/assets/js/cloudflare-runtime.js';
+}
+
+function shouldBypassApiCache(request, url) {
+  return request.headers.has('Authorization') ||
+    url.pathname.startsWith('/api/admin/') ||
+    url.pathname.startsWith('/api/auth/') ||
+    url.pathname.startsWith('/api/users/');
 }
 
 // Message handling from main thread
@@ -253,12 +285,11 @@ async function cleanupCache() {
           const cacheDate = new Date(date).getTime();
           if (now - cacheDate > maxAge) {
             await cache.delete(request);
-            console.log('[SW] Cleaned up stale cache entry:', request.url);
           }
         }
       }
     }
   } catch (error) {
-    console.error('[SW] Cache cleanup failed:', error);
+    // Cache cleanup error ignored
   }
 }

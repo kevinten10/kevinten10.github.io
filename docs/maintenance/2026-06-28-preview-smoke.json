@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-06-28T16:10:41.294Z",
+  "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
+  "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
+  "smokePage": "/preview-smoke-1782663041294",
+  "checks": [
+    {
+      "name": "worker health",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/health"
+    },
+    {
+      "name": "anonymous auth state",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/auth/me"
+    },
+    {
+      "name": "public site config",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/config"
+    },
+    {
+      "name": "unauthenticated profile protection",
+      "status": "ok",
+      "detail": "401 https://kevinten-api-preview.wshten.workers.dev/api/users/profile"
+    },
+    {
+      "name": "unauthenticated admin protection",
+      "status": "ok",
+      "detail": "403 https://kevinten-api-preview.wshten.workers.dev/api/admin/summary"
+    },
+    {
+      "name": "page view tracking",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/stats/view"
+    },
+    {
+      "name": "anonymous comment create",
+      "status": "ok",
+      "detail": "201 https://kevinten-api-preview.wshten.workers.dev/api/comments"
+    },
+    {
+      "name": "anonymous comments read",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/comments?page=%2Fpreview-smoke-1782663041294"
+    },
+    {
+      "name": "page reaction create",
+      "status": "ok",
+      "detail": "201 https://kevinten-api-preview.wshten.workers.dev/api/reactions"
+    },
+    {
+      "name": "reward record create",
+      "status": "ok",
+      "detail": "201 https://kevinten-api-preview.wshten.workers.dev/api/rewards"
+    },
+    {
+      "name": "public stats read",
+      "status": "ok",
+      "detail": "200 https://kevinten-api-preview.wshten.workers.dev/api/stats/public?page=%2Fpreview-smoke-1782663041294"
+    },
+    {
+      "name": "pages home",
+      "status": "ok",
+      "detail": "200 https://kevinten-interactive-preview.pages.dev/"
+    },
+    {
+      "name": "pages runtime config",
+      "status": "ok",
+      "detail": "200 https://kevinten-interactive-preview.pages.dev/assets/js/cloudflare-runtime.js"
+    },
+    {
+      "name": "pages admin shell",
+      "status": "ok",
+      "detail": "200 https://kevinten-interactive-preview.pages.dev/admin/"
+    },
+    {
+      "name": "legacy article preserved",
+      "status": "ok",
+      "detail": "200 https://kevinten-interactive-preview.pages.dev/2018/08/03/hello-world/"
+    }
+  ],
+  "homeIncludesAuth0": true,
+  "completedAt": "2026-06-28T16:11:12.234Z",
+  "ready": true,
+  "totalChecks": 15,
+  "passedChecks": 15,
+  "failedChecks": 0
+}

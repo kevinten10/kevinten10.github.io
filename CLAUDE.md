@@ -1,87 +1,84 @@
-# CLAUDE.md
+# Repository Working Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Current Architecture
 
-## Project Overview
+This repository contains KevinTen's production personal website and its supporting workspaces.
 
-Static GitHub Pages personal portfolio site for a Software Architect / AI-Native Developer. Single-page application built with **vanilla HTML/CSS/JavaScript** — no frameworks, no build tools, no npm dependencies.
+- The production site is the root vanilla HTML/CSS/JavaScript application served by Cloudflare Pages at `kevinten.com`.
+- `worker/` is the Hono-based Cloudflare Worker API for authentication, comments, reactions, rewards, statistics, and admin operations.
+- `next-portfolio/` is an isolated Next.js 16 migration candidate. Follow its `AGENTS.md`; do not treat it as the production entry point.
+- `video/` contains both production promo assets and reproducible media-production sources.
+- GitHub Pages on `master` is retained as a rollback path, not the active custom-domain host.
 
-**Live site:** https://kevinten10.github.io/
-**Deployment:** Push to `master` branch triggers automatic GitHub Pages deployment. No build step.
+Current deployment evidence is recorded in `docs/maintenance/2026-07-11-current-status.md`. Older dated audits are historical snapshots and may describe blockers that have since been resolved.
 
-## Local Development
+## Important Paths
+
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `articles.html`, `assets/` | Production static site |
+| `2018/`, `2019/`, `archives/`, `categories/`, `tags/` | Legacy blog URLs that must remain stable |
+| `worker/`, `scripts/` | Cloudflare API, deployment, provisioning, and verification |
+| `admin/` | Static admin shell protected by Cloudflare Access |
+| `next-portfolio/` | Next.js migration candidate |
+| `video/` | Promo assets and media-production workspace |
+| `docs/maintenance/screenshots/` | Curated UI audit evidence |
+
+Generated output such as `dist/`, `node_modules/`, `.next/`, Playwright output, video frames, and intermediate media must remain ignored.
+
+## Development and Verification
+
+Use Node.js 20 or newer.
 
 ```bash
-# Start a local server (pick one)
-python -m http.server 8000
-npx http-server -p 8000
+npm ci
 
-# Then visit http://localhost:8000
+# Production static site
+python3 -m http.server 8000
+
+# Worker development
+npm run dev:worker
+
+# Core typecheck, Worker tests, Pages build, and audit validation
+npm run verify
+
+# Next.js candidate lint and production build
+npm run verify:next
+
+# Both workspaces
+npm run verify:all
+
+# Video capture script syntax
+npm --prefix video test
 ```
 
-There is no build, lint, or test command — this is a static site served directly.
+After `npm run build:pages`, only the production promo MP4 and poster should exist under `dist/pages/video/`. Do not publish the entire video-production workspace.
 
-## Architecture
+## Deployment
 
-### Single-Page Structure
+These commands mutate external Cloudflare resources and must only be run when deployment is explicitly intended:
 
-`index.html` (1,459 lines) is the entire site. It contains sections: hero/about, impact metrics, experience timeline, projects, tech skills, contributions, awards, writing/articles, photo gallery, and contact.
+```bash
+npm run deploy:pages
+npm run deploy:worker
+```
 
-### Modern Source Code (`assets/`)
+Provisioning commands modify Cloudflare, Auth0, or Stripe configuration. Inspect their required account and environment context before running them.
 
-- **`assets/css/theme.css`** — CSS custom properties (variables) for the theming system (dark/light mode). All colors, spacing, and design tokens live here.
-- **`assets/css/main.css`** — All component styles (~5,300 lines). Uses the variables from theme.css.
-- **`assets/css/articles.css`** — Styles for the articles page.
-- **`assets/js/`** — 13 modular JS files using IIFE pattern, exposing globals (e.g., `window.App`, `window.ThemeManager`, `window.MobileNav`). Scripts are loaded sequentially in index.html — no module bundler.
+The active Cloudflare Pages project is `kevinten-interactive-preview`; the name is historical even though it now serves production. The Worker is `kevinten-api-preview`. Do not rename production resources as incidental cleanup.
 
-Key JS modules:
-| Module | Purpose |
-|--------|---------|
-| `app.js` | Core initialization, scroll handling, typing effect |
-| `theme.js` | Dark/light toggle, localStorage persistence, system preference detection |
-| `animations.js` | IntersectionObserver-based scroll animations |
-| `bento-interactions.js` | Mouse-tracking hover effects on bento grid cards |
-| `mobile-nav.js` | Mobile drawer menu with Escape key support |
-| `project-modal.js` | Project quick-view modal with GitHub stats |
-| `gallery.js` | Photo gallery with category filtering and lightbox |
-| `github-stats.js` | Live GitHub API fetching for repo data |
-| `particles.js` | Canvas-based background particle animation |
-| `search.js` | Article search and filtering |
+## Safety and Repository Hygiene
 
-### Legacy Code (kept for backward compatibility)
+- Never print, copy, or commit `.env`, `.env.local`, `.dev.vars`, access tokens, private keys, cookies, or webhook secrets.
+- Only commit placeholder values in `.env.example` files.
+- Inspect `git status --short` before staging because this repository contains large media and QA assets.
+- Keep source changes, curated screenshots, and generated output separate.
+- Preserve historical blog URLs and the repository `CNAME` unless a dedicated migration plan says otherwise.
+- Do not enable WeChat rewards until a verified collect-money QR is available. Stripe remains sandbox-only.
 
-`/js/`, `/css/`, `/2018/`, `/2019/`, `/categories/`, `/tags/`, `/archives/`, `articles.html` — old blog structure from earlier iterations. The modern implementation lives in `/assets/`.
+## Code Conventions
 
-### Service Worker (`sw.js`)
-
-Versioned cache (`kevinten-v9`) with three strategies:
-- **Cache-first:** static assets (JS, CSS, images, fonts)
-- **Network-first:** API requests
-- **Stale-while-revalidate:** HTML pages
-
-When modifying cached assets, bump the cache version in `sw.js`.
-
-## Key Patterns
-
-- **Theming:** CSS custom properties in `theme.css` control all visual theming. Dark mode is default. Theme preference persists via localStorage.
-- **Animations:** IntersectionObserver triggers `.visible` class additions for scroll-reveal effects. Respects `prefers-reduced-motion`.
-- **Responsive breakpoints:** Mobile < 768px, Tablet 768–1024px, Desktop > 1024px, Large > 1280px.
-- **Accessibility:** Semantic HTML5, ARIA labels, skip-to-content link, keyboard navigation, focus-visible styles, screen-reader-only content (`.sr-only`).
-- **Content language:** Site content is bilingual (Chinese and English). Chinese text appears in section content; English in technical terms and UI labels.
-
-## External Services
-
-- **GitHub API** — fetches live repo stats (stars, forks) for project cards
-- **Google Fonts** — DM Sans, Inter, JetBrains Mono, Noto Sans SC, Space Grotesk
-
-## Important Files
-
-| File | Purpose |
-|------|---------|
-| `index.html` | The entire site |
-| `sw.js` | Service Worker (update cache version when changing assets) |
-| `assets/css/theme.css` | Design tokens / CSS variables |
-| `assets/css/main.css` | All component styles |
-| `assets/js/app.js` | Core app initialization |
-| `.nojekyll` | Disables Jekyll processing on GitHub Pages |
-| `sitemap.xml` | SEO sitemap |
+- Production frontend: modern browser JavaScript, semantic HTML, two-space indentation, and existing CSS tokens/components.
+- Worker: TypeScript with tests under `worker/tests/`.
+- Next.js candidate: follow `next-portfolio/AGENTS.md` and the installed Next.js documentation referenced there.
+- Update asset version query strings and the service-worker cache version when production CSS or JavaScript behavior changes.

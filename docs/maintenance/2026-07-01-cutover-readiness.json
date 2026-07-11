@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-07-06T16:27:59.963Z",
+  "apiBaseUrl": "https://kevinten-api-preview.wshten.workers.dev",
+  "pagesUrl": "https://kevinten-interactive-preview.pages.dev",
+  "productionOrigins": [
+    "https://kevinten.com",
+    "https://www.kevinten.com"
+  ],
+  "checks": [
+    {
+      "name": "worker health",
+      "status": "ok",
+      "detail": "https://kevinten-api-preview.wshten.workers.dev"
+    },
+    {
+      "name": "CORS https://kevinten.com",
+      "status": "ok"
+    },
+    {
+      "name": "CORS https://www.kevinten.com",
+      "status": "ok"
+    },
+    {
+      "name": "Pages runtime supports preview plus production origins",
+      "status": "ok",
+      "detail": "https://kevinten-interactive-preview.pages.dev"
+    },
+    {
+      "name": "Auth0 production callbacks/origins",
+      "status": "ok",
+      "detail": "public authorize/logout checks passed; CLI unavailable: Auth0 CLI failed: ▸    Failed to renew access token: cannot get a new access token from the refresh token: {\"error\":\"access_denied\",\"error_description\":\"A post-login action returned invalid data: Is not possible to revoke a nonexistent session.\"}\n ▸    Please log in to re-authorize the CLI.\n\n\n=== dev-8abkwbejxgjbcz1l.us.auth0.com error\n\n ▸    Auth token expired and --no-input is set; run 'auth0 login' to re-authenticate."
+    },
+    {
+      "name": "WeChat reward QR",
+      "status": "ok",
+      "detail": "WeChat collect-money QR is not configured; the public reward UI uses Alipay only for now"
+    },
+    {
+      "name": "Alipay reward QR",
+      "status": "ok",
+      "detail": "decoded as an Alipay QR; scan once on phone to confirm it opens the collect-money flow"
+    },
+    {
+      "name": "Cloudflare Pages custom domains active",
+      "status": "ok",
+      "detail": "kevinten.com:active, www.kevinten.com:active"
+    },
+    {
+      "name": "Cloudflare zone exists for kevinten.com",
+      "status": "ok",
+      "detail": "014623dcba379877a65c37c5b823cd40 (active)"
+    },
+    {
+      "name": "Cloudflare zone status active",
+      "status": "ok",
+      "detail": "active"
+    },
+    {
+      "name": "Cloudflare DNS records point to Pages",
+      "status": "ok",
+      "detail": "kevinten.com:CNAME->kevinten-interactive-preview.pages.dev:proxied:target-ok, www.kevinten.com:CNAME->kevinten-interactive-preview.pages.dev:proxied:target-ok"
+    },
+    {
+      "name": "registry delegation uses Cloudflare nameservers",
+      "status": "ok",
+      "detail": "chip.ns.cloudflare.com, faye.ns.cloudflare.com"
+    },
+    {
+      "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com kevinten.com active",
+      "status": "ok",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"172.67.207.55\"],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS chip.ns.cloudflare.com www.kevinten.com active",
+      "status": "ok",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"104.21.61.72\"],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com kevinten.com active",
+      "status": "ok",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"172.67.207.55\"],\"cnames\":[]}"
+    },
+    {
+      "name": "Cloudflare authoritative DNS faye.ns.cloudflare.com www.kevinten.com active",
+      "status": "ok",
+      "detail": "{\"status\":\"NOERROR\",\"answers\":1,\"addresses\":[\"172.67.207.55\"],\"cnames\":[]}"
+    },
+    {
+      "name": "DNS kevinten.com not on GitHub Pages",
+      "status": "ok",
+      "detail": "{\"addresses\":[\"104.21.61.72\",\"172.67.207.55\"],\"cnames\":[]}"
+    },
+    {
+      "name": "recursive DNS kevinten.com uses Cloudflare nameservers",
+      "status": "ok",
+      "detail": "chip.ns.cloudflare.com, faye.ns.cloudflare.com"
+    },
+    {
+      "name": "DNS www.kevinten.com not on GitHub Pages",
+      "status": "ok",
+      "detail": "{\"addresses\":[\"172.67.207.55\",\"104.21.61.72\"],\"cnames\":[]}"
+    },
+    {
+      "name": "production HTTP https://kevinten.com serves Cloudflare Pages",
+      "status": "ok",
+      "detail": "{\"status\":200,\"server\":\"cloudflare\",\"cfRay\":true,\"github\":false,\"hasRuntime\":true}"
+    },
+    {
+      "name": "production HTTP https://www.kevinten.com serves Cloudflare Pages",
+      "status": "ok",
+      "detail": "{\"status\":200,\"server\":\"cloudflare\",\"cfRay\":true,\"github\":false,\"hasRuntime\":true}"
+    },
+    {
+      "name": "production admin https://kevinten.com/admin/ protected by Cloudflare Access",
+      "status": "ok",
+      "detail": "{\"status\":200,\"server\":\"cloudflare\",\"cfRay\":true,\"finalHost\":\"long-haze-d0eb.cloudflareaccess.com\",\"accessMarker\":true}"
+    },
+    {
+      "name": "production admin https://www.kevinten.com/admin/ protected by Cloudflare Access",
+      "status": "ok",
+      "detail": "{\"status\":200,\"server\":\"cloudflare\",\"cfRay\":true,\"finalHost\":\"long-haze-d0eb.cloudflareaccess.com\",\"accessMarker\":true}"
+    },
+    {
+      "name": "Cloudflare Access protects production admin paths",
+      "status": "ok",
+      "detail": "www.kevinten.com/admin/*, kevinten.com/admin/*, kevinten-interactive-preview.pages.dev/admin/*"
+    }
+  ],
+  "completedAt": "2026-07-06T16:28:48.281Z",
+  "ready": true,
+  "totalChecks": 24,
+  "passedChecks": 24,
+  "failedChecks": 0
+}

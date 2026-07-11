@@ -19,13 +19,13 @@
     <meta property="og:url" content="https://kevinten.com/">
     <meta property="og:title" content="KevinTen - AI-Native Builder &middot; Software Architect &middot; Open Source Contributor">
     <meta property="og:description" content="Dapr/Layotto/Dubbo 贡献者，专注云原生分布式系统、多运行时架构与 AI 应用工程。">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta property="og:image" content="https://kevinten.com/video/kevinten-ai-native-promo-poster.jpg">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="KevinTen - AI-Native Builder &middot; Software Architect &middot; Open Source Contributor">
     <meta name="twitter:description" content="Dapr/Layotto/Dubbo 贡献者，专注云原生分布式系统、多运行时架构与 AI 应用工程。">
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta name="twitter:image" content="https://kevinten.com/video/kevinten-ai-native-promo-poster.jpg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="https://avatars.githubusercontent.com/u/22876610?v=4">
@@ -40,13 +40,16 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=33" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=37" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=33">
+    <link rel="stylesheet" href="/assets/css/main.css?v=37">
+    <link rel="stylesheet" href="/assets/css/comments.css?v=2">
+    <link rel="stylesheet" href="/assets/css/rewards.css?v=4">
+    <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=4">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
-    <link rel="preload" href="images/hero/hero-bg-dark.webp" as="image" type="image/webp">
+    <link rel="preload" href="/video/kevinten-ai-native-promo-poster.jpg" as="image">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -111,6 +114,8 @@
                 <a href="#writing" class="mobile-nav-link" data-i18n="nav.writing">写作</a>
                 <a href="#gallery" class="mobile-nav-link" data-i18n="nav.gallery">相册</a>
                 <a href="#contact" class="mobile-nav-link" data-i18n="nav.contact">联系</a>
+                <a href="#rewards" class="mobile-nav-link">支持</a>
+                <a href="#comments" class="mobile-nav-link">留言</a>
             </nav>
         </div>
     </div>
@@ -133,6 +138,8 @@
                 <a href="#writing" class="nav-link" data-i18n="nav.writing">写作</a>
                 <a href="#gallery" class="nav-link" data-i18n="nav.gallery">相册</a>
                 <a href="#contact" class="nav-link" data-i18n="nav.contact">联系</a>
+                <a href="#rewards" class="nav-link nav-link-secondary">支持</a>
+                <a href="#comments" class="nav-link nav-link-secondary">留言</a>
             </nav>
 
             <!-- Mobile Menu Button -->
@@ -163,11 +170,38 @@
         </div>
     </header>
 
+    <aside class="quick-action-rail" aria-label="快速支付和留言入口">
+        <a href="#rewards" class="quick-action-link" data-quick-action="rewards" aria-label="打开支持与鸣谢" title="支付与鸣谢">
+            <span class="quick-action-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/>
+                    <path d="M2 7h20v5H2z"/>
+                    <path d="M12 22V7"/>
+                    <path d="M12 7H7.5a2.5 2.5 0 1 1 2-4c.9 1.2 2.5 4 2.5 4Z"/>
+                    <path d="M12 7h4.5a2.5 2.5 0 1 0-2-4c-.9 1.2-2.5 4-2.5 4Z"/>
+                </svg>
+            </span>
+            <span class="quick-action-label">支付</span>
+            <span class="quick-action-kicker">支持</span>
+        </a>
+        <a href="#comments" class="quick-action-link" data-quick-action="comments" aria-label="打开留言区" title="留言">
+            <span class="quick-action-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/>
+                    <path d="M8 9h8"/>
+                    <path d="M8 13h5"/>
+                </svg>
+            </span>
+            <span class="quick-action-label">留言</span>
+            <span class="quick-action-kicker">反馈</span>
+        </a>
+    </aside>
+
     <!-- Main Content -->
     <main id="main-content">
     
     <!-- Hero Section - Optimized Design -->
-    <section class="hero section-spacious" id="about" aria-label="个人简介">
+    <section class="hero section-spacious" id="about" aria-label="个人简介" data-hero-density="editorial">
         <!-- Background Effects -->
         <div class="hero-background"></div>
         <div class="hero-glow-cyan" aria-hidden="true"></div>
@@ -225,11 +259,13 @@
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </a>
-                <a href="#contact" class="btn btn-secondary" data-i18n="hero.btn.contact">联系我</a>
-                <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                    <span data-i18n="hero.btn.video">观看视频</span>
-                </button>
+                <div class="hero-compact-actions" aria-label="Secondary actions">
+                    <a href="#contact" class="btn btn-secondary" data-i18n="hero.btn.contact">联系我</a>
+                    <button class="btn btn-video" id="video-play-btn" aria-label="观看个人宣传视频">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <span data-i18n="hero.btn.video">观看视频</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Bio Card -->
@@ -330,6 +366,47 @@
             <span class="scroll-text">Scroll to explore</span>
             <div class="scroll-line">
                 <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AnyCap Media Showcase -->
+    <section class="anycap-media-section section" aria-label="AnyCap generated media">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-idx">AI-NATIVE MEDIA</span>
+                <h2 class="section-title">Visual System Story</h2>
+                <p class="section-description">Generated with AnyCap CLI to make the architecture, agent ecosystem, and personal builder story easier to scan.</p>
+            </div>
+            <div class="anycap-media-grid">
+                <article class="anycap-media-card anycap-media-card--wide animate-on-scroll">
+                    <img src="/images/anycap/ai-native-system-map-1600.webp" width="1600" height="894" alt="AI Native system architecture map generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>System Map</span>
+                        <h3>Edge-first personal site backend</h3>
+                        <p>Cloudflare Workers, identity, payments, D1, R2, analytics, queues, and AI agents are presented as one connected operating map.</p>
+                    </div>
+                </article>
+                <article class="anycap-media-card animate-on-scroll stagger-1">
+                    <img src="/video/kevinten-ai-native-promo-poster.jpg" width="2048" height="1152" alt="KevinTen AI Native promotional film still generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>Promo Film</span>
+                        <h3>AI Native builder intro</h3>
+                        <p>A short cinematic loop for the hero video modal, generated from the poster as image-to-video.</p>
+                        <button class="anycap-media-play" type="button" data-video-trigger aria-label="Play AnyCap generated promotional video">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                            <span>Play video</span>
+                        </button>
+                    </div>
+                </article>
+                <article class="anycap-media-card animate-on-scroll stagger-2">
+                    <img src="/images/anycap/openoctopus-realm-map-1600.webp" width="1600" height="894" alt="OpenOctopus realm map generated with AnyCap CLI" loading="lazy">
+                    <div class="anycap-media-copy">
+                        <span>OpenOctopus</span>
+                        <h3>Realm-native agent map</h3>
+                        <p>Six life realms become a visual network around the personal AI agent system.</p>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -966,7 +1043,7 @@
                 <!-- OpenOctopus - Featured -->
                 <article class="project-card featured">
                     <div class="project-cover">
-                        <img src="images/projects/openoctopus-concept.png" alt="OpenOctopus concept illustration" loading="lazy">
+                        <img src="/images/anycap/openoctopus-realm-map-1600.webp" alt="OpenOctopus realm illustration generated with AnyCap CLI" loading="lazy">
                     </div>
                     <div class="project-header">
                         <div class="project-icon">
@@ -1849,7 +1926,7 @@
                     </a>
 
                     <a href="https://www.linkedin.com/pulse/better-world%E5%9C%A8%E6%90%BA%E7%A8%8B%E4%B8%80%E8%B5%B7%E8%BF%BD%E9%80%90%E5%A4%AA%E9%98%B3%E5%90%A7-%E4%BB%95%E8%B1%AA-%E7%8E%8B/" target="_blank" rel="noopener noreferrer" class="article-card" style="--accent: #0A66C2;">
-                        <img src="/img/concepts/linkedin-pulse.png" alt="" class="card-illustration card-illustration--card" loading="lazy">
+                        <img src="/img/concepts/linkedin-pulse.svg" alt="" class="card-illustration card-illustration--card" loading="lazy">
                         <span class="article-tag">LinkedIn Pulse</span>
                         <h3 class="article-card-title">For a better world，在携程一起追逐太阳吧</h3>
                         <p class="article-card-excerpt">从国际业务后端开发经历出发，分享在携程做技术、旅行与成长的真实体验。</p>
@@ -2158,6 +2235,16 @@
                                 GitHub Profile
                             </a>
                         </div>
+                        <div class="contact-next-actions" aria-label="Community actions">
+                            <a href="#rewards" class="contact-next-link">
+                                <span>Support wall</span>
+                                <strong>扫码支持与鸣谢</strong>
+                            </a>
+                            <a href="#comments" class="contact-next-link">
+                                <span>Discussion</span>
+                                <strong>登录或匿名留言</strong>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2185,12 +2272,126 @@
         </div>
     </section>
 
+    <!-- Rewards Section -->
+    <section class="section rewards-section" id="rewards" data-section-idx="12">
+        <div class="container">
+            <header class="section-header">
+                <span class="section-index">12</span>
+                <h2 class="section-title" data-i18n="rewards.title">支持与鸣谢</h2>
+                <p class="section-description" data-i18n="rewards.desc">真实收款当前启用支付宝扫码；微信收款码未配置；Stripe 内嵌沙箱测试完成后由 webhook 验证入库。</p>
+            </header>
+            <div class="rewards-grid">
+                <div class="reward-qr-panel" aria-label="Reward QR codes">
+                    <figure class="reward-qr is-disabled" data-reward-method="wechat_qr" aria-disabled="true">
+                        <div class="reward-qr-placeholder" aria-hidden="true">
+                            <span>WeChat</span>
+                        </div>
+                        <figcaption>
+                            <strong>WeChat</strong>
+                            <span>微信收款码未配置</span>
+                        </figcaption>
+                    </figure>
+                    <figure class="reward-qr is-active" data-reward-method="alipay_qr">
+                        <img src="/img/alipay.jpg" alt="Alipay reward QR code" loading="lazy">
+                        <figcaption>
+                            <strong>Alipay</strong>
+                            <span>支付宝扫码支持</span>
+                        </figcaption>
+                    </figure>
+                    <p class="reward-qr-note" data-i18n="rewards.note">支付宝扫码完成后填写右侧信息；Stripe 沙箱会打开内嵌支付页，验证到账后展示在鸣谢墙。</p>
+                </div>
+                <div class="rewards-form">
+                    <div class="rewards-form-head">
+                        <span>Support record</span>
+                        <h3>提交待确认记录</h3>
+                        <p>支付宝用于人工核对到账；Stripe 沙箱会创建内嵌 Checkout，不接触你的卡信息。</p>
+                    </div>
+                    <div class="rewards-methods" role="radiogroup" aria-label="Payment method">
+                        <label class="rewards-method is-disabled" aria-disabled="true">
+                            <input type="radio" name="reward-provider" value="wechat_qr" disabled>
+                            <span>WeChat unavailable</span>
+                        </label>
+                        <label class="rewards-method is-active">
+                            <input type="radio" name="reward-provider" value="alipay_qr" checked>
+                            <span>Alipay</span>
+                        </label>
+                        <label class="rewards-method">
+                            <input type="radio" name="reward-provider" value="stripe_sandbox">
+                            <span>Stripe sandbox</span>
+                        </label>
+                    </div>
+                    <label class="rewards-field">
+                        <span>昵称</span>
+                        <input class="rewards-name" maxlength="40" autocomplete="name" placeholder="你的名字或代号">
+                    </label>
+                    <label class="rewards-field">
+                        <span>金额</span>
+                        <input class="rewards-amount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="可选，例如 20">
+                    </label>
+                    <label class="rewards-field">
+                        <span>币种</span>
+                        <select class="rewards-currency" aria-label="Currency">
+                            <option value="CNY">CNY</option>
+                            <option value="USD">USD</option>
+                        </select>
+                    </label>
+                    <label class="rewards-field">
+                        <span>留言</span>
+                        <textarea class="rewards-message" maxlength="300" placeholder="留言（可选）"></textarea>
+                    </label>
+                    <div class="stripe-embedded-shell" data-stripe-embedded-shell hidden>
+                        <div class="stripe-embedded-head">
+                            <div>
+                                <span>Embedded Checkout</span>
+                                <strong>Stripe 沙箱内嵌支付</strong>
+                            </div>
+                            <button class="stripe-checkout-start btn btn-secondary" type="button">打开 Stripe 内嵌支付</button>
+                        </div>
+                        <div id="stripe-embedded-checkout" class="stripe-embedded-checkout" aria-live="polite"></div>
+                    </div>
+                    <button class="rewards-submit btn btn-primary" type="button">提交待确认</button>
+                    <p class="rewards-status" aria-live="polite"></p>
+                </div>
+            </div>
+            <div class="rewards-list" aria-live="polite"></div>
+        </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="section comments-section section-alt" id="comments" data-section-idx="13">
+        <div class="container">
+            <header class="section-header">
+                <span class="section-index">13</span>
+                <h2 class="section-title" data-i18n="comments.title">留言</h2>
+                <p class="section-description" data-i18n="comments.desc">欢迎留下你的想法和建议</p>
+            </header>
+            <div id="comments-container" class="comments-container">
+                <div id="comments-list" class="comments-list"></div>
+            </div>
+        </div>
+    </section>
+
     </main>
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
         <div class="footer-content">
             <p class="footer-quote">"Building systems where humans design, agents execute, and runtimes collaborate."</p>
+            <div class="footer-public-stats" aria-label="Site stats">
+                <span class="footer-stat-pill"><strong data-public-stat="pageViews">-</strong> page views</span>
+                <span class="footer-stat-pill"><strong data-public-stat="visitors">-</strong> visitors</span>
+                <span class="footer-stat-pill"><strong data-public-stat="comments">-</strong> comments</span>
+                <span class="footer-stat-pill"><strong data-public-stat="supporters">-</strong> supporters</span>
+                <span class="footer-auth-shell" data-auth-shell>
+                    <span class="footer-auth-avatar" data-auth-initial aria-hidden="true">A</span>
+                    <span class="footer-auth-copy">
+                        <strong data-auth-name>Anonymous</strong>
+                        <span data-auth-status>匿名浏览，可直接留言</span>
+                    </span>
+                    <button type="button" class="footer-auth-button" data-auth-login>Log in</button>
+                    <button type="button" class="footer-auth-button" data-auth-logout hidden>Log out</button>
+                </span>
+            </div>
             <div class="footer-links">
                 <a href="https://github.com/kevinten10" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://x.com/kevinten1024" target="_blank" rel="noopener noreferrer">X / Twitter</a>
@@ -2246,8 +2447,8 @@
             <button class="video-modal-close" aria-label="关闭视频">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
-            <video id="promo-video" controls preload="none" poster="/video/poster.jpg">
-                <source src="/video/final_v3.mp4" type="video/mp4">
+            <video id="promo-video" controls muted playsinline preload="metadata" poster="/video/kevinten-ai-native-promo-poster.jpg">
+                <source src="/video/kevinten-ai-native-promo.mp4" type="video/mp4">
             </video>
         </div>
     </div>
@@ -2255,12 +2456,17 @@
     (function() {
         var modal = document.getElementById('video-modal');
         var video = document.getElementById('promo-video');
-        var btn = document.getElementById('video-play-btn');
+        var triggers = document.querySelectorAll('#video-play-btn, [data-video-trigger]');
         var close = modal.querySelector('.video-modal-close');
         var backdrop = modal.querySelector('.video-modal-backdrop');
-        function open() { modal.classList.add('active'); video.play(); document.body.style.overflow = 'hidden'; }
+        function open() {
+            modal.classList.add('active');
+            var playback = video.play();
+            if (playback && playback.catch) playback.catch(function() {});
+            document.body.style.overflow = 'hidden';
+        }
         function shut() { modal.classList.remove('active'); video.pause(); document.body.style.overflow = ''; }
-        btn.addEventListener('click', open);
+        triggers.forEach(function(trigger) { trigger.addEventListener('click', open); });
         close.addEventListener('click', shut);
         backdrop.addEventListener('click', shut);
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('active')) shut(); });
@@ -2268,19 +2474,27 @@
     </script>
 
     <!-- Scripts -->
-    <script src="/assets/js/i18n.js?v=31"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script src="/assets/js/cloudflare-runtime.js?v=3"></script>
+    <script src="/assets/js/i18n.js?v=36"></script>
     <script src="/assets/js/observer-manager.js?v=31" defer></script>
     <script src="/assets/js/theme.js?v=31" defer></script>
     <script src="/assets/js/animations.js?v=31" defer></script>
     <script src="/assets/js/bento-interactions.js?v=31" defer></script>
     <script src="/assets/js/data-viz.js?v=31" defer></script>
-    <script src="/assets/js/app.js?v=31" defer></script>
+    <script src="/assets/js/app.js?v=32" defer></script>
     <script src="/assets/js/mobile-nav.js?v=31" defer></script>
-    <script src="/assets/js/github-stats.js?v=31" defer></script>
+    <script src="/assets/js/github-stats.js?v=32" defer></script>
     <script src="/assets/js/project-modal.js?v=31" defer></script>
     <script src="/assets/js/gallery.js?v=31" defer></script>
     <script src="/assets/js/hero-effects.js?v=31" defer></script>
     <script src="/assets/js/skill-galaxy.js?v=31" defer></script>
+    <script src="/assets/js/auth-client.js?v=2" defer></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/assets/js/rewards.js?v=5" defer></script>
+    <script src="/assets/js/comments.js?v=5" defer></script>
+    <script src="/assets/js/analytics.js?v=4" defer></script>
+    <script src="/assets/js/ai-assistant.js?v=3" defer></script>
     <script>
     function openAllEcoProjects() {
       var items = document.querySelectorAll('.eco-item[href]');

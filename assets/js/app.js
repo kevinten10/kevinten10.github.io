@@ -143,24 +143,39 @@
 
     initSmoothScroll: function() {
       var headerOffset = 80;
-      var sections = document.querySelectorAll('section[id]');
+      var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link[href^="#"], .mobile-nav-link[href^="#"]'));
+      var linkedSectionIds = navLinks.map(function(link) {
+        return (link.getAttribute('href') || '').replace('#', '');
+      }).filter(Boolean);
+
+      function currentHeaderOffset() {
+        var header = document.querySelector('.nav-header');
+        return header ? header.offsetHeight + 16 : headerOffset;
+      }
+
+      function findActiveSection(sectionList, scrollY, offset) {
+        var activeId = '';
+        var probeY = scrollY + offset + Math.min(window.innerHeight * 0.28, 180);
+
+        sectionList.forEach(function(section) {
+          var sectionId = section.getAttribute('id');
+          if (linkedSectionIds.indexOf(sectionId) === -1) return;
+          if (section.offsetTop <= probeY) {
+            activeId = sectionId;
+          }
+        });
+
+        return activeId;
+      }
 
       function updateActiveNav() {
         var scrollY = window.pageYOffset;
+        var activeSectionId = findActiveSection(sections, scrollY, currentHeaderOffset());
 
-        sections.forEach(function(section) {
-          var sectionHeight = section.offsetHeight;
-          var sectionTop = section.offsetTop - headerOffset - 20;
-          var sectionId = section.getAttribute('id');
-          var navLink = document.querySelector('.nav-link[href="#' + sectionId + '"]');
-
-          if (navLink) {
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-              navLink.classList.add('active');
-            } else {
-              navLink.classList.remove('active');
-            }
-          }
+        navLinks.forEach(function(navLink) {
+          var targetId = (navLink.getAttribute('href') || '').replace('#', '');
+          navLink.classList.toggle('active', Boolean(activeSectionId && targetId === activeSectionId));
         });
       }
 
@@ -185,7 +200,7 @@
             e.preventDefault();
 
             var elementPosition = targetElement.getBoundingClientRect().top;
-            var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            var offsetPosition = elementPosition + window.pageYOffset - currentHeaderOffset();
 
             window.scrollTo({
               top: offsetPosition,
@@ -194,6 +209,8 @@
           }
         });
       });
+
+      updateActiveNav();
     },
 
     initAnimations: function() {

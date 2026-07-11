@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-06-28T16:08:03Z",
+  "status": "not_complete",
+  "goalFile": "docs/goals/comprehensive-explore-optimize.md",
+  "totalRequirements": 12,
+  "satisfiedRequirements": 8,
+  "blockedRequirements": 4,
+  "incompleteRequirements": 0,
+  "requirements": [
+    {
+      "id": "repo-state-understood",
+      "requirement": "Current repo state is understood and documented.",
+      "status": "satisfied",
+      "evidence": [
+        "git status --short --branch was rechecked on branch codex/cloudflare-interactive-preview.",
+        "docs/maintenance/2026-06-28-comprehensive-explore-audit.md records current state and blockers."
+      ]
+    },
+    {
+      "id": "changes-scoped",
+      "requirement": "All intentional code/doc changes are scoped and explained.",
+      "status": "satisfied",
+      "evidence": [
+        "docs/cloudflare-preview-report.md lists implemented Cloudflare, Auth0, Stripe sandbox, QR, DNS, preview, and audit changes.",
+        "docs/maintenance/2026-06-28-comprehensive-explore-audit.md lists completed passes and external blockers."
+      ]
+    },
+    {
+      "id": "local-verify",
+      "requirement": "npm run verify passes, or any failure is documented with root cause and blocker evidence.",
+      "status": "satisfied",
+      "evidence": [
+        "npm run verify passed with 22 test files and 111 tests.",
+        "npm run verify now includes npm run verify:audits.",
+        "npm audit --json passed with 0 vulnerabilities after upgrading the dev Vitest/Vite chain."
+      ]
+    },
+    {
+      "id": "preview-verify",
+      "requirement": "npm run verify:preview passes against the active preview URL.",
+      "status": "satisfied",
+      "evidence": [
+        "PREVIEW_AUDIT_OUT=docs/maintenance/2026-06-28-preview-smoke.json npm run verify:preview passed against https://kevinten-interactive-preview.pages.dev at 2026-06-28T16:11:12Z.",
+        "docs/maintenance/2026-06-28-preview-smoke.json records 15 checks, 15 passed, 0 failed."
+      ]
+    },
+    {
+      "id": "browser-user-flows",
+      "requirement": "Main user flows are browser-verified: homepage, login state handling, comments, rewards, public stats, admin protection.",
+      "status": "satisfied",
+      "evidence": [
+        "docs/cloudflare-preview-report.md records browser QA screenshots under output/playwright/ with zero console errors/warnings and no mobile horizontal overflow.",
+        "docs/maintenance/2026-06-28-preview-smoke.json verifies comments, rewards, public stats, runtime config, admin shell, and legacy article paths."
+      ]
+    },
+    {
+      "id": "production-cutover",
+      "requirement": "Cloudflare production cutover status is verified from registrar NS, zone status, Pages custom domain status, DNS records, Access admin protection, and production HTTP behavior.",
+      "status": "blocked",
+      "classification": "external blocker",
+      "evidence": [
+        "docs/maintenance/2026-06-28-cutover-readiness.json was refreshed at 2026-06-28T16:08:03Z and records 24 checks, 10 passed, 14 not ready.",
+        "Cloudflare zone is initializing and Pages custom-domain/DNS API reads still report authentication errors.",
+        "Cloudflare authoritative nameservers return NOERROR with zero answers for kevinten.com and www.kevinten.com.",
+        "Production HTTP and production /admin/ currently fail TLS handshakes instead of serving Cloudflare Pages and Cloudflare Access."
+      ],
+      "nextAction": "Wait for Cloudflare zone and Pages custom-domain activation, provide a Cloudflare token that can read zone DNS records, then rerun AUTH0_CLI_TIMEOUT_MS=5000 CUTOVER_AUDIT_OUT=docs/maintenance/2026-06-28-cutover-readiness.json npm run verify:cutover."
+    },
+    {
+      "id": "stripe-sandbox",
+      "requirement": "Stripe remains sandbox-only unless explicitly re-scoped.",
+      "status": "satisfied",
+      "evidence": [
+        "docs/cloudflare-preview-ops.md states Stripe is intentionally kept in sandbox/test mode for this mainland personal setup.",
+        "Worker tests cover rejection of live Stripe events and unpaid Checkout sessions."
+      ]
+    },
+    {
+      "id": "reward-qrs",
+      "requirement": "WeChat/Alipay QR status is verified or recorded as a blocker.",
+      "status": "blocked",
+      "classification": "external blocker",
+      "evidence": [
+        "npm run verify:qrs reports img/weixin.jpg as a WeChat contact/follow QR, not a payment QR.",
+        "npm run verify:qrs reports img/alipay.jpg as an Alipay QR but still requiring one real phone scan."
+      ],
+      "nextAction": "Replace img/weixin.jpg with a real WeChat collect-money QR and scan img/alipay.jpg once on a phone before cutover."
+    },
+    {
+      "id": "docs-current",
+      "requirement": "Docs reflect the current truth.",
+      "status": "satisfied",
+      "evidence": [
+        "docs/cloudflare-preview-ops.md, docs/cloudflare-preview-report.md, and docs/maintenance/2026-06-28-comprehensive-explore-audit.md were updated with current validation commands and blockers.",
+        "npm run verify:audits validates 4 maintenance JSON artifacts, including this completion audit."
+      ]
+    },
+    {
+      "id": "unresolved-classified",
+      "requirement": "All unresolved items are classified as external blocker, optional enhancement, historical note, or non-goal cleanup.",
+      "status": "satisfied",
+      "evidence": [
+        "docs/maintenance/2026-06-28-comprehensive-explore-audit.md separates External Blockers from Optional Enhancements / Non-Blocking Follow-Up.",
+        "This completion audit classifies production cutover, QR replacement, Auth0 client/CLI verification, and Cloudflare credential limitations as external blockers."
+      ]
+    },
+    {
+      "id": "auth0-cli",
+      "requirement": "Auth0 production callback verification is current and automated.",
+      "status": "blocked",
+      "classification": "external blocker",
+      "evidence": [
+        "verify:cutover now requires AUTH0_CLIENT_ID from local environment or generated provisioning output instead of committing the real SPA client ID.",
+        "The latest cutover audit can use the public preview runtime client ID without committing it.",
+        "A direct verifier run using the public preview runtime client ID reached the Auth0 CLI and reported that the refresh token is expired, so automated production callback verification is still not proven."
+      ],
+      "nextAction": "Run auth0 login or provide machine credentials, set AUTH0_CLIENT_ID locally from Auth0 provisioning output or preview runtime, then rerun verify:cutover."
+    },
+    {
+      "id": "cloudflare-api-permissions",
+      "requirement": "Cloudflare DNS records are readable through automation.",
+      "status": "blocked",
+      "classification": "external blocker",
+      "evidence": [
+        "verify:cutover reports Authentication error when reading /zones/:id/dns_records.",
+        "verify:cutover now confirms production Access app coverage for www.kevinten.com/admin/*, kevinten.com/admin/*, and kevinten-interactive-preview.pages.dev/admin/*."
+      ],
+      "nextAction": "Use a Cloudflare API token with zone DNS read scope, then rerun verify:cutover."
+    }
+  ]
+}

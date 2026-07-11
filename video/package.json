@@ -1,0 +1,21 @@
+{
+  "name": "video",
+  "version": "1.0.0",
+  "description": "Storyboard capture tooling for the KevinTen portfolio video",
+  "main": "capture.js",
+  "scripts": {
+    "capture": "node capture.js",
+    "test": "node --check capture.js"
+  },
+  "keywords": [
+    "portfolio",
+    "storyboard",
+    "video"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "puppeteer-core": "^24.40.0"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-06-28T08:59:46Z",
+  "wranglerVersion": "4.104.0",
+  "worker": "kevinten-api-preview",
+  "config": "worker/wrangler.toml",
+  "commands": [
+    "npx wrangler --version",
+    "npx wrangler deploy --config worker/wrangler.toml --dry-run --outfile output/wrangler/kevinten-api-preview.bundle.mjs",
+    "npx wrangler check startup --workerBundle output/wrangler/kevinten-api-preview.bundle.mjs --outfile output/wrangler/worker-startup.cpuprofile"
+  ],
+  "dryRun": {
+    "status": "passed",
+    "uploadSize": "131.05 KiB",
+    "gzipSize": "30.12 KiB",
+    "bundle": "output/wrangler/kevinten-api-preview.bundle.mjs"
+  },
+  "startupProfile": {
+    "status": "passed",
+    "profile": "output/wrangler/worker-startup.cpuprofile",
+    "nodes": 3,
+    "samples": 3,
+    "durationMs": 11.85,
+    "note": "Measured locally through Wrangler alpha startup profiler; useful for relative startup analysis, not exact Cloudflare edge timing."
+  },
+  "notes": [
+    "`wrangler check startup --config worker/wrangler.toml` did not read the TOML entry point in this environment, so the successful check used a dry-run worker bundle.",
+    "The current `worker/wrangler.toml` compatibility_date is 2024-06-20; upgrading it should be handled as a deliberate runtime-compatibility task, not as an incidental verification change.",
+    "A generated bundle/profile scan matched only ordinary source-code identifiers and did not expose credential values."
+  ]
+}
