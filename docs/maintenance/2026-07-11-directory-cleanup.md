@@ -5,7 +5,7 @@
 
 ## 结果
 
-- 个人站点仓库已移至 `/Users/kevinten/projects/agents/projects/websites/kevin/kevinten10.github.io`，旧绝对路径已修正。
+- 个人站点仓库已整理至 `/Users/kevinten/projects/kevin/kevinten10.github.io`，旧绝对路径已修正。
 - 根目录 UI 截图已迁至 `docs/maintenance/screenshots/`，不影响站点运行时资产。
 - `next-portfolio/` 保留为独立 Next.js 16 候选版，不与当前根目录静态站混用构建产物。
 - `video/` 保留最终成片、封面、分镜源码、最终字幕和配音素材；可再生成的中间产物已加入忽略规则。

@@ -20,7 +20,7 @@ export default function ProjectsSection() {
         <SectionHeader idx="03" title="Projects" description={t('proj.desc', '精选开源项目与贡献')} />
         <div className="projects-grid">
           {PROJECTS.map((proj) => (
-            <a key={proj.name} href={proj.github} target="_blank" rel="noopener noreferrer" className="project-card animate-on-scroll">
+            <a key={proj.name} href={proj.github} target="_blank" rel="noopener noreferrer" className="project-card">
               <h3 className="project-name">{proj.name}</h3>
               <p className="project-desc">{t(`proj.${proj.name.toLowerCase()}.desc`, proj.desc)}</p>
               <div className="project-tags">

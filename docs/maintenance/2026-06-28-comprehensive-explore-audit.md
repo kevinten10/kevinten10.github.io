@@ -1,8 +1,10 @@
 # Comprehensive Explore Audit - 2026-06-28
 
+> Historical snapshot. Its cutover blockers were superseded by `2026-07-01-cutover-readiness.json`, refreshed on 2026-07-06 with 24 of 24 checks passing and `ready: true`.
+
 ## Scope
 
-Repository: `/Users/kevinten/projects/agents/projects/websites/kevin/kevinten10.github.io`
+Repository: `/Users/kevinten/projects/kevin/kevinten10.github.io`
 
 Branch: `codex/cloudflare-interactive-preview`
 

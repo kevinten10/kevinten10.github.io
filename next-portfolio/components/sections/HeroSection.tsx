@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useI18n } from '@/providers/I18nProvider';
 import ParticleCanvas from '@/components/ui/ParticleCanvas';
 
@@ -53,15 +54,22 @@ export default function HeroSection() {
         <ParticleCanvas />
 
         <div className="hero-container">
-          <div className="hero-avatar-wrap animate-on-scroll">
+          <div className="hero-avatar-wrap">
             <div className="hero-avatar-ring" />
-            <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen" className="hero-avatar" />
+            <Image
+              src="https://avatars.githubusercontent.com/u/22876610?v=4"
+              alt="KevinTen"
+              className="hero-avatar"
+              width={120}
+              height={120}
+              preload
+            />
             <div className="hero-status" title="AI Native Builder">
               <span className="status-dot" />
             </div>
           </div>
 
-          <div className="hero-header animate-on-scroll stagger-1">
+          <div className="hero-header">
             <h1 className="hero-title">KevinTen</h1>
             <p className="hero-subtitle">
               <span className="subtitle-highlight">AI-Native Builder</span> · Software Architect · Open Source Contributor
@@ -69,7 +77,7 @@ export default function HeroSection() {
             <p className="hero-description">{t('hero.description', '专注云原生分布式系统、多运行时架构与 AI 应用工程')}</p>
           </div>
 
-          <div className="hero-facts animate-on-scroll stagger-2">
+          <div className="hero-facts">
             <div className="fact-item">
               <span className="fact-number">7+</span>
               <span className="fact-text">{t('hero.fact.years', '年经验')}</span>
@@ -92,7 +100,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="hero-cta animate-on-scroll stagger-3">
+          <div className="hero-cta">
             <a href="#projects" className="btn btn-primary">
               <span>{t('hero.btn.projects', '查看项目')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -104,7 +112,7 @@ export default function HeroSection() {
             </button>
           </div>
 
-          <div className="hero-bio-card animate-on-scroll stagger-4">
+          <div className="hero-bio-card">
             <p>
               <span>{t('hero.bio1', '跨越 IoT → 云原生 → 分布式 → AI 的全栈架构师，信奉')}</span>{' '}
               <strong>AI Native · One-Person Company · Open Source</strong>
@@ -114,7 +122,7 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <div className="social-matrix animate-on-scroll stagger-5">
+          <div className="social-matrix">
             {SOCIAL_GROUPS.map(group => (
               <div key={group.labelKey} className="social-group">
                 <span className="social-group-label">{t(group.labelKey, group.labelZh)}</span>
@@ -129,7 +137,7 @@ export default function HeroSection() {
                         <span>{link.name === '微信公众号' ? '微信 AIRider' : link.name}</span>
                         {link.icon === 'wechat' && (
                           <div className="wechat-tooltip">
-                            <img src="/images/wechat.png" alt="微信" width="100" height="100" />
+                            <Image src="/images/wechat.png" alt="微信" width={100} height={100} />
                             <span>AIRider</span>
                           </div>
                         )}
@@ -158,7 +166,7 @@ export default function HeroSection() {
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
             <video controls autoPlay style={{ width: '100%', maxHeight: '80vh' }}>
-              <source src="/video/promo.mp4" type="video/mp4" />
+              <source src="https://kevinten.com/video/kevinten-ai-native-promo.mp4" type="video/mp4" />
             </video>
           </div>
         </div>

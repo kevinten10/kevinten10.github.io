@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import Image from 'next/image';
 import { useI18n } from '@/providers/I18nProvider';
 import SectionHeader from '@/components/ui/SectionHeader';
 
@@ -99,7 +100,12 @@ export default function GallerySection() {
               data-subcategory={item.subcategory}
               onClick={() => openLightbox(idx)}
             >
-              <img src={item.src} alt={item.alt} loading="lazy" />
+              <Image
+                src={item.src}
+                alt={item.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 280px"
+              />
             </div>
           ))}
         </div>
@@ -111,7 +117,14 @@ export default function GallerySection() {
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
             <button className="lightbox-close" onClick={closeLightbox} aria-label="Close">✕</button>
             <button className="lightbox-prev" onClick={() => navigateLightbox(-1)} aria-label="Previous">‹</button>
-            <img src={lightboxItem.src} alt={lightboxItem.alt} className="lightbox-image" />
+            <Image
+              src={lightboxItem.src}
+              alt={lightboxItem.alt}
+              className="lightbox-image"
+              width={1600}
+              height={1200}
+              sizes="90vw"
+            />
             <button className="lightbox-next" onClick={() => navigateLightbox(1)} aria-label="Next">›</button>
           </div>
         </div>

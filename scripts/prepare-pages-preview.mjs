@@ -3,8 +3,17 @@ import path from 'node:path';
 
 const root = process.cwd();
 const out = path.join(root, 'dist', 'pages');
-const includeDirs = ['2018', '2019', 'admin', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags', 'video'];
-const includeFiles = ['.nojekyll', 'articles.html', 'index.html', 'robots.txt', 'sitemap.xml', 'sw.js'];
+const includeDirs = ['2018', '2019', 'admin', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags'];
+const includeFiles = [
+  '.nojekyll',
+  'articles.html',
+  'index.html',
+  'robots.txt',
+  'sitemap.xml',
+  'sw.js',
+  'video/kevinten-ai-native-promo.mp4',
+  'video/kevinten-ai-native-promo-poster.jpg'
+];
 const DEFAULT_API_BASE_URL = 'https://kevinten-api-preview.wshten.workers.dev';
 const DEFAULT_AUTH0_DOMAIN = 'dev-8abkwbejxgjbcz1l.us.auth0.com';
 const DEFAULT_AUTH0_AUDIENCE = 'https://kevinten-preview/api';

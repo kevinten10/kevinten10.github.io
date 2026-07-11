@@ -1,191 +1,84 @@
-# CLAUDE.md
+# Repository Working Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Current Architecture
 
-## Project Overview
+This repository contains KevinTen's production personal website and its supporting workspaces.
 
-This is a personal website and blog (kevinten10.github.io) built as a static site. The site uses vanilla HTML/CSS/JavaScript with no build system or framework dependencies. It is deployed via GitHub Pages.
+- The production site is the root vanilla HTML/CSS/JavaScript application served by Cloudflare Pages at `kevinten.com`.
+- `worker/` is the Hono-based Cloudflare Worker API for authentication, comments, reactions, rewards, statistics, and admin operations.
+- `next-portfolio/` is an isolated Next.js 16 migration candidate. Follow its `AGENTS.md`; do not treat it as the production entry point.
+- `video/` contains both production promo assets and reproducible media-production sources.
+- GitHub Pages on `master` is retained as a rollback path, not the active custom-domain host.
 
-**Key Characteristics:**
-- Static site hosted on GitHub Pages
-- Modern ES6+ JavaScript (no jQuery)
-- CSS custom properties (CSS variables) for theming
-- Service Worker for offline caching
-- No build tools - direct file editing
+Current deployment evidence is recorded in `docs/maintenance/2026-07-11-current-status.md`. Older dated audits are historical snapshots and may describe blockers that have since been resolved.
 
-## Common Commands
+## Important Paths
 
-### Local Development
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `articles.html`, `assets/` | Production static site |
+| `2018/`, `2019/`, `archives/`, `categories/`, `tags/` | Legacy blog URLs that must remain stable |
+| `worker/`, `scripts/` | Cloudflare API, deployment, provisioning, and verification |
+| `admin/` | Static admin shell protected by Cloudflare Access |
+| `next-portfolio/` | Next.js migration candidate |
+| `video/` | Promo assets and media-production workspace |
+| `docs/maintenance/screenshots/` | Curated UI audit evidence |
 
-```bash
-# Start a local server (Python)
-python -m http.server 8000
+Generated output such as `dist/`, `node_modules/`, `.next/`, Playwright output, video frames, and intermediate media must remain ignored.
 
-# Or use Node.js
-npx http-server -p 8000
+## Development and Verification
 
-# Or use PHP
-php -S localhost:8000
-```
-
-Visit http://localhost:8000 to preview changes.
-
-### Deployment
+Use Node.js 20 or newer.
 
 ```bash
-# Commit and push to main branch - GitHub Pages auto-deploys
-git add .
-git commit -m "description"
-git push origin main
+npm ci
+
+# Production static site
+python3 -m http.server 8000
+
+# Worker development
+npm run dev:worker
+
+# Core typecheck, Worker tests, Pages build, and audit validation
+npm run verify
+
+# Next.js candidate lint and production build
+npm run verify:next
+
+# Both workspaces
+npm run verify:all
+
+# Video capture script syntax
+npm --prefix video test
 ```
 
-**Important:** The `.nojekyll` file in the repository root prevents GitHub Pages from using Jekyll processing, ensuring all files (including files starting with `_`) are served correctly.
+After `npm run build:pages`, only the production promo MP4 and poster should exist under `dist/pages/video/`. Do not publish the entire video-production workspace.
 
-## Architecture & File Structure
+## Deployment
 
-### Core Architecture
+These commands mutate external Cloudflare resources and must only be run when deployment is explicitly intended:
 
-The site follows a **modern static site architecture** without a build system:
-
-- **Entry Point**: `index.html` - The homepage with personal branding, projects showcase, and tech stack
-- **Blog Posts**: Located in `2018/`, `2019/`, etc. - Each post is a standalone HTML page generated from a previous Hexo setup
-- **Archives**: `archives/`, `categories/`, `tags/` - Dynamic-style pages for content organization
-
-### Key Directories
-
-```
-assets/
-├── css/
-│   ├── theme.css       # CSS custom properties (variables) for theming
-│   └── main.css        # Main stylesheet with component styles
-├── js/
-│   ├── app.js          # Main application logic (navigation, animations)
-│   ├── particles.js    # Lightweight particle animation system
-│   ├── search.js       # Client-side search functionality
-│   └── theme.js        # Theme switching logic
-sw.js                   # Service Worker for caching and offline support
+```bash
+npm run deploy:pages
+npm run deploy:worker
 ```
 
-### CSS Architecture
+Provisioning commands modify Cloudflare, Auth0, or Stripe configuration. Inspect their required account and environment context before running them.
 
-**Two-tier CSS system:**
+The active Cloudflare Pages project is `kevinten-interactive-preview`; the name is historical even though it now serves production. The Worker is `kevinten-api-preview`. Do not rename production resources as incidental cleanup.
 
-1. **`theme.css`** - Design tokens and CSS variables:
-   - Color system (primary, secondary, accent, semantic colors)
-   - Typography scales (fonts, sizes, weights, line heights)
-   - Spacing scale
-   - Border radius, shadows, transitions
-   - Animation keyframes
-   - Responsive breakpoints
+## Safety and Repository Hygiene
 
-2. **`main.css`** - Component styles that reference theme variables
+- Never print, copy, or commit `.env`, `.env.local`, `.dev.vars`, access tokens, private keys, cookies, or webhook secrets.
+- Only commit placeholder values in `.env.example` files.
+- Inspect `git status --short` before staging because this repository contains large media and QA assets.
+- Keep source changes, curated screenshots, and generated output separate.
+- Preserve historical blog URLs and the repository `CNAME` unless a dedicated migration plan says otherwise.
+- Do not enable WeChat rewards until a verified collect-money QR is available. Stripe remains sandbox-only.
 
-**Theme Modification:** When modifying colors or design tokens, edit `theme.css`. When changing component layouts, edit `main.css`.
+## Code Conventions
 
-### JavaScript Architecture
-
-**Modular IIFE pattern** - Each file is a self-contained module:
-
-- **`app.js`** - Core functionality: navigation scroll effects, lazy loading, mobile menu, smooth scroll, animations (typing, counters)
-- **`particles.js`** - Pure CSS-based particle system (disabled on mobile/reduced-motion)
-- **`search.js`** - Client-side search with debouncing
-- **`theme.js`** - Light/dark theme switching with localStorage persistence
-
-**No build step** - JavaScript modules are loaded directly via `<script>` tags in HTML.
-
-### Service Worker
-
-**`sw.js`** implements multiple caching strategies:
-- **Cache First**: Static assets (CSS, JS, images)
-- **Network First**: API requests
-- **Stale While Revalidate**: HTML pages
-- Automatic cache cleanup (7-day expiry)
-- Background sync for offline support
-
-**After modifying `sw.js`:** The service worker must be manually updated in browsers. Users can skip waiting by sending a `SKIP_WAITING` message.
-
-## Content Management
-
-### Adding New Blog Posts
-
-Since this was previously a Hexo blog, new posts should be added as HTML files:
-
-1. Create a new directory under the appropriate year: `2024/12/25/article-name/`
-2. Create an `index.html` file with full blog post content
-3. Include proper meta tags for SEO
-4. Link from archives/categories/tags pages as needed
-
-**Note:** Consider migrating to a static site generator (Astro, Next.js) for easier content management. See `Hexo方案说明.md` for the previous Hexo configuration.
-
-### Homepage Customization
-
-Edit `index.html` directly:
-- **Hero Section**: Personal info, stats, CTAs
-- **Projects Section**: Pinned GitHub projects
-- **Tech Stack Section**: Skills and technologies
-- **Contributions Section**: Open source contributions
-
-## Technical Constraints
-
-### Browser Support
-
-**Modern browsers (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)**
-
-The site uses modern web standards:
-- CSS Grid and Flexbox
-- CSS custom properties (variables)
-- Intersection Observer API
-- ES6+ JavaScript (arrow functions, const/let, template literals)
-- Service Workers
-
-### No Framework Constraints
-
-Since there's no build system:
-- **No npm/yarn dependencies** (unless using `npx` for local dev)
-- **No transpilation** - Code must be natively compatible
-- **No bundling** - Each JS/CSS file is loaded separately
-- **Direct file editing** - No hot module replacement
-
-When adding new features, use vanilla JavaScript or ensure libraries work without a build step.
-
-### Performance Considerations
-
-- **Service Worker caching** is configured - clear cache after major updates
-- **Lazy loading** is implemented for images
-- **Particle animations** are disabled on mobile devices
-- **Reduced motion** preference is respected
-
-## Deployment Specifics
-
-### GitHub Pages Configuration
-
-- **Source**: `main` branch
-- **Root directory**: Repository root
-- **Custom domain**: None (using default `kevinten10.github.io`)
-- **`.nojekyll` file**: Present - prevents Jekyll processing
-
-### Deployment Checklist
-
-Before pushing changes:
-- [ ] Test locally with `python -m http.server`
-- [ ] Verify all links work
-- [ ] Check mobile responsiveness
-- [ ] Test Service Worker (chrome://serviceworker-internals/)
-- [ ] Update `sw.js` version if caching strategy changed
-- [ ] Verify meta tags and SEO
-
-## Migration Notes
-
-The site was previously built with **Hexo** (static site generator). Evidence of this remains in:
-- Blog post directory structure (`YYYY/MM/DD/slug/`)
-- `Hexo方案说明.md` - Contains Hexo configuration
-- Old article pages maintain Hexo-generated structure
-
-**Future consideration**: The optimization documents (`OPTIMIZATION_SUMMARY.md`, `CODE_REVIEW_REPORT.md`) suggest considering migration to Astro or Next.js for better maintainability.
-
-## Code Style
-
-- **CSS**: 2-space indentation, BEM-like naming, CSS custom properties
-- **JavaScript**: ES6+ strict mode, IIFE modules, camelCase naming
-- **HTML**: Semantic tags, ARIA attributes, proper meta tags
-- **File naming**: kebab-case for files (e.g., `theme.css`, `app.js`)
+- Production frontend: modern browser JavaScript, semantic HTML, two-space indentation, and existing CSS tokens/components.
+- Worker: TypeScript with tests under `worker/tests/`.
+- Next.js candidate: follow `next-portfolio/AGENTS.md` and the installed Next.js documentation referenced there.
+- Update asset version query strings and the service-worker cache version when production CSS or JavaScript behavior changes.

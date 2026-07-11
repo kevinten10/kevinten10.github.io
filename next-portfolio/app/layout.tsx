@@ -1,7 +1,26 @@
 import type { Metadata } from 'next';
+import { DM_Sans, JetBrains_Mono, Sora } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { I18nProvider } from '@/providers/I18nProvider';
 import './globals.css';
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+});
+
+const sora = Sora({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sora',
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+});
 
 export const metadata: Metadata = {
   title: 'KevinTen | Software Architect & AI-Native Developer',
@@ -37,12 +56,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      className={`${dmSans.variable} ${sora.variable} ${jetBrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="theme-color" id="theme-color-meta" content="#050508" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body>
         <ThemeProvider>

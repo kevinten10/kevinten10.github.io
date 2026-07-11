@@ -1,5 +1,7 @@
 # Continuation Audit - 2026-07-01
 
+> Historical snapshot. The same cutover JSON was refreshed on 2026-07-06 and now records 24 of 24 checks passing with `ready: true`; use `2026-07-11-current-status.md` for the current operational state.
+
 ## Scope
 
 Repository: `D:\project\kevinten10.github.io`

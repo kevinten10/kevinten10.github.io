@@ -133,6 +133,23 @@ describe('frontend security guards', () => {
     expect(serviceWorker).not.toContain('/video/kevinten-ai-native-promo.mp4');
   });
 
+  it('publishes only the production promo assets from the video workspace', () => {
+    const prepare = readFileSync('scripts/prepare-pages-preview.mjs', 'utf8');
+
+    expect(prepare).not.toMatch(/const includeDirs = \[[^\n]*'video'/);
+    expect(prepare).toContain("'video/kevinten-ai-native-promo.mp4'");
+    expect(prepare).toContain("'video/kevinten-ai-native-promo-poster.jpg'");
+  });
+
+  it('does not leave static Next.js portfolio content hidden by reveal classes', () => {
+    const hero = readFileSync('next-portfolio/components/sections/HeroSection.tsx', 'utf8');
+    const projects = readFileSync('next-portfolio/components/sections/ProjectsSection.tsx', 'utf8');
+
+    expect(hero).not.toContain('hero-avatar-wrap animate-on-scroll');
+    expect(hero).not.toContain('hero-header animate-on-scroll');
+    expect(projects).not.toContain('project-card animate-on-scroll');
+  });
+
   it('keeps payment and comments reachable through a right floating rail', () => {
     const html = readFileSync('index.html', 'utf8');
     const mainCss = readFileSync('assets/css/main.css', 'utf8');

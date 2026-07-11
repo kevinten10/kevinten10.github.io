@@ -3,7 +3,7 @@
 [![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-Live-f38020)](https://kevinten.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-KevinTen 的个人技术主页与历史博客，同时包含 Cloudflare 交互预览、Next.js 重构候选和宣传视频制作流水线。
+KevinTen 的个人技术主页与历史博客，同时包含 Cloudflare 交互服务、Next.js 重构候选和宣传视频制作流水线。
 
 ## 在线地址
 
@@ -11,6 +11,7 @@ KevinTen 的个人技术主页与历史博客，同时包含 Cloudflare 交互�
 - Cloudflare Pages：<https://kevinten-interactive-preview.pages.dev/>
 - GitHub Pages 回退站：<https://kevinten10.github.io/>
 - 部署与运维说明：`docs/cloudflare-preview-ops.md`。
+- 当前状态：`docs/maintenance/2026-07-11-current-status.md`。
 
 ## 仓库结构
 

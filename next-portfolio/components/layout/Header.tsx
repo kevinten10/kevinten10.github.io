@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { useTheme } from '@/providers/ThemeProvider';
@@ -47,7 +48,7 @@ export default function Header() {
       <header className={`nav-header${isScrolled ? ' is-scrolled' : ''}`} role="banner">
         <div className="nav-container">
           <Link href="/" className="nav-logo">
-            <img src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen" width="40" height="40" />
+            <Image src="https://avatars.githubusercontent.com/u/22876610?v=4" alt="KevinTen" width={40} height={40} />
             <span>KevinTen</span>
           </Link>
 
