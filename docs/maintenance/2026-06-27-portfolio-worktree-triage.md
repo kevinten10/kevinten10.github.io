@@ -11,7 +11,7 @@
 - `next-portfolio/` 是未跟踪的 Next.js 版本，含 87 个非构建文件；后续应作为一次迁移/重构候选单独审阅。
 - `video/` 是演示视频制作流水线，含分镜、脚本、音频、字幕、帧图和输出视频；其中 `video/node_modules/` 是依赖目录，已加入根 `.gitignore`。
 - `.playwright-mcp/` 是本地浏览器验证输出，已加入根 `.gitignore`。
-- 根目录 39 张截图/页面验证图仍保留为待审阅资产，不自动忽略也不删除。
+- 根目录的 UI 截图/页面验证图已在 2026-07-11 全部收拢至 `docs/maintenance/screenshots/`，按审计、测试、验证和迭代分组，未删除文件。
 - `next-portfolio/.env.local` 已加入根 `.gitignore`，并补充了只含占位值的 `next-portfolio/.env.example`；子项目 `.gitignore` 已允许提交 `.env.example`。
 
 ## 变更分组
@@ -20,7 +20,7 @@
 |---|---|---|---|
 | 忽略规则 | `.gitignore` | 已修改 | 与 triage 文档一起提交，降低本地生成物噪音。 |
 | 浏览器验证输出 | `.playwright-mcp/` | 已忽略 | 不提交；需要时重新生成。 |
-| 根目录截图 | `*.png`, `*.jpeg` | 未跟踪 | 判断是否作为设计 QA 证据保留；若保留，迁入 `docs/maintenance/screenshots/` 或对应设计文档目录。 |
+| UI 截图 | `docs/maintenance/screenshots/` | 已分组 | 作为设计 QA 证据保留；新截图按用途放入对应子目录。 |
 | Next.js 重构候选 | `next-portfolio/` | 未跟踪 | 先读 `next-portfolio/AGENTS.md`；按单独迁移任务评估是否替代当前静态站。 |
 | Next.js 环境文件 | `next-portfolio/.env.local`, `next-portfolio/.env.example`, `next-portfolio/.gitignore` | 本地值已忽略，模板已补充 | 不提交 `.env.local`；共享配置只提交 `.env.example`。 |
 | 视频制作流水线 | `video/` | 未跟踪 | 保留 `README.md`、`capture.js`、`storyboard.html`、字幕和最终产物；提交前确认大文件大小和用途。 |
@@ -29,7 +29,7 @@
 ## 推荐提交顺序
 
 1. `worktree-triage`: 只提交 `.gitignore` 和本 triage 文档。
-2. `portfolio-screenshots`: 审阅根目录截图，迁入文档目录或删除本地副本。
+2. `portfolio-screenshots`: 已完成；截图保留于 `docs/maintenance/screenshots/`。
 3. `portfolio-video`: 审阅 `video/`，只提交制作脚本、分镜、字幕、必要音频和最终视频。
 4. `next-portfolio`: 单独评估 `next-portfolio/`，确认是否作为新版主页继续开发。
 

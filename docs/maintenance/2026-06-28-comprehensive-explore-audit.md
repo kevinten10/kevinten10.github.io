@@ -2,7 +2,7 @@
 
 ## Scope
 
-Repository: `/Users/kevinten/projects/kevinten10.github.io`
+Repository: `/Users/kevinten/projects/agents/projects/websites/kevin/kevinten10.github.io`
 
 Branch: `codex/cloudflare-interactive-preview`
 

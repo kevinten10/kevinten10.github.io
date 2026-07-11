@@ -2,11 +2,11 @@
 
 ## Outcome
 
-全面探索、优化、验证并记录 `/Users/kevinten/projects/kevinten10.github.io` 当前站点和 Cloudflare 新架构，使项目达到可交付状态：本地代码健康、主要用户路径可用、Cloudflare preview/production cutover 状态清楚、未完成事项有明确外部 blocker 和下一步动作。
+全面探索、优化、验证并记录 `/Users/kevinten/projects/agents/projects/websites/kevin/kevinten10.github.io` 当前站点和 Cloudflare 新架构，使项目达到可交付状态：本地代码健康、主要用户路径可用、Cloudflare preview/production cutover 状态清楚、未完成事项有明确外部 blocker 和下一步动作。
 
 ## Context
 
-Workdir: `/Users/kevinten/projects/kevinten10.github.io`
+Workdir: `/Users/kevinten/projects/agents/projects/websites/kevin/kevinten10.github.io`
 
 Branch: `codex/cloudflare-interactive-preview`
 
