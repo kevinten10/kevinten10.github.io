@@ -64,6 +64,8 @@ npm run deploy:pages
 
 Before deployment, confirm Wrangler is authenticated to the intended account and run `npm run verify`. The Pages command builds `dist/pages` and deploys it to the `preview` branch of `kevinten-interactive-preview`; this branch currently backs production.
 
+`npm run deploy:pages` requires a public `AUTH0_CLIENT_ID` from the environment or ignored `dist/auth0-preview.env`. The build fails before upload when it is missing, preventing a deployment that silently breaks visitor login.
+
 Provisioning commands are not routine deploy steps:
 
 ```bash
