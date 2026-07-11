@@ -2,33 +2,44 @@
 
 ## Summary
 
-Cloudflare production cutover is complete and the public site is healthy. Repository cleanup and the Next.js/media workspaces are follow-up source changes; they do not replace the deployed static entry point.
+Cloudflare production cutover is complete, the optimized source has been merged to `master`, and the public site is healthy. The Next.js/media workspaces remain source-only candidates; they do not replace the deployed static entry point.
 
 ## Deployment Evidence
 
 | Component | Current state |
 | --- | --- |
 | Production site | `https://kevinten.com/` and `https://www.kevinten.com/` return Cloudflare-served HTTP 200 responses |
-| Pages | Latest verified production deployment `005ba2cb-31bc-401e-b818-9d7ffea3f6f7`, source commit `fa866af` |
+| Pages | Production deployment `38ef7718-e6f9-4db5-9da6-208523ff5769`, source commit `6fd29bb` |
 | Stable Pages origin | `https://kevinten-interactive-preview.pages.dev/` is healthy |
-| Worker | Deployment version `2558a175-7a2e-4a95-9766-dcf56174a863`; `/health` returns `success: true` and `status: ok` |
+| Worker | Deployment version `06d6309c-ef74-4967-a427-b9a7e8a11ec8`; `/health` returns `success: true` and `status: ok` |
 | DNS | Cloudflare nameservers `chip.ns.cloudflare.com` and `faye.ns.cloudflare.com`; apex and `www` resolve through Cloudflare |
 | Admin | Production `/admin/` redirects to Cloudflare Access |
 | Promo assets | Production MP4, poster, and AnyCap images return HTTP 200 |
 
 The tracked cutover artifact `2026-07-01-cutover-readiness.json` completed at `2026-07-06T16:28:48.281Z` with 24 passed checks, 0 failed checks, and `ready: true`.
 
+The 2026-07-11 release canary completed with:
+
+- PR #1 merged the Cloudflare production architecture; PR #6 added an Auth0 runtime deployment guard.
+- 22 test files and 123 tests passed, together with Pages build, audit validation, Next.js lint/build, and video script checks.
+- Production smoke verification passed 15 of 15 API and site checks.
+- Desktop and mobile browser checks found no horizontal overflow and no console errors; measured page load was about 7.0 seconds.
+- Public Auth0 authorize/logout checks, authoritative DNS, production HTTP, and Access redirects passed.
+
 ## Repository State
 
-- Cloudflare production currently runs source commit `fa866af` from `codex/cloudflare-interactive-preview`.
-- `master` remains the GitHub default branch and GitHub Pages rollback source.
+- Cloudflare Pages currently runs `master` source commit `6fd29bb`; the production branch name in Cloudflare remains the historical `preview`.
+- `master` is the GitHub default branch and GitHub Pages rollback source.
 - The Next.js application under `next-portfolio/` is a migration candidate, not the production site.
 - Curated screenshots live under `docs/maintenance/screenshots/`; generated browser output remains ignored.
 - Pages builds publish only the production promo MP4 and poster from `video/`, not the media-production workspace.
+- Production Pages builds now fail before upload when the public Auth0 client ID is missing.
 
 ## Intentional Limitations
 
 - WeChat rewards remain disabled until a verified collect-money QR is available.
 - Alipay is the enabled real QR support method.
 - Stripe remains sandbox-only.
+- The current Wrangler OAuth token cannot read Cloudflare DNS or Access APIs, although authoritative DNS, production HTTP, and Access redirect checks pass. Use a read-scoped API token when refreshing those two API-level audit checks.
+- Official npm audit reports 0 vulnerabilities in the production root workspace. The undeployed Next.js candidate has 6 findings and the local video toolchain has 3; Dependabot PRs track the available transitive dependency updates.
 - Older June/July continuation reports are retained as historical evidence and must not be interpreted as current blockers.
