@@ -99,11 +99,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('href="#comments"');
     expect(html).toContain('data-hero-density="editorial"');
     expect(html).toContain('hero-compact-actions');
+    expect(html).toContain('hero-social-matrix animate-on-scroll stagger-5" hidden');
+    expect(html).toContain('contact-social-bar');
     expect(html).toContain('/assets/css/main.css?v=38');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
     expect(mainCss).toContain('[data-hero-density="editorial"]');
+    expect(mainCss).toContain('min-height: calc(100svh - 3rem)');
+    expect(mainCss).toContain('.hero-social-matrix');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
     expect(serviceWorker).toContain("const SW_VERSION = '54'");
@@ -118,6 +122,9 @@ describe('frontend security guards', () => {
     const serviceWorker = readFileSync('sw.js', 'utf8');
 
     expect(html).toContain('anycap-media-section');
+    expect(html).toContain('id="media"');
+    expect(html).toContain('data-i18n="media.title"');
+    expect(html).toContain('data-i18n="media.film.play"');
     expect(html).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(html).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(html).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -132,6 +139,9 @@ describe('frontend security guards', () => {
     expect(html).not.toContain('/video/poster.jpg');
     expect(mainCss).toContain('.anycap-media-grid');
     expect(mainCss).toContain('.anycap-media-play');
+    expect(mainCss).toContain('grid-column: 1 / -1');
+    expect(mainCss).not.toContain('min-height: 100%;');
+    expect(mainCss).toContain('height: auto;');
     expect(serviceWorker).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(serviceWorker).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(serviceWorker).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -310,7 +320,7 @@ describe('frontend security guards', () => {
     expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
-    expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
+    expect(serviceWorker).toContain('/assets/js/i18n.js?v=37');
     expect(serviceWorker).not.toContain('/img/weixin.jpg');
     expect(serviceWorker).toContain('/img/alipay.jpg');
   });
