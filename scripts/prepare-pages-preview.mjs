@@ -7,6 +7,7 @@ const requireAuth0 = process.argv.includes('--require-auth0');
 const includeDirs = ['2018', '2019', 'admin', 'archives', 'assets', 'categories', 'css', 'fonts', 'images', 'img', 'js', 'page', 'tags'];
 const includeFiles = [
   '.nojekyll',
+  '_headers',
   'articles.html',
   'index.html',
   'robots.txt',

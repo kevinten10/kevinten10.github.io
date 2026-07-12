@@ -145,6 +145,27 @@ describe('frontend security guards', () => {
     expect(packageJson.scripts['deploy:pages']).toContain('--require-auth0');
   });
 
+  it('publishes Cloudflare Pages security headers with an enforced CSP', () => {
+    const headers = readFileSync('_headers', 'utf8');
+    const prepare = readFileSync('scripts/prepare-pages-preview.mjs', 'utf8');
+
+    expect(prepare).toContain("'_headers'");
+    expect(headers).toContain('Strict-Transport-Security: max-age=31536000');
+    expect(headers).toContain('X-Content-Type-Options: nosniff');
+    expect(headers).toContain('Referrer-Policy: strict-origin-when-cross-origin');
+    expect(headers).toContain('X-Frame-Options: DENY');
+    expect(headers).toContain('Permissions-Policy: camera=(), geolocation=(), microphone=(), usb=()');
+    expect(headers).toContain('Content-Security-Policy:');
+    expect(headers).not.toContain('Content-Security-Policy-Report-Only:');
+    expect(headers).toContain("base-uri 'self'");
+    expect(headers).toContain("object-src 'none'");
+    expect(headers).toContain("frame-ancestors 'none'");
+    expect(headers).toContain('https://cdn.auth0.com');
+    expect(headers).toContain('https://js.stripe.com');
+    expect(headers).not.toContain('includeSubDomains');
+    expect(headers).not.toContain('preload');
+  });
+
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {
     const hero = readFileSync('next-portfolio/components/sections/HeroSection.tsx', 'utf8');
     const projects = readFileSync('next-portfolio/components/sections/ProjectsSection.tsx', 'utf8');
