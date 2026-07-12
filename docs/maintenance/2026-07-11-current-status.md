@@ -1,5 +1,7 @@
 # Current Production Status - 2026-07-11
 
+Last verified: 2026-07-12.
+
 ## Summary
 
 Cloudflare production cutover is complete, the optimized source has been merged to `master`, and the public site is healthy. The Next.js/media workspaces remain source-only candidates; they do not replace the deployed static entry point.
@@ -26,6 +28,8 @@ The 2026-07-11 release canary completed with:
 - Desktop and mobile browser checks found no horizontal overflow and no console errors; measured page load was about 7.0 seconds.
 - Public Auth0 authorize/logout checks, authoritative DNS, production HTTP, and Access redirects passed.
 
+The 2026-07-12 dependency maintenance pass upgraded the undeployed Next.js candidate to Next.js 16.2.10, applied the patched PostCSS release, and refreshed vulnerable transitive packages in the Next.js and video workspaces. Official npm registry audits now report 0 vulnerabilities in all three workspaces, and the full repository verification still passes.
+
 ## Repository State
 
 - Cloudflare Pages currently runs `master` source commit `6fd29bb`; the production branch name in Cloudflare remains the historical `preview`.
@@ -41,5 +45,5 @@ The 2026-07-11 release canary completed with:
 - Alipay is the enabled real QR support method.
 - Stripe remains sandbox-only.
 - The current Wrangler OAuth token cannot read Cloudflare DNS or Access APIs, although authoritative DNS, production HTTP, and Access redirect checks pass. Use a read-scoped API token when refreshing those two API-level audit checks.
-- Official npm audit reports 0 vulnerabilities in the production root workspace. The undeployed Next.js candidate has 6 findings and the local video toolchain has 3; Dependabot PRs track the available transitive dependency updates.
+- Official npm registry audits report 0 vulnerabilities in the production root, undeployed Next.js candidate, and local video toolchain workspaces.
 - Older June/July continuation reports are retained as historical evidence and must not be interpreted as current blockers.

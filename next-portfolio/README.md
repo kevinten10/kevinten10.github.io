@@ -1,6 +1,6 @@
 # KevinTen Next Portfolio
 
-KevinTen 个人主页的 Next.js 16 重构候选版。当前生产站仍是仓库根目录的静态 GitHub Pages 版本；本目录用于独立迭代、验证和评估迁移。
+KevinTen 个人主页的 Next.js 16 重构候选版。当前生产站仍是仓库根目录由 Cloudflare Pages 托管的静态版本，GitHub Pages 仅作为回退；本目录用于独立迭代、验证和评估迁移。
 
 ## 技术栈
 
