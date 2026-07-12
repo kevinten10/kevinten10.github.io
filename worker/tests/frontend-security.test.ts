@@ -69,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -106,7 +106,7 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('[data-hero-density="editorial"]');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=37');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
@@ -185,6 +185,7 @@ describe('frontend security guards', () => {
 
   it('loads the published article index module and links only to existing articles', () => {
     const html = readFileSync('articles.html', 'utf8');
+    const serviceWorker = readFileSync('sw.js', 'utf8');
     const scriptPath = '/assets/js/legacy/articles.js?v=1';
     const sourcePath = scriptPath.replace(/^\//, '').replace(/\?.*$/, '');
     const source = readFileSync(sourcePath, 'utf8');
@@ -193,6 +194,8 @@ describe('frontend security guards', () => {
     expect(html).toContain(`<link rel="preload" href="${scriptPath}" as="script">`);
     expect(html).toContain(`<script src="${scriptPath}"></script>`);
     expect(html).not.toContain('/assets/js/articles.js');
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
+    expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
     expect(articleUrls).toHaveLength(10);
     articleUrls.forEach((url) => {
@@ -226,7 +229,7 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=37');
   });
 
@@ -274,7 +277,7 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
     expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
@@ -336,7 +339,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain("const SW_VERSION = '53'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });
