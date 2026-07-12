@@ -67,7 +67,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -97,15 +97,19 @@ describe('frontend security guards', () => {
     expect(html).toContain('href="#comments"');
     expect(html).toContain('data-hero-density="editorial"');
     expect(html).toContain('hero-compact-actions');
-    expect(html).toContain('/assets/css/main.css?v=37');
+    expect(html).toContain('hero-social-matrix animate-on-scroll stagger-5" hidden');
+    expect(html).toContain('contact-social-bar');
+    expect(html).toContain('/assets/css/main.css?v=38');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
     expect(mainCss).toContain('[data-hero-density="editorial"]');
+    expect(mainCss).toContain('min-height: calc(100svh - 3rem)');
+    expect(mainCss).toContain('.hero-social-matrix');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=37');
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
@@ -115,6 +119,9 @@ describe('frontend security guards', () => {
     const serviceWorker = readFileSync('sw.js', 'utf8');
 
     expect(html).toContain('anycap-media-section');
+    expect(html).toContain('id="media"');
+    expect(html).toContain('data-i18n="media.title"');
+    expect(html).toContain('data-i18n="media.film.play"');
     expect(html).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(html).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(html).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -127,6 +134,9 @@ describe('frontend security guards', () => {
     expect(html).not.toContain('/video/poster.jpg');
     expect(mainCss).toContain('.anycap-media-grid');
     expect(mainCss).toContain('.anycap-media-play');
+    expect(mainCss).toContain('grid-column: 1 / -1');
+    expect(mainCss).not.toContain('min-height: 100%;');
+    expect(mainCss).toContain('height: auto;');
     expect(serviceWorker).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(serviceWorker).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(serviceWorker).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -143,15 +153,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('data-quick-action="comments"');
     expect(html).toContain('aria-label="打开支持与鸣谢"');
     expect(html).toContain('aria-label="打开留言区"');
-    expect(html).toContain('/assets/css/main.css?v=37');
+    expect(html).toContain('/assets/css/main.css?v=38');
     expect(mainCss).toContain('.quick-action-rail');
     expect(mainCss).toContain('position: fixed');
     expect(mainCss).toContain('.quick-action-link');
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=37');
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
   });
 
   it('ships manual support records with unavailable WeChat, active Alipay, and embedded Stripe sandbox flows', () => {
@@ -198,10 +208,10 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
-    expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
+    expect(serviceWorker).toContain('/assets/js/i18n.js?v=37');
     expect(serviceWorker).not.toContain('/img/weixin.jpg');
     expect(serviceWorker).toContain('/img/alipay.jpg');
   });
@@ -260,7 +270,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });
