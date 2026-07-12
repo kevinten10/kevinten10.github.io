@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
@@ -67,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -104,13 +106,14 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('[data-hero-density="editorial"]');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=37');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
   it('ships AnyCap generated illustrations and a lightweight promo video path', () => {
     const html = readFileSync('index.html', 'utf8');
+    const homepage = readFileSync('assets/js/homepage.js', 'utf8');
     const mainCss = readFileSync('assets/css/main.css', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
 
@@ -121,8 +124,10 @@ describe('frontend security guards', () => {
     expect(html).toContain('/video/kevinten-ai-native-promo.mp4');
     expect(html).toContain('controls muted playsinline preload="metadata"');
     expect(html).toContain('data-video-trigger');
-    expect(html).toContain("document.querySelectorAll('#video-play-btn, [data-video-trigger]')");
-    expect(html).toContain('playback.catch');
+    expect(html).toContain('/assets/js/homepage.js?v=1');
+    expect(homepage).toContain("document.querySelectorAll('#video-play-btn, [data-video-trigger]')");
+    expect(homepage).toContain('playback.catch');
+    expect(homepage).toContain('[data-open-eco-projects]');
     expect(html).not.toContain('/video/final_v3.mp4');
     expect(html).not.toContain('/video/poster.jpg');
     expect(mainCss).toContain('.anycap-media-grid');
@@ -130,6 +135,7 @@ describe('frontend security guards', () => {
     expect(serviceWorker).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(serviceWorker).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(serviceWorker).toContain('/video/kevinten-ai-native-promo-poster.jpg');
+    expect(serviceWorker).toContain('/assets/js/homepage.js?v=1');
     expect(serviceWorker).not.toContain('/video/kevinten-ai-native-promo.mp4');
   });
 
@@ -143,6 +149,38 @@ describe('frontend security guards', () => {
     expect(prepare).toContain("process.argv.includes('--require-auth0')");
     expect(prepare).toContain('AUTH0_CLIENT_ID is required for Pages deployment');
     expect(packageJson.scripts['deploy:pages']).toContain('--require-auth0');
+  });
+
+  it('publishes Cloudflare Pages security headers with an enforced CSP', () => {
+    const headers = readFileSync('_headers', 'utf8');
+    const html = readFileSync('index.html', 'utf8');
+    const structuredData = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+
+    execFileSync(process.execPath, ['scripts/prepare-pages-preview.mjs'], { stdio: 'ignore' });
+    expect(readFileSync('dist/pages/_headers', 'utf8')).toBe(headers);
+    expect(headers).toContain('Strict-Transport-Security: max-age=31536000');
+    expect(headers).toContain('X-Content-Type-Options: nosniff');
+    expect(headers).toContain('Referrer-Policy: strict-origin-when-cross-origin');
+    expect(headers).toContain('X-Frame-Options: DENY');
+    expect(headers).toContain('Permissions-Policy: camera=(), geolocation=(), microphone=(), usb=()');
+    expect(headers).toContain('Content-Security-Policy:');
+    expect(headers).toContain('/articles*');
+    expect(headers).not.toContain('Content-Security-Policy-Report-Only:');
+    expect(headers).not.toContain("script-src 'self' 'unsafe-inline'");
+    expect(headers).toContain("script-src-attr 'none'");
+    expect(headers).toContain("base-uri 'self'");
+    expect(headers).toContain("object-src 'none'");
+    expect(headers).toContain("frame-ancestors 'none'");
+    expect(headers).toContain('https://cdn.auth0.com');
+    expect(headers).toContain('https://js.stripe.com');
+    expect(structuredData).not.toBeNull();
+    expect(html.match(/<script(?![^>]*\bsrc=)[^>]*>/g) || []).toEqual(['<script type="application/ld+json">']);
+    expect(html).not.toMatch(/\son[a-z]+\s*=/i);
+    const structuredDataHash = createHash('sha256').update(structuredData?.[1] || '').digest('base64');
+    expect(headers).toContain(`'sha256-${structuredDataHash}'`);
+    headers.split('\n').forEach((line) => expect(line.length).toBeLessThanOrEqual(2000));
+    expect(headers).not.toContain('includeSubDomains');
+    expect(headers).not.toContain('preload');
   });
 
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {
@@ -171,7 +209,7 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=37');
   });
 
@@ -219,7 +257,7 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
     expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
@@ -281,7 +319,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '51'");
+    expect(serviceWorker).toContain("const SW_VERSION = '52'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });

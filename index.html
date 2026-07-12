@@ -36,7 +36,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
@@ -150,7 +150,7 @@
             </button>
 
             <!-- Language Toggle Button -->
-            <button class="lang-toggle-btn" onclick="I18n.toggle()" aria-label="Switch language">
+            <button class="lang-toggle-btn" aria-label="Switch language">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                 <span>EN</span>
             </button>
@@ -1200,7 +1200,7 @@
                 <div class="ecosystem-header">
                     <h3 class="ecosystem-title">🐙 AI Agent Ecosystem</h3>
                     <p class="ecosystem-subtitle" data-i18n="eco.subtitle">30+ AI 应用 · 覆盖旅行、生活、学习、研究、工具、创作等领域</p>
-                    <button class="eco-open-all-btn" onclick="openAllEcoProjects()" data-i18n="eco.openAll">
+                    <button class="eco-open-all-btn" data-open-eco-projects data-i18n="eco.openAll">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                         一键打开所有项目
                     </button>
@@ -2452,27 +2452,6 @@
             </video>
         </div>
     </div>
-    <script>
-    (function() {
-        var modal = document.getElementById('video-modal');
-        var video = document.getElementById('promo-video');
-        var triggers = document.querySelectorAll('#video-play-btn, [data-video-trigger]');
-        var close = modal.querySelector('.video-modal-close');
-        var backdrop = modal.querySelector('.video-modal-backdrop');
-        function open() {
-            modal.classList.add('active');
-            var playback = video.play();
-            if (playback && playback.catch) playback.catch(function() {});
-            document.body.style.overflow = 'hidden';
-        }
-        function shut() { modal.classList.remove('active'); video.pause(); document.body.style.overflow = ''; }
-        triggers.forEach(function(trigger) { trigger.addEventListener('click', open); });
-        close.addEventListener('click', shut);
-        backdrop.addEventListener('click', shut);
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && modal.classList.contains('active')) shut(); });
-    })();
-    </script>
-
     <!-- Scripts -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
     <script src="/assets/js/cloudflare-runtime.js?v=3"></script>
@@ -2495,30 +2474,6 @@
     <script src="/assets/js/comments.js?v=5" defer></script>
     <script src="/assets/js/analytics.js?v=4" defer></script>
     <script src="/assets/js/ai-assistant.js?v=3" defer></script>
-    <script>
-    function openAllEcoProjects() {
-      var items = document.querySelectorAll('.eco-item[href]');
-      var links = Array.from(items).map(function(a) {
-        return { href: a.href, name: (a.querySelector('.eco-name') || {}).textContent || '', desc: (a.querySelector('.eco-desc') || {}).textContent || '' };
-      });
-      var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>AI Ecosystem - All Projects</title><style>'
-        + 'body{background:#0a0a0f;color:#e2e8f0;font-family:system-ui,-apple-system,sans-serif;margin:0;padding:40px 20px}'
-        + 'h1{text-align:center;font-size:28px;margin-bottom:8px}'
-        + 'p.sub{text-align:center;color:#94a3b8;margin-bottom:32px;font-size:15px}'
-        + '.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;max-width:1100px;margin:0 auto}'
-        + 'a{display:block;padding:18px 20px;background:#16162a;border:1px solid #ffffff10;border-radius:12px;text-decoration:none;color:#e2e8f0;transition:all .2s}'
-        + 'a:hover{transform:translateY(-2px);background:#1e1e3a;border-color:#ffffff20}'
-        + '.n{font-weight:600;font-size:16px;margin-bottom:4px}'
-        + '.d{font-size:13px;color:#94a3b8}'
-        + '</style></head><body>'
-        + '<h1>\uD83D\uDC19 AI Agent Ecosystem</h1>'
-        + '<p class="sub">' + links.length + ' Projects \u00b7 Click any card to open</p>'
-        + '<div class="g">'
-        + links.map(function(l) { return '<a href="' + l.href + '" target="_blank" rel="noopener"><div class="n">' + l.name + '</div><div class="d">' + l.desc + '</div></a>'; }).join('')
-        + '</div></body></html>';
-      var blob = new Blob([html], { type: 'text/html' });
-      window.open(URL.createObjectURL(blob), '_blank');
-    }
-    </script>
+    <script src="/assets/js/homepage.js?v=1" defer></script>
 </body>
 </html>
