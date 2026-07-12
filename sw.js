@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 53
+ * @version 54
  */
 
-const SW_VERSION = '53';
+const SW_VERSION = '54';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,7 +13,7 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=37',
+  '/assets/css/main.css?v=38',
   '/assets/css/theme.css?v=31',
   '/assets/css/comments.css?v=2',
   '/assets/css/rewards.css?v=4',
@@ -29,7 +29,7 @@ const PRECACHE_ASSETS = [
   '/assets/js/github-stats.js?v=32',
   '/assets/js/project-modal.js?v=31',
   '/assets/js/gallery.js?v=31',
-  '/assets/js/i18n.js?v=36',
+  '/assets/js/i18n.js?v=37',
   '/assets/js/auth-client.js?v=2',
   '/assets/js/comments.js?v=5',
   '/assets/js/analytics.js?v=4',
