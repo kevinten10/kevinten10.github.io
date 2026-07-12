@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 describe('frontend security guards', () => {
@@ -181,6 +181,23 @@ describe('frontend security guards', () => {
     headers.split('\n').forEach((line) => expect(line.length).toBeLessThanOrEqual(2000));
     expect(headers).not.toContain('includeSubDomains');
     expect(headers).not.toContain('preload');
+  });
+
+  it('loads the published article index module and links only to existing articles', () => {
+    const html = readFileSync('articles.html', 'utf8');
+    const scriptPath = '/assets/js/legacy/articles.js?v=1';
+    const sourcePath = scriptPath.replace(/^\//, '').replace(/\?.*$/, '');
+    const source = readFileSync(sourcePath, 'utf8');
+    const articleUrls = Array.from(source.matchAll(/\n\s*url:\s*'([^']+)'/g), (match) => match[1]);
+
+    expect(html).toContain(`<link rel="preload" href="${scriptPath}" as="script">`);
+    expect(html).toContain(`<script src="${scriptPath}"></script>`);
+    expect(html).not.toContain('/assets/js/articles.js');
+    expect(existsSync(sourcePath)).toBe(true);
+    expect(articleUrls).toHaveLength(10);
+    articleUrls.forEach((url) => {
+      expect(existsSync(`${decodeURI(url).replace(/^\//, '')}index.html`)).toBe(true);
+    });
   });
 
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {

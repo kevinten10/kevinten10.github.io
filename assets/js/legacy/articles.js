@@ -60,7 +60,7 @@
       category: 'aws',
       categoryName: 'AWS',
       tags: ['AWS', 'Lambda', 'Serverless'],
-      url: '/2019/09/21/AWS/lambda/Aws-Lambda/',
+      url: '/2019/09/29/AWS/lambda/Aws-Lambda/',
       readTime: '12 min'
     },
     {
