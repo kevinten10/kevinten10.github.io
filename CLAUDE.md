@@ -16,7 +16,7 @@ Current deployment evidence is recorded in `docs/maintenance/2026-07-11-current-
 
 | Path | Purpose |
 | --- | --- |
-| `index.html`, `articles.html`, `assets/` | Production static site |
+| `index.html`, `articles.html`, `assets/` | Production static site and generated article index |
 | `2018/`, `2019/`, `archives/`, `categories/`, `tags/` | Legacy blog URLs that must remain stable |
 | `worker/`, `scripts/` | Cloudflare API, deployment, provisioning, and verification |
 | `admin/` | Static admin shell protected by Cloudflare Access |
@@ -42,6 +42,10 @@ npm run dev:worker
 # Core typecheck, Worker tests, Pages build, and audit validation
 npm run verify
 
+# Regenerate and validate the 143-entry article index and sitemap
+npm run generate:articles
+npm run check:articles
+
 # Next.js candidate lint and production build
 npm run verify:next
 
@@ -53,6 +57,8 @@ npm --prefix video test
 ```
 
 After `npm run build:pages`, only the production promo MP4 and poster should exist under `dist/pages/video/`. Do not publish the entire video-production workspace.
+
+`archives/index.html` is the source of truth for the public article list. Commit the generated `assets/data/articles.json` and `sitemap.xml`; `npm run build:pages` checks that both remain current.
 
 ## Deployment
 

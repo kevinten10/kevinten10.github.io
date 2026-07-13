@@ -3558,6 +3558,10 @@ body {
   visibility: hidden;
 }
 
+body.mobile-nav-open {
+  overflow: hidden;
+}
+
 .mobile-nav.active {
   pointer-events: auto;
   visibility: visible;

@@ -17,7 +17,7 @@ KevinTen 的个人技术主页与历史博客，同时包含 Cloudflare 交互�
 
 | 路径 | 用途 |
 | --- | --- |
-| `index.html`、`articles.html`、`assets/` | 当前维护的静态主站 |
+| `index.html`、`articles.html`、`assets/` | 当前维护的静态主站与生成后的完整文章索引 |
 | `2018/`、`2019/`、`archives/`、`categories/`、`tags/` | 从 Hexo 保留的历史博客 |
 | `worker/`、`scripts/` | Cloudflare Worker、预览构建与配置脚本 |
 | `cloudfunctions/` | 早期 CloudBase 云函数 |
@@ -58,6 +58,17 @@ npm run verify:next
 # 全部验证
 npm run verify:all
 ```
+
+## 文章索引
+
+`archives/index.html` 中的 143 条历史归档记录是文章列表的权威数据源。修改历史文章或归档后运行：
+
+```bash
+npm run generate:articles
+npm run check:articles
+```
+
+生成命令会同步更新 `assets/data/articles.json` 和 `sitemap.xml`。Pages 构建会拒绝发布过期的生成文件，避免文章数量、分类、链接和站点地图再次漂移。
 
 ## 环境配置
 
