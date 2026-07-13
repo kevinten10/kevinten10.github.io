@@ -34,20 +34,6 @@
     'hero.bio2': '. Apache Dubbo / Dapr / Layotto open source contributor, built 20+ AI Agent apps & MCP toolchain. Building',
     'hero.bio3': ' — a life intelligence system where each tentacle has its own neural center, like an octopus.',
 
-    // AI Native media
-    'media.kicker': 'AI-NATIVE MEDIA',
-    'media.title': 'Visual System Story',
-    'media.desc': 'Illustrations and a short film connect the personal-site backend, agent ecosystem, and AI Native builder story.',
-    'media.system.kicker': 'System Map',
-    'media.system.title': 'Edge-first personal site backend',
-    'media.system.desc': 'Cloudflare Workers, identity, payments, D1, R2, analytics, queues, and AI agents are presented as one connected operating map.',
-    'media.film.kicker': 'Promo Film',
-    'media.film.title': 'AI Native builder intro',
-    'media.film.desc': 'A six-second visual generated from the key art, connecting technology, product craft, and personal brand in one shot.',
-    'media.film.play': 'Play video',
-    'media.octopus.title': 'Realm-native agent map',
-    'media.octopus.desc': 'Travel, health, finance, tools, creation, and learning form a collaborative network around the personal AI agent system.',
-
     // Impact Section 01
     'impact.desc': 'Key Achievements & Impact',
     'impact.years.label': 'Years of Experience',

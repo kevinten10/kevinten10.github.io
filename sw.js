@@ -1,10 +1,10 @@
 /**
  * Service Worker for KevinTen Personal Website
  * Provides offline caching and performance optimization
- * @version 55
+ * @version 56
  */
 
-const SW_VERSION = '55';
+const SW_VERSION = '56';
 const CACHE_NAME = `kevinten-v${SW_VERSION}`;
 const RUNTIME_CACHE = `runtime-v${SW_VERSION}`;
 const STATIC_CACHE = `static-v${SW_VERSION}`;
@@ -13,7 +13,7 @@ const STATIC_CACHE = `static-v${SW_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
-  '/assets/css/main.css?v=39',
+  '/assets/css/main.css?v=40',
   '/assets/css/theme.css?v=31',
   '/assets/css/comments.css?v=2',
   '/assets/css/rewards.css?v=4',
@@ -29,7 +29,7 @@ const PRECACHE_ASSETS = [
   '/assets/js/github-stats.js?v=32',
   '/assets/js/project-modal.js?v=31',
   '/assets/js/gallery.js?v=31',
-  '/assets/js/i18n.js?v=37',
+  '/assets/js/i18n.js?v=38',
   '/assets/js/auth-client.js?v=2',
   '/assets/js/comments.js?v=5',
   '/assets/js/analytics.js?v=4',
@@ -38,7 +38,6 @@ const PRECACHE_ASSETS = [
   '/assets/js/ai-assistant.js?v=3',
   '/img/avatar.jpg',
   '/img/alipay.jpg',
-  '/images/anycap/ai-native-system-map-1600.webp',
   '/images/anycap/openoctopus-realm-map-1600.webp',
   '/video/kevinten-ai-native-promo-poster.jpg'
 ];
