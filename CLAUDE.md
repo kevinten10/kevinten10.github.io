@@ -42,7 +42,7 @@ npm run dev:worker
 # Core typecheck, Worker tests, Pages build, and audit validation
 npm run verify
 
-# Regenerate and validate the 143-entry article index and sitemap
+# Regenerate and validate the 143-entry article index and 148-URL sitemap
 npm run generate:articles
 npm run check:articles
 

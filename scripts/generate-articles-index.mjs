@@ -34,6 +34,7 @@ function plainText(html) {
     .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' '))
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -96,7 +97,7 @@ async function buildArticles() {
     const attrs = match[1];
     const body = match[2];
     const url = attribute(attrs, 'href');
-    if (!/^\/20(?:18|19)\//.test(url)) continue;
+    if (!/^\/20\d{2}\/\d{2}\/\d{2}\//.test(url)) continue;
     if (urls.has(url)) throw new Error(`Duplicate article URL in archive: ${url}`);
     urls.add(url);
 

@@ -6,7 +6,7 @@
 (function() {
   'use strict';
 
-  const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=1';
+  const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2';
 
   // State management
   const state = {
@@ -58,7 +58,8 @@
       renderTaxonomy();
       renderArticles();
       updateFilterStatus();
-    } catch {
+    } catch (error) {
+      console.error('Failed to load article index:', error);
       state.articles = [];
       state.filteredArticles = [];
       const title = elements.noResults?.querySelector('h3');

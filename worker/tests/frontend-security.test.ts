@@ -189,8 +189,8 @@ describe('frontend security guards', () => {
     const headers = readFileSync('_headers', 'utf8');
     const sitemap = readFileSync('sitemap.xml', 'utf8');
     const robots = readFileSync('robots.txt', 'utf8');
-    const scriptPath = '/assets/js/articles.js?v=2';
-    const dataPath = '/assets/data/articles.json?v=1';
+    const scriptPath = '/assets/js/articles.js?v=3';
+    const dataPath = '/assets/data/articles.json?v=2';
     const sourcePath = scriptPath.replace(/^\//, '').replace(/\?.*$/, '');
     const source = readFileSync(sourcePath, 'utf8');
     const payload = JSON.parse(readFileSync(dataPath.replace(/^\//, '').replace(/\?.*$/, ''), 'utf8'));
@@ -216,10 +216,13 @@ describe('frontend security guards', () => {
     expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
-    expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=1'");
+    expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2'");
     expect(payload.total).toBe(143);
     expect(payload.articles).toHaveLength(143);
     expect(new Set(payload.articles.map((article: { url: string }) => article.url)).size).toBe(143);
+    expect(JSON.stringify(payload)).not.toMatch(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/);
+    expect(payload.articles.find((article: { url: string }) => article.url.includes('Aws-CodeDeploy'))?.title).toBe('AWS-CodeDeploy简洁快速文档');
+    expect(payload.articles.find((article: { url: string }) => article.url.includes('Aws-Java-SDK1'))?.excerpt).toContain('AWS SDK for Java 1.x');
     payload.articles.forEach((article: { date: string; url: string }, index: number) => {
       if (index > 0) expect(article.date <= payload.articles[index - 1].date).toBe(true);
       const url = article.url;

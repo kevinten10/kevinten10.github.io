@@ -850,6 +850,19 @@
     },
     {
       "id": 65,
+      "title": "AWS-CodeDeploy简洁快速文档",
+      "excerpt": "CodeDeploy 是一项部署服务，可以向 Amazon EC2 实例、本地实例、无服务器 Lambda 函数或 Amazon ECS 服务自动执行应用程序部署。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/code/Aws-CodeDeploy/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 66,
       "title": "AWS-CodePipeline简洁快速文档",
       "excerpt": "AWS CodePipeline 是一种持续交付服务，可用于建模、可视化和自动执行发布软件所需的步骤。您可以快速对软件发布过程的不同阶段进行建模和配置。CodePipeline 会自动执行持续发布软件更改所需的步骤。有关 CodePipeline 定价的信息，请参阅定价。",
       "date": "2019-09-27",
@@ -860,19 +873,6 @@
       ],
       "url": "/2019/09/27/AWS/code/Aws-CodePipeline/",
       "readTime": "1 min"
-    },
-    {
-      "id": 66,
-      "title": "AWS-CodeStar简洁快速文档",
-      "excerpt": "CodeDeploy 是一项部署服务，可以向 Amazon EC2 实例、本地实例、无服务器 Lambda 函数或 Amazon ECS 服务自动执行应用程序部署。",
-      "date": "2019-09-27",
-      "category": "aws",
-      "categoryName": "AWS",
-      "tags": [
-        "aws"
-      ],
-      "url": "/2019/09/27/AWS/code/Aws-CodeDeploy/",
-      "readTime": "2 min"
     },
     {
       "id": 67,
@@ -1098,7 +1098,7 @@
     {
       "id": 84,
       "title": "AWS-SDK1使用步骤",
-      "excerpt": "Amazon Elasticsearch Service (Amazon ES) 是一种托管服务，可以让您轻松在 AWS 云中部署、操作和扩展 Elasticsearch 集群。Elasticsearch 是一款流行的开源搜索和分析引擎，适用于日志分析、实时应用程序监控、点击流分析等使用案例。借助 Amazon ES…",
+      "excerpt": "AWS SDK for Java 1.x 提供访问 AWS 服务的 Java API。本文记录凭证配置、客户端创建与服务调用的基础使用步骤。",
       "date": "2019-09-21",
       "category": "aws",
       "categoryName": "AWS",
@@ -1775,7 +1775,7 @@
     {
       "id": 133,
       "title": "Reactive-适用场景",
-      "excerpt": "在异步处理中能够控制所有的环节是非常好的：每一个层级都有线程池和队列。我们可以使一些层级\b具有弹性能力，可以根据负载动态调整。\b但是这也是一种负担，我们期望有更加简洁的方式。可扩展性的分析结果趋向于减少多余的线程，不要超出硬件资源的限制条件。",
+      "excerpt": "在异步处理中能够控制所有的环节是非常好的：每一个层级都有线程池和队列。我们可以使一些层级具有弹性能力，可以根据负载动态调整。但是这也是一种负担，我们期望有更加简洁的方式。可扩展性的分析结果趋向于减少多余的线程，不要超出硬件资源的限制条件。",
       "date": "2019-07-15",
       "category": "reactive",
       "categoryName": "Reactive",
