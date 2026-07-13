@@ -69,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -99,15 +99,19 @@ describe('frontend security guards', () => {
     expect(html).toContain('href="#comments"');
     expect(html).toContain('data-hero-density="editorial"');
     expect(html).toContain('hero-compact-actions');
-    expect(html).toContain('/assets/css/main.css?v=38');
+    expect(html).toContain('hero-social-matrix animate-on-scroll stagger-5" hidden');
+    expect(html).toContain('contact-social-bar');
+    expect(html).toContain('/assets/css/main.css?v=39');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
     expect(mainCss).toContain('[data-hero-density="editorial"]');
+    expect(mainCss).toContain('min-height: calc(100svh - 3rem)');
+    expect(mainCss).toContain('.hero-social-matrix');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=39');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
@@ -118,6 +122,9 @@ describe('frontend security guards', () => {
     const serviceWorker = readFileSync('sw.js', 'utf8');
 
     expect(html).toContain('anycap-media-section');
+    expect(html).toContain('id="media"');
+    expect(html).toContain('data-i18n="media.title"');
+    expect(html).toContain('data-i18n="media.film.play"');
     expect(html).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(html).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(html).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -132,6 +139,9 @@ describe('frontend security guards', () => {
     expect(html).not.toContain('/video/poster.jpg');
     expect(mainCss).toContain('.anycap-media-grid');
     expect(mainCss).toContain('.anycap-media-play');
+    expect(mainCss).toContain('grid-column: 1 / -1');
+    expect(mainCss).not.toContain('min-height: 100%;');
+    expect(mainCss).toContain('height: auto;');
     expect(serviceWorker).toContain('/images/anycap/ai-native-system-map-1600.webp');
     expect(serviceWorker).toContain('/images/anycap/openoctopus-realm-map-1600.webp');
     expect(serviceWorker).toContain('/video/kevinten-ai-native-promo-poster.jpg');
@@ -148,6 +158,7 @@ describe('frontend security guards', () => {
     expect(prepare).toContain("'video/kevinten-ai-native-promo-poster.jpg'");
     expect(prepare).toContain("process.argv.includes('--require-auth0')");
     expect(prepare).toContain('AUTH0_CLIENT_ID is required for Pages deployment');
+    expect(prepare).toContain("indexHtml.replace(/\\r\\n/g, '\\n')");
     expect(packageJson.scripts['deploy:pages']).toContain('--require-auth0');
   });
 
@@ -176,7 +187,9 @@ describe('frontend security guards', () => {
     expect(structuredData).not.toBeNull();
     expect(html.match(/<script(?![^>]*\bsrc=)[^>]*>/g) || []).toEqual(['<script type="application/ld+json">']);
     expect(html).not.toMatch(/\son[a-z]+\s*=/i);
-    const structuredDataHash = createHash('sha256').update(structuredData?.[1] || '').digest('base64');
+    const structuredDataHash = createHash('sha256')
+      .update((structuredData?.[1] || '').replace(/\r\n/g, '\n'))
+      .digest('base64');
     expect(headers).toContain(`'sha256-${structuredDataHash}'`);
     headers.split('\n').forEach((line) => expect(line.length).toBeLessThanOrEqual(2000));
     expect(headers).not.toContain('includeSubDomains');
@@ -186,7 +199,7 @@ describe('frontend security guards', () => {
   it('loads the published article index module and links only to existing articles', () => {
     const html = readFileSync('articles.html', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
-    const headers = readFileSync('_headers', 'utf8');
+    const headers = readFileSync('_headers', 'utf8').replace(/\r\n/g, '\n');
     const sitemap = readFileSync('sitemap.xml', 'utf8');
     const robots = readFileSync('robots.txt', 'utf8');
     const scriptPath = '/assets/js/articles.js?v=3';
@@ -213,7 +226,7 @@ describe('frontend security guards', () => {
     expect(html).not.toMatch(/\sstyle=/);
     expect(articleHeaders).not.toContain("style-src 'self' 'unsafe-inline'");
     expect(articleHeaders).toContain("style-src-attr 'none'");
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
     expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2'");
@@ -252,15 +265,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('data-quick-action="comments"');
     expect(html).toContain('aria-label="打开支持与鸣谢"');
     expect(html).toContain('aria-label="打开留言区"');
-    expect(html).toContain('/assets/css/main.css?v=38');
+    expect(html).toContain('/assets/css/main.css?v=39');
     expect(mainCss).toContain('.quick-action-rail');
     expect(mainCss).toContain('position: fixed');
     expect(mainCss).toContain('.quick-action-link');
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=39');
   });
 
   it('ships manual support records with unavailable WeChat, active Alipay, and embedded Stripe sandbox flows', () => {
@@ -307,10 +320,10 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
-    expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
+    expect(serviceWorker).toContain('/assets/js/i18n.js?v=37');
     expect(serviceWorker).not.toContain('/img/weixin.jpg');
     expect(serviceWorker).toContain('/img/alipay.jpg');
   });
@@ -369,7 +382,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });

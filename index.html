@@ -40,9 +40,9 @@
     
     <!-- Styles -->
     <link rel="preload" href="/assets/css/theme.css?v=31" as="style">
-    <link rel="preload" href="/assets/css/main.css?v=38" as="style">
+    <link rel="preload" href="/assets/css/main.css?v=39" as="style">
     <link rel="stylesheet" href="/assets/css/theme.css?v=31">
-    <link rel="stylesheet" href="/assets/css/main.css?v=38">
+    <link rel="stylesheet" href="/assets/css/main.css?v=39">
     <link rel="stylesheet" href="/assets/css/comments.css?v=2">
     <link rel="stylesheet" href="/assets/css/rewards.css?v=4">
     <link rel="stylesheet" href="/assets/css/ai-assistant.css?v=4">
@@ -274,7 +274,7 @@
             </div>
 
             <!-- Social Matrix — Categorized -->
-            <div class="social-matrix animate-on-scroll stagger-5">
+            <div class="social-matrix hero-social-matrix animate-on-scroll stagger-5" hidden>
                 <div class="social-group">
                     <span class="social-group-label" data-i18n="social.dev">Dev & AI</span>
                     <div class="social-group-pills">
@@ -371,40 +371,40 @@
     </section>
 
     <!-- AnyCap Media Showcase -->
-    <section class="anycap-media-section section" aria-label="AnyCap generated media">
+    <section class="anycap-media-section section" id="media" aria-labelledby="media-title">
         <div class="container">
             <div class="section-header animate-on-scroll">
-                <span class="section-idx">AI-NATIVE MEDIA</span>
-                <h2 class="section-title">Visual System Story</h2>
-                <p class="section-description">Generated with AnyCap CLI to make the architecture, agent ecosystem, and personal builder story easier to scan.</p>
+                <span class="section-idx" data-i18n="media.kicker">AI 原生视觉</span>
+                <h2 class="section-title" id="media-title" data-i18n="media.title">把系统讲清楚</h2>
+                <p class="section-description" data-i18n="media.desc">用图示与短片呈现个人站后端、智能体生态和 AI Native 构建者故事。</p>
             </div>
             <div class="anycap-media-grid">
                 <article class="anycap-media-card anycap-media-card--wide animate-on-scroll">
-                    <img src="/images/anycap/ai-native-system-map-1600.webp" width="1600" height="894" alt="AI Native system architecture map generated with AnyCap CLI" loading="lazy">
+                    <img src="/images/anycap/ai-native-system-map-1600.webp" width="1600" height="894" alt="AI Native 个人站系统架构图" loading="lazy">
                     <div class="anycap-media-copy">
-                        <span>System Map</span>
-                        <h3>Edge-first personal site backend</h3>
-                        <p>Cloudflare Workers, identity, payments, D1, R2, analytics, queues, and AI agents are presented as one connected operating map.</p>
+                        <span data-i18n="media.system.kicker">系统地图</span>
+                        <h3 data-i18n="media.system.title">边缘优先的个人站后端</h3>
+                        <p data-i18n="media.system.desc">Cloudflare Workers、身份认证、支付、D1、R2、统计、队列与 AI Agent 被组织成一张连贯的运行地图。</p>
                     </div>
                 </article>
                 <article class="anycap-media-card animate-on-scroll stagger-1">
-                    <img src="/video/kevinten-ai-native-promo-poster.jpg" width="2048" height="1152" alt="KevinTen AI Native promotional film still generated with AnyCap CLI" loading="lazy">
+                    <img src="/video/kevinten-ai-native-promo-poster.jpg" width="2048" height="1152" alt="KevinTen AI Native 宣传片画面" loading="lazy">
                     <div class="anycap-media-copy">
-                        <span>Promo Film</span>
-                        <h3>AI Native builder intro</h3>
-                        <p>A short cinematic loop for the hero video modal, generated from the poster as image-to-video.</p>
-                        <button class="anycap-media-play" type="button" data-video-trigger aria-label="Play AnyCap generated promotional video">
+                        <span data-i18n="media.film.kicker">宣传短片</span>
+                        <h3 data-i18n="media.film.title">AI Native 构建者简介</h3>
+                        <p data-i18n="media.film.desc">由主视觉生成的 6 秒短片，用一个镜头建立技术、产品与个人品牌氛围。</p>
+                        <button class="anycap-media-play" type="button" data-video-trigger aria-label="播放 AI Native 宣传短片">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-                            <span>Play video</span>
+                            <span data-i18n="media.film.play">播放短片</span>
                         </button>
                     </div>
                 </article>
                 <article class="anycap-media-card animate-on-scroll stagger-2">
-                    <img src="/images/anycap/openoctopus-realm-map-1600.webp" width="1600" height="894" alt="OpenOctopus realm map generated with AnyCap CLI" loading="lazy">
+                    <img src="/images/anycap/openoctopus-realm-map-1600.webp" width="1600" height="894" alt="OpenOctopus 领域智能体地图" loading="lazy">
                     <div class="anycap-media-copy">
                         <span>OpenOctopus</span>
-                        <h3>Realm-native agent map</h3>
-                        <p>Six life realms become a visual network around the personal AI agent system.</p>
+                        <h3 data-i18n="media.octopus.title">领域原生的智能体地图</h3>
+                        <p data-i18n="media.octopus.desc">旅行、健康、财务、工具、创作与学习六个生活领域，围绕个人 AI Agent 系统形成协作网络。</p>
                     </div>
                 </article>
             </div>
@@ -2455,7 +2455,7 @@
     <!-- Scripts -->
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
     <script src="/assets/js/cloudflare-runtime.js?v=3"></script>
-    <script src="/assets/js/i18n.js?v=36"></script>
+    <script src="/assets/js/i18n.js?v=37"></script>
     <script src="/assets/js/observer-manager.js?v=31" defer></script>
     <script src="/assets/js/theme.js?v=31" defer></script>
     <script src="/assets/js/animations.js?v=31" defer></script>
