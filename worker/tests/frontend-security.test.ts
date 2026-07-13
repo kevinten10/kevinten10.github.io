@@ -69,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -99,15 +99,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('href="#comments"');
     expect(html).toContain('data-hero-density="editorial"');
     expect(html).toContain('hero-compact-actions');
-    expect(html).toContain('/assets/css/main.css?v=37');
+    expect(html).toContain('/assets/css/main.css?v=38');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
     expect(mainCss).toContain('[data-hero-density="editorial"]');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=37');
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
@@ -186,21 +186,51 @@ describe('frontend security guards', () => {
   it('loads the published article index module and links only to existing articles', () => {
     const html = readFileSync('articles.html', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
-    const scriptPath = '/assets/js/legacy/articles.js?v=1';
+    const headers = readFileSync('_headers', 'utf8');
+    const sitemap = readFileSync('sitemap.xml', 'utf8');
+    const robots = readFileSync('robots.txt', 'utf8');
+    const scriptPath = '/assets/js/articles.js?v=3';
+    const dataPath = '/assets/data/articles.json?v=2';
     const sourcePath = scriptPath.replace(/^\//, '').replace(/\?.*$/, '');
     const source = readFileSync(sourcePath, 'utf8');
-    const articleUrls = Array.from(source.matchAll(/\n\s*url:\s*'([^']+)'/g), (match) => match[1]);
+    const payload = JSON.parse(readFileSync(dataPath.replace(/^\//, '').replace(/\?.*$/, ''), 'utf8'));
+    const articleHeaders = headers.match(/\/articles\*\n([\s\S]*?)(?=\n\/|$)/)?.[1] || '';
 
+    execFileSync(process.execPath, ['scripts/generate-articles-index.mjs', '--check'], { stdio: 'ignore' });
+    expect(html).toContain(`<link rel="preload" href="${dataPath}" as="fetch" crossorigin>`);
     expect(html).toContain(`<link rel="preload" href="${scriptPath}" as="script">`);
-    expect(html).toContain(`<script src="${scriptPath}"></script>`);
-    expect(html).not.toContain('/assets/js/articles.js');
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
+    expect(html).toContain(`<script src="${scriptPath}" defer></script>`);
+    expect(html).toContain('<button class="mobile-menu-btn"');
+    expect(html).toContain('<script src="/assets/js/mobile-nav.js?v=32" defer></script>');
+    const mobileNav = readFileSync('assets/js/mobile-nav.js', 'utf8');
+    expect(mobileNav).not.toContain('document.body.style');
+    expect(mobileNav).toContain("document.body.classList.add('mobile-nav-open')");
+    expect(mobileNav).toContain("document.body.classList.remove('mobile-nav-open')");
+    expect(html).not.toContain('/assets/js/legacy/articles.js');
+    expect(html).toContain('<link rel="canonical" href="https://kevinten.com/articles">');
+    expect(html).toContain('<meta property="og:url" content="https://kevinten.com/articles">');
+    expect(html).not.toContain('kevinten10.github.io');
+    expect(html).not.toMatch(/\sstyle=/);
+    expect(articleHeaders).not.toContain("style-src 'self' 'unsafe-inline'");
+    expect(articleHeaders).toContain("style-src-attr 'none'");
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
-    expect(articleUrls).toHaveLength(10);
-    articleUrls.forEach((url) => {
+    expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2'");
+    expect(payload.total).toBe(143);
+    expect(payload.articles).toHaveLength(143);
+    expect(new Set(payload.articles.map((article: { url: string }) => article.url)).size).toBe(143);
+    expect(JSON.stringify(payload)).not.toMatch(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/);
+    expect(payload.articles.find((article: { url: string }) => article.url.includes('Aws-CodeDeploy'))?.title).toBe('AWS-CodeDeploy简洁快速文档');
+    expect(payload.articles.find((article: { url: string }) => article.url.includes('Aws-Java-SDK1'))?.excerpt).toContain('AWS SDK for Java 1.x');
+    payload.articles.forEach((article: { date: string; url: string }, index: number) => {
+      if (index > 0) expect(article.date <= payload.articles[index - 1].date).toBe(true);
+      const url = article.url;
       expect(existsSync(`${decodeURI(url).replace(/^\//, '')}index.html`)).toBe(true);
+      expect(sitemap).toContain(`<loc>https://kevinten.com${encodeURI(url)}</loc>`);
     });
+    expect((sitemap.match(/<loc>/g) || [])).toHaveLength(148);
+    expect(robots).toContain('Sitemap: https://kevinten.com/sitemap.xml');
   });
 
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {
@@ -222,15 +252,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('data-quick-action="comments"');
     expect(html).toContain('aria-label="打开支持与鸣谢"');
     expect(html).toContain('aria-label="打开留言区"');
-    expect(html).toContain('/assets/css/main.css?v=37');
+    expect(html).toContain('/assets/css/main.css?v=38');
     expect(mainCss).toContain('.quick-action-rail');
     expect(mainCss).toContain('position: fixed');
     expect(mainCss).toContain('.quick-action-link');
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=37');
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
   });
 
   it('ships manual support records with unavailable WeChat, active Alipay, and embedded Stripe sandbox flows', () => {
@@ -277,7 +307,7 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
     expect(serviceWorker).toContain('/assets/js/i18n.js?v=36');
@@ -339,7 +369,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '53'");
+    expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });

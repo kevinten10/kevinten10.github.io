@@ -6,129 +6,17 @@
 (function() {
   'use strict';
 
-  // Article data - sample data based on actual blog structure
-  const articlesData = [
-    {
-      id: 1,
-      title: 'Reactive gRPC - 响应式RPC框架实践',
-      excerpt: '探讨如何在微服务架构中使用Reactive gRPC实现高性能的异步通信，包括背压处理、流控制和错误处理策略。',
-      date: '2019-09-15',
-      category: 'reactive',
-      categoryName: 'Reactive',
-      tags: ['gRPC', 'Reactive', 'Microservices'],
-      url: '/2019/09/15/Reactive/Reactive-gRPC/',
-      readTime: '15 min'
-    },
-    {
-      id: 2,
-      title: 'Java IO模型深度解析',
-      excerpt: '从BIO到NIO再到AIO，全面解析Java中的IO模型演进，以及在不同场景下的选型建议。',
-      date: '2019-09-15',
-      category: 'java',
-      categoryName: 'Java',
-      tags: ['Java', 'IO', 'NIO', 'Netty'],
-      url: '/2019/09/15/Java/io/Java-IO模型/',
-      readTime: '20 min'
-    },
-    {
-      id: 3,
-      title: 'Service Mesh - Istio入门与实践',
-      excerpt: '详细介绍Istio的架构设计、核心功能以及在Kubernetes环境中的部署和配置方法。',
-      date: '2019-09-03',
-      category: 'servicemesh',
-      categoryName: 'Service Mesh',
-      tags: ['Istio', 'Service Mesh', 'Kubernetes'],
-      url: '/2019/09/03/Cloud/servicemesh/Cloud-Istio/',
-      readTime: '25 min'
-    },
-    {
-      id: 4,
-      title: 'Envoy代理配置详解',
-      excerpt: '深入理解Envoy的配置模型，包括Listener、Cluster、Route等核心概念的配置方法。',
-      date: '2019-09-03',
-      category: 'servicemesh',
-      categoryName: 'Service Mesh',
-      tags: ['Envoy', 'Proxy', 'Service Mesh'],
-      url: '/2019/09/03/Cloud/servicemesh/Cloud-Envoy/',
-      readTime: '18 min'
-    },
-    {
-      id: 5,
-      title: 'AWS Lambda无服务器架构实战',
-      excerpt: '从零开始构建AWS Lambda应用，包括函数开发、部署、监控和最佳实践。',
-      date: '2019-09-21',
-      category: 'aws',
-      categoryName: 'AWS',
-      tags: ['AWS', 'Lambda', 'Serverless'],
-      url: '/2019/09/29/AWS/lambda/Aws-Lambda/',
-      readTime: '12 min'
-    },
-    {
-      id: 6,
-      title: 'Kubernetes服务发现机制',
-      excerpt: '深入分析Kubernetes中的服务发现原理，包括DNS、Endpoints和Service的工作原理。',
-      date: '2019-08-30',
-      category: 'kubernetes',
-      categoryName: 'Kubernetes',
-      tags: ['Kubernetes', 'Service Discovery', 'DNS'],
-      url: '/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/',
-      readTime: '22 min'
-    },
-    {
-      id: 7,
-      title: 'Netty核心组件详解',
-      excerpt: '全面解析Netty的核心组件，包括Channel、EventLoop、ChannelHandler等关键概念。',
-      date: '2019-11-11',
-      category: 'java',
-      categoryName: 'Java',
-      tags: ['Netty', 'Java', 'NIO', 'Network'],
-      url: '/2019/11/11/Netty/Netty-核心组件/',
-      readTime: '30 min'
-    },
-    {
-      id: 8,
-      title: 'QCon上海 - 云架构演进之路',
-      excerpt: 'QCon大会云架构专题分享总结，涵盖多云战略、混合云架构和云原生实践。',
-      date: '2019-10-21',
-      category: 'qcon',
-      categoryName: 'QCon',
-      tags: ['QCon', 'Cloud', 'Architecture'],
-      url: '/2019/10/21/Qcon/Qcon-云架构/',
-      readTime: '10 min'
-    },
-    {
-      id: 9,
-      title: '领域驱动设计实践指南',
-      excerpt: '从理论到实践，详细介绍DDD的核心概念、战略设计和战术设计方法。',
-      date: '2019-11-19',
-      category: 'java',
-      categoryName: 'Java',
-      tags: ['DDD', 'Architecture', 'Design'],
-      url: '/2019/11/19/Principle/领域驱动设计/',
-      readTime: '35 min'
-    },
-    {
-      id: 10,
-      title: 'TDD测试驱动开发实践',
-      excerpt: '通过实际案例学习TDD的开发流程，包括单元测试编写、重构技巧等。',
-      date: '2019-11-20',
-      category: 'java',
-      categoryName: 'Java',
-      tags: ['TDD', 'Testing', 'Java'],
-      url: '/2019/11/20/Principle/TDD/',
-      readTime: '28 min'
-    }
-  ];
+  const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2';
 
   // State management
   const state = {
-    articles: articlesData,
-    filteredArticles: articlesData,
+    articles: [],
+    filteredArticles: [],
     currentCategory: 'all',
     currentTag: null,
     searchQuery: '',
     currentPage: 1,
-    itemsPerPage: 6,
+    itemsPerPage: 12,
     isLoading: false
   };
 
@@ -150,10 +38,86 @@
   /**
    * Initialize the articles page
    */
-  function init() {
+  async function init() {
     bindEvents();
-    renderArticles();
-    updateFilterStatus();
+    setLoading(true);
+
+    try {
+      const response = await fetch(ARTICLES_INDEX_URL, {
+        headers: { Accept: 'application/json' }
+      });
+      if (!response.ok) throw new Error(`Article index request failed: ${response.status}`);
+
+      const payload = await response.json();
+      if (!Array.isArray(payload.articles) || payload.total !== payload.articles.length) {
+        throw new Error('Article index payload is invalid.');
+      }
+
+      state.articles = payload.articles;
+      state.filteredArticles = payload.articles;
+      renderTaxonomy();
+      renderArticles();
+      updateFilterStatus();
+    } catch (error) {
+      console.error('Failed to load article index:', error);
+      state.articles = [];
+      state.filteredArticles = [];
+      const title = elements.noResults?.querySelector('h3');
+      const description = elements.noResults?.querySelector('p');
+      if (title) title.textContent = '文章索引加载失败';
+      if (description) description.textContent = '请刷新页面重试，或访问历史归档。';
+      renderArticles();
+      if (elements.filterText) elements.filterText.textContent = '文章索引暂时不可用';
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function setLoading(isLoading) {
+    state.isLoading = isLoading;
+    if (elements.loadingIndicator) elements.loadingIndicator.hidden = !isLoading;
+    if (elements.loadMoreContainer && isLoading) elements.loadMoreContainer.hidden = true;
+  }
+
+  function renderTaxonomy() {
+    const categories = new Map();
+    const tags = new Map();
+
+    state.articles.forEach((article) => {
+      const category = categories.get(article.category) || {
+        slug: article.category,
+        name: article.categoryName,
+        count: 0
+      };
+      category.count++;
+      categories.set(article.category, category);
+
+      article.tags.forEach((tag) => {
+        const key = tag.toLocaleLowerCase('zh-CN');
+        const item = tags.get(key) || { key, name: tag, count: 0 };
+        item.count++;
+        tags.set(key, item);
+      });
+    });
+
+    const sortedCategories = Array.from(categories.values())
+      .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'zh-CN'));
+    const popularTags = Array.from(tags.values())
+      .sort((left, right) => right.count - left.count || left.name.localeCompare(right.name, 'zh-CN'))
+      .slice(0, 16);
+
+    if (elements.categoryList) {
+      elements.categoryList.innerHTML = [
+        `<li><button type="button" class="category-item active" data-category="all"><span class="category-name">全部文章</span><span class="category-count">${state.articles.length}</span></button></li>`,
+        ...sortedCategories.map((category) => `<li><button type="button" class="category-item" data-category="${escapeHtml(category.slug)}"><span class="category-name">${escapeHtml(category.name)}</span><span class="category-count">${category.count}</span></button></li>`)
+      ].join('');
+    }
+
+    if (elements.tagCloud) {
+      elements.tagCloud.innerHTML = popularTags
+        .map((tag) => `<button type="button" class="tag-item" data-tag="${escapeHtml(tag.key)}">${escapeHtml(tag.name)} <span aria-hidden="true">${tag.count}</span></button>`)
+        .join('');
+    }
   }
 
   /**
@@ -251,7 +215,7 @@
       }
 
       // Tag filter
-      if (state.currentTag && !article.tags.includes(state.currentTag)) {
+      if (state.currentTag && !article.tags.some((tag) => tag.toLocaleLowerCase('zh-CN') === state.currentTag)) {
         return false;
       }
 
@@ -261,8 +225,9 @@
         const matchTitle = article.title.toLowerCase().includes(searchLower);
         const matchExcerpt = article.excerpt.toLowerCase().includes(searchLower);
         const matchTags = article.tags.some(tag => tag.toLowerCase().includes(searchLower));
+        const matchCategory = article.categoryName.toLowerCase().includes(searchLower);
         
-        if (!matchTitle && !matchExcerpt && !matchTags) {
+        if (!matchTitle && !matchExcerpt && !matchTags && !matchCategory) {
           return false;
         }
       }
@@ -286,15 +251,15 @@
 
     if (articlesToShow.length === 0) {
       elements.articlesGrid.innerHTML = '';
-      elements.noResults.style.display = 'block';
-      elements.loadMoreContainer.style.display = 'none';
+      if (elements.noResults) elements.noResults.hidden = false;
+      elements.loadMoreContainer.hidden = true;
       return;
     }
 
-    elements.noResults.style.display = 'none';
+    if (elements.noResults) elements.noResults.hidden = true;
 
     const html = articlesToShow.map(article => `
-      <article class="article-card" data-id="${article.id}">
+      <article class="article-card" data-id="${Number(article.id)}">
         <div class="article-header">
           <div class="article-meta">
             <span class="article-date">
@@ -303,20 +268,20 @@
             </span>
             <span class="article-reading-time">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              ${article.readTime}
+              ${escapeHtml(article.readTime)}
             </span>
           </div>
-          <span class="article-category">${article.categoryName}</span>
+          <span class="article-category">${escapeHtml(article.categoryName)}</span>
         </div>
         <h2 class="article-title">
-          <a href="${article.url}">${highlightMatch(article.title, state.searchQuery)}</a>
+          <a href="${escapeHtml(article.url)}">${highlightMatch(article.title, state.searchQuery)}</a>
         </h2>
         <p class="article-excerpt">${highlightMatch(article.excerpt, state.searchQuery)}</p>
         <div class="article-footer">
           <div class="article-tags">
-            ${article.tags.map(tag => `<span class="article-tag">${tag}</span>`).join('')}
+            ${article.tags.map(tag => `<span class="article-tag">${escapeHtml(tag)}</span>`).join('')}
           </div>
-          <a href="${article.url}" class="article-link">
+          <a href="${escapeHtml(article.url)}" class="article-link">
             阅读更多
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -328,9 +293,9 @@
 
     // Show/hide load more button
     if (state.filteredArticles.length > endIndex) {
-      elements.loadMoreContainer.style.display = 'block';
+      elements.loadMoreContainer.hidden = false;
     } else {
-      elements.loadMoreContainer.style.display = 'none';
+      elements.loadMoreContainer.hidden = true;
     }
   }
 
@@ -358,10 +323,10 @@
 
     if (filters.length === 0) {
       statusText = `显示全部文章 (${state.filteredArticles.length})`;
-      elements.clearFilter.style.display = 'none';
+      elements.clearFilter.hidden = true;
     } else {
       statusText = `${filters.join(' + ')} (${state.filteredArticles.length})`;
-      elements.clearFilter.style.display = 'inline-block';
+      elements.clearFilter.hidden = false;
     }
 
     elements.filterText.textContent = statusText;
@@ -407,21 +372,34 @@
    * Format date string
    */
   function formatDate(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return /^\d{4}-\d{2}-\d{2}$/.test(dateString) ? dateString : '';
   }
 
   /**
    * Highlight search matches
    */
   function highlightMatch(text, query) {
-    if (!query) return text;
-    
+    const source = String(text || '');
+    if (!query) return escapeHtml(source);
+
     const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
-    return text.replace(regex, '<mark style="background: var(--color-primary); color: white; padding: 0 2px; border-radius: 2px;">$1</mark>');
+    let output = '';
+    let lastIndex = 0;
+    for (const match of source.matchAll(regex)) {
+      output += escapeHtml(source.slice(lastIndex, match.index));
+      output += `<mark class="search-highlight">${escapeHtml(match[0])}</mark>`;
+      lastIndex = match.index + match[0].length;
+    }
+    return output + escapeHtml(source.slice(lastIndex));
+  }
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
   }
 
   /**

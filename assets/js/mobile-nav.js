@@ -87,10 +87,7 @@
 
       // Store scroll position
       this.scrollPosition = window.pageYOffset;
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${this.scrollPosition}px`;
-      document.body.style.width = '100%';
+      document.body.classList.add('mobile-nav-open');
 
       // Show nav
       this.nav.classList.add('active');
@@ -109,10 +106,7 @@
       this.isOpen = false;
 
       // Restore scroll position
-      document.body.style.removeProperty('overflow');
-      document.body.style.removeProperty('position');
-      document.body.style.removeProperty('top');
-      document.body.style.removeProperty('width');
+      document.body.classList.remove('mobile-nav-open');
       window.scrollTo(0, this.scrollPosition);
 
       // Hide nav
