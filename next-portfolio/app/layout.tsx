@@ -1,26 +1,7 @@
 import type { Metadata } from 'next';
-import { DM_Sans, JetBrains_Mono, Sora } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { I18nProvider } from '@/providers/I18nProvider';
 import './globals.css';
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-dm-sans',
-});
-
-const sora = Sora({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-sora',
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jetbrains-mono',
-});
 
 export const metadata: Metadata = {
   title: 'KevinTen | Software Architect & AI-Native Developer',
@@ -58,7 +39,6 @@ export default function RootLayout({
   return (
     <html
       lang="zh-CN"
-      className={`${dmSans.variable} ${sora.variable} ${jetBrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

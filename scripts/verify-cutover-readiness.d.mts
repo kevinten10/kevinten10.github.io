@@ -127,6 +127,8 @@ export function parseNslookupResponse(stdout: string): {
 
 export function auth0AppShowArgs(clientId: string): string[];
 
+export function auth0ClientIdFromRuntime(source?: string): string;
+
 export function isAuth0PublicRouteAllowed(summary?: {
   status?: number;
   location?: string;

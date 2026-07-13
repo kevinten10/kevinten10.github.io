@@ -14,6 +14,7 @@ import {
   isCloudflareAccessProtected,
   isProductionHttpReady,
   auth0ChildEnv,
+  auth0ClientIdFromRuntime,
   auth0Executable,
   auth0AppShowArgs,
   auth0PublicProductionCheckWithRequester,
@@ -28,6 +29,15 @@ import {
 } from '../../scripts/verify-cutover-readiness.mjs';
 
 describe('production cutover readiness helpers', () => {
+  it('discovers the public Auth0 client ID from the deployed runtime config', () => {
+    expect(auth0ClientIdFromRuntime(`var config = {
+      "auth0": { "clientId": "public-client-id" }
+    };`)).toBe('public-client-id');
+    expect(auth0ClientIdFromRuntime("var config = { auth0: { 'clientId': 'single-quoted-id' } };"))
+      .toBe('single-quoted-id');
+    expect(auth0ClientIdFromRuntime('var config = { auth0: {} };')).toBe('');
+  });
+
   it('detects Cloudflare nameservers for apex cutover readiness', () => {
     expect(hasCloudflareNameservers(['ada.ns.cloudflare.com', 'bob.ns.cloudflare.com'])).toBe(true);
     expect(hasCloudflareNameservers(['dns13.hichina.com', 'dns14.hichina.com'])).toBe(false);

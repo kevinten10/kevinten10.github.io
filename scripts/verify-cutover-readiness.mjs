@@ -410,6 +410,11 @@ function auth0Domain(env = process.env) {
   return envValue('AUTH0_DOMAIN', 'dev-8abkwbejxgjbcz1l.us.auth0.com', env).replace(/^https?:\/\//, '').replace(/\/$/, '');
 }
 
+export function auth0ClientIdFromRuntime(source = '') {
+  const match = String(source).match(/["']clientId["']\s*:\s*["']([^"']+)["']/);
+  return match?.[1]?.trim() || '';
+}
+
 function auth0PublicAuthorizeUrl({ domain, clientId, origin }) {
   const url = new URL(`https://${domain}/authorize`);
   url.searchParams.set('client_id', clientId);
@@ -697,7 +702,7 @@ export async function verifyCutoverReadiness(env = process.env) {
   const pagesProject = envValue('CLOUDFLARE_PAGES_PROJECT', 'kevinten-interactive-preview', env);
   const apiBaseUrl = envValue('API_BASE_URL', 'https://kevinten-api-preview.wshten.workers.dev', env).replace(/\/$/, '');
   const pagesUrl = envValue('PAGES_URL', 'https://kevinten-interactive-preview.pages.dev', env).replace(/\/$/, '');
-  const auth0ClientId = envValue('AUTH0_CLIENT_ID', '', env);
+  const configuredAuth0ClientId = envValue('AUTH0_CLIENT_ID', '', env);
   const productionOrigins = splitList(envValue('PRODUCTION_ORIGINS', 'https://kevinten.com,https://www.kevinten.com', env));
   const productionHosts = productionOrigins.map((origin) => new URL(origin).hostname);
   const expectedCallbacks = productionOrigins.map((origin) => `${origin}/`);
@@ -719,6 +724,7 @@ export async function verifyCutoverReadiness(env = process.env) {
   }
 
   const runtime = (await requestText(`${pagesUrl}/assets/js/cloudflare-runtime.js?v=3`)).text;
+  const auth0ClientId = configuredAuth0ClientId || auth0ClientIdFromRuntime(runtime);
   const runtimeOk = productionOrigins.every((origin) => runtime.includes(origin)) && runtime.includes('window.location.origin');
   record('Pages runtime supports preview plus production origins', runtimeOk, pagesUrl);
   ready &&= runtimeOk;
