@@ -158,6 +158,7 @@ describe('frontend security guards', () => {
     expect(prepare).toContain("'video/kevinten-ai-native-promo-poster.jpg'");
     expect(prepare).toContain("process.argv.includes('--require-auth0')");
     expect(prepare).toContain('AUTH0_CLIENT_ID is required for Pages deployment');
+    expect(prepare).toContain("indexHtml.replace(/\\r\\n/g, '\\n')");
     expect(packageJson.scripts['deploy:pages']).toContain('--require-auth0');
   });
 
@@ -186,7 +187,9 @@ describe('frontend security guards', () => {
     expect(structuredData).not.toBeNull();
     expect(html.match(/<script(?![^>]*\bsrc=)[^>]*>/g) || []).toEqual(['<script type="application/ld+json">']);
     expect(html).not.toMatch(/\son[a-z]+\s*=/i);
-    const structuredDataHash = createHash('sha256').update(structuredData?.[1] || '').digest('base64');
+    const structuredDataHash = createHash('sha256')
+      .update((structuredData?.[1] || '').replace(/\r\n/g, '\n'))
+      .digest('base64');
     expect(headers).toContain(`'sha256-${structuredDataHash}'`);
     headers.split('\n').forEach((line) => expect(line.length).toBeLessThanOrEqual(2000));
     expect(headers).not.toContain('includeSubDomains');

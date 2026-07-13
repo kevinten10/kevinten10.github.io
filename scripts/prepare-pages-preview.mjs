@@ -77,6 +77,12 @@ for (const file of includeFiles) {
   await copyRecursive(path.join(root, file), path.join(out, file));
 }
 
+// Keep the inline structured-data bytes stable across Windows and Linux so
+// the CSP hash in _headers remains valid for CLI and CI deployments.
+const indexOutputPath = path.join(out, 'index.html');
+const indexHtml = await fs.readFile(indexOutputPath, 'utf8');
+await fs.writeFile(indexOutputPath, indexHtml.replace(/\r\n/g, '\n'));
+
 const generatedEnv = await readEnvFile(path.join(root, 'dist', 'auth0-preview.env'));
 const runtimeValue = (key, fallback = '') => process.env[key] || generatedEnv[key] || fallback;
 const runtime = {
