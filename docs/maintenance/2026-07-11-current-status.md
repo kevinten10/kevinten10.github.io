@@ -11,7 +11,7 @@ Cloudflare production cutover is complete and the public site is healthy. The la
 | Component | Current state |
 | --- | --- |
 | Production site | `https://kevinten.com/` and `https://www.kevinten.com/` return Cloudflare-served HTTP 200 responses |
-| Pages | Production deployment `ff7bf067-435a-4db4-8270-938386efb7b2`, source commit `e49b3ed` |
+| Pages | Production branch `preview`; latest deployment is verified with Wrangler plus stable/custom-domain smoke checks |
 | Stable Pages origin | `https://kevinten-interactive-preview.pages.dev/` is healthy |
 | Worker | `/health` returns `success: true` and `status: ok`; deployment-version listing needs broader Workers read permission |
 | DNS | Cloudflare nameservers `chip.ns.cloudflare.com` and `faye.ns.cloudflare.com`; apex and `www` resolve through Cloudflare |
@@ -33,7 +33,7 @@ The 2026-07-12 dependency maintenance pass upgraded the undeployed Next.js candi
 
 ## Repository State
 
-- Cloudflare Pages production currently runs source commit `e49b3ed`; the production branch name in Cloudflare remains the historical `preview`.
+- Cloudflare Pages production is deployed from the current release; the production branch name in Cloudflare remains the historical `preview`.
 - `master` is the GitHub default branch and GitHub Pages rollback source.
 - The Next.js application under `next-portfolio/` is a migration candidate, not the production site.
 - Curated screenshots live under `docs/maintenance/screenshots/`; generated browser output remains ignored.

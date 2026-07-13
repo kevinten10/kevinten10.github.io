@@ -9,7 +9,7 @@ Last verified: 2026-07-13.
 | Production | `https://kevinten.com/` | HTTP 200 from Cloudflare Pages |
 | Production alias | `https://www.kevinten.com/` | HTTP 200 from Cloudflare Pages |
 | Stable Pages origin | `https://kevinten-interactive-preview.pages.dev/` | HTTP 200 and current runtime config |
-| Verified release | `https://ff7bf067.kevinten-interactive-preview.pages.dev/` | Production deployment `ff7bf067-435a-4db4-8270-938386efb7b2`, source `e49b3ed` |
+| UI release evidence | `https://ff7bf067.kevinten-interactive-preview.pages.dev/` | Deployment that verified removal of the standalone media showcase |
 | Worker API | `https://kevinten-api-preview.wshten.workers.dev/` | `/health` returns `success: true` |
 | Admin | `/admin/` on all production hosts | Redirects to Cloudflare Access |
 
