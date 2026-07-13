@@ -1,0 +1,1925 @@
+{
+  "source": "/archives/index.html",
+  "total": 143,
+  "articles": [
+    {
+      "id": 1,
+      "title": "一次服务拉出的问题排查",
+      "excerpt": "查看业务ES看板，发现流量在此刻比较稳定，排除流量剧增导致的原因",
+      "date": "2019-12-20",
+      "category": "问题排查",
+      "categoryName": "问题排查",
+      "tags": [
+        "问题排查",
+        "docker"
+      ],
+      "url": "/2019/12/20/问题排查/问题排查-服务拉出/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 2,
+      "title": "如何面对糟糕的代码",
+      "excerpt": "关于人生经验、代码规范的技术实践与学习记录。",
+      "date": "2019-12-16",
+      "category": "人生经验",
+      "categoryName": "人生经验",
+      "tags": [
+        "人生经验",
+        "代码规范"
+      ],
+      "url": "/2019/12/16/人生经验/糟糕的代码/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 3,
+      "title": "Vavr开源贡献(1)-阅读ISSUE",
+      "excerpt": "关于Vavr、开源的技术实践与学习记录。",
+      "date": "2019-12-16",
+      "category": "开源贡献-vavr",
+      "categoryName": "开源贡献-Vavr",
+      "tags": [
+        "Vavr",
+        "开源"
+      ],
+      "url": "/2019/12/16/Vavr/Vavr开源贡献(1)-阅读ISSUE/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 4,
+      "title": "Reactive-Vertx-Core(1) Vert.x核心组件概览",
+      "excerpt": "创建，一个Vertx实例可以用于部署HTTP、TCP Server,client等等操作，可以将Vertx instance看做一个Vert.x Core API 的入口。",
+      "date": "2019-12-08",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "vertx"
+      ],
+      "url": "/2019/12/08/Reactive/Reactive-Vertx-Core(1)/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 5,
+      "title": "测试驱动开发TDD",
+      "excerpt": "TDD的好处是覆盖完全的单元测试，对产品代码提供了一个保护网，让我们可以轻松地迎接需求变化或改善代码的设计。 所以如果你的项目需求稳定，一次性做完，后续没有任何改动的话，能享受到 TDD 的好处就比较少了。",
+      "date": "2019-11-20",
+      "category": "principle",
+      "categoryName": "Principle",
+      "tags": [
+        "tdd"
+      ],
+      "url": "/2019/11/20/Principle/TDD/",
+      "readTime": "5 min"
+    },
+    {
+      "id": 6,
+      "title": "RSocket",
+      "excerpt": "关于reactive、rsocket的技术实践与学习记录。",
+      "date": "2019-11-20",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "rsocket"
+      ],
+      "url": "/2019/11/20/Reactive/RSocket/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 7,
+      "title": "领域驱动设计-对象建模",
+      "excerpt": "领域服务。区别于应用服务，他属于业务领域层。可以认为，如果某种行为无法归类给任何实体/值对象，则就为这些行为建立相应的领域服务即可。传统意义上的util static方法中，涉及到业务逻辑的部分，都可以考虑归入domain service。",
+      "date": "2019-11-19",
+      "category": "principle",
+      "categoryName": "Principle",
+      "tags": [
+        "domain",
+        "model"
+      ],
+      "url": "/2019/11/19/Principle/领域驱动设计/",
+      "readTime": "7 min"
+    },
+    {
+      "id": 8,
+      "title": "Vim",
+      "excerpt": "关于tool、vim的技术实践与学习记录。",
+      "date": "2019-11-19",
+      "category": "tools",
+      "categoryName": "Tools",
+      "tags": [
+        "tool",
+        "vim"
+      ],
+      "url": "/2019/11/19/Tools/vim/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 9,
+      "title": "2019感悟",
+      "excerpt": "你写的每一行代码都应当足够好，好到你自己也感觉良好的程度。这些代码不仅要能正常运行，而且要能让你感到自豪。",
+      "date": "2019-11-13",
+      "category": "人生经验",
+      "categoryName": "人生经验",
+      "tags": [
+        "压力",
+        "调节"
+      ],
+      "url": "/2019/11/13/人生经验/2019感悟/",
+      "readTime": "8 min"
+    },
+    {
+      "id": 10,
+      "title": "Netty 核心组件",
+      "excerpt": "OS原语：bind() connect() read() write()",
+      "date": "2019-11-11",
+      "category": "netty",
+      "categoryName": "Netty",
+      "tags": [
+        "netty",
+        "channel"
+      ],
+      "url": "/2019/11/11/Netty/Netty-核心组件/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 11,
+      "title": "Netty 线程模型",
+      "excerpt": "线程模型指定了操作系统，编程语言，框架或者应用程序的上下文中的线程管理的关键方面",
+      "date": "2019-11-11",
+      "category": "netty",
+      "categoryName": "Netty",
+      "tags": [
+        "netty",
+        "eventloop"
+      ],
+      "url": "/2019/11/11/Netty/Netty-线程模型/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 12,
+      "title": "解密HTTP/2与HTTP/3 的新特性",
+      "excerpt": "网络延迟问题主要由于队头阻塞(Head-Of-Line Blocking),导致带宽无法被充分利用。",
+      "date": "2019-10-21",
+      "category": "net",
+      "categoryName": "Net",
+      "tags": [
+        "net",
+        "http"
+      ],
+      "url": "/2019/10/21/Net/Net-http23/",
+      "readTime": "9 min"
+    },
+    {
+      "id": 13,
+      "title": "IO系统调用",
+      "excerpt": "每次get都会导致进程进入自愿上下文切换，在网络IO密集型的应用里自愿上下文切换要比时间片到了被动切换要多的多！",
+      "date": "2019-10-21",
+      "category": "science",
+      "categoryName": "Science",
+      "tags": [
+        "IO",
+        "系统调用"
+      ],
+      "url": "/2019/10/21/Science/IO-系统调用/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 14,
+      "title": "Linux内核态栈",
+      "excerpt": "Linux的内核态栈使用一种特殊的约定，分配栈时绝对是按栈大小对齐，然后在栈的最低地址处存放一个thread_info结构体",
+      "date": "2019-10-21",
+      "category": "os",
+      "categoryName": "OS",
+      "tags": [
+        "linux",
+        "stack"
+      ],
+      "url": "/2019/10/21/OS/Linux-内核栈/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 15,
+      "title": "Qcon 10X",
+      "excerpt": "经常被分配非常困难的 bug 修复工作（比如内存泄漏），在这个过程中，他学到了许多用于跟踪代码问题的技术；",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-10X/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 16,
+      "title": "Qcon 编程语言",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-编程语言/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 17,
+      "title": "Qcon 编程原则",
+      "excerpt": "1， 10%的时间是真正写代码，剩下90%都是在思考问题在哪，如何写",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-principal/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 18,
+      "title": "Qcon 高频交易",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-高频交易/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 19,
+      "title": "Qcon 监控埋点",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/OS/IO-DomainSocket/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 20,
+      "title": "Qcon 监控埋点",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/监控-埋点/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 21,
+      "title": "Qcon 美团Servicemesh实践",
+      "excerpt": "美团90%java应用 -> 通过SDK（自研）接入ServiceMesh系统（？）",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-美团SM实践/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 22,
+      "title": "Qcon 云架构",
+      "excerpt": "expect：开发人员只需定义一份PTS，无需分环境配置 （OAM应用？）",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-云架构/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 23,
+      "title": "Qcon Ai in paypal's 合规管理",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-Ai in 合规管理/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 24,
+      "title": "Qcon Cat性能优化",
+      "excerpt": "遍历messagetree，读取数据 -> 客户端合并messagetree，然后发送到服务端",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/监控-Cat/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 25,
+      "title": "Qcon KV架构",
+      "excerpt": "网络抖动将会很快恢复，当节点拉出后，请求打到另一个节点，当恢复后，B回写log到A，然后ZK中心回复A",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-KV存储架构/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 26,
+      "title": "Qcon OCTO",
+      "excerpt": "关于Qcon的技术实践与学习记录。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-OCTO/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 27,
+      "title": "Qcon Scala",
+      "excerpt": "设计上没有 争用点 和 中央瓶颈，得以进行组件的 分片 或者 复制，并在他们之间分布负载",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-Scala/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 28,
+      "title": "Qcon serverless",
+      "excerpt": "借鉴TensorFlow、pytorch、flink设计思路：逻辑层和物理层解耦",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-Serverless/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 29,
+      "title": "Qcon Service Mesh",
+      "excerpt": "多语言支持 应用无感知的升级 流量控制 RPC协议支持 可观测性",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-ServiceMesh/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 30,
+      "title": "Qcon Vertx",
+      "excerpt": "Vert.x 的用户主要将它用于嵌入较大的应用程序，这使得它非常通用，比如你可以在 Spring 应用程序中使用 Vert.x。",
+      "date": "2019-10-19",
+      "category": "qcon",
+      "categoryName": "Qcon",
+      "tags": [
+        "Qcon"
+      ],
+      "url": "/2019/10/19/Qcon/Qcon-Vertx/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 31,
+      "title": "EPOLL 用法",
+      "excerpt": "现在操作系统都是采用虚拟存储器，那么对32位操作系统而言，它的寻址空间（虚拟存储空间）为4G（2的32次方）。操作系统的核心是内核，独立于普通的应用程序，可以访问受保护的内存空间，也有访问底层硬件设备的所有权限。为了保证用户进程不能直接操作内核（kernel），保证内核的安全，操心系统将虚拟空间划分为两部分，一部分为…",
+      "date": "2019-10-14",
+      "category": "science",
+      "categoryName": "Science",
+      "tags": [
+        "IO",
+        "EPOLL"
+      ],
+      "url": "/2019/10/14/Science/IO-EPOLL/",
+      "readTime": "19 min"
+    },
+    {
+      "id": 32,
+      "title": "Java - Fork Join",
+      "excerpt": "如果你有n个繁忙线程都是100％独立工作，那么这将比Fork-Join（FJ）池中的n个线程更好。但它从来没有这样做过。",
+      "date": "2019-10-14",
+      "category": "java",
+      "categoryName": "Java",
+      "tags": [
+        "java",
+        "concurrent"
+      ],
+      "url": "/2019/10/14/Java/concurrent/Java-ForkJoin/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 33,
+      "title": "IOCP 用法",
+      "excerpt": "关于IO、IOCP的技术实践与学习记录。",
+      "date": "2019-10-09",
+      "category": "science",
+      "categoryName": "Science",
+      "tags": [
+        "IO",
+        "IOCP"
+      ],
+      "url": "/2019/10/09/Reactive/Reactive-IOCP/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 34,
+      "title": "IOCP 用法",
+      "excerpt": "https://www.cnblogs.com/tanguoying/p/8439701.Html",
+      "date": "2019-10-09",
+      "category": "science",
+      "categoryName": "Science",
+      "tags": [
+        "IO",
+        "IOCP"
+      ],
+      "url": "/2019/10/09/Science/IO-IOCP/",
+      "readTime": "17 min"
+    },
+    {
+      "id": 35,
+      "title": "Java-Try",
+      "excerpt": "title: Java try date: 2019-10-09 00:00:00 tags:",
+      "date": "2019-10-09",
+      "category": "other",
+      "categoryName": "Other",
+      "tags": [],
+      "url": "/2019/10/09/Java/io/Java-Try/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 36,
+      "title": "Reactive Nodejs",
+      "excerpt": "Everything runs in parallel except your code!",
+      "date": "2019-10-09",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "node"
+      ],
+      "url": "/2019/10/09/Reactive/Reactive-Nodejs/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 37,
+      "title": "深入理解Java Stream流水线",
+      "excerpt": "https://www.cnblogs.com/CarpenterLee/p/6637118.html",
+      "date": "2019-10-08",
+      "category": "stream",
+      "categoryName": "Stream",
+      "tags": [
+        "stream"
+      ],
+      "url": "/2019/10/08/Stream/Stream-概念/",
+      "readTime": "15 min"
+    },
+    {
+      "id": 38,
+      "title": "Reactive Vertx",
+      "excerpt": "异步无锁编程——经典的多线程编程模型能满足很多Web开发场景，但随着移动互联网并发连接数的猛增，多线程并发控制模型性能难以扩展，同时要想控制好并发锁需要较高的技巧，目前Reactor异步编程模型开始跑马圈地，而Vert.x就是这种异步无锁编程的一个首选；",
+      "date": "2019-10-08",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "vertx"
+      ],
+      "url": "/2019/10/08/Reactive/Reactive-Vertx/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 39,
+      "title": "工作模板",
+      "excerpt": "关于Other的技术实践与学习记录。",
+      "date": "2019-09-30",
+      "category": "other",
+      "categoryName": "Other",
+      "tags": [],
+      "url": "/2019/09/30/Work/工作模板/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 40,
+      "title": "技术模板",
+      "excerpt": "关于Other的技术实践与学习记录。",
+      "date": "2019-09-30",
+      "category": "other",
+      "categoryName": "Other",
+      "tags": [],
+      "url": "/2019/09/30/Work/技术模板/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 41,
+      "title": "Cloud Function 简介",
+      "excerpt": "https://github.com/spring-cloud/spring-cloud-function",
+      "date": "2019-09-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "function",
+        "serverless"
+      ],
+      "url": "/2019/09/30/Cloud/serverless/Cloud-Function/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 42,
+      "title": "Cloud Native (1)",
+      "excerpt": "关于cloud native的技术实践与学习记录。",
+      "date": "2019-09-30",
+      "category": "演讲",
+      "categoryName": "演讲",
+      "tags": [
+        "cloud native"
+      ],
+      "url": "/2019/09/30/演讲/CloudNative-1/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 43,
+      "title": "AWS-API Gateway简洁快速文档",
+      "excerpt": "Amazon API Gateway 是一项 AWS 服务，用于创建、发布、维护、监控和保护任意规模的 REST 和 WebSocket API。API 开发人员可以创建能够访问 AWS 或其他 Web 服务以及存储在 AWS 云中的数据的 API。作为 API Gateway API 开发人员，您可以创建 API…",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/gateway/Aws-API Gateway/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 44,
+      "title": "AWS-App Mesh简洁快速文档",
+      "excerpt": "AWS App Mesh是基于Envoy代理的服务网格，可轻松监视和控制微服务。App Mesh标准化了微服务的通信方式，为您提供了端到端的可见性，并有助于确保应用程序的高可用性。",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/mesh/Aws-App Mesh/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 45,
+      "title": "AWS-Cloud Map简洁快速文档",
+      "excerpt": "AWS Cloud Map 是一项完全托管服务，可供您用来创建和维护您的应用程序所依赖的后端服务和资源的映射。AWS Cloud Map 运行方式如下：",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/map/Aws-Cloud Map/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 46,
+      "title": "AWS-CloudFormation简洁快速文档",
+      "excerpt": "AWS CloudFormation 是一项服务，可帮助您对 Amazon Web Services 资源进行建模和设置，以便能花较少的时间管理这些资源，而将更多的时间花在运行于 AWS 中的应用程序上。您创建一个描述您所需的所有 AWS 资源（如 Amazon EC2 实例或 Amazon RDS 数据库实例）的模…",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/formation/Aws-CloudFormation/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 47,
+      "title": "AWS-CloudFront简洁快速文档",
+      "excerpt": "Amazon CloudFront 是一个 Web 服务，它加快将静态和动态 Web 内容（如 .html、.css、.js 和图像文件）分发到用户的速度。CloudFront 通过全球数据中心网络传输内容，这些数据中心称为边缘站点。当用户请求您用 CloudFront 提供的内容时，用户被路由到提供最低延迟 (时间…",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/front/Aws-CloudFront/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 48,
+      "title": "AWS-CodeStar简洁快速文档",
+      "excerpt": "AWS CodeStar 是一项基于云的服务，用于在 AWS 上创建、管理和使用软件开发项目。您可以使用 AWS CodeStar 项目在 AWS 上快速开发、构建和部署应用程序。AWS CodeStar 项目会为您的项目开发工具链创建和集成 AWS 服务。根据您选择的 AWS CodeStar 项目模板，该工具链可…",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/code/Aws-CodeStar/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 49,
+      "title": "AWS-Config简洁快速文档",
+      "excerpt": "AWS Config 提供了关于您的 AWS 账户中 AWS 资源配置的详细信息。这些信息包括资源之间的关联方式以及资源以前的配置方式，让您了解资源的配置和关系如何随着的时间的推移而更改",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/config/Aws-Config/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 50,
+      "title": "AWS-Lambda简洁快速文档",
+      "excerpt": "您可以使用 AWS Lambda 运行代码以响应事件，例如更改 Amazon S3 存储桶或 Amazon DynamoDB 表中的数据；以及使用 Amazon API Gateway 运行代码以响应 HTTP 请求；或者使用通过 AWS SDK 完成的 API 调用来调用您的代码。",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/lambda/Aws-Lambda/",
+      "readTime": "39 min"
+    },
+    {
+      "id": 51,
+      "title": "AWS-Route 53简洁快速文档",
+      "excerpt": "Amazon Route 53 是一种具有很高可用性和可扩展性的域名系统 (DNS) Web 服务。您可以使用 Route 53 以任意组合执行三个主要功能：域注册、DNS 路由和运行状况检查。如果您选择使用 Route 53 来执行所有这三种功能，请按以下顺序执行步骤：",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/route/Aws-Route53/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 52,
+      "title": "AWS-Serverless Application Repository简洁快速文档",
+      "excerpt": "Serverless Application Repository",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/sar/Aws-SAR/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 53,
+      "title": "AWS-serverless-application-model简洁快速文档",
+      "excerpt": "AWS无服务器应用程序模型（AWS SAM）是一个开源框架，可用于在AWS上构建无服务器应用程序。",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/sam/Aws-SAM/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 54,
+      "title": "AWS-Simple Notification Service简洁快速文档",
+      "excerpt": "Amazon Simple Notification Service (Amazon SNS) 是一项 Web 服务，用于协调和管理向订阅终端节点或客户端交付或发送消息的过程。在 Amazon SNS 中，有两类客户端—发布者和订阅者—也称为创建者和用户。发布者通过创建消息并将消息发送至主题与订阅者进行异步交流，主题…",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/mq/Aws-SNS/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 55,
+      "title": "AWS-Simple Queue Service简洁快速文档",
+      "excerpt": "Amazon Simple Queue Service (Amazon SQS) 提供安全、持久且可用的托管队列，可让您集成和分离分布式软件系统和组件。Amazon SQS 提供常见的构造，例如死信队列和成本分配标签。它提供了一个通用 Web 服务 API，并且可通过 AWS 开发工具包支持的任何编程语言访问。",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/mq/Aws-SQS/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 56,
+      "title": "AWS-Virtual Private Cloud简洁快速文档",
+      "excerpt": "Amazon Virtual Private Cloud (Amazon VPC) 允许您在已定义的虚拟网络内启动 AWS 资源。这个虚拟网络与您在数据中心中运行的传统网络极其相似，并会为您提供使用 AWS 的可扩展基础设施的优势。",
+      "date": "2019-09-29",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/29/AWS/vpc/Aws-VPC/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 57,
+      "title": "Medium reading 9.29 A Guide to Serverless Computing with AWS Lambda",
+      "excerpt": "https://medium.com/cuelogic-technologies/a-guide-to-serverless-computing-with-aws-lambda-ba613e2d8d5f",
+      "date": "2019-09-29",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/29/Medium/Medium-9-29-2/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 58,
+      "title": "Medium reading 9.29 Connecting to AWS DocumentDB from a Lambda function",
+      "excerpt": "https://blog.webiny.com/connecting-to-aws-documentdb-from-a-lambda-function-2b666c9e4402",
+      "date": "2019-09-29",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/29/Medium/Medium-9-29-3/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 59,
+      "title": "Medium reading 9.29 Vert.x Distributed Microservices with Java.",
+      "excerpt": "https://medium.com/pharos-production/vert-x-distributed-microservices-with-java-24ff514922eb",
+      "date": "2019-09-29",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/29/Medium/Medium-9-29-1/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 60,
+      "title": "AWS-用于在 AWS 上进行构建的工具",
+      "excerpt": "关于aws的技术实践与学习记录。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/Aws-Tools/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 61,
+      "title": "AWS-Aurora简洁快速文档",
+      "excerpt": "Amazon Aurora (Aurora) 是一个与 MySQL 和 PostgreSQL 兼容的完全托管的关系数据库引擎。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/aurora/Aws-Aurora/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 62,
+      "title": "AWS-CloudWatch简洁快速文档",
+      "excerpt": "Amazon CloudWatch 实时监控您的 Amazon Web Services (AWS) 资源以及您在 AWS 中运行的应用程序。您可以使用 CloudWatch 收集和跟踪指标，这些指标是您可衡量的相关资源和应用程序的变量。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/watch/Aws-CloudWatch/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 63,
+      "title": "AWS-CodeBuild简洁快速文档",
+      "excerpt": "AWS CodeBuild 是一项在云中完全托管的构建服务。CodeBuild 可编译源代码，运行单元测试，并构建可供部署的项目。CodeBuild 使您无需预置、管理和扩展自己的构建服务器。它提供了适用于常用编程语言的预先打包的构建环境以及 Apache Maven 和 Gradle 等构建工具。您还可以在 Cod…",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/code/Aws-CodeBuild/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 64,
+      "title": "AWS-CodeCommit简洁快速文档",
+      "excerpt": "AWS CodeCommit 是由 Amazon Web Services 托管的版本控制服务，可让您在云中私下存储和管理资产（如文档、源代码和二进制文件）。有关 CodeCommit 定价的信息，请参阅定价。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/code/Aws-CodeCommit/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 65,
+      "title": "AWS-CodePipeline简洁快速文档",
+      "excerpt": "AWS CodePipeline 是一种持续交付服务，可用于建模、可视化和自动执行发布软件所需的步骤。您可以快速对软件发布过程的不同阶段进行建模和配置。CodePipeline 会自动执行持续发布软件更改所需的步骤。有关 CodePipeline 定价的信息，请参阅定价。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/code/Aws-CodePipeline/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 66,
+      "title": "AWS-CodeStar简洁快速文档",
+      "excerpt": "CodeDeploy 是一项部署服务，可以向 Amazon EC2 实例、本地实例、无服务器 Lambda 函数或 Amazon ECS 服务自动执行应用程序部署。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/code/Aws-CodeDeploy/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 67,
+      "title": "AWS-ElastiCache(Redis)简洁快速文档",
+      "excerpt": "通过该服务可以在云中轻松设置、管理和扩展分布式内存数据存储或内存缓存环境。它提供了一种高性能、可扩展且经济高效的缓存解决方案。同时，它有助于消除与部署和管理分布式缓存环境相关的复杂性。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/cache/Aws-ElastiCache/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 68,
+      "title": "AWS-Elasticsearch Service简洁快速文档",
+      "excerpt": "Amazon Elasticsearch Service (Amazon ES) 是一种托管服务，可以让您轻松在 AWS 云中部署、操作和扩展 Elasticsearch 集群。Elasticsearch 是一款流行的开源搜索和分析引擎，适用于日志分析、实时应用程序监控、点击流分析等使用案例。借助 Amazon ES…",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/es/Aws-Elasticsearch Service/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 69,
+      "title": "AWS-Simple Storage Service简洁快速文档",
+      "excerpt": "Amazon S3 提供了一个简单 Web 服务接口，可用于随时在 Web 上的任何位置存储和检索任何数量的数据。此服务让所有开发人员都能访问同一个具备高扩展性、可靠性、安全性和快速价廉的数据存储基础设施， Amazon 用它来运行其全球的网站网络。此服务旨在为开发人员带来最大化的规模效益。",
+      "date": "2019-09-27",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/27/AWS/s3/Aws-S3/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 70,
+      "title": "AWS-管理控制台简洁快速文档",
+      "excerpt": "欢迎使用 AWS 管理控制台。本指南简要介绍如何使用控制台。要了解如何在控制台中使用各个服务，请参阅 AWS 文档。",
+      "date": "2019-09-26",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/26/AWS/cli/Aws-管理控制台/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 71,
+      "title": "AWS-Command Line Interface简洁快速文档",
+      "excerpt": "AWS Command Line Interface (AWS CLI) 是一种开源工具，让您能够在命令行 Shell 中使用命令与 AWS 服务进行交互。仅需最少的配置，您就可以从常用终端程序中的命令提示符开始使用基于浏览器的 AWS 管理控制台提供的相同功能：",
+      "date": "2019-09-26",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/26/AWS/cli/Aws-CLI/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 72,
+      "title": "AWS-Identity and Access Management简洁快速文档",
+      "excerpt": "AWS Identity and Access Management (IAM) 是一种 Web 服务，可以帮助您安全地控制对 AWS 资源的访问。您可以使用 IAM 控制对哪个用户进行身份验证 (登录) 和授权 (具有权限) 以使用资源。",
+      "date": "2019-09-26",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/26/AWS/iam/Aws-Iam/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 73,
+      "title": "AWS-Simple Email Service简洁快速文档",
+      "excerpt": "欢迎使用 Amazon Simple Email Service (Amazon SES) 开发人员指南。Amazon SES 是一个简单而经济高效的电子邮件平台，您可以通过该平台使用您自己的电子邮件地址和域发送和接收电子邮件。",
+      "date": "2019-09-26",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/26/AWS/email/Aws-SES/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 74,
+      "title": "Medium reading 9.26 Vertx in Production",
+      "excerpt": "https://blog.teemo.co/vertx-in-production-d5ca9e89d7c6",
+      "date": "2019-09-26",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/26/Medium/Medium-9-26-1/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 75,
+      "title": "Medium reading 9.25 Handling complexity in lambda functions",
+      "excerpt": "https://medium.com/dazn-tech/handling-complexity-in-lambda-functions-e7acfbeb920a",
+      "date": "2019-09-25",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/25/Medium/Medium-9-25-1/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 76,
+      "title": "Medium reading .",
+      "excerpt": "关于medium的技术实践与学习记录。",
+      "date": "2019-09-22",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/22/Medium/Medium---/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 77,
+      "title": "Medium reading 9.22 AWS Lambda + Node Modules, no Docker required",
+      "excerpt": "While some modules are indifferent to the OS which is installing them, other modules aren’t.",
+      "date": "2019-09-22",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/22/Medium/Medium-9-22-1/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 78,
+      "title": "Medium reading 9.22 Lambda optimization tip — enable HTTP keep-alive",
+      "excerpt": "https://medium.com/predict/lambda-optimization-tip-enable-http-keep-alive-ef7aa7880554",
+      "date": "2019-09-22",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/22/Medium/Medium-9-22-2/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 79,
+      "title": "Medium reading 9.22 Lambdas are not functional programming",
+      "excerpt": "https://medium.com/@johnmcclean/lambdas-are-not-functional-programming-63533ce2eb74",
+      "date": "2019-09-22",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/22/Medium/Medium-9-22-3/",
+      "readTime": "7 min"
+    },
+    {
+      "id": 80,
+      "title": "AWS-Code示例目录",
+      "excerpt": "该目录包含代码示例，以帮助您加速与AWS服务一起使用的应用程序的开发。",
+      "date": "2019-09-21",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/21/AWS/code/Aws-Code-Sample/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 81,
+      "title": "AWS-DynamoDB简洁快速文档",
+      "excerpt": "Amazon DynamoDB 是一种完全托管的 NoSQL 数据库服务，提供快速且可预测的性能，同时还能够实现无缝扩展。使用 DynamoDB，您可以免除操作和扩展分布式数据库的管理工作负担，因而无需担心硬件预置、设置和配置、复制、软件修补或集群扩展等问题。DynamoDB 还提供静态加密，这消除了在保护敏感数据时…",
+      "date": "2019-09-21",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/21/AWS/dynamo/Aws-Dynamo/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 82,
+      "title": "AWS-EKS简洁快速文档",
+      "excerpt": "Amazon Elastic Kubernetes Service (Amazon EKS) 是一项托管服务，可让您在 AWS 上轻松运行 Kubernetes，而无需支持或维护您自己的 Kubernetes 控制层面。Kubernetes 是一个用于实现容器化应用程序的部署、扩展和管理的自动化的开源系统。",
+      "date": "2019-09-21",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/21/AWS/eks/Aws-EKS/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 83,
+      "title": "AWS-Relational Database Service简洁快速文档",
+      "excerpt": "Amazon Relational Database Service (Amazon RDS) 是一项 Web 服务，让用户能够在云中更轻松地设置、操作和扩展关系数据库。它可以经济有效的为用户提供一个容量可调的行业标准的关系数据库，并承担常见的数据库管理任务。",
+      "date": "2019-09-21",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/21/AWS/rds/Aws-RDS/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 84,
+      "title": "AWS-SDK1使用步骤",
+      "excerpt": "Amazon Elasticsearch Service (Amazon ES) 是一种托管服务，可以让您轻松在 AWS 云中部署、操作和扩展 Elasticsearch 集群。Elasticsearch 是一款流行的开源搜索和分析引擎，适用于日志分析、实时应用程序监控、点击流分析等使用案例。借助 Amazon ES…",
+      "date": "2019-09-21",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws"
+      ],
+      "url": "/2019/09/21/AWS/sdk/Aws-Java-SDK1使用/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 85,
+      "title": "Medium reading 9.21 Tracing serverless application with AWS X-Ray",
+      "excerpt": "What’s more, in my opinion 更重要的是，在我看来",
+      "date": "2019-09-21",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/21/Medium/Medium-9-21-1/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 86,
+      "title": "Medium reading 9.21 Using AWS CodeCommit and Lambda for automatic code deployment to S3-bucket",
+      "excerpt": "AWSLambdaExecute and AWSCodeCommitReadOnly.",
+      "date": "2019-09-21",
+      "category": "medium",
+      "categoryName": "Medium",
+      "tags": [
+        "medium"
+      ],
+      "url": "/2019/09/21/Medium/Medium-9-21-2/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 87,
+      "title": "AWS-Java-X-Ray教程",
+      "excerpt": "在任何 Java 应用程序中，您可以使用X-Ray SDK for Java类分析传入请求、AWS 开发工具包客户端、SQL 客户端和 HTTP 客户端。自动请求分析可用于支持 Java servlet 的框架。可通过 Instrumentor 子模块获得自动开发工具包分析。",
+      "date": "2019-09-20",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "java"
+      ],
+      "url": "/2019/09/20/AWS/xray/Aws-Java-X-Ray/",
+      "readTime": "12 min"
+    },
+    {
+      "id": 88,
+      "title": "AWS-Java-SDK2使用步骤",
+      "excerpt": "在本地环境中设置访问密钥（IDE插件设置 或 通过AWS CLI工具命令行设置）",
+      "date": "2019-09-19",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "java"
+      ],
+      "url": "/2019/09/19/AWS/sdk/Aws-Java-SDK2使用/",
+      "readTime": "15 min"
+    },
+    {
+      "id": 89,
+      "title": "AWS-Java-SDK2优化",
+      "excerpt": "可以通过使用 maxConcurrency 方法来设置允许打开的最大 HTTP 连接数。您可以使用 maxPendingConnectionAcquires 方法设置在达到最大并发数后，允许排队的最大请求数。",
+      "date": "2019-09-19",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "java"
+      ],
+      "url": "/2019/09/19/AWS/sdk/Aws-Java-SDK2优化/",
+      "readTime": "17 min"
+    },
+    {
+      "id": 90,
+      "title": "混合 Reactive 模式",
+      "excerpt": "1．服务端接口返回值为 CompletableFuture，这样采用透明 RPC 调用时就可以实现异步化。",
+      "date": "2019-09-15",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "java"
+      ],
+      "url": "/2019/09/15/Reactive/Reactive-混合模式/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 91,
+      "title": "Java IO模型",
+      "excerpt": "很多人喜欢将 JDK 1.4 提供的 NIO 框架称为异步非阻塞 I/O，但是，如果严格按照 UNIX 网络编程模型和 JDK 的实现进行区分，实际上它只能被称为非阻塞 I/O，不能叫异步非阻塞 I/O。在早期的 JDK 1.4 和 1.5 update10 版本之前，JDK 的 Selector 基于 select…",
+      "date": "2019-09-15",
+      "category": "java",
+      "categoryName": "Java",
+      "tags": [
+        "java"
+      ],
+      "url": "/2019/09/15/Java/io/Java-IO模型/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 92,
+      "title": "Reactive gRPC",
+      "excerpt": "gRPC 服务调用支持同步和异步方式，同时也支持普通的 RPC 和 streaming 模式，可以最大程度的满足业务的需求。",
+      "date": "2019-09-15",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "java"
+      ],
+      "url": "/2019/09/15/Reactive/Reactive-gRPC/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 93,
+      "title": "Reactive的网卡数据驱动原理",
+      "excerpt": "1．异步：橙色箭头走完后，对本线程的占用即完成了，不会阻塞等待应答，该线程可以处理其他任务。",
+      "date": "2019-09-15",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "java",
+        "net"
+      ],
+      "url": "/2019/09/15/Reactive/Reactive-Net-网络数据响应式原理/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 94,
+      "title": "RPC 工作原理",
+      "excerpt": "RPC 的全称是 Remote Procedure Call，它是一种进程间通信方式。允许像调用本地服务一样调用远程服务，它的具体实现方式可以不同，例如 Spring 的 HTTP Invoker，Facebook 的 Thrift 二进制私有协议通信。",
+      "date": "2019-09-15",
+      "category": "rpc",
+      "categoryName": "Rpc",
+      "tags": [
+        "rpc"
+      ],
+      "url": "/2019/09/15/Rpc/Rpc-核心技术/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 95,
+      "title": "Tomcat + Servlet3 的异步化处理原理",
+      "excerpt": "1．Controller 的返回值为 DeferredResult，在业务 Controller 方法中构造 DeferredResult 对象，然后将请求封装成 Task 投递到业务线程池中异步执行，业务执行完成之后，构造 ModelAndView，调用 deferredResult.setResult(Model…",
+      "date": "2019-09-15",
+      "category": "tomcat",
+      "categoryName": "Tomcat",
+      "tags": [
+        "java",
+        "tomcat"
+      ],
+      "url": "/2019/09/15/Tomcat/async/Tomcat-Async-异步化原理/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 96,
+      "title": "Tomcat IO模型",
+      "excerpt": "在 Tomcat6.X 版本对 NIO 提供比较完善的支持之前，作为 Web 服务器，Tomcat 以 BIO 的方式接收并处理客户端的 HTTP 请求，当并发访问量比较大时，就容易发生拥塞等性能问题，它的工作原理示意如下所示：",
+      "date": "2019-09-15",
+      "category": "tomcat",
+      "categoryName": "Tomcat",
+      "tags": [
+        "java",
+        "tomcat"
+      ],
+      "url": "/2019/09/15/Tomcat/Tomcat-IO模型/",
+      "readTime": "5 min"
+    },
+    {
+      "id": 97,
+      "title": "javaagent",
+      "excerpt": "其实 Javagent 一点也不神秘，它就是一个 jar 包，只不过启动方式不是跟普通 jar 包不一样，并不是类的静态 main 函数。agent 的 jar 包也不能单独启动，必须依附于 JVM 进程才可以。",
+      "date": "2019-09-09",
+      "category": "java",
+      "categoryName": "Java",
+      "tags": [
+        "java",
+        "javaagent"
+      ],
+      "url": "/2019/09/09/Java/bytecode/Java-Bytecode-Javaagent/",
+      "readTime": "18 min"
+    },
+    {
+      "id": 98,
+      "title": "AWS-ServiceMesh-AppMesh",
+      "excerpt": "许多客户正在对现有应用进行现代化改造，以求更快更灵活地进行创新。微服务等架构模式使团队能够独立测试服务并不断持续发布应用变更。这种方式可以让开发团队更快地进行实验和迭代，从而提高团队生产力。它还可以让团队快速扩展他们构建和运行应用的方式。",
+      "date": "2019-09-08",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "app mesh"
+      ],
+      "url": "/2019/09/08/AWS/mesh/Aws-Service-AppMesh/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 99,
+      "title": "ServiceMesh--事件驱动消息",
+      "excerpt": "当前流行的服务网格实现（Istio，Linkerd，Consul Connect等）仅满足微服务之间的请求-响应式同步通信",
+      "date": "2019-09-08",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/08/Cloud/servicemesh/Cloud-SM-事件驱动/",
+      "readTime": "7 min"
+    },
+    {
+      "id": 100,
+      "title": "ServiceMesh--性能开销",
+      "excerpt": "我们反复谈到，Service Mesh的核心在于将原有以类库方式提供的功能拆分到独立的sidecar进程中，以远程调用的方式来强行解耦服务间通讯的业务语义和服务间通讯的具体实现。这带来了诸多的好处，但是这对性能会有什么影响？",
+      "date": "2019-09-08",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-性能开销/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 101,
+      "title": "ServiceMesh--Spring",
+      "excerpt": "对于Java企业应用，spring是无论如何绕不开的。然而目前我们没有看到spring社区对service mesh的任何回应。因此，如何以正确的姿势在service mesh时代使用spring，需要自己探索。",
+      "date": "2019-09-08",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Spring/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 102,
+      "title": "ServiceMesh--Spring Cloud",
+      "excerpt": "虽然service mesh号称下一代微服务，取代spring cloud是service mesh与生俱来的天然目标之一。",
+      "date": "2019-09-08",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/08/Cloud/servicemesh/Cloud-SM-问题-Springcloud/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 103,
+      "title": "AWS-CI-code系列使用",
+      "excerpt": "关于aws、ci、code的技术实践与学习记录。",
+      "date": "2019-09-06",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "ci",
+        "code"
+      ],
+      "url": "/2019/09/06/AWS/code/Aws-Code-code系列使用/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 104,
+      "title": "AWS-Java-Spring cloud aws",
+      "excerpt": "关于aws、java、spring cloud aws的技术实践与学习记录。",
+      "date": "2019-09-06",
+      "category": "aws",
+      "categoryName": "AWS",
+      "tags": [
+        "aws",
+        "java",
+        "spring cloud aws"
+      ],
+      "url": "/2019/09/06/AWS/sdk/Aws-Java-Spring cloud aws/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 105,
+      "title": "云原生Java开发--如何使用 SkyWalking 给 Dubbo 服务做链路追踪？",
+      "excerpt": "Apache Skywalking(Incubator) 专门为微服务架构和云原生架构系统而设计并且支持分布式链路追踪的APM系统。Apache Skywalking(Incubator)通过加载探针的方式收集应用调用链路信息，并对采集的调用链路信息进行分析，生成应用间关系和服务间关系以及服务指标。Apache Sk…",
+      "date": "2019-09-05",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "java"
+      ],
+      "url": "/2019/09/05/Cloud/java/Cloud-Java-Log-Skywalking(Incubator)/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 106,
+      "title": "ServiceMesh--零侵入代价",
+      "excerpt": "Service Mesh的一个突出优点就是对应用的侵入度非常低，低到可以”零侵入”。",
+      "date": "2019-09-04",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-零侵入/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 107,
+      "title": "ServiceMesh--流量劫持",
+      "excerpt": "透明劫持的具体工作流程是这样，我们以 iptables 流量劫持方案为例：",
+      "date": "2019-09-04",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/04/Cloud/servicemesh/Cloud-流量劫持/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 108,
+      "title": "ServiceMesh--网络通讯",
+      "excerpt": "Service Mesh解决服务间通讯的方式是基于网络层，HTTP1.1/HTTP2和可能的TCP，对于选择什么样的序列化方案和远程访问方案并未限制。",
+      "date": "2019-09-04",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-网络通讯/",
+      "readTime": "7 min"
+    },
+    {
+      "id": 109,
+      "title": "ServiceMesh--问题",
+      "excerpt": "我对Service Mesh的第一个担忧，来自 Cloud Native。",
+      "date": "2019-09-04",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/04/Cloud/servicemesh/Cloud-SM-问题/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 110,
+      "title": "ServiceMesh--Ready for Cloud Native",
+      "excerpt": "我对Service Mesh的第一个担忧，来自 Cloud Native。",
+      "date": "2019-09-04",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh"
+      ],
+      "url": "/2019/09/04/Cloud/servicemesh/Cloud-SM-问题-CloudNative/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 111,
+      "title": "Async--CompletableFuture作为返回值",
+      "excerpt": "以tomcat（支持Servlet 3.0的）为例，你controller方法指定返回DeferredResult或Callable，spring会自动进行异步处理，将方法以及响应的任务交给spring默认或者你定义的taskExecutor线程池bean执行，原本tomcat负责处理请求的线程返回tomcat线程池…",
+      "date": "2019-09-03",
+      "category": "async",
+      "categoryName": "Async",
+      "tags": [
+        "async",
+        "CompletableFuture"
+      ],
+      "url": "/2019/09/03/Async/Future/Async-Future-异步返回值/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 112,
+      "title": "Cloud架构",
+      "excerpt": "Microservice architecture is an application development paradigm which decomposes an application into modular, lightweight, discrete pieces. This eases develop…",
+      "date": "2019-09-03",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud"
+      ],
+      "url": "/2019/09/03/Cloud/Cloud-Arch/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 113,
+      "title": "ServiceMesh--Envoy简介",
+      "excerpt": "Istio 使用 Envoy 代理的扩展版本，Envoy 是以C++开发的高性能代理，用于调解服务网格中所有服务的所有入站和出站流量。",
+      "date": "2019-09-03",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "envoy"
+      ],
+      "url": "/2019/09/03/Cloud/servicemesh/Cloud-Envoy/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 114,
+      "title": "ServiceMesh--Istio简介",
+      "excerpt": "我们刚刚介绍的 Envoy, 在istio中扮演的就是数据面板, 而其他我们下面将要陆续介绍的Mixer, Pilot和Auth属于控制面板. 上面我给出了一个类比: istio 中 Envoy (或者说数据面板)扮演的角色是底层干活的民工, 而该让这些民工如何工作, 由包工头控制面板来负责完成.",
+      "date": "2019-09-03",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "istio"
+      ],
+      "url": "/2019/09/03/Cloud/servicemesh/Cloud-Istio/",
+      "readTime": "8 min"
+    },
+    {
+      "id": 115,
+      "title": "Serverless简介",
+      "excerpt": "在最前面我们提到了使用IaaS给我们带来了五点好处，FaaS当然也包括了这些好处，但是它给我们带来的最大的好处就是多快好省。减少从概念原型到实施的等待时间，比自己维护服务更省钱。",
+      "date": "2019-09-02",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "serverless",
+        "lambda"
+      ],
+      "url": "/2019/09/02/Cloud/serverless/Cloud-Serverless/",
+      "readTime": "5 min"
+    },
+    {
+      "id": 116,
+      "title": "ServiceMesh——Istio简介",
+      "excerpt": "Istio 提供一种简单的方式来为已部署的服务建立网络，该网络具有负载均衡、服务间认证、监控等功能，只需要对服务的代码进行一点或不需要做任何改动。想要让服务支持 Istio，只需要在您的环境中部署一个特殊的 sidecar 代理，使用 Istio 控制平面功能配置和管理代理，拦截微服务之间的所有网络通信：",
+      "date": "2019-09-02",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "服务发现"
+      ],
+      "url": "/2019/09/02/Cloud/servicemesh/Cloud-SM-Istio/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 117,
+      "title": "ServiceMesh简介",
+      "excerpt": "服务网格（Service Mesh）是致力于解决服务间通讯的基础设施层。它负责在现代云原生应用程序的复杂服务拓扑来可靠地传递请求。实际上，Service Mesh 通常是通过一组轻量级网络代理（Sidecar proxy），与应用程序代码部署在一起来实现，而无需感知应用程序本身。",
+      "date": "2019-09-02",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "服务发现"
+      ],
+      "url": "/2019/09/02/Cloud/servicemesh/Cloud-SM/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 118,
+      "title": "c++回调函数的实现",
+      "excerpt": "golang 在中国大火的同时，也带火了另外一个概念，协程。个人认为协程之所以会火，其中一个原因就是协程在发生阻塞时能够主动把释放资源给其他协程去使用，在等待的资源满足后能够被重新调度回来，从而保证了机器资源的高效使用，同时使得开发者只要用编写同步代码就能实现异步编程的效果，避免了代码的支离破碎和call back…",
+      "date": "2019-08-30",
+      "category": "c",
+      "categoryName": "C++",
+      "tags": [
+        "c++"
+      ],
+      "url": "/2019/08/30/CPlus/CP-callback/",
+      "readTime": "3 min"
+    },
+    {
+      "id": 119,
+      "title": "Cloud-微服务中的服务发现方式对比",
+      "excerpt": "关于service mesh、服务发现的技术实践与学习记录。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "服务发现"
+      ],
+      "url": "/2019/08/30/Cloud/servicemesh/Cloud-服务发现/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 120,
+      "title": "Java Reference核心原理分析",
+      "excerpt": "上面提到的两个问题，其答案都在JDK的Reference里面。JDK早期版本中并没有Reference相关的类，这导致对象被GC回收后如果想做一些额外的清理工作(比如socket、堆外内存等)是无法实现的，同样如果想要根据堆内存的实际使用情况决定要不要去清理一些内存敏感的对象也是法实现的。为此JDK1.2中引入的Re…",
+      "date": "2019-08-30",
+      "category": "java",
+      "categoryName": "Java",
+      "tags": [
+        "java",
+        "memory"
+      ],
+      "url": "/2019/08/30/Java/memory/Java-Reference/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 121,
+      "title": "Kubernetes architeture",
+      "excerpt": "关于cloud、k8s的技术实践与学习记录。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-Architecture/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 122,
+      "title": "Kubernetes vs Servicemesh",
+      "excerpt": "关于cloud、k8s的技术实践与学习记录。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-vs-SM/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 123,
+      "title": "Kubernetes的持续集成-Jenkins",
+      "excerpt": "关于应用的更新、滚动升级、灰度发布请留意博客中的后续文章或关注kubernetes-handbook的更新。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s",
+        "ci/cd"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Jenkins/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 124,
+      "title": "Kubernetes的持续集成-Wercker",
+      "excerpt": "因为我使用wercker自动构建，构建完成后自动打包成docker镜像并上传到docker hub中（需要提前在docker hub中创建repo），如何使用 wercker 做持续构建与发布，并集成docker hub插件请参考使用Wercker进行持续构建与发布。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s",
+        "ci/cd"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-CICD-Wercker/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 125,
+      "title": "Kubernetes的解决方案",
+      "excerpt": "关于cloud、k8s的技术实践与学习记录。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-Solution/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 126,
+      "title": "Kubernetes的客户端-Kubectl",
+      "excerpt": "关于cloud、k8s、kubectl的技术实践与学习记录。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s",
+        "kubectl"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-Kubectl/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 127,
+      "title": "Kubernetes的应用日志-Filebeat",
+      "excerpt": "发现logstash十分消耗内存（大约500M），经人提醒改用filebeat（大约消耗10几M内存）",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s",
+        "log"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Filebeat/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 128,
+      "title": "Kubernetes的应用日志-Logstash",
+      "excerpt": "Kubernetes官方提供了EFK的日志收集解决方案，但是这种方案并不适合所有的业务场景，它本身就有一些局限性，例如：",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "cloud",
+        "k8s",
+        "log"
+      ],
+      "url": "/2019/08/30/Cloud/kubernetes/Cloud-K8s-Log-Logstash/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 129,
+      "title": "ServiceMesh——Linkerd简介",
+      "excerpt": "Linkerd的出现是为了解决像twitter、google这类超大规模生产系统的复杂性问题。Linkerd不是通过控制服务之间的通信机制来解决这个问题，而是通过在服务实例之上添加一个抽象层来解决的。",
+      "date": "2019-08-30",
+      "category": "cloud",
+      "categoryName": "Cloud",
+      "tags": [
+        "service mesh",
+        "linkerd"
+      ],
+      "url": "/2019/08/30/Cloud/servicemesh/Cloud-SM-Linkerd/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 130,
+      "title": "2019七月工作内容",
+      "excerpt": "服务端超时（查询超时），主动断开连接，TCP四次挥手只完成两次，导致-1错误码",
+      "date": "2019-07-30",
+      "category": "工作成长",
+      "categoryName": "工作成长",
+      "tags": [
+        "work",
+        "工作"
+      ],
+      "url": "/2019/07/30/Work/七月工作/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 131,
+      "title": "2019七月技术研究",
+      "excerpt": "scrapy爬取GitHub用户信息，保存到mongo，作为可营销的潜在群体",
+      "date": "2019-07-30",
+      "category": "工作成长",
+      "categoryName": "工作成长",
+      "tags": [
+        "work",
+        "工作"
+      ],
+      "url": "/2019/07/30/Work/七月技术/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 132,
+      "title": "晕轮效应",
+      "excerpt": "例如他刚进BAT，第一年经常自主加班，周末没事便去公司呆着看会书。",
+      "date": "2019-07-30",
+      "category": "人生经验",
+      "categoryName": "人生经验",
+      "tags": [
+        "职场效应"
+      ],
+      "url": "/2019/07/30/人生经验/职场效应/晕轮效应/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 133,
+      "title": "Reactive-适用场景",
+      "excerpt": "在异步处理中能够控制所有的环节是非常好的：每一个层级都有线程池和队列。我们可以使一些层级\b具有弹性能力，可以根据负载动态调整。\b但是这也是一种负担，我们期望有更加简洁的方式。可扩展性的分析结果趋向于减少多余的线程，不要超出硬件资源的限制条件。",
+      "date": "2019-07-15",
+      "category": "reactive",
+      "categoryName": "Reactive",
+      "tags": [
+        "reactive",
+        "java"
+      ],
+      "url": "/2019/07/15/Reactive/Reactive-适用场景/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 134,
+      "title": "Google Bigtable",
+      "excerpt": "bigtable是一个稀疏的、分别式的、持久化存储的多维度排序map，",
+      "date": "2019-06-30",
+      "category": "distribute",
+      "categoryName": "Distribute",
+      "tags": [
+        "google"
+      ],
+      "url": "/2019/06/30/Distribute/Google-Bigtable/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 135,
+      "title": "Google MapReduce",
+      "excerpt": "关于google的技术实践与学习记录。",
+      "date": "2019-06-30",
+      "category": "distribute",
+      "categoryName": "Distribute",
+      "tags": [
+        "google"
+      ],
+      "url": "/2019/06/30/Distribute/Google-MapReduce/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 136,
+      "title": "Google文件系统",
+      "excerpt": "放松了对一致性模型的要求，引入了原子性的记录追加操作，从而保证多个客户端能够同时进行追加操作，不需要额外的同步操作来保证数据的一致性。",
+      "date": "2019-06-30",
+      "category": "distribute",
+      "categoryName": "Distribute",
+      "tags": [
+        "google"
+      ],
+      "url": "/2019/06/30/Distribute/Google-File-System/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 137,
+      "title": "函数式编程",
+      "excerpt": "我们这些码农做事都是很拖拉的。每天例行报到后，先来点咖啡，看看邮件还有RSS订阅的文章。然后翻翻新闻还有那些技术网站上的更新，再过一遍编程论坛口水区里那些无聊的论战。最后从头把这些再看一次以免错过什么精彩的内容。然后就可以吃午饭了。饭饱过后，回来盯着IDE发一会呆，再看看邮箱，再去搞杯咖啡。光阴似箭，可以回家了……",
+      "date": "2019-05-30",
+      "category": "function",
+      "categoryName": "Function",
+      "tags": [
+        "function",
+        "函数式"
+      ],
+      "url": "/2019/05/30/Function/傻瓜函数式编程/",
+      "readTime": "46 min"
+    },
+    {
+      "id": 138,
+      "title": "声明式编程",
+      "excerpt": "pp就是我，第一人称，我怎么做，每一步其实都可以翻译成独立的一套指令，对机器最为友好，机器最喜欢这种范式了，人怎么做机器就怎么做，所以这是指令式编程",
+      "date": "2019-05-30",
+      "category": "function",
+      "categoryName": "Function",
+      "tags": [
+        "function",
+        "声明式"
+      ],
+      "url": "/2019/05/30/Function/声明式编程/",
+      "readTime": "4 min"
+    },
+    {
+      "id": 139,
+      "title": "响应式编程",
+      "excerpt": "响应式编程（reactive programming）是一种基于数据流（data stream）和变化传递（propagation of change）的声明式（declarative）的编程范式。",
+      "date": "2019-05-30",
+      "category": "function",
+      "categoryName": "Function",
+      "tags": [
+        "响应式",
+        "function"
+      ],
+      "url": "/2019/05/30/Function/响应式编程/",
+      "readTime": "6 min"
+    },
+    {
+      "id": 140,
+      "title": "day2",
+      "excerpt": "关于read的技术实践与学习记录。",
+      "date": "2019-05-30",
+      "category": "english",
+      "categoryName": "English",
+      "tags": [
+        "read"
+      ],
+      "url": "/2019/05/30/English/day2-read/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 141,
+      "title": "day1",
+      "excerpt": "关于read的技术实践与学习记录。",
+      "date": "2019-05-29",
+      "category": "english",
+      "categoryName": "English",
+      "tags": [
+        "read"
+      ],
+      "url": "/2019/05/29/English/day1-read/",
+      "readTime": "1 min"
+    },
+    {
+      "id": 142,
+      "title": "Java - 并发包总结",
+      "excerpt": "这个时候，一般会使用synchronized关键字来包装这个i，",
+      "date": "2019-04-30",
+      "category": "java",
+      "categoryName": "Java",
+      "tags": [
+        "java",
+        "concurrent"
+      ],
+      "url": "/2019/04/30/Java/concurrent/Java-Concurrent-原理总结/",
+      "readTime": "2 min"
+    },
+    {
+      "id": 143,
+      "title": "Ctrip-2018-技术分享",
+      "excerpt": "用户意图模型–>实时判断用户是否存在购买产品的意图，安排后续个性化推荐（深度学习的多任务多标签模型实现）",
+      "date": "2018-12-30",
+      "category": "ctrip",
+      "categoryName": "Ctrip",
+      "tags": [
+        "Ctrip",
+        "技术分享"
+      ],
+      "url": "/2018/12/30/Ctrip/Ctrip-2018-技术分享/",
+      "readTime": "2 min"
+    }
+  ]
+}

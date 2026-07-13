@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:pages": "node scripts/prepare-pages-preview.mjs",
+    "build:pages": "npm run check:articles && node scripts/prepare-pages-preview.mjs",
     "deploy:pages": "npm run build:pages -- --require-auth0 && wrangler pages deploy dist/pages --project-name kevinten-interactive-preview --branch preview",
     "deploy:worker": "wrangler deploy --config worker/wrangler.toml",
     "dev:worker": "wrangler dev --config worker/wrangler.toml --local",
@@ -12,6 +12,8 @@
     "next:lint": "npm --prefix next-portfolio run lint",
     "next:build": "npm --prefix next-portfolio run build",
     "video:capture": "npm --prefix video run capture",
+    "generate:articles": "node scripts/generate-articles-index.mjs",
+    "check:articles": "node scripts/generate-articles-index.mjs --check",
     "provision:cloudflare": "node scripts/cloudflare-provision.mjs",
     "provision:auth0": "node scripts/auth0-provision.mjs",
     "provision:stripe": "node scripts/stripe-provision.mjs",

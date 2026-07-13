@@ -199,21 +199,48 @@ describe('frontend security guards', () => {
   it('loads the published article index module and links only to existing articles', () => {
     const html = readFileSync('articles.html', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
-    const scriptPath = '/assets/js/legacy/articles.js?v=1';
+    const headers = readFileSync('_headers', 'utf8');
+    const sitemap = readFileSync('sitemap.xml', 'utf8');
+    const robots = readFileSync('robots.txt', 'utf8');
+    const scriptPath = '/assets/js/articles.js?v=2';
+    const dataPath = '/assets/data/articles.json?v=1';
     const sourcePath = scriptPath.replace(/^\//, '').replace(/\?.*$/, '');
     const source = readFileSync(sourcePath, 'utf8');
-    const articleUrls = Array.from(source.matchAll(/\n\s*url:\s*'([^']+)'/g), (match) => match[1]);
+    const payload = JSON.parse(readFileSync(dataPath.replace(/^\//, '').replace(/\?.*$/, ''), 'utf8'));
+    const articleHeaders = headers.match(/\/articles\*\n([\s\S]*?)(?=\n\/|$)/)?.[1] || '';
 
+    execFileSync(process.execPath, ['scripts/generate-articles-index.mjs', '--check'], { stdio: 'ignore' });
+    expect(html).toContain(`<link rel="preload" href="${dataPath}" as="fetch" crossorigin>`);
     expect(html).toContain(`<link rel="preload" href="${scriptPath}" as="script">`);
-    expect(html).toContain(`<script src="${scriptPath}"></script>`);
-    expect(html).not.toContain('/assets/js/articles.js');
+    expect(html).toContain(`<script src="${scriptPath}" defer></script>`);
+    expect(html).toContain('<button class="mobile-menu-btn"');
+    expect(html).toContain('<script src="/assets/js/mobile-nav.js?v=32" defer></script>');
+    const mobileNav = readFileSync('assets/js/mobile-nav.js', 'utf8');
+    expect(mobileNav).not.toContain('document.body.style');
+    expect(mobileNav).toContain("document.body.classList.add('mobile-nav-open')");
+    expect(mobileNav).toContain("document.body.classList.remove('mobile-nav-open')");
+    expect(html).not.toContain('/assets/js/legacy/articles.js');
+    expect(html).toContain('<link rel="canonical" href="https://kevinten.com/articles">');
+    expect(html).toContain('<meta property="og:url" content="https://kevinten.com/articles">');
+    expect(html).not.toContain('kevinten10.github.io');
+    expect(html).not.toMatch(/\sstyle=/);
+    expect(articleHeaders).not.toContain("style-src 'self' 'unsafe-inline'");
+    expect(articleHeaders).toContain("style-src-attr 'none'");
     expect(serviceWorker).toContain("const SW_VERSION = '54'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
-    expect(articleUrls).toHaveLength(10);
-    articleUrls.forEach((url) => {
+    expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=1'");
+    expect(payload.total).toBe(143);
+    expect(payload.articles).toHaveLength(143);
+    expect(new Set(payload.articles.map((article: { url: string }) => article.url)).size).toBe(143);
+    payload.articles.forEach((article: { date: string; url: string }, index: number) => {
+      if (index > 0) expect(article.date <= payload.articles[index - 1].date).toBe(true);
+      const url = article.url;
       expect(existsSync(`${decodeURI(url).replace(/^\//, '')}index.html`)).toBe(true);
+      expect(sitemap).toContain(`<loc>https://kevinten.com${encodeURI(url)}</loc>`);
     });
+    expect((sitemap.match(/<loc>/g) || [])).toHaveLength(148);
+    expect(robots).toContain('Sitemap: https://kevinten.com/sitemap.xml');
   });
 
   it('does not leave static Next.js portfolio content hidden by reveal classes', () => {

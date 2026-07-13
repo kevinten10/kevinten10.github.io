@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>技术文章 - KevinTen</title>
-    <meta name="description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
+    <meta name="description" content="KevinTen 的完整技术文章归档，涵盖云原生、AWS、Java、响应式编程、架构与工程实践。">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://kevinten10.github.io/articles.html">
+    <link rel="canonical" href="https://kevinten.com/articles">
     
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kevinten10.github.io/articles.html">
+    <meta property="og:url" content="https://kevinten.com/articles">
     <meta property="og:title" content="技术文章 - KevinTen">
-    <meta property="og:description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta property="og:description" content="KevinTen 的完整技术文章归档，涵盖云原生、AWS、Java、响应式编程、架构与工程实践。">
+    <meta property="og:image" content="https://kevinten.com/img/avatar.jpg">
+    <meta property="og:locale" content="zh_CN">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="技术文章 - KevinTen">
-    <meta name="twitter:description" content="KevinTen的技术文章列表，涵盖云原生、微服务、Java、Go等技术领域">
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/22876610?v=4">
+    <meta name="twitter:description" content="KevinTen 的完整技术文章归档，涵盖云原生、AWS、Java、响应式编程、架构与工程实践。">
+    <meta name="twitter:image" content="https://kevinten.com/img/avatar.jpg">
+
+    <link rel="icon" href="/img/avatar.jpg">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,17 +31,36 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="/assets/css/theme.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="stylesheet" href="/assets/css/articles.css">
+    <link rel="stylesheet" href="/assets/css/theme.css?v=31">
+    <link rel="stylesheet" href="/assets/css/main.css?v=38">
+    <link rel="stylesheet" href="/assets/css/articles.css?v=2">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="https://avatars.githubusercontent.com/u/22876610?v=4" as="image">
-    <link rel="preload" href="/assets/js/legacy/articles.js?v=1" as="script">
+    <link rel="preload" href="/assets/data/articles.json?v=1" as="fetch" crossorigin>
+    <link rel="preload" href="/assets/js/articles.js?v=2" as="script">
 </head>
 <body>
     <!-- Skip to content link for accessibility -->
     <a href="#main-content" class="skip-to-content">跳转到主要内容</a>
+
+    <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+        <div class="mobile-nav-backdrop"></div>
+        <div class="mobile-nav-content">
+            <div class="mobile-nav-header">
+                <span class="mobile-nav-title">导航</span>
+                <button class="mobile-nav-close" aria-label="关闭菜单">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <nav class="mobile-nav-links" aria-label="移动端导航">
+                <a href="/" class="mobile-nav-link">首页</a>
+                <a href="/articles" class="mobile-nav-link">文章</a>
+                <a href="/#projects" class="mobile-nav-link">项目</a>
+                <a href="/#tech" class="mobile-nav-link">技术</a>
+            </nav>
+        </div>
+    </div>
     
     <!-- Navigation -->
     <header class="nav-header" role="banner">
@@ -50,10 +72,16 @@
             
             <nav class="nav-links" role="navigation" aria-label="主导航">
                 <a href="/" class="nav-link">首页</a>
-                <a href="/articles.html" class="nav-link active" aria-current="page">文章</a>
+                <a href="/articles" class="nav-link active" aria-current="page">文章</a>
                 <a href="/#projects" class="nav-link">项目</a>
                 <a href="/#tech" class="nav-link">技术</a>
             </nav>
+
+            <button class="mobile-menu-btn" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-nav">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
             
             <div class="nav-actions">
                 <a href="https://github.com/kevinten10" target="_blank" class="btn btn-ghost btn-sm">
@@ -90,37 +118,11 @@
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">分类</h3>
                         <ul class="category-list" id="categoryList">
-                            <li class="category-item active" data-category="all">
-                                <span class="category-name">全部文章</span>
-                                <span class="category-count">156</span>
-                            </li>
-                            <li class="category-item" data-category="cloud">
-                                <span class="category-name">云原生</span>
-                                <span class="category-count">45</span>
-                            </li>
-                            <li class="category-item" data-category="java">
-                                <span class="category-name">Java</span>
-                                <span class="category-count">32</span>
-                            </li>
-                            <li class="category-item" data-category="reactive">
-                                <span class="category-name">Reactive</span>
-                                <span class="category-count">28</span>
-                            </li>
-                            <li class="category-item" data-category="aws">
-                                <span class="category-name">AWS</span>
-                                <span class="category-count">24</span>
-                            </li>
-                            <li class="category-item" data-category="servicemesh">
-                                <span class="category-name">Service Mesh</span>
-                                <span class="category-count">18</span>
-                            </li>
-                            <li class="category-item" data-category="kubernetes">
-                                <span class="category-name">Kubernetes</span>
-                                <span class="category-count">15</span>
-                            </li>
-                            <li class="category-item" data-category="qcon">
-                                <span class="category-name">QCon</span>
-                                <span class="category-count">12</span>
+                            <li>
+                                <button type="button" class="category-item active" data-category="all">
+                                    <span class="category-name">全部文章</span>
+                                    <span class="category-count">...</span>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -129,14 +131,7 @@
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">热门标签</h3>
                         <div class="tag-cloud" id="tagCloud">
-                            <span class="tag-item" data-tag="microservices">微服务</span>
-                            <span class="tag-item" data-tag="istio">Istio</span>
-                            <span class="tag-item" data-tag="envoy">Envoy</span>
-                            <span class="tag-item" data-tag="grpc">gRPC</span>
-                            <span class="tag-item" data-tag="netty">Netty</span>
-                            <span class="tag-item" data-tag="concurrent">并发</span>
-                            <span class="tag-item" data-tag="io">IO模型</span>
-                            <span class="tag-item" data-tag="serverless">Serverless</span>
+                            <span class="tag-item">加载中...</span>
                         </div>
                     </div>
                 </aside>
@@ -146,7 +141,7 @@
                     <!-- Filter Status -->
                     <div class="filter-status" id="filterStatus">
                         <span class="filter-text">显示全部文章</span>
-                        <button class="filter-clear" id="clearFilter" style="display: none;">清除筛选</button>
+                        <button class="filter-clear" id="clearFilter" hidden>清除筛选</button>
                     </div>
 
                     <!-- Articles Grid -->
@@ -155,7 +150,7 @@
                     </div>
 
                     <!-- Loading Indicator -->
-                    <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                    <div class="loading-indicator" id="loadingIndicator" hidden role="status" aria-live="polite">
                         <div class="loading-spinner"></div>
                         <span>加载中...</span>
                     </div>
@@ -166,7 +161,7 @@
                     </div>
 
                     <!-- No Results -->
-                    <div class="no-results" id="noResults" style="display: none;">
+                    <div class="no-results" id="noResults" hidden role="status">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                         <h3>未找到相关文章</h3>
                         <p>尝试使用其他关键词或清除筛选条件</p>
@@ -184,11 +179,12 @@
                 <a href="https://github.com/kevinten10" target="_blank">GitHub</a>
                 <a href="mailto:wshten@gmail.com">Email</a>
             </div>
-            <p class="footer-copyright">© 2024 KevinTen. All rights reserved.</p>
+            <p class="footer-copyright">© 2026 KevinTen. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="/assets/js/legacy/articles.js?v=1"></script>
+    <script src="/assets/js/mobile-nav.js?v=32" defer></script>
+    <script src="/assets/js/articles.js?v=2" defer></script>
 </body>
 </html>
