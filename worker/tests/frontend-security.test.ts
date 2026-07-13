@@ -199,7 +199,7 @@ describe('frontend security guards', () => {
   it('loads the published article index module and links only to existing articles', () => {
     const html = readFileSync('articles.html', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
-    const headers = readFileSync('_headers', 'utf8');
+    const headers = readFileSync('_headers', 'utf8').replace(/\r\n/g, '\n');
     const sitemap = readFileSync('sitemap.xml', 'utf8');
     const robots = readFileSync('robots.txt', 'utf8');
     const scriptPath = '/assets/js/articles.js?v=2';

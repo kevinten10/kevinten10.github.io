@@ -7,6 +7,10 @@ const indexPath = path.join(root, 'assets', 'data', 'articles.json');
 const sitemapPath = path.join(root, 'sitemap.xml');
 const checkOnly = process.argv.includes('--check');
 
+function normalizeLineEndings(value) {
+  return String(value || '').replace(/\r\n/g, '\n');
+}
+
 function decodeHtml(value) {
   const named = {
     amp: '&',
@@ -169,7 +173,9 @@ if (checkOnly) {
   const stale = [];
   for (const [file, expected] of outputs) {
     const current = await fs.readFile(file, 'utf8').catch(() => '');
-    if (current !== expected) stale.push(path.relative(root, file));
+    if (normalizeLineEndings(current) !== normalizeLineEndings(expected)) {
+      stale.push(path.relative(root, file));
+    }
   }
   if (stale.length > 0) {
     throw new Error(`Generated article files are stale: ${stale.join(', ')}. Run npm run generate:articles.`);
