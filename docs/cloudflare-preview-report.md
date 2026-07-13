@@ -52,7 +52,7 @@ Results:
 - Pages build passed and the generated article index remained current at 143 articles.
 - Next.js candidate lint and production build passed.
 - Root, Next.js, and video workspaces reported zero npm vulnerabilities.
-- Production smoke passed all 15 standard checks: Worker health, site knowledge, anonymous auth state, protected profile/admin APIs, page views, comments, reactions, rewards, public stats, runtime config, admin shell, and a legacy article. The opt-in 16th check verifies a live Workers AI answer.
+- Production smoke passed all 16 standard checks: Worker health, site knowledge, anonymous auth state, protected profile/admin APIs, page views, comments, reactions, rewards, public stats, the Pages home, runtime config, admin shell, and a legacy article. The opt-in 17th check verifies a live Workers AI answer.
 - The live assistant returned both `site_knowledge` and `workers_ai` responses; unavailable inference falls back to verified site information instead of failing the UI.
 - Cutover verification passed DNS delegation, authoritative and recursive DNS, Pages domains, Cloudflare zone and records, CORS, Auth0 public authorize/logout routes, production HTTP, and Access protection.
 - Desktop and mobile checks found no horizontal overflow or console errors; the retained promo-video control opens the expected MP4.

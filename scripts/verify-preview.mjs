@@ -201,9 +201,9 @@ if (process.env.VERIFY_ASSISTANT_AI === '1') {
   }, {
     method: 'POST',
     body: JSON.stringify({
-      message: '请用一句话说明优秀的软件架构为什么需要清晰边界。',
+      message: 'Which three sections should a first-time visitor read in one minute?',
       sessionId: `assistant-model-${stamp}`,
-      language: 'zh'
+      language: 'en'
     })
   });
 }

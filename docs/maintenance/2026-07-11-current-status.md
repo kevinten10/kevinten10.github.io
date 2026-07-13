@@ -24,7 +24,7 @@ The latest completion audit includes:
 
 - PR #1 merged the Cloudflare production architecture; PR #6 added an Auth0 runtime deployment guard.
 - 23 test files and all 133 tests passed, together with Pages build, audit validation, Next.js lint/build, and video script checks.
-- Production smoke verification passes 15 standard API and site checks; `VERIFY_ASSISTANT_AI=1` adds a 16th live inference check.
+- Production smoke verification passes 16 standard API and site checks; `VERIFY_ASSISTANT_AI=1` adds a 17th live inference check.
 - Desktop and mobile browser checks found no horizontal overflow and no console errors; the promo-video modal opens the expected production MP4.
 - Public Auth0 authorize/logout checks, authoritative DNS, production HTTP, and Access redirects passed.
 - `npm run verify:cutover` now discovers the public Auth0 client ID from the deployed runtime, so production verification no longer requires a manual environment export.
