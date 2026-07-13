@@ -69,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -110,7 +110,7 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('.hero-social-matrix');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=40');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
@@ -222,7 +222,7 @@ describe('frontend security guards', () => {
     expect(html).not.toMatch(/\sstyle=/);
     expect(articleHeaders).not.toContain("style-src 'self' 'unsafe-inline'");
     expect(articleHeaders).toContain("style-src-attr 'none'");
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
     expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2'");
@@ -268,7 +268,7 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
     expect(serviceWorker).toContain('/assets/css/main.css?v=40');
   });
 
@@ -316,10 +316,10 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
-    expect(serviceWorker).toContain('/assets/js/i18n.js?v=38');
+    expect(serviceWorker).toContain('/assets/js/i18n.js?v=39');
     expect(serviceWorker).not.toContain('/img/weixin.jpg');
     expect(serviceWorker).toContain('/img/alipay.jpg');
   });
@@ -334,7 +334,7 @@ describe('frontend security guards', () => {
 
     expect(html).toContain('footer-auth-shell');
     expect(html).toContain('/assets/css/comments.css?v=2');
-    expect(html).toContain('/assets/css/ai-assistant.css?v=4');
+    expect(html).toContain('/assets/css/ai-assistant.css?v=5');
     expect(html).toContain('/assets/js/auth-client.js?v=2');
     expect(html).toContain('/assets/js/comments.js?v=5');
     expect(comments).toContain('comments-auth-card');
@@ -346,7 +346,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.comments-state');
     expect(assistantCss).toContain('body.comments-in-view .ai-fab');
     expect(assistantCss).toContain('body.rewards-in-view .ai-fab');
-    expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
+    expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=5');
     expect(serviceWorker).toContain('/assets/css/comments.css?v=2');
     expect(serviceWorker).toContain('/assets/js/comments.js?v=5');
   });
@@ -358,8 +358,8 @@ describe('frontend security guards', () => {
     const css = readFileSync('assets/css/ai-assistant.css', 'utf8');
     const serviceWorker = readFileSync('sw.js', 'utf8');
 
-    expect(html).toContain('/assets/css/ai-assistant.css?v=4');
-    expect(html).toContain('/assets/js/ai-assistant.js?v=3');
+    expect(html).toContain('/assets/css/ai-assistant.css?v=5');
+    expect(html).toContain('/assets/js/ai-assistant.js?v=4');
     expect(assistant).toContain('findLocalAnswer');
     expect(assistant).toContain('localKnowledge');
     expect(assistant).toContain("key: 'ai.suggested4'");
@@ -367,8 +367,17 @@ describe('frontend security guards', () => {
     expect(assistant).toContain('aria-controls="ai-drawer"');
     expect(assistant).toContain('aria-live="polite"');
     expect(assistant).toContain('ai-clear');
-    expect(assistant).toContain('updateSendState');
+    expect(assistant).toContain('updateInputState');
     expect(assistant).toContain('ai.suggested4');
+    expect(assistant).toContain("endpoint: '/api/assistant'");
+    expect(assistant).toContain('window.KevinAuth.apiBase()');
+    expect(assistant).toContain('requestTimeoutMs: 18000');
+    expect(assistant).toContain('maxInputLength: 500');
+    expect(assistant).toContain('AbortController');
+    expect(assistant).toContain('requestId !== state.requestId');
+    expect(assistant).toContain('ai-message-link');
+    expect(assistant).not.toContain('cloudbase.callFunction');
+    expect(assistant).not.toContain("functionName: 'aiChat'");
     expect(assistant).not.toContain('Sorry, I encountered an error. Please try again.');
     expect(i18n).toContain("'ai.suggested4': 'How does AI Native show up in his work?'");
     expect(i18n).toContain("'ai.suggested4': 'KevinTen 的 AI Native 项目有哪些？'");
@@ -377,9 +386,12 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-shell-status');
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
+    expect(css).toContain('.ai-service-state');
+    expect(css).toContain('.ai-message-link');
+    expect(css).toContain('.ai-input-meta');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '56'");
-    expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
-    expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
+    expect(serviceWorker).toContain("const SW_VERSION = '57'");
+    expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=5');
+    expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=4');
   });
 });

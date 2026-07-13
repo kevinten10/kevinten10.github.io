@@ -178,6 +178,36 @@ await assertJson('public site config', `${apiBaseUrl}/api/config`, (_response, b
     && body?.data?.publicStatsEnabled === true;
 });
 
+await assertJson('assistant site knowledge', `${apiBaseUrl}/api/assistant`, (_response, body) => {
+  return body?.success === true
+    && body?.data?.source === 'site_knowledge'
+    && typeof body?.data?.content === 'string'
+    && body.data.content.includes('OpenOctopus');
+}, {
+  method: 'POST',
+  body: JSON.stringify({
+    message: 'OpenOctopus 是什么？',
+    sessionId: `assistant-knowledge-${stamp}`,
+    language: 'zh'
+  })
+});
+
+if (process.env.VERIFY_ASSISTANT_AI === '1') {
+  await assertJson('assistant Workers AI', `${apiBaseUrl}/api/assistant`, (_response, body) => {
+    return body?.success === true
+      && body?.data?.source === 'workers_ai'
+      && typeof body?.data?.content === 'string'
+      && body.data.content.length > 10;
+  }, {
+    method: 'POST',
+    body: JSON.stringify({
+      message: '请用一句话说明优秀的软件架构为什么需要清晰边界。',
+      sessionId: `assistant-model-${stamp}`,
+      language: 'zh'
+    })
+  });
+}
+
 await assertJson('unauthenticated profile protection', `${apiBaseUrl}/api/users/profile`, (response, body) => {
   return response.status === 401 && body?.success === false;
 });
@@ -250,6 +280,7 @@ const homeHtml = await assertText('pages home', `${pagesUrl}/`, (text) => {
   return text.includes('/assets/js/cloudflare-runtime.js')
     && text.includes('/assets/js/comments.js')
     && text.includes('/assets/js/rewards.js')
+    && text.includes('/assets/js/ai-assistant.js?v=4')
     && text.includes('data-public-stat="visitors"');
 });
 

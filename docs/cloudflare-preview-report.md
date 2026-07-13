@@ -22,6 +22,7 @@ The Pages project and Worker retain their historical `preview` names, but they n
 - D1 tables for users, profiles, comments, reactions, rewards, page views, statistics, and admin events.
 - KV-backed rate limiting, JWKS caching, public statistics caching, and site configuration.
 - R2 binding for managed assets and Queues for asynchronous event processing.
+- Bilingual site guide at `/api/assistant`, with curated site knowledge, KV-backed rate limiting, and Workers AI for open questions.
 - Auth0 visitor login with anonymous fallback; verified Auth0 JWT authorization for protected Worker routes.
 - Cloudflare Access in front of the static admin shell, with independent Worker admin authorization.
 - Anonymous and signed-in comments, reactions, public statistics, support records, and an admin moderation surface.
@@ -47,11 +48,12 @@ npm --prefix video audit --json
 Results:
 
 - Worker typecheck passed.
-- All 22 Vitest files passed; the suite includes auth, CORS, comments, reactions, rewards, Stripe, queues, schema, provisioning, cutover, and frontend security coverage.
+- All 23 Vitest files and 133 tests passed; the suite includes the site guide, auth, CORS, comments, reactions, rewards, Stripe, queues, schema, provisioning, cutover, and frontend security coverage.
 - Pages build passed and the generated article index remained current at 143 articles.
 - Next.js candidate lint and production build passed.
 - Root, Next.js, and video workspaces reported zero npm vulnerabilities.
-- Production smoke passed all 15 checks: Worker health, anonymous auth state, protected profile/admin APIs, page views, comments, reactions, rewards, public stats, runtime config, admin shell, and a legacy article.
+- Production smoke passed all 15 standard checks: Worker health, site knowledge, anonymous auth state, protected profile/admin APIs, page views, comments, reactions, rewards, public stats, runtime config, admin shell, and a legacy article. The opt-in 16th check verifies a live Workers AI answer.
+- The live assistant returned both `site_knowledge` and `workers_ai` responses; unavailable inference falls back to verified site information instead of failing the UI.
 - Cutover verification passed DNS delegation, authoritative and recursive DNS, Pages domains, Cloudflare zone and records, CORS, Auth0 public authorize/logout routes, production HTTP, and Access protection.
 - Desktop and mobile checks found no horizontal overflow or console errors; the retained promo-video control opens the expected MP4.
 
@@ -72,6 +74,7 @@ npm run verify:all
 # Production readiness and smoke gates
 npm run verify:cutover
 $env:PAGES_URL='https://kevinten.com'; npm run verify:preview
+$env:VERIFY_ASSISTANT_AI='1'; npm run verify:preview
 
 # Deploy the static production branch
 npm run deploy:pages

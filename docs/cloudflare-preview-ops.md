@@ -44,6 +44,9 @@ npm run verify
 # Public preview/production smoke checks; this intentionally writes smoke-test records
 PAGES_URL=https://kevinten.com npm run verify:preview
 
+# Add one live Workers AI inference check
+VERIFY_ASSISTANT_AI=1 PAGES_URL=https://kevinten.com npm run verify:preview
+
 # DNS, custom domains, Auth0, rewards, production HTTP, and Access readiness
 npm run verify:cutover
 
@@ -89,6 +92,12 @@ Production Auth0 callback, logout, and allowed-origin configuration must cover:
 - `https://kevinten-interactive-preview.pages.dev/`
 
 Cloudflare Access protects the static admin shell. Do not treat Access headers alone as Worker API authorization; the API continues to verify Auth0 tokens.
+
+## Site Guide
+
+`POST /api/assistant` answers known project, architecture, writing, and collaboration questions from curated bilingual site knowledge. Other questions use the Worker `AI` binding and `AI_MODEL`; KV limits each visitor session to 12 questions per minute. Inference failures return an honest site-information fallback and never expose provider errors to visitors.
+
+The production model is configured in `worker/wrangler.toml`. Run the opt-in smoke check above after changing the model or AI binding; the standard smoke suite avoids consuming inference on every routine deployment.
 
 ## Payments and Rewards
 

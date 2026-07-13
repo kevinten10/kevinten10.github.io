@@ -4,7 +4,7 @@ Last verified: 2026-07-13.
 
 ## Summary
 
-Cloudflare production cutover is complete and the public site is healthy. The latest UI release removed the redundant standalone media showcase while retaining the promo video and project artwork. The Next.js and video-production workspaces remain source-only candidates; they do not replace the deployed static entry point.
+Cloudflare production cutover is complete and the public site is healthy. The latest UI release removed the redundant standalone media showcase while retaining the promo video and project artwork. A bilingual site guide now combines curated site knowledge with Workers AI and a safe fallback. The Next.js and video-production workspaces remain source-only candidates; they do not replace the deployed static entry point.
 
 ## Deployment Evidence
 
@@ -13,7 +13,7 @@ Cloudflare production cutover is complete and the public site is healthy. The la
 | Production site | `https://kevinten.com/` and `https://www.kevinten.com/` return Cloudflare-served HTTP 200 responses |
 | Pages | Production branch `preview`; latest deployment is verified with Wrangler plus stable/custom-domain smoke checks |
 | Stable Pages origin | `https://kevinten-interactive-preview.pages.dev/` is healthy |
-| Worker | `/health` returns `success: true` and `status: ok`; deployment-version listing needs broader Workers read permission |
+| Worker | `/health` is healthy; `/api/assistant` returns verified site knowledge and live Workers AI answers |
 | DNS | Cloudflare nameservers `chip.ns.cloudflare.com` and `faye.ns.cloudflare.com`; apex and `www` resolve through Cloudflare |
 | Admin | Production `/admin/` redirects to Cloudflare Access |
 | Promo assets | Production MP4, poster, and retained OpenOctopus artwork return HTTP 200 |
@@ -23,8 +23,8 @@ The tracked cutover artifact `2026-07-01-cutover-readiness.json` completed at `2
 The latest completion audit includes:
 
 - PR #1 merged the Cloudflare production architecture; PR #6 added an Auth0 runtime deployment guard.
-- 22 test files and the complete current test suite passed, together with Pages build, audit validation, Next.js lint/build, and video script checks.
-- Production smoke verification passed 15 of 15 API and site checks.
+- 23 test files and all 133 tests passed, together with Pages build, audit validation, Next.js lint/build, and video script checks.
+- Production smoke verification passes 15 standard API and site checks; `VERIFY_ASSISTANT_AI=1` adds a 16th live inference check.
 - Desktop and mobile browser checks found no horizontal overflow and no console errors; the promo-video modal opens the expected production MP4.
 - Public Auth0 authorize/logout checks, authoritative DNS, production HTTP, and Access redirects passed.
 - `npm run verify:cutover` now discovers the public Auth0 client ID from the deployed runtime, so production verification no longer requires a manual environment export.

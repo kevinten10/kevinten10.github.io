@@ -3,6 +3,10 @@ export type Env = {
   SITE_KV: KVNamespace;
   ASSETS: R2Bucket;
   EVENTS_QUEUE?: Queue<QueueEvent>;
+  AI?: {
+    run(model: string, input: Record<string, unknown>): Promise<unknown>;
+  };
+  AI_MODEL?: string;
   AUTH0_DOMAIN: string;
   AUTH0_AUDIENCE: string;
   ADMIN_EMAILS: string;
