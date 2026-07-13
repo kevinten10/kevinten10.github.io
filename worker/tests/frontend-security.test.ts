@@ -69,7 +69,7 @@ describe('frontend security guards', () => {
     expect(source).not.toContain('GitHub stats container not found');
     expect(html).not.toContain('images/hero/hero-bg-dark.webp" as="image"');
     expect(html).toContain('/assets/js/github-stats.js?v=32');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/js/github-stats.js?v=32');
   });
 
@@ -101,7 +101,7 @@ describe('frontend security guards', () => {
     expect(html).toContain('hero-compact-actions');
     expect(html).toContain('hero-social-matrix animate-on-scroll stagger-5" hidden');
     expect(html).toContain('contact-social-bar');
-    expect(html).toContain('/assets/css/main.css?v=38');
+    expect(html).toContain('/assets/css/main.css?v=39');
     expect(html).toContain('/assets/js/app.js?v=32');
     expect(mainCss).toContain('scroll-margin-top');
     expect(mainCss).toContain('.hero-compact-actions');
@@ -110,8 +110,8 @@ describe('frontend security guards', () => {
     expect(mainCss).toContain('.hero-social-matrix');
     expect(app).toContain('findActiveSection');
     expect(app).toContain('linkedSectionIds');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=39');
     expect(serviceWorker).toContain('/assets/js/app.js?v=32');
   });
 
@@ -226,7 +226,7 @@ describe('frontend security guards', () => {
     expect(html).not.toMatch(/\sstyle=/);
     expect(articleHeaders).not.toContain("style-src 'self' 'unsafe-inline'");
     expect(articleHeaders).toContain("style-src-attr 'none'");
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('const RUNTIME_CACHE = `runtime-v${SW_VERSION}`');
     expect(existsSync(sourcePath)).toBe(true);
     expect(source).toContain("const ARTICLES_INDEX_URL = '/assets/data/articles.json?v=2'");
@@ -265,15 +265,15 @@ describe('frontend security guards', () => {
     expect(html).toContain('data-quick-action="comments"');
     expect(html).toContain('aria-label="打开支持与鸣谢"');
     expect(html).toContain('aria-label="打开留言区"');
-    expect(html).toContain('/assets/css/main.css?v=38');
+    expect(html).toContain('/assets/css/main.css?v=39');
     expect(mainCss).toContain('.quick-action-rail');
     expect(mainCss).toContain('position: fixed');
     expect(mainCss).toContain('.quick-action-link');
     expect(mainCss).toContain('body.rewards-in-view .quick-action-link[data-quick-action="rewards"]');
     expect(mainCss).toContain('body.comments-in-view .quick-action-link[data-quick-action="comments"]');
     expect(mainCss).toContain('@media (max-width: 760px)');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
-    expect(serviceWorker).toContain('/assets/css/main.css?v=38');
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
+    expect(serviceWorker).toContain('/assets/css/main.css?v=39');
   });
 
   it('ships manual support records with unavailable WeChat, active Alipay, and embedded Stripe sandbox flows', () => {
@@ -320,7 +320,7 @@ describe('frontend security guards', () => {
     expect(route).not.toContain('personal_listener');
     expect(runtime).toContain('stripe:');
     expect(runtime).toContain("publishableKey: ''");
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/css/rewards.css?v=4');
     expect(serviceWorker).toContain('/assets/js/rewards.js?v=5');
     expect(serviceWorker).toContain('/assets/js/i18n.js?v=37');
@@ -382,7 +382,7 @@ describe('frontend security guards', () => {
     expect(css).toContain('.ai-message-avatar');
     expect(css).toContain('.ai-clear');
     expect(css).toContain('min-height: 0');
-    expect(serviceWorker).toContain("const SW_VERSION = '54'");
+    expect(serviceWorker).toContain("const SW_VERSION = '55'");
     expect(serviceWorker).toContain('/assets/css/ai-assistant.css?v=4');
     expect(serviceWorker).toContain('/assets/js/ai-assistant.js?v=3');
   });
