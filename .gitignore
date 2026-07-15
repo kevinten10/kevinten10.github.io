@@ -37,3 +37,4 @@ assets/js/cloudflare-runtime.js
 playwright-report/
 test-results/
 output/
+.gstack/
