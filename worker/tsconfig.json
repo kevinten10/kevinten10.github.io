@@ -5,10 +5,10 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types", "node"],
+    "types": ["node"],
     "lib": ["ES2022", "WebWorker"],
     "allowSyntheticDefaultImports": true,
     "noEmit": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"]
+  "include": ["worker-configuration.d.ts", "src/**/*.ts", "tests/**/*.ts"]
 }
