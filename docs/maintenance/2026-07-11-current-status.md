@@ -1,6 +1,6 @@
 # Current Production Status - 2026-07-11
 
-Last verified: 2026-07-13.
+Last verified: 2026-08-10.
 
 ## Summary
 
@@ -25,11 +25,13 @@ The latest completion audit includes:
 - PR #1 merged the Cloudflare production architecture; PR #6 added an Auth0 runtime deployment guard.
 - 23 test files and all 133 tests passed, together with Pages build, audit validation, Next.js lint/build, and video script checks.
 - Production smoke verification passes 16 standard API and site checks; `VERIFY_ASSISTANT_AI=1` adds a 17th live inference check.
+- The production Worker now uses `https://kevinten.com` as `SITE_ORIGIN`; Wrangler reported a 7 ms startup time for the 2026-08-10 deployment.
+- `npm run verify` now rejects stale generated Wrangler types before typechecking or testing.
 - Desktop and mobile browser checks found no horizontal overflow and no console errors; the promo-video modal opens the expected production MP4.
 - Public Auth0 authorize/logout checks, authoritative DNS, production HTTP, and Access redirects passed.
 - `npm run verify:cutover` now discovers the public Auth0 client ID from the deployed runtime, so production verification no longer requires a manual environment export.
 
-The 2026-07-12 dependency maintenance pass upgraded the undeployed Next.js candidate to Next.js 16.2.10, applied the patched PostCSS release, and refreshed vulnerable transitive packages in the Next.js and video workspaces. Official npm registry audits now report 0 vulnerabilities in all three workspaces, and the full repository verification still passes.
+The 2026-08-10 dependency maintenance pass upgraded the undeployed Next.js candidate to Next.js 16.3.0, removed the obsolete PostCSS override, and refreshed vulnerable transitive packages in the Next.js and video workspaces. Official npm registry audits now report 0 vulnerabilities in all three workspaces, and the full repository verification still passes.
 
 ## Repository State
 
@@ -45,7 +47,10 @@ The 2026-07-12 dependency maintenance pass upgraded the undeployed Next.js candi
 - WeChat rewards remain disabled until a verified collect-money QR is available.
 - Alipay is the enabled real QR support method.
 - Stripe remains sandbox-only.
-- The current Cloudflare token reads Pages, DNS, zone, and Access state, but Worker deployment-version listing requires an additional Workers read permission.
+- Wrangler OAuth can deploy the Worker and Pages resources. Direct DNS, Redirect Rules, and Access API configuration still requires dashboard authentication or a broader scoped token.
+- `www.kevinten.com` currently serves the site directly with HTTP 200 instead of redirecting to the apex. A path- and query-preserving 301 Single Redirect remains to be created in Cloudflare.
+- DNSSEC is not yet enabled. The registrar is Alibaba Cloud, so completion requires enabling DNSSEC in Cloudflare and publishing Cloudflare's DS record in the Alibaba Cloud registrar console.
+- CAA is intentionally unset. The site uses Cloudflare Universal SSL, and Cloudflare's current guidance does not require a manually restrictive CAA record for this setup.
 - The Auth0 CLI is not currently logged in; public authorize/logout verification passes and is sufficient for read-only cutover checks. Log in only before mutating Auth0 configuration.
 - Official npm registry audits report 0 vulnerabilities in the production root, undeployed Next.js candidate, and local video toolchain workspaces.
 - Older June/July continuation reports are retained as historical evidence and must not be interpreted as current blockers.
